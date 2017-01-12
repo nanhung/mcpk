@@ -1,4 +1,7 @@
 git commit TCE.2.1.pop.model.c
 git status
-git add .
 git push origin master
+
+git add .
+git commit
+git push
