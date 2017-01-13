@@ -1050,7 +1050,7 @@ Ve_AUrnNAcDCVC_sat = 1; #(V2.1)
 
 Ve_CDCVGmol	= 1;
 Ve_CDCVCmol	= 1;
-Ve_CDCAmol	= 1;
+Ve_CDCAmol	=
 Ve_AUrnTCTotMole	= 1;
 Ve_TotCTCOH	= 1;
 Ve_QPsamp	= 1;
