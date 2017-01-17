@@ -27,4 +27,4 @@ git push origin master
 
 git add .
 git commit
-git pushgit commit
+git push

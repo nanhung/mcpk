@@ -1,0 +1,741 @@
+Supplemental Material Methods
+
+DETAILS OF THE BAYESIAN PBPK MODELING 
+OF TCE AND ITS METABOLITES
+	
+The structure of the updated PBPK model and the statistical population model are shown graphically in Figure 2 in the manuscript.  Details as to the model structure and equations, and the likelihood function used in the parameter estimation, are given below.
+
+PBPK Model Structure and Equations
+The equations below, along with the parameters defined in Supplemental Table 2, specify the PBPK model.  The ordinary differential equations are shown in bold, with the remaining equations being algebraic definitions.  The same equations are in the PBPK model code, with some additional provisions for unit conversions (e.g., ppm to mg/L) or numerical stability (e.g., truncating small values at 10-15, so states are never negative).  For reference, the stoichiometric adjustments for molecular weights are given by the following:
+
+# Molecular Weights
+TCE:		MWTCE = 131.39
+DCVG:	MWDCVG = 402.25
+DCVC:	MWDCVC = 216.1
+NAcDCVC:	MWNAcDCVC = 258.1
+TCA:		MWTCA = 163.5
+TCOH:	MWTCOH = 149.5
+TCOG:	MWTCOHGluc = 325.53
+
+# Stoichiometry
+StochTCATCE = MWTCA/MWTCE;
+StochTCATCOH = MWTCA/MWTCOH;
+StochTCOHTCE = MWTCOH/MWTCE;
+StochGlucTCOH = MWTCOHGluc/MWTCOH;
+StochTCOHGluc = MWTCOH/MWTCOHGluc;
+StochTCEGluc = MWTCE/MWTCOHGluc;
+StochDCVGTCE = MWDCVG/MWTCE;
+StochDCVCDCVG = MWDCVC/MWDCVG;
+StochNAcDCVCDCVC = MWNAcDCVC /MWDCVC;
+
+
+ 
+TCE Submodel
+The TCE submodel is a whole-body, flow-limited PBPK model, with gas respiratory exchange, oral absorption, and metabolizing and nonmetabolizing tissues.
+
+Gas exchange, respiratory metabolism, arterial blood concentration, and closed-chamber concentrations
+For an open-chamber concentration and a closed-chamber concentration of ACh/VCh, the rates of change for the amount in the respiratory lumen during inhalation (AInhResp, in mg), the amount in the respiratory tract tissue (AResp, in mg), and the respiratory lumen during exhalation (AExhResp, in mg) are given by the following:
+
+d(AInhResp)/dt = (QM × CInh + DResp × (CResp – CInhResp) 	[Eq. 1]
+– QM × CInhResp)	
+
+d(AResp)/dt = (DResp × (CInhResp + CExhResp – 2 	[Eq. 2]
+× CResp) – RAMetLng1 – RAMetLng2)	
+
+d(AExhResp)/dt = (QM × (CInhResp – CExhResp) + QP 	[Eq. 3]
+× (CArt_tmp/PB-CInhResp) + DResp 
+× (CResp-CExhResp))	
+
+	where
+	CInh 	= inhaled concentration (mg/L) = ACh/VCh + Conc	
+	QM 	= minute volume (L/hour) = QP/0.7
+	CInhResp 	= concentration in respiratory lumen during inhalation (mg/L) 
+= AInhResp/VRespLum
+	CResp 	= concentration in respiratory tract tissue (mg/L) 
+= AResp/VRespEff
+	CExhResp 	= concentration in respiratory lumen during exhalation (mg/L)
+= AExhResp/VRespLum
+	RAMetLng1 	= Rate of TCE oxidation to TCOH by P450 in respiratory tract tissue	(mg/hour)
+= (VMAXClaraTCOH × CResp)/(KMClaraTCOH + CResp) 
+	RAMetLng2 	= Rate of TCE oxidation to TCA by P450 in respiratory tract tissue	(mg/hour)	
+= (VMAXClaraTCA × CResp)/(KMClaraTCA + CResp)
+	CArt_tmp 	= arterial blood concentration after gas exchange
+= (QC × CVen + QP × CInhResp)/(QC + (QP/PB))
+
+Because alveolar breath concentrations can include desorption from the respiratory tract tissue, the concentration at the alveolae (CArt_tmp/PB) may not equal the measured concentration in end-exhaled breath.  It is therefore assumed that the ratio of the measured end-exhaled breath concentration to the concentration in the absence of desorption is the same as the ratio of the rate of TCE leaving the lumen to the rate of TCE entering the lumen:
+
+CAlv/(CArt_tmp/PB) = (QM × CMixExh)/{(QP × CArt_tmp/PB 	[Eq. 4]
+   + (QM-QP) × CInhResp)} 	
+
+That is, it is assumed that desorption occurs proportionally throughout the “breath.”  The concentration of arterial blood entering circulation needs to add the contribution from the i.a. dose (IADose in mg/kg, infused over a time period TChng):
+
+CArt = CArt_tmp + kIA/QC	[Eq. 5]
+where 
+kIA = (IADose × body weight)/TChng	
+
+For closed-chamber experiments, the additional differential equation for the amount in the chamber (ACh, in mg) is:
+
+d(ACh)/dt = Rodents × (QM × CMixExh – QM × ACh/VCh) – kLoss × Ach	[Eq. 6]
+
+where rodents is the number of animals in the chamber, and kLoss is the chamber loss rate (per hour).
+
+Oral absorption to gut compartment
+For oil-based gavage, the dose PDose is defined in terms of units of mg/kg, entering the stomach during a time TChng, with rates of change in the stomach (AStom, in mg) and duodenum (ADuod, in mg):
+
+
+d(AStom)/dt = kStom – AStom × (kAS + kTSD)	[Eq. 7]
+
+d(ADuod)/dt = (kTSD × AStom) – kAD × ADuod	[Eq. 8]
+
+	where
+	kStom = rate of TCE entering stomach (mg/hour) = (PDose × body weight)/TChng
+
+Note that there is absorption to the gut from both the stomach and duodenal compartments.  Analogous equations are defined for aqueous gavage, with the expectation that absorption and transfer coefficients would differ with the different vehicle.  In particular, the aqueous gavage dose PDoseAq is defined in terms of units of mg/kg, entering the stomach during a time TChng, with rates of change in the stomach (AStomAq, in mg) and duodenum (ADuodAq, in mg):
+
+d(AStomAq)/dt = kStomAq – AStomAq × (kASAq + kTSDAq)	[Eq. 9]
+
+d(ADuodAq)/dt = (kTSDAq × AStomAq) – kADAq × ADuodAq	[Eq. 10]
+
+	where
+	kStomAq = rate of TCE entering stomach (mg/hour) = (PDoseAq × body weight)/TChng
+
+For drinking water, the rate Drink is defined in terms of mg/kg-day, and it is assumed that absorption is direct to the gut:
+
+kDrink = (Drink × body weight)/24.0	[Eq. 11]
+
+Therefore, the total rate of absorption to the gut via oral exposure (RAO, in mg/hour) is:
+
+RAO = kDrink + (kAS × AStom) + (kAD × ADuod) + (kASAq 	[Eq. 12]
+× AStomAq) + (kADAq × ADuodAq) 	
+
+The differential equation for the gut compartment (AGut, in mg) is, therefore, given by:
+
+d(AGut)/dt = QGut × (CArt – CVGut) + RAO	[Eq. 13]
+
+	where
+	CVGut = concentration in the gut (mg/L) = AGut/VGut/PGut
+
+Nonmetabolizing tissues
+The differential equations for nonmetabolizing tissues (rapidly perfused, ARap, in mg; slowly perfused, ASlw, in mg; fat, AFat, in mg; and kidney, AKid, in mg) follow the standard flow-limited form:
+
+d(ARap)/dt = QRap × (CArt – CVRap) 	[Eq. 14]
+
+d(ASlw)/dt = QSlw × (CArt – CVSlw)	[Eq. 15]
+
+d(AFat)/dt = QFat × (CArt – CVFat)	[Eq. 16]
+
+d(ABr)/dt = QBr × (CArt – CVBr)	[Eq. 17]
+
+
+	where
+	CVRap 	= venous blood concentration leaving rapidly perfused issues
+= ARap/VRap/PRap
+	CVSlw 	= venous blood concentration leaving slowly perfused issues 
+= ASlw/VSlw/PSlw
+	CVFat 	= venous blood concentration leaving fat 
+			= AFat/VFat/PFat
+	CVBr 	= venous blood concentration leaving brain 
+= ABr/VBr/PBr
+
+Metabolizing tissues
+Chiu et al. (2009) and Evans et al. (2009) included kidney GSH conjugation.  For the current effort, it was determined to be non-identifiable as compared to liver GSH conjugation.
+
+Liver compartment
+The liver has three metabolizing pathways:
+
+RAMetLiv1 = Rate of TCE oxidation to TCOH by P450 in liver (mg/hour)	[Eq. 18]
+= (VMaxLivTCOH × CVLiv)/( KMLivTCOH + CVLiv) 	
+
+RAMetLiv2 = Rate of TCE oxidation to TCA by P450 in liver (mg/hour)	
+= (VMaxLivTCA × CVLiv) (KMLivTCA + CVLiv) 	[Eq. 19]
+
+RAMetLiv3 = Rate of TCE metabolized to S-dichlorovinyl glutathione (DCVG_ in liver (mg/hour)	
+= (VMaxLivDCVG × CVLiv) (KMLivDCVG + CVLiv) 	[Eq. 19]20
+
+
+Some experiments also had portal vein dosing (PVDose in mg/kg, infused over a time period TChng), with a rate entering the liver of:
+
+kPV = (PVDose × body weight)/TChng	[Eq. 20]
+
+The differential equation for TCE in liver (ALiv, in mg) is thus:
+
+d(ALiv)/dt = QLiv × (CArt – CVLiv) + (QGut × (CVGut 	[Eq. 21]
+– CVLiv) – RAMetLiv1 – RAMetLiv2 – RAMetLiv3  + kPV	
+	where
+	CVLiv 	= venous blood concentration leaving liver 
+= ALiv/VLiv/PLiv
+
+Kidney compartment
+The kidney has one metabolizing pathway:
+
+RAMetKid = Rate of TCE metabolized to S-dichlorovinyl glutathione (DCVG_ in kidney (mg/hour)	
+= (VMaxKidDCVG × CVKid) (KMKidDCVG + CVKid) 	[Eq. 19]21
+	
+The differential equation for TCE in liver (ALiv, in mg) is thus:
+
+d(AKid)/dt = QKid × (CArt – CVKid) – RAMetKid	[Eq. 19]22
+
+where
+	CVKid 	= venous blood concentration leaving kidney 
+= AKid/VKid/PKid
+
+Venous blood compartment
+The venous blood compartment (ABld, in mg) has inputs both from the venous blood exiting tissues as well as from an IV dose (IVDose in mg/kg infused during a time TChng), and output to the gas exchange region:
+
+d(ABld)/dt = (QFat × CVFat + QGutLiv × CVLiv + QSlw 	[Eq. 22]…
+× CVSlw + QRap × CVRap + QBr × CVBr + QKid × CVKid) 
++ kIV – CVen × QC	
+	where
+	kIV 	= IV infusion rate 
+= (IVDose × body weight)/TChng
+	CVen 	= concentration in mixed venous blood 
+= ABld/VBld 
+
+TCOH Submodel
+The TCOH submodel is a whole-body, flow-limited PBPK model, with metabolizing (liver and lung) and nonmetabolizing (brain, kidney and body) tissues, and involved enterohepatic recirculation, including biliary and intestinal tract (see Figure A-8?).
+
+Blood concentration
+The venous blood concentration, including an IV dose? (IVDoseTCOH in mg/kg infused during a time TChng), is given by
+
+CTCOH = (QBod × CVBodTCOH + QBr × CVBrTCOH + 		[Eq. 23]?
+QKid × CVKidTCOH + QLun × CVLunTCOH + 
+QGutLiv × CVLivTCOH + kIVTCOH)/QC                                               
+	
+where
+	CVBodTCOH	= ABodTCOH/VBod/PBodTCOH
+	CVBrTCOH = ABrTCOH/VBr/PBrTCOH
+	CVLunTCOH	= ALunTCOH/VLun/PLunTCOH
+	CVLivTCOH	= ALivTCOH/VLiv/PLivTCOH
+	CVKidTCOH	= AKidTCOH/VKid/PKidTCOH
+	kIVTCOH 	= IV infusion rate
+= (IVDoseTCOH × body weight)/TChng
+
+and the partition coefficients for the tissue:blood are PBodTCOH, PBrTCOH, PLunTCOH, PLivTCOH and PKidTCOH, respectively, QBr is the brain blood flow, QKid is the kidney blood flow, QLun is the lung blood flow, QGutLiv is the sum of the portal vein and hepatic artery blood flows, QBod is the remaining blood flow, VLiv is the liver volume, VBr is the brain volume, VLun is the lung volume, VKid is the kidney volume, and VBod is the remaining perfused volume.
+
+Nonmetabolizing tissues
+The differential equations for nonmetabolizing tissues (body, ABodTCOH, in mg, brain, ABrTCOH, in mg; and kidney, AKidTCOH, in mg) follow the standard flow-limited form:
+
+d(ABodTCOH)/dt = QBod × (CTCOH – CVBodTCOH)	[Eq. 24]
+
+d(ABrTCOH)/dt = QBr × (CTCOH – CVBrTCOH)	[Eq. 17]
+
+d(AKidTCOH)/dt = QKid × (CTCOH – CVKidTCOH)	[Eq. 16]
+
+	where
+	CVBodTCOH	= venous blood concentration leaving remaining tissues
+= ABodTCOH/VBod/PBodTCOH
+	CVBrTCOH 	= venous blood concentration leaving brain 
+= ABrTCOH/VBr/PBrTCOH
+	CVKidTCOH 	= venous blood concentration leaving kidney
+			= AKidTCOH/VKid/PKidTCOH
+
+Metabolizing tissues
+
+Liver compartment
+The liver has three metabolizing pathways:
+
+RAMetTCOHTCA = Rate of oxidation of TCOH to TCA (mg/hour)	[Eq. 25]
+= (VMaxLivTCA1 × CVLivTCOH)/(KM LivTCA1 
++ CVLivTCOH) 	
+
+RAMetTCOHGluc = Amount of glucuronidation to TCOG (mg/hour)	[Eq. 26]
+= (VMaxLivGluc × CVLivTCOH)/(KMLivGluc 
++ CVLivTCOH) 	
+
+RAMetTCOH = Amount of TCOH metabolized to other (e.g., DCA)	[Eq. 27]
+= kMetTCOH × ALivTCOH	
+
+? Some experiments also had oral dosing (PODoseTCOH in mg/kg, entering the stomach over a time TChng):
+
+d(AStomTCOH)/dt = kStomTCOH – AStomTCOH × kASTCOH	[Eq. 28]
+
+kStomTCOH = (PODoseTCOH × body weight)/TChng 	[Eq. 29]
+
+kPOTCOH = AStomTCOH × kASTCOH 	[Eq. 30]
+
+In addition, there are two additional sources of TCOH in liver:
+
+? Production in the liver from TCE (a fraction of hepatic oxidation) 	[Eq. 31]
+= (1.0 – FracOther – FracTCA) × StochTCOHTCE × RAMetLiv1
+
+Enterohepatic recirculation (rate kEHR) from TCOG in the bile 	[Eq. 33]
+(amount ABileTCOG) = StochTCOHGluc × RARecircTCOG 
+= StochTCOHGluc × kEHR × ABileTCOG
+
+Note that StochTCOHTCE is the ratio of molecular weights of TCOH and TCE, StochTCOHGluc is the ratio of molecular weights of TCOH and TCOG, FracOther is the fraction of TCE oxidation not producing TCA or TCOH, and FracTCA is the fraction of TCE oxidation producing TCA.
+
+The differential equation for TCOH in liver (ALivTCOH, in mg) is thus:
+
+d(ALivTCOH)/dt = ? kPOTCOH + QGutLiv × (CTCOH – CVLivTCOH) 	[Eq. 34]
+- RAMetTCOH – RAMetTCOHTCA – RAMetTCOHGluc 
++ (1.0 – FracOther – FracTCA) × StochTCOHTCE 
+× RAMetLng1 + StochTCOHGluc × RARecircTCOG
+
+Lung compartment
+The lung has two metabolizing pathways:
+
+RAMetLngTCOHTCA = Rate of oxidation of TCOH to TCA (mg/hour)	[Eq. 25]
+= (VMaxLunTCA × CVLunTCOH)/(KMLunTCA 
++ CVLunTCOH) 	
+
+RAMetLngTCOHGluc = Amount of glucuronidation to TCOG (mg/hour)	[Eq. 26]
+= (VMaxLunGluc × CVLunTCOH)/(KMLunGluc 
++ CVLunTCOH) 	
+
+? RAMetLngTCOH = Amount of TCOH metabolized to other (e.g., DCA)	[Eq. 27]
+= ?kMetTCOH × ALunTCOH
+
+A source of TCOH in lung is:
+
+Production in the lung from TCE (a fraction of lung oxidation) 	[Eq. 32]
+= (1.0 – FracOther – FracTCA) × StochTCOHTCE 
+× FracLungSys × RAMetLng1
+
+Note that FracLungSys is the fraction of lung TCE oxidation that is translocated to the liver and not locally cleared.
+
+The differential equation for TCOH in lung (ALunTCOH, in mg) is thus:
+
+d(ALunTCOH)/dt = QLun × (CTCOH – CVLunTCOH) 	[Eq. 34]
+- ? RAMetLngTCOH – RAMetLngTCOHTCA – RAMetLngTCOHGluc 
++ (1.0 – FracOther – FracTCA) × StochTCOHTCE × FracLungSys
+× RAMetLng1
+
+TCOG Submodel
+The TCOG submodel is a whole-body, flow-limited PBPK model, with metabolizing (liver and lung) and nonmetabolizing (brain, kidney and body) tissues, and involved enterohepatic recirculation, including biliary tract 
+
+Blood concentration
+The venous blood concentration is given by:
+
+CTCOG = (QBod × CVBodTCOG + QBr × CVBrTCOG + 		[Eq. 23]?
+QKid × CVKidTCOG + QLun × CVLunTCOG + 
+QGutLiv × CVLivTCOG)/QC                                               
+	
+where
+	CVBodTCOG	= ABodTCOG/VBod/PBodTCOG
+	CVBrTCOG = ABrTCOG/VBr/PBrTCOG
+	CVLunTCOG	= ALunTCOG/VLun/PLunTCOG
+	CVLivTCOG	= ALivTCOG/VLiv/PLivTCOG
+	CVKidTCOG	= AKidTCOG/VKid/PKidTCOG
+
+and the partition coefficients of TCOG for the tissue:blood are PBodTCOG, PBrTCOG, PLunTCOG, PLivTCOG and PKidTCOG, respectively.
+
+Nonmetabolizing tissues
+The differential equations for nonmetabolizing tissues (body, ABodTCOG, in mg; brain, ABrTCOG, in mg; lung, ALunTCOG, in mg, and kidney, AKidTCOG, in mg) follow the standard flow-limited form:
+
+d(ABodTCOG)/dt = QBod × (CTCOG – CVBodTCOG)	[Eq. 24]
+
+d(ABrTCOG)/dt = QBr × (CTCOG – CVBrTCOG)	[Eq. 17]
+
+The lung has one input, glucuronidation of TCOH (defined above in the TCOH submodel):
+
+StochGlucTCOH × RAMetLngTCOHGluc	[Eq. 39]
+
+The rate of change of the amount of TCOG in the lung is, therefore:
+
+           d(ALunTCOG)/dt = QLun × (CTCOG – CVLunTCOG) 	[Eq. 41]
+           + (StochGlucTCOH × RAMetLngTCOHGluc)
+
+The kidney compartment involves urinary excretion rate (mg/hour):
+
+RUrnTCOG = kUrnTCOG × AKidTCOG	[Eq. 36]
+
+So the rate of change of the amount of TCOG in the kidney compartment is:
+
+d(AKidTCOG)/dt = QKid × (CTCOG – CVKidTCOG) – RUrnTCOG	[Eq. 37]
+ 
+	where
+	CVBodTCOG	= venous blood concentration leaving remaining tissues
+= ABodTCOG/VBod/PBodTCOG
+	CVBrTCOG 	= venous blood concentration leaving brain 
+= ABrTCOG/VBr/PBrTCOG
+	CVKidTCOG 	= venous blood concentration leaving kidney 
+			= AKidTCOG/VKid/PKidTCOG
+
+Thus, the amount excreted in urine (AUrnTCOG, mg) is given by:
+
+d(AUrnTCOG)/dt = RUrnTCOG	[Eq. 38]
+
+Liver compartment
+The liver is flow limited, with one input, glucuronidation of TCOH (defined above in the TCOH submodel):
+
+StochGlucTCOH × RAMetTCOHGluc	[Eq. 39]
+
+and one output, excretion in bile:
+
+RBileTCOG = rate of excretion in bile (mg/hour) = kBile × ALivTCOG	[Eq. 40]
+
+The rate of change of the amount of TCOG in the liver is, therefore:
+
+d(ALivTCOG)/dt = QGutLiv × (CTCOG – CVLivTCOG) 	[Eq. 41]
++ (StochGlucTCOH × RAMetTCOHGluc) – RBileTCOG
+
+Bile compartment
+The bile compartment has one input, excretion of TCOG in bile from the liver (defined above) and one output, enterohepatic recirculation to TCOH in the liver (defined above in the TCOH submodel), with rate of change:
+
+d(ABileTCOG)/dt = RBileTCOG – RARecircTCOG	[Eq. 42]
+
+TCA Submodel
+The TCA submodel is the same as that in Hack et al. (2006), with an error in the plasma flow to the liver corrected.  In brief, TCA in plasma is assumed to undergo saturable plasma protein binding.  TCA in tissues is assumed to be flow limited, but with the tissue partition coefficient reflecting equilibrium with the free concentration of TCA in plasma.
+
+Plasma binding and concentrations
+? For an i.v. dose of TCA given by IVDoseTCA (mg/kg during an infusion period of TChng), the rate of the change of the amount of total TCA in plasma (APlasTCA, in mg) is:
+
+d(APlasTCA)/dt = kIVTCA + QBodPlas × CVBodTCA 	[Eq. 43]
++ QLunPlas × CVLunTCA + QBrPlas × CVBrTCA 
+	+ QGutLivPlas × CVLivTCA + QKidPlas × CVKidTCA 
+	– QCPlas × CPlasTCA – RUrnTCAplas 
+
+	where 
+	kIVTCA	= rate of IV infusion of TCA = (IVDoseTCA × body weight)/TChng 
+	QBodPlas 	= plasma flow from body = QBod × FracPlas
+	QLunPlas	= plasma flow from lung = QLun × FracPlas
+	QBrPlas	= plasma flow from brain = QBr × FracPlas
+	QGutLivPlas 	= plasma flow from liver = (QGut + QLiv) × FracPlas
+	QKidPlas	= plasma flow from kidney = QKid × FracPlas
+	CVBodTCA 	= venous concentration leaving body = CPlasTCABnd + CVBodTCAFree
+	CVBodTCAFree 	= free venous concentration leaving body 
+= (ABodTCA/VBod/PBodTCA)
+	CVLunTCA 	= venous concentration leaving lung 
+= CPlasTCABnd + CVLunTCAFree
+	CVLunTCAFree 	= free venous concentration leaving lung 
+= (ALunTCA/VLun/PLunTCA)
+	CVBrTCA 	= venous concentration leaving brain 
+= CPlasTCABnd + CVBrTCAFree
+	CVBrTCAFree 	= free venous concentration leaving brain
+= (ABrTCA/VBr/PBrTCA)
+	CVLivTCA 	= venous concentration leaving liver 
+= CPlasTCABnd + CVLivTCAFree
+	CVLivTCAFree 	= free venous concentration leaving liver 
+= (ALivTCA/VLiv/PLivTCA)
+	CVKidTCA 	= venous concentration leaving kidney 
+= CPlasTCABnd + CVKidTCAFree
+	CVKidTCAFree 	= free venous concentration leaving kidney
+= (AKidTCA/VKid/PKidTCA)
+	QCPlas 	= total plasma flow 
+= QC × FracPlas
+	RUrnTCAplas	= rate of urinary excretion of TCA from plasma 
+= kUrnTCA × APlasTCAFree
+
+The free (CPlasTCAFree) and bound (CPlasTCABnd) concentrations are calculated from the total concentration (CPlasTCA = APlasTCA/VPlas) by solving the equations:
+
+CPlasTCABndMole = BMax × CPlasTCAFreeMole/(kDissoc 	[Eq. 44]
++ CPlasTCAFreeMole)
+
+CPlasTCABndMole = CPlasTCAMole – CPlasTCAFreeMole	[Eq. 45]
+
+Here the suffix “Mole” means that all concentrations are in micromole/L, because BMax and kDissoc in Table A-4 are given in those units.  These lead to explicit solutions of:
+
+CPlasTCAFreeMole = (sqrt(a × a + b) – a)/2	[Eq. 46]
+
+where 
+	a = kDissoc + BMax – CPlasTCAMole
+	b = 4.0 × kDissoc × CPlasTCAMole
+	CPlasTCABlasTCAMoleCPlasTCAFreeMole
+
+These concentrations are converted to mg/L (CPlasTCABnd, CPlasTCAFree) by multiplying by the molecular weight in mg/µmoles.  The amount of free TCA in plasma is, thus:
+
+APlasTCAFree = CPlasTCAFree × VPlas.	[Eq. 47]
+
+Here, VPlas is derived from the blood volume and hematocrit (see Table A-4).
+
+Urinary excretion
+Urinary excretion is modeled as coming from the plasma compartment, so the rate of change of TCA in urine (AUrnTCA, in mg) is: 
+
+d(AUrnTCA)/dt = RUrnTCA	[Eq. 48]
+
+where 
+	RUrnTCA = RUrnTCAplas
+
+For some human data (Chiu et al., 2007), urinary excretion was only collected during certain time periods, with data missing in other time periods.  Thus, a switch UrnMissing was defined, which equals 0 during times of urine collection and 1 when urinary data are missing (this parameter was not used for mice, and set to 0).  The total amount of urinary TCA “collected” (AUrnTCA_collect, in mg) is, thus, given by:
+
+d(AUrnTCA_collect)/dt = (1-UrnMissing) × RUrnTCA	[Eq. 49]
+
+Nonmetabolizing tissues
+The differential equations for nonmetabolizing tissues (body, ABodTCA, in mg; brain, ABrTCA, in mg; lung, ALunTCA, in mg, and kidney, AKidTCA, in mg) follow the standard flow-limited form:
+
+d(ABodTCA)/dt = QBodPlas × (CPlasTCAFree – CVBodTCAFree)	[Eq. 50]
+
+d(ABrTCA)/dt = QBrPlas × (CPlasTCAFree – CVBrTCAFree)	[Eq. 17]
+
+d(AKidTCA)/dt = QBrPlas × (CPlasTCAFree – CVKidTCAFree)	[Eq. 17]
+
+The lung is has two inputs (adjusted for molecular weights, fraction of lung metabolism translocated to the liver, and fractional yield of TCA), oxidation of TCE and TCOH (defined above in the submodels of TCE and TCOH):
+
+StochTCATCE × FracLungSys × FracTCA × RAMetLng2	[Eq. 32]
+
+StochTCATCOH × RAMetLngTCOHTCA	[Eq. 39]
+
+The rate of change of the amount of TCA in the lung is, therefore:
+
+d(ALunTCA)/dt = QLunPlas × (CPlasTCAFree – CVLunTCAFree) 	[Eq. 41]
++ StochTCATCE × FracLungSys × FracTCA × RAMetLng2 
+	+ StochTCATCOH × RAMetLngTCOHTCA
+
+Liver compartment
+
+The liver is has two inputs (adjusted for molecular weights and fractional yield of TCA), oxidation of TCE and TCOH (defined above in the submodels of TCE and TCOH):
+
+StochTCATCE × FracTCA × RAMetLiv2	[Eq. 32]
+
+StochTCATCOH × RAMetTCOHTCA	[Eq. 39]
+
+The rate of change for the amount of TCA in the liver (ALivTCA, in mg) is given by:
+
+d(ALivTCA)/dt = QGutLivPlas × (CPlasTCAFree – CVLivTCAFree) 	[Eq. 51]
++ StochTCATCE × FracTCA × RAMetLiv2
++ StochTCATCOH × RAMetTCOHTCA – RAMetTCA + ?kPOTCA 
+
+The first term reflects the free TCA in plasma flowing into and out of the liver compartment, the second term reflects production of TCA from liver metabolism of TCE, the third term reflects production of TCA from TCOH, the fourth term reflects other clearance of TCA from the liver, and the fifth term reflects absorption from the stomach of TCA.  The contribution from liver metabolism of TCE is adjusted for molecular weights and production of oxidative metabolites other than TCA.  The rate of clearance of TCA is given by:
+
+RAMetTCA = kMetTCA × ALivTCA	[Eq. 52]
+
+The oral intake rate of TCA (mg/hour) includes a one-compartment stomach.  So for an oral dose of PODoseTCA (in mg/kg), occurring over a time TChng, the rate of change of TCA in the stomach (AStomTCA, in mg) is given by:
+
+d(AStomTCA)/dt = kStomTCA – AStomTCA × kASTCA	[Eq. 53]
+
+where 
+	kStomTCA 	= rate of input into stomach 
+= (PODoseTCA × body weight)/TChng	
+
+The rate of absorption into the liver is, thus,
+
+kPOTCA = AStomTCA × kASTCA 	[Eq. 54]
+
+GSH Conjugation Submodel
+
+The GSH Conjugation submodel, describing the rate of change for DCVG, is a whole-body, flow-limited PBPK model, with metabolizing (liver and kidney) and nonmetabolizing (brain and body) tissues, and involved enterohepatic recirculation, including biliary tract. 
+
+Blood concentration
+The venous blood concentration is given by:
+
+CDCVG = (QBod × CVBodDCVG + QBr × CVBrDCVG + 		[Eq. 23]?
+QKid × CVKidDCVG + QGutLiv × CVLivDCVG)/QC                                               
+	
+where
+	CVBodDCVG	= ABodDCVG/VBod/PBodDCVG
+	CVBrDCVG = ABrDCVG/VBr/PBrDCVG
+	CVLivDCVG	= ALivDCVG/VLiv/PLivDCVG
+	CVKidDCVG	= AKidDCVG/VKid/PKidDCVG
+
+and the partition coefficients of DCVG for the tissue:blood are PBodDCVG, PBrDCVG, PLivDCVG and PKidDCVG, respectively.
+
+Nonmetabolizing tissues
+The differential equations for nonmetabolizing tissues (body, ABodDCVG, in mg, and brain, ABrDCVG, in mg) follow the standard flow-limited form:
+
+d(ABodDCVG)/dt = QBod × (CDCVG – CVBodDCVG)	[Eq. 24]
+
+d(ABrDCVG)/dt = QBr × (CDCVG – CVBrDCVG)	[Eq. 17]
+
+	where
+	CVBodDCVG	= venous blood concentration leaving remaining tissues
+= ABodDCVG/VBod/PBodDCVG
+	CVBrDCVG 	= venous blood concentration leaving brain 
+= ABrDCVG/VBr/PBrDCVG
+
+Metabolizing tissues
+
+Liver compartment
+
+DCVG is further metabolized via Cysteine Conjugation to DCVC in the liver as follows:
+
+RAMetDCVG = Rate of Cysteine Conjugation of DCVG to DCVC (mg/hour)	
+= (VMaxDCVC × CVLivDCVG)/(KMLivDCVC			          [Eq. 25]
++ CVLivDCVG)
+
+The liver has one input, GSH Conjugation of TCE (defined above in the TCE submodel):
+
+StochDCVGTCE × RAMetDCVGTCE	[Eq. 39]
+
+and one additional output, excretion in bile:
+
+RBileDCVG = Rate of excretion in bile (mg/hour) = kBileDCVC × ALivDCVG	[Eq. 40]
+
+The rate of change of the amount of DCVG in the liver is, therefore:
+
+d(ALivDCVG)/dt = QGutLiv × (CDCVG – CVLivDCVG) 	[Eq. 41]
++ StochDCVGTCE × RAMetDCVGTCE – RAMetDCVG – RBileDCVG
+
+where
+	CVLivDCVG	= venous blood concentration leaving liver
+= ALivDCVG/VLiv/PLivDCVG
+	
+Bile compartment
+The bile compartment has one input, excretion of DCVG in bile from the liver (defined above) and one output, enterohepatic recirculation to TCOH in the liver (defined above in the TCOH submodel), with rate of change:
+
+d(ABileDCVG)/dt = RBileDCVG – RARecircDCVG	[Eq. 42]
+
+Kidney compartment
+
+DCVG is further metabolized via Cysteine Conjugation to DCVC in the kidney as follows:
+
+RAMetKidDCVG = Rate of Cysteine Conjugation of DCVG to DCVC (mg/hour)	
+= (VMaxKidDCVC × CVKidDCVG)/(KMKidDCVC		          [Eq. 25]
++ CVKidDCVG)
+
+The kidney has one input, GSH Conjugation of TCE (defined above in the TCE submodel):
+
+StochDCVGTCE × RAMetKidDCVGTCE	[Eq. 39]
+
+So the rate of change of the amount of DCVG in the kidney compartment is:
+
+d(AKidDCVG)/dt = QKid × (CDCVG – CVKidDCVG) 	[Eq. 37]
+	+ StochDCVGTCE × RAMetKidDCVGTCE – RAMetKidDCVG	
+ 
+where
+	CVKidDCVG 	= venous blood concentration leaving kidney 
+			= AKidDCVG/VKid/PKidDCVG
+
+
+
+Cysteine Conjugation Submodel
+
+The Cysteine Conjugation submodel, describing the rate of change for DCVC, is a whole-body, flow-limited PBPK model, with metabolizing (liver and kidney) and nonmetabolizing (brain and body) tissues, and involved enterohepatic recirculation, including biliary and intestinal tract. 
+
+Blood concentration
+The venous blood concentration is given by:
+
+CDCVC = (QBod × CVBodDCVC + QBr × CVBrDCVC + 		[Eq. 23]?
+QKid × CVKidDCVC + QGutLiv × CVLivDCVC)/QC                                               
+	
+where
+	CVBodDCVC	= ABodDCVG/VBod/PBodDCVC
+	CVBrDCVC = ABrDCVC/VBr/PBrDCVC
+	CVLivDCVC	= ALivDCVC/VLiv/PLivDCVC
+	CVKidDCVC	= AKidDCVC/VKid/PKidDCVC
+
+and the partition coefficients of DCVC for the tissue:blood are PBodDCVC, PBrDCVC, PLivDCVC and PKidDCVC, respectively.
+
+Nonmetabolizing tissues
+The differential equations for nonmetabolizing tissues (body, ABodDCVC, in mg, and brain, ABrDCVC, in mg) follow the standard flow-limited form:
+
+d(ABodDCVC)/dt = QBod × (CDCVC – CVBodDCVC)	[Eq. 24]
+
+d(ABrDCVC)/dt = QBr × (CDCVC – CVBrDCVC)	[Eq. 17]
+
+	where
+	CVBodDCVC	= venous blood concentration leaving remaining tissues
+= ABodDCVC/VBod/PBodDCVC
+	CVBrDCVC 	= venous blood concentration leaving brain 
+= ABrDCVC/VBr/PBrDCVC
+
+Metabolizing tissues
+
+Liver compartment
+
+DCVC is further metabolized via Mercapturate to NAcDCVC in the liver as follows:
+
+RAMetDCVC = Rate of Mercapturate of DCVC to NAcDCVC (mg/hour)	
+= (VMaxNAcDCVC × CVLivDCVC)/(KMNAcDCVC	      	          [Eq. 25]
++ CVLivDCVC)
+
+The liver has two inputs, Cysteine Conjugation of DCVG (defined above in the DCVG submodel):
+
+StochDCVCDCVG × RAMetDCVCDCVG	[Eq. 39]
+
+Enterohepatic recirculation (rate kEHRDCVC) from DCVG in the bile 	[Eq. 33]
+(amount ABileDCVG) = StochDCVCDCVG × RARecircDCVG 
+= StochDCVCDCVG × kEHRDCVC × ABileDCVG
+
+Note that StochDCVCDCVG is the ratio of molecular weights of DCVC and DCVG.
+
+The differential equation for DCVC in liver (ALivDCVC, in mg) is thus:
+
+d(ALivDCVC)/dt = ? kPODCVC + QGutLiv × (CDCVC – CVLivDCVC) 	[Eq. 34]
+- RAMetDCVC + StochDCVCDCVG × (RAMetDCVCDCVG + RARecircDCVG)
+
+where
+	CVLivDCVC	= venous blood concentration leaving liver
+= ALivDCVC/VLiv/PLivDCVC
+	
+Kidney compartment
+
+The kidney has two metabolizing pathways:
+
+DCVC is either metabolized via Mercapturate to NAcDCVC or bio-activated in the kidney as follow:
+
+RAMetKidDCVC1 = Rate of Mercapturate of DCVC to NAcDCVC (mg/hour)	
+= (VMaxKidNAcDCVC × CVKidDCVC)/(KMKidNAcDCVC	          [Eq. 25]
++ CVKidDCVC)
+
+RAMetKidDCVC2 = Rate of Bio-activation of DCVC (mg/hour)	
+= kKidBioact*AKidDCVC	          					         [Eq. 25]
+
+The kidney has one input, Cysteine Conjugation of DCVG (defined above in the DCVG submodel):
+
+StochDCVCDCVG × RAMetKidDCVCDCVG	[Eq. 39]
+
+So the rate of change of the amount of DCVC in the kidney compartment is:
+
+d(AKidDCVC)/dt = QKid × (CDCVC – CVKidDCVC) 	[Eq. 37]
+	+ StochDCVCDCVG × RAMetKidDCVCDCVG – RAMetKidDCVC1
+	– RAMetKidDCVC2	
+ 
+where
+	CVKidDCVC 	= venous blood concentration leaving kidney 
+			= AKidDCVC/VKid/PKidDCVC
+
+Mercapturate Submodel
+
+The Mercapturate submodel, describing the rate of change for NAcDCVC, is a whole-body, flow-limited PBPK model, involves liver and kidney, brain and remaining body compartments and elimination. 
+
+Blood concentration
+The venous blood concentration is given by:
+
+CNAcDCVC = (QBod × CVBodNAcDCVC + QBr × CVBrNAcDCVC + 		[Eq. 23]?
+QKid × CVKidNAcDCVC + QLiv × CVLivNAcDCVC)/QC                                               
+	
+where
+	CVBodNAcDCVC	= ABodNAcDCVG/VBod/PBodNAcDCVC
+	CVBrNAcDCVC 	= ABrNAcDCVC/VBr/PBrNAcDCVC
+	CVLivNAcDCVC	= ALivNAcDCVC/VLiv/PLivNAcDCVC
+	CVKidNAcDCVC	= AKidNAcDCVC/VKid/PKidNAcDCVC
+
+and the partition coefficients of NAcDCVC for the tissue:blood are PBodNAcDCVC, PBrNAcDCVC, PLivNAcDCVC and PKidNAcDCVC, respectively.
+
+Tissue compartments
+The differential equations for tissues (body, ABodNAcDCVC, in mg; brain, ABrNAcDCVC, in mg; liver, ALivNAcDCVC, in mg and kidney, AKidNAcDCVC, in mg) follow the standard flow-limited form:
+
+d(ABodNAcDCVC)/dt = QBod × (CNAcDCVC – CVBodNAcDCVC)	[Eq. 24]
+
+d(ABrNAcDCVC)/dt = QBr × (CNAcDCVC – CVBrNAcDCVC)	[Eq. 17]
+
+The liver has an input, Mercapturate of DCVC (defined above in the DCVC submodel):
+
+StochNAcDCVCDCVC × RAMetDCVC	[Eq. 39]
+
+The differential equation for DCVC in liver (ALivDCVC, in mg) is thus:
+
+d(ALivNAcDCVC)/dt = QLiv × (CNAcDCVC – CVLivNAcDCVC)	[Eq. 17]
+	+ StochNAcDCVCDCVC × RAMetDCVC
+
+The kidney has an input, Mercapturate of DCVC (defined above in the DCVC submodel):
+
+StochNAcDCVCDCVC × RAMetKidDCVC1	[Eq. 39]
+
+The kidney compartment involves urinary excretion rate (mg/hour):
+
+RUrnNAcDCVC = kUrnNAcDCVC × AKidNAcDCVC	[Eq. 36]
+
+So the rate of change of the amount of NAcDCVC in the kidney compartment is:
+
+d(AKidNAcDCVC)/dt = QKid × (CNAcDCVC – CVKidNAcDCVC)	[Eq. 17]
+	+ StochNAcDCVCDCVC × RAMetKidDCVC1 – RUrnNAcDCVC
+	
+where
+	CVBodNAcDCVC	= venous blood concentration leaving remaining tissues
+= ABodNAcDCVC/VBod/PBodNAcDCVC
+	CVBrNAcDCVC 	= venous blood concentration leaving brain 
+= ABrNAcDCVC/VBr/PBrNAcDCVC
+	CVLivNAcDCVC 	= venous blood concentration leaving liver 
+= ALivNAcDCVC/VLiv/PLivNAcDCVC
+	CVKidNAcDCVC 	= venous blood concentration leaving kidney 
+			= AKidNAcDCVC/VKid/PKidNAcDCVC
+
+Thus, the amount excreted in urine (AUrnNAcDCVC, mg) is given by:
+
+d(AUrnNAcDCVC)/dt = RUrnNAcDCVC	[Eq. 38]
+
+Likelihood function
+	In most cases, the likelihood function of the data given the predictions was assumed to be lognormal, which requires specification of the variance of the “residual error.”  This error may include variability due to measurement error, intra-individual and intra-study heterogeneity, as well as model misspecification. The variances for each of the corresponding residual errors were given log-uniform distributions. For all measurements, the bounds on the log-uniform distribution were 0.01 and 3.3, corresponding to geometric standard deviations bounded by 1.11 and 6.15.  The lower bound was set to prevent “over-fitting” (Bois 2000; Hack et al. 2006).  The upper bound was set at an arbitrarily high value, and the posteriors checked to make sure that the bound was unimportant.
+	For DCVG, DCVC, and DCA data, a different error model was necessary because many individual measurements were below the limit of quantitation.  The use of a lognormal error model is based on the fact that analytical measurements typically have proportional errors well above the detection limit.  However, much of the data on DCVG, DCVC, and DCA are at or near the detection limit, where analytical errors are typically fixed and a normal distribution is more appropriate.  Therefore, for these data, a “two-component error model” (Rocke and Lorenzato 1995) was used that is normally distributed near the detection limit (with a standard deviation fixed at one-third of the detection limit) and lognormally distributed well above the detection limit (with “residual error” specified as discussed previously). Specifically, the variance-stabilizing “generalized-log” transformation (Durbin and Rocke 2003) was employed for computing the likelihood.
+

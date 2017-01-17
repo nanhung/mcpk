@@ -336,9 +336,13 @@ VMaxKidDCVG, #VMax for renal TCE GSH conjugation (mg/hr)
 KMKidDCVG,   #KM for renal TCE GSH conjugation (mg/L)
 DCVC,        #Fraction of renal TCE GSH conj. "directly" to DCVC 
 
-VMaxClara,    #VMax for Tracheo-bronchial TCE oxidation (mg/hr)
-KMClara,      #KM for Tracheo-bronchial TCE oxidation (mg/L)
-FracLungSys,  #Fraction of respiratory metabolism to systemic circ.
+#VMaxClara,    #VMax for Tracheo-bronchial TCE oxidation (mg/hr) #(v2.0)
+VMaxClaraTCOH  #VMax for Tracheo-bronchial TCE oxidation to TCOH (mg/hr) #(v2.1)
+VMaxClaraTCA   #VMax for Tracheo-bronchial TCE oxidation to TCA (mg/hr) #(v2.1)
+KMClara,      #KM for Tracheo-bronchial TCE oxidation (mg/L) #(v2.0)
+KMClaraTCOH,      #KM for Tracheo-bronchial TCE oxidation (mg/L to TCOH #(v2.1)
+KMClaraTCA,      #KM for Tracheo-bronchial TCE oxidation (mg/L) to TCA #(v2.1)
+FracLunSys,  #Fraction of respiratory metabolism to systemic circ.
 kClearDCA,	  #Rate constant for DCA elimination (/hr)
 kDCAcen_per,	#Rate constant for DCA central->peripheral (/hr)
 kDCAper_cen,	#Rate constant for DCA peripheral->central (/hr)
@@ -473,9 +477,13 @@ VMaxDCVG	= 1;	  # VMax for hepatic TCE GSH conjugation (mg/hr)
 KMDCVG	= 1;	    # KM for hepatic TCE GSH conjugation (mg/L)
 VMaxKidDCVG	= 1;	# VMax for renal TCE GSH conjugation (mg/hr)
 KMKidDCVG	= 1;	  # KM for renal TCE GSH conjugation (mg/L)
-VMaxClara	= 1;	  # VMax for Tracheo-bronchial TCE oxidation (mg/hr)
-KMClara	= 1;	    # KM for Tracheo-bronchial TCE oxidation (mg/L)
-FracLungSys	= 1;	# Fraction of respiratory oxidative metabolism that enters systemic circulation
+# VMaxClara	= 1;	  # VMax for Tracheo-bronchial TCE oxidation (mg/hr) #(v2.0)
+VMaxClaraTCOH	= 1;	  # VMax for Tracheo-bronchial TCE oxidation to TCOH (mg/hr) #(v2.1)
+VMaxClaraTCA	= 1;	  # VMax for Tracheo-bronchial TCE oxidation to TCA (mg/hr) #(v2.1)
+# KMClara	= 1;	    # KM for Tracheo-bronchial TCE oxidation (mg/L) #(v2.0)
+KMClaraTCOH	= 1;	    # KM for Tracheo-bronchial TCE oxidation (mg/L) to TCOH #(v2.1)
+KMClaraTCA	= 1;	    # KM for Tracheo-bronchial TCE oxidation (mg/L) to TCA#(v2.1)
+FracLunSys	= 1;	# Fraction of respiratory oxidative metabolism that enters systemic circulation
 #******************************************************************************
 # DCA metabolism/clearance
 kClearDCA	= 1;	# Rate constant for DCA elimination (/hr)
@@ -654,8 +662,13 @@ lnVMaxKidDCVGC	= 0.0;	# Scaled by kidney weight and species-specific central est
 lnClKidDCVGC	= 0.0;	# Scaled to species-specific central estimates
 lnKMKidDCVGC	= 0.0;	# Scaled to species-specific central estimates
 lnClClaraC	= 0.0;	# Scaled by BW^0.75
-lnVMaxLungLivC	= 0.0; Ratio of lung Vmax to liver Vmax,
-lnKMClara	= 0.0;	# now in units of air concentration 
+#lnVMaxLungLivC	= 0.0; #Ratio of lung Vmax to liver Vmax, #(v2.0)
+lnVMaxLunLivTOCHC = 0.0; #Ratio of lung Vmax to liver Vmax for TCOH, #(v2.1)
+lnVMaxLunLivTOAC = 0.0; #Ratio of lung Vmax to liver Vmax for TCA, #(v2.1)
+# lnKMClara	= 0.0;	# now in units of air concentration #(v2.0)
+lnKMClaraTCOH	= 0.0;	# now in units of TCA air concentration #(v2.1)
+lnKMClaraTCA	= 0.0;	# now in units of TCOH air concentration #(v2.1)
+
 
 # Inter-strain scaling - relative to B6C3F1
 lnISOx = 0.0; # P450 oxidative metabolism
@@ -669,7 +682,7 @@ lnISkDCVC = 0.0; # DCVC metabolism #(V2.1)
 lnISkNAcDCVC = 0.0; # NAcDCVC clearance #(V2.1)
 
 # Clearance in lung
-lnFracLungSysC	= 0.0;	#ratio of systemic to local clearance of lung oxidation
+lnFracLunSysC	= 0.0;	#ratio of systemic to local clearance of lung oxidation
 
 # TCOH Metabolism
 lnVMaxTCOHC	= 0.0;	# Scaled by BW^0.75
@@ -799,8 +812,13 @@ M_lnKMDCVGC	= 1.0;
 M_lnVMaxKidDCVGC	= 1.0;
 M_lnClKidDCVGC	= 1.0;
 M_lnKMKidDCVGC	= 1.0;
-M_lnVMaxLungLivC	= 1.0;
-M_lnKMClara	= 1.0;
+# M_lnVMaxLungLivC	= 1.0; #(v2.0)
+M_lnVMaxLunLivTCOHC	= 1.0; #(v2.1)
+M_lnVMaxLunLivTCAC	= 1.0; #(v2.1)
+# M_lnKMClara	= 1.0; #(v2.0)
+M_lnKMClaraTCOH	= 1.0; #(v2.1)
+M_lnKMClaraTCA	= 1.0; #(v2.1)
+
 
 # inter-strain scaling
 M_lnISOx = 0.0; # P450 oxidative metabolism
@@ -813,7 +831,7 @@ M_lnISkDCVG = 0.0; # DCVG -> DCVC
 M_lnISkDCVC = 1.0; #(V2.1)
 M_lnISkNAcDCVC = 1.0; #(V2.1)
 
-M_lnFracLungSysC	= 1.0;
+M_lnFracLunSysC	= 1.0;
 M_lnVMaxTCOHC	= 1.0;
 M_lnClTCOHC	= 1.0;
 M_lnKMTCOH	= 1.0;
@@ -893,8 +911,13 @@ V_lnKMDCVGC	= 1.0;
 V_lnVMaxKidDCVGC	= 1.0;
 V_lnClKidDCVGC	= 1.0;
 V_lnKMKidDCVGC	= 1.0;
-V_lnVMaxLungLivC	= 1.0; 
-V_lnKMClara	= 1.0;
+# V_lnVMaxLungLivC	= 1.0; # v(2.0)
+V_lnVMaxLunLivTCOHC	= 1.0; # v(2.1)
+V_lnVMaxLunLivTCAC	= 1.0; # v(2.1)
+# V_lnKMClara	= 1.0; # v(2.0)
+V_lnKMClaraTCOH = 1.0; # v(2.1)
+V_lnKMClaraTCA = 1.0; # v(2.1)
+
 
 # inter-strain scaling
 V_lnISOx = 1.0; # P450 oxidative metabolism
@@ -904,7 +927,7 @@ V_lnISConj = 1.0; # GSH conjugation metabolism
 V_lnISkTCA = 1.0; # TCA metabolism/clearance
 V_lnISkDCA = 1.0; # DCA metabolism/clearance
 V_lnISkDCVG = 1.0; # DCVG -> DCVC
-V_lnFracLungSysC	= 1.0;
+V_lnFracLunSysC	= 1.0;
 V_lnVMaxTCOHC	= 1.0;
 V_lnClTCOHC	= 1.0;
 V_lnKMTCOH	= 1.0;
@@ -1147,9 +1170,6 @@ Initialize {
 # Fat = Adipose only
 # Gut = GI tract (not contents) + pancreas + spleen (all drain to portal vein)
 # Liv = Liver
-# Rap = Brain + Heart + (Lungs-TB) + Bone marrow + "Rest of the body"
-# TB = Tracheobroncial region (trachea+broncial basal+ 
-
 # Kid = Kidney
 # Bld = Blood
 # Slw = Muscle + Skin, derived by difference
@@ -1182,19 +1202,16 @@ Initialize {
 		- VFat - VGut - VLiv - VRap - VRespEfftmp - VKid - VBld;
 
 
-			## - VFat - VGut - VLiv - VRaptmp - VTB - VKid - VBld; #(v1a)#(v1b)#(v1c)
-# Slowly perfused:
+ Slowly perfused:
 # Baseline mouse: 0.8897-0.049-0.017-0.0007-0.1-0.055-0.049-0.07= 0.549
 # Baseline rat: 0.8995 -0.074-0.007-0.0005-0.088-0.034-0.032-0.07= 0.594
 # Baseline human F: 0.85778-0.068-0.0046-0.00018-0.093-0.023-0.022-0.317= 0.33
 # Baseline human M: 0.856-0.077-0.0043-0.00018-0.088-0.025-0.02-0.199= 0.4425
 
-       VPlas = FracPlas * VBld;
+ VPlas = FracPlas * VBld;
 
 	VBod = VFat + VGut + VRap + VRespEfftmp + VKid + VSlw; # For TCA
-	## VFat + VGut + VRap + VTB + VKid + VSlw + VBld;#(v1h)
-			## VFat + VGut + VRaptmp + VTB + VKid + VSlw; #(v1a)#(v1b)#(v1c) For TCA
-	## VFat + VGut + VRaptmp + VTB + VKid + VSlw + VBld;#(v1a)(v1b)+(v1h)
+
 	VBodTCOH = VBod + VBld;	# for TCOH and TCOG -- body without liver
 	## VBodTCOH = VBod; #(v1h)
 
@@ -1267,16 +1284,7 @@ Initialize {
 	#	> 2-fold difference in lung:air values, so uncertainty
 	#	CV = 0.4
        VRespEff = VRespEfftmp * PResp * PB; # Effective air volume
-		        ##     PRap = (PRaptmp*VRaptmp + VBld)/VRap; #(v1a)
-			##		#(v1a) adjust PC for blood
-		        ##     PRaptmp2 = (PRaptmp*VRaptmp + VBld)/VRap; #(v1c)
-			##		#(v1c) first adjust PC for blood
-			##	QRapCtmp = 1 - QFatCtmp - QGutCtmp - QLivCtmp #(v1b)#(v1c)
-			##		- QSlwCtmp - QTBCtmp - QKidCtmp; #(v1b)#(v1c)
-			##     PRap = (QRapCtmp+QTBCtmp)/(QRapCtmp/PRaptmp #(v1b)
-			##		+ QTBCtmp/PTB); #(v1b) -- adjust PC for TB
-			##     PRap = (QRapCtmp+QTBCtmp)/(QRapCtmp/PRaptmp2 #(v1c)
-			##		+ QTBCtmp/PTB); #(v1c) -- then adjust PC for TB
+
        PKid = exp(lnPKidC) * 		# Slowly perfused/blood
 		(Species == 3 ? 2.1 : (Species == 2 ? 1.3 : 1.6 ));
 	# Mice: Abbas and Fisher 1997, single datum, so assumed uncert CV = 0.4
@@ -1572,12 +1580,18 @@ Initialize {
 #	from Brown et al. Table 21 (mouse and rat) or 
 #	ICRP Pub 89 Table 2.8 (Human female and male)
 #	Uncertainty ~ 3-fold truncated at 3 GSD
-   VMaxClara = exp(lnVMaxLungLivC) * VMax *
+# VMaxClara = exp(lnVMaxLungLivC) * VMax * #(v2.0)
+#	(Species == 3 ? (1.03/1.87*0.7/5.5):(Species == 2 ? (0.08/0.82*0.5/3.4):(0.03/0.33*(Male == 0 ? (0.42/1.4) : (0.5/1.8)))));
+   #KMClara = exp(lnKMClara);
+      VMaxClaraTCOH = exp(lnVMaxLunLivTCOHC) * VMax * #(v2.1)
 	(Species == 3 ? (1.03/1.87*0.7/5.5):(Species == 2 ? (0.08/0.82*0.5/3.4):(0.03/0.33*(Male == 0 ? (0.42/1.4) : (0.5/1.8)))));
-   KMClara = exp(lnKMClara);
-
+   KMClaraTCOH = exp(lnKMClaraTCOH); #(v2.1)
+      VMaxClaraTCA = exp(lnVMaxLunLivTCAC) * VMax * #(v2.1)
+	(Species == 3 ? (1.03/1.87*0.7/5.5):(Species == 2 ? (0.08/0.82*0.5/3.4):(0.03/0.33*(Male == 0 ? (0.42/1.4) : (0.5/1.8)))));
+   KMClaraTCA = exp(lnKMClaraTCA); #(v2.1)
+   
 # (translocated to the liver)
-   FracLungSys = exp(lnFracLungSysC)/(1 + exp(lnFracLungSysC));
+   FracLunSys = exp(lnFracLunSysC)/(1 + exp(lnFracLunSysC));
 
 # TCOH Metabolism Constants (mg/hr)
 	# No in vitro data.  So use diffuse priors of 
@@ -1667,16 +1681,6 @@ Initialize {
 
 Dynamics{
   
-  #  Some test print statements used to test and debug the translation.
-  #  printf("\nt=%lf\tCArt=%lf\tCVRap=%lf\tQRap=%lf\tPRap=%lf\tVRap=%lf\n", *(pdTime), CArt, CVRap, QRap, PRap, VRap);
-  #  printf("QFat=%lf\tQGutLiv=%lf\tQSlw=%lf\tQRap=%lf\tQTB=%lf\n", QFat, QGutLiv, QSlw, QRap, QTB);
-  #  printf("CVTB=%lf\n", rgModelVars[ID_CVTB]);
-  #  printf("QP=%lf\tQC=%lf\tPB=%lf\n", QP, QC, PB);
-  #  printf("t=%lf\tCArt=%lf\tCVen=%lf\tCVTB=%lf\n", *(pdTime), CArt, rgModelVars[ID_CVen], rgModelVars[ID_CVTB]);
-  #  printf("QBal = %lf\t", QFat+QGutLiv+QSlw+QRap+QTB - QC);
-  #  printf("VTot = %lf\tBW=%lf\n", VFat+VFatBld+VGut+VLiv+VSlw+VRap+VTB, BW);
-  
-  
   #******************************************************************************
   #***                       Dynamic physiological parameter scaling          ***
   #******************************************************************************
@@ -1684,32 +1688,29 @@ Dynamics{
   
   # QP uses QPmeas if value is > 0, otherwise uses sampled value 
   QP = (QPmeas > 0 ? QPmeas : QPsamp);
+  
   #(v1.2) Scale diffusion flow rate
   DResp = DResptmp * QP;
   
   # QCnow uses QPmeas/VPR if QPmeas > 0, otherwise uses sampled value 
   QCnow = (QPmeas > 0 ? QPmeas/VPR : QC);
   
-  # These done here in dynamics in case QCnow changes 
   # Blood Flows to Tissues (L/hr)
-  QFat = (QFatCtmp) * QCnow; # 
-  QGut = (QGutCtmp) * QCnow; # 
-  QLiv = (QLivCtmp) * QCnow; # 
-  QSlw = (QSlwCtmp) * QCnow; # 
-  #(v1.2)         QTB = (QTBCtmp) * QCnow; # 
-  
-  QKid = (QKidCtmp) * QCnow; # 
-  QGutLiv = QGut + QLiv; # 
-  #(v1.2)        QRap = QCnow - QFat - QGut - QLiv - QSlw - QTB - QKid; 
-  QRap = QCnow - QFat - QGut - QLiv - QSlw - QKid; #(v1.2)
-  ##		#(v1b)#(v1c) don't subtract off TB
+  QFat = (QFatCtmp) * QCnow; 
+  QGut = (QGutCtmp) * QCnow; 
+  QLiv = (QLivCtmp) * QCnow; 
+  QBra = (QBraCtmp) * QCnow; #(v2.1)
+  QSlw = (QSlwCtmp) * QCnow; 
+
+  QKid = (QKidCtmp) * QCnow; 
+  QGutLiv = QGut + QLiv; 
+  QRap = QCnow - QFat - QGut - QLiv - QSlw - QKid - QBra; #(v2.1) 
   QBod = QCnow - QGutLiv;
   
   # Plasma Flows to Tissues (L/hr)
   QCPlas = FracPlas * QCnow; # 
   QBodPlas = FracPlas * QBod; # 
   QGutLivPlas = FracPlas * QGutLiv; # 
-  
   
   #******************************************************************************
   #***                  Exposure and Absorption calculations                  ***
@@ -1719,22 +1720,23 @@ Dynamics{
   #### TCE DOSING
   ## IV route
   kIV = (IVDose * BW) / TChng;# IV infusion rate (mg/hr)
-  # (IVDose constant for duration TChng)
-  kIA = (IADose * BW) / TChng;	# IA infusion rate (mg/hr) (v1f)
-  kPV = (PVDose * BW) / TChng;	# PV infusion rate (mg/hr) (v1f)
-  kStom = (PDose * BW) / TChng;# PO dose rate (into stomach) (mg/hr) (v1.2.1)
+  kIA = (IADose * BW) / TChng;	# IA infusion rate (mg/hr) 
+  kPV = (PVDose * BW) / TChng;	# PV infusion rate (mg/hr) 
+  kStom = (PDose * BW) / TChng;# PO dose rate (into stomach) (mg/hr) 
   
   ## Oral route
   # Amount of TCE in stomach -- for oral dosing only (mg)
-  #(v1.2.1)    dt(AStom) = PDose * BW - AStom * (kAS + kTSD);
   dt(AStom) = kStom - AStom * (kAS + kTSD);
   
   # Amount of TCE in duodenum -- for oral dosing only (mg)
   dt(ADuod) = (kTSD * AStom) - (kAD + kTD) * ADuod;
+  
   # Rate of absorption from drinking water
   kDrink = (Drink * BW) / 24.0; #Ingestion rate via drinking water (mg/hr)
+  
   # Total rate of absorption including gavage and drinking water
   RAO = kDrink + (kAS * AStom) + (kAD * ADuod);
+  
   ## Inhalation route
   CInh = (CC > 0 ? ACh/VCh : Conc*MWTCE/24450.0); # in mg/l
   
@@ -1756,10 +1758,6 @@ Dynamics{
   #******************************************************************************
   #***                       TCE Model                                        ***
   #******************************************************************************
-  #******************************************************************************
-  #
-  #(v1.2)	ATB = (VMaxClara > RTB) ? (RTB*KMClara*VTB*PTB/(VMaxClara - RTB)) : 0; #(v1j)
-  
   #****Blood (venous)************************************************************
   # Tissue Concentrations (mg/L)
   CRap = ARap/VRap; 
@@ -1767,8 +1765,8 @@ Dynamics{
   CFat = AFat/VFat; 
   CGut = AGut/VGut; 
   CLiv = ALiv/VLiv; 
-  #(v1.2)	CTB = (ATB<0 ? 0 : ATB/VTB); # Comment out for #(v1b)#(v1c)
   CKid = AKid/VKid; 
+ 
   # Venous Concentrations (mg/L)
   CVRap = CRap / PRap;
   CVSlw = CSlw / PSlw;
@@ -1776,49 +1774,45 @@ Dynamics{
   CVGut = CGut / PGut;
   CVLiv = CLiv / PLiv;
   CVBra = CBra / PBra;  #(v2.1)
-  #(v1.2)	CVTB = CTB / PTB;	# Comment out for #(v1b)#(v1c)
   CVKid = CKid / PKid;
+ 
   # Concentration of TCE in mixed venous blood (mg/L)
   CVen = ABld/VBld; # Comment out for #(v1a)#(v1c)
-  ##	CVen = (QFat*CVFat + QGutLiv*CVLiv + QSlw*CVSlw + #(v1a)#(v1c)
-  ##		QRap*CVRap + QTB*CVTB + QKid*CVKid + kIV) / QCnow; #(v1a)
-  ##		QRap*CVRap + QKid*CVKid + kIV) / QCnow; #(v1c)
+
   # Dynamics for blood
   dt(ABld) = (QFat*CVFat + QGutLiv*CVLiv + QSlw*CVSlw + QRap*CVRap + QBra*CVBra + QKid*CVKid + kIV) - CVen * QCnow; #(v2.1)
-  #(v1.2)		QRap*CVRap + QTB*CVTB + QKid*CVKid + kIV) - CVen * QCnow;# Comment out for #(v1a)#(v1c)
-  
-  #****Gas exchange *************************************************************
-  # Concentration in arterial blood leaving lung (mg/L) #(v1f)
-  #(v1.2)	CArt_tmp = ((QCnow * CVen) + (QP * CInh)) / (QCnow + (QP / PB));
-  
+ 
   #****Respiratory Metabolism****************************************************
   #(v1.2)
   QM = QP/0.7;	# Minute-volume
   CInhResp = AInhResp/VRespLum;
   CResp = AResp/VRespEff;
   CExhResp = AExhResp/VRespLum;
+  
+  # Amount of TCE in the respiratory lumen during inhalation 
   dt(AInhResp) = (QM*CInh + DResp*(CResp-CInhResp) - QM*CInhResp);
+  
   #RAMetLng = VMaxClara * CResp/(KMClara + CResp); #(v2.0)
   RAMetLun1 = VMaxClaraTCOH * CResp/(KMClaraTCOH + CResp); #(v2.1)
   RAMetLun2 = VMaxClaraTCA * CResp/(KMClaraTCA + CResp); #(v2.1)
+  
+  # Amount of TCE in the respiratory tract tissue 
   dt(AResp) = (DResp*(CInhResp + CExhResp - 2*CResp) - RAMetLun1 - RAMetLun2);   
   CArt_tmp = (QCnow*CVen + QP*CInhResp)/(QCnow + (QP/PB));
+  
+  # Amount of TCE in the respiratory lumen during exhalation
   dt(AExhResp) = (QM*(CInhResp-CExhResp) + QP*(CArt_tmp/PB-CInhResp) + 
                     DResp*(CResp-CExhResp));
-  CMixExh = (CExhResp > 0 ? CExhResp : 1e-15); #(v1.2) mixed exhaled breath
+  CMixExh = (CExhResp > 0 ? CExhResp : 1e-15); # mixed exhaled breath
   
-  # Concentration in alveolar air (mg/L) #(v1f)
-  #(v1.2)        CAlv = CArt_tmp / PB;
-  #(v1.2) Correction factor for exhaled air to account for
-  # absorption/desorption/metabolism in respiratory tissue
-  # = 1 if DResp = 0
+  #
   ExhFactor_den = (QP * CArt_tmp / PB + (QM-QP)*CInhResp);
   ExhFactor = (ExhFactor_den > 0) ? (
     QM * CMixExh / ExhFactor_den) : 1;
   #(v1.2) End-exhaled breath (corrected for absorption/
   #	desorption/metabolism in respiratory tissue)
   CAlv = CArt_tmp / PB * ExhFactor;
-  # Concentration in arterial blood entering circulation (mg/L) #(v1f)
+  # Concentration in arterial blood entering circulation (mg/L) 
   CArt = CArt_tmp + kIA/QCnow;	# add inter-arterial dose
   
   #****Other dynamics for inhalation/exhalation *********************************
@@ -1826,10 +1820,9 @@ Dynamics{
   #(v1.2)    dt(ACh) = (Rodents * (QP * CAlv - QP * ACh/VCh)) - (kLoss * ACh);
   dt(ACh) = (Rodents * (QM * CMixExh - QM * ACh/VCh)) - (kLoss * ACh);
 
-  
   #**** Non-metabolizing tissues ************************************************
   # Amount of TCE in rapidly perfused tissues (mg)
-  dt(ARap) = QRap * (CArt - CVRap); ##	- RAMetLng; #(v1b)#(v1c)
+  dt(ARap) = QRap * (CArt - CVRap);
   # Amount of TCE in slowly perfused tissues
   dt(ASlw) = QSlw * (CArt - CVSlw);
   # Amount of TCE in fat tissue (mg)
@@ -1839,10 +1832,10 @@ Dynamics{
   
   #**** Liver *******************************************************************
   #RAMetLiv1 = (VMax * CVLiv) / (KM + CVLiv); #(v2.0) 
+   # Rate of TCE oxidation by P450 to TCOH in liver (mg/hr) #v(2.1)
+  RAMetLiv1 = (VMaxLivTCOH * CVLiv) / (KMLivTCOH + CVLiv); 
   # Rate of TCE oxidation by P450 to TCA in liver (mg/hr) #v(2.1)
-  RAMetLiv1 = (VMaxLivTCA * CVLiv) / (KMLivTCA + CVLiv); 
-  # Rate of TCE oxidation by P450 to TCOH in liver (mg/hr) #v(2.1)
-  RAMetLiv2 = (VMaxLivTCOH * CVLiv) / (KMLivTCOH + CVLiv); 
+  RAMetLiv2 = (VMaxLivTCA * CVLiv) / (KMLivTCA + CVLiv); 
   # Rate of TCE metabolized to DCVG in liver (mg)  #v(2.1)
   #RAMetLiv2 = (VMaxDCVG * CVLiv) / (KMDCVG + CVLiv); #(v2.0)
   RAMetLiv3 = (VMaxLivDCVG * CVLiv) / (KMLivDCVG + CVLiv); #(v2.1)
@@ -1855,8 +1848,6 @@ Dynamics{
   RAMetKid = (VMaxKidDCVG * CVKid) / (KMKidDCVG + CVKid); 
   # Amount of TCE in kidney compartment (mg)
   dt(AKid) = (QKid * (CArt - CVKid)) - RAMetKid;
-  
-  
   
   #******************************************************************************
   #***                       TCOH Sub-model                                   ***
@@ -1880,9 +1871,9 @@ Dynamics{
   #**** Liver *******************************************************************
   
   # Rate of oxidation of TCOH to TCA (mg/hr)
-  RAMetTCOHTCA = (VMaxLivTCOH * CVLivTCOH) / (KMLivTCOH + CVLivTCOH); #(v2.1)
+  RAMetTCOHTCA = (VMaxLivTCOHTCA * CVLivTCOH) / (KMLivTCOHTCA + CVLivTCOH); #(v2.1)
   # Amount of glucuronidation to TCOG (mg/hr)
-  RAMetTCOHGluc = (VMaxLivGluc * CVLivTCOH) / (KMLivGluc + CVLivTCOH); #(v2.1)
+  RAMetTCOHGluc = (VMaxLivTCOHGluc * CVLivTCOH) / (KMLivTCOHGluc + CVLivTCOH); #(v2.1)
   # Amount of TCOH metabolized to other (e.g., DCA)
   RAMetTCOH = kMetTCOH * ALivTCOH;
   # Amount of TCOH-Gluc recirculated (mg)
@@ -1890,8 +1881,7 @@ Dynamics{
   # Amount of TCOH in liver (mg)
   dt(ALivTCOH) = kPOTCOH + QGutLiv * (CTCOH - CVLivTCOH) 
   - RAMetTCOH - RAMetTCOHTCA - RAMetTCOHGluc 
-  + (1.0 - FracOther - FracTCA) * StochTCOHTCE * 
-       (RAMetLiv1 + FracLungSys*RAMetLun1) 
+  + (1.0 - FracOther - FracTCA) * StochTCOHTCE * (RAMetLiv1 + FracLunSys*RAMetLun1) 
   + (StochTCOHGluc * RARecircTCOG); #(v2.1)
 
   #**** Lung *******************************************************************
@@ -1900,11 +1890,11 @@ Dynamics{
   RAMetLunTCOHTCA = (VMaxLunTCOH * CVLunTCOH) / (KMLunTCOH + CVLunTCOH); #(v2.1)
   # Amount of glucuronidation to TCOG (mg/hr)
   RAMetLunTCOHGluc = (VMaxLunGluc * CVLunTCOH) / (KMLunGluc + CVLunTCOH); #(v2.1)
-
-  # Amount of TCOH in liver (mg)
+  # Amount of TCOH in lung (mg)
   dt(ALunTCOH) = kPOTCOH + QLun * (CTCOH - CVLunTCOH) 
   - RAMetLunTCOHTCA - RAMetLunTCOHGluc 
-  + (1.0 - FracOther - FracTCA) * FracLungSys * RAMetLun1; #(v2.1)
+  + (1.0 - FracOther - FracTCA) * StochTCOHTCE * FracLunSys * RAMetLun1
+  + (StochTCOHGluc * RARecircTCOG); #(v2.1)
   
   #(v2.0)
   #******************************************************************************
@@ -1914,8 +1904,8 @@ Dynamics{
   # Amount of DCA in central compartment (mg)
   dt(ADCA) = DCABgd * BW / 24 + #(v2.0) DCA background in mg/kg/d
     (FracOther * StochDCATCE * 
-       ((RAMetLiv1+RAMetLiv2) + FracLungSys*(RAMetLun1+RAMetLun2)) - (kClearDCA * ADCA) -
-    kDCAcen_per * ADCA + kDCAper_cen * ADCAper; #(v2.1)
+       ((RAMetLiv1+RAMetLiv2) + FracLunSys*(RAMetLun1+RAMetLun2)) - (kClearDCA * ADCA) - #(v2.1)
+    kDCAcen_per * ADCA + kDCAper_cen * ADCAper; 
   # Amount of DCA in peripheral compartment (mg)
   dt(ADCAper) = kDCAcen_per * ADCA - kDCAper_cen * ADCAper;
   # Concentration of DCA in blood (in mmoles/l)
@@ -1957,25 +1947,29 @@ Dynamics{
   dt(APlasTCA) = kIVTCA + (QBodPlas*CVBodTCA) + (QGutLivPlas*CVLivTCA) # comment out for #(v1h)
   - (QCPlas * CPlasTCA) - RUrnTCA; # comment out for #(v1h)
   
-  #**** Body ********************************************************************
+  #**** Nonmetabolizing tissues  #(v2.1) ***************************************
   # Dynamics for amount of TCA in the body (mg)
   dt(ABodTCA) = QBodPlas * (CPlasTCAFree - CVBodTCAFree);
-  ## dt(ABodTCA) = QBodPlas * (CPlasTCAFree - CVBodTCAFree) - RUrnTCA; #(v1h)
-  #    dt(ABodTCA) = QBodPlas * (CPlasTCA - CVBodTCA); #(v1g)
-  ## dt(ABodTCA) = QBodPlas * (CPlasTCA - CVBodTCA) - RUrnTCA; #(v1g)+(v1h)
-  
+  # Dynamics for amount of TCA in the brain (mg)
+  dt(ABraTCA) = QBraPlas * (CPlasTCAFree - CVBraTCAFree);
+  # Dynamics for amount of TCA in the kidney (mg)
+  dt(AKidTCA) = QKidPlas * (CPlasTCAFree - CVKidTCAFree);
+
   #**** Liver *******************************************************************
   # Rate of metabolism of TCA
   RAMetTCA = kMetTCA * ALivTCA;
   # Dynamics for amount of TCA in the liver (mg)
   dt(ALivTCA) = kPOTCA + QGutLivPlas*(CPlasTCAFree - CVLivTCAFree) 
-  - RAMetTCA + (FracTCA * StochTCATCE * 
-                  (RAMetLiv1 + FracLungSys*RAMetLng)) #(v1.2)
-  + (StochTCATCOH * RAMetTCOHTCA); 
-  #    dt(ALivTCA) = kPOTCA + QGutLivPlas*(CPlasTCA - CVLivTCA) #(v1g)
-  #			- RAMetTCA + (FracTCA * StochTCATCE * RAMetLiv1) #(v1g)
-  #			+ (StochTCATCOH * RAMetTCOHTCA); #(v1g)
-  
+  + (FracTCA * StochTCATCE * (RAMetLiv2 + FracLunSys*RAMetLun2)) #(v2.1)
+  + (StochTCATCOH * RAMetTCOHTCA)- RAMetTCA; 
+
+  #**** Lung  #(v2.1)  **********************************************************
+  # Dynamics for amount of TCA in the lung (mg)
+  dt(ALunTCA) = kPOTCA + QGutLivPlas*(CPlasTCAFree - CVLivTCAFree) 
+  + (FracTCA * StochTCATCE * FracLunSys * RAMetLun2) #(v2.1)
+  + (StochTCATCOH * RAMetTCOHTCA) - RAMetTCA; 
+
+
   #**** Urine *******************************************************************
   # Dynamics for amount of TCA in urine (mg)
   dt(AUrnTCA) = RUrnTCA;
@@ -2161,12 +2155,10 @@ Dynamics{
   #(v1e)	TotDose = InhDose + AO + IVDose * BW;
   # Total in tissues
   #(v1e)	TotTissue = # AStom + ADuod + 
-  #(v1e)		ARap + ASlw + AFat + AGut + ALiv + ATB + AKid + ABld;
   ##	ARap + ASlw + AFat + AGut + ALiv + ATB + AKid; #(v1a)
   ##	ARap + ASlw + AFat + AGut + ALiv + AKid + ABld;#(v1b)
   ##	ARap + ASlw + AFat + AGut + ALiv + AKid;#(v1c)
   # Total metabolized
-  #(v1e)    dt(AMetLng) = RAMetLng; 
   #(v1e)    dt(AMetLiv1) = RAMetLiv1;
   #(v1e)    dt(AMetLiv2) = RAMetLiv2;
   #(v1e)    dt(AMetKid) = RAMetKid;
