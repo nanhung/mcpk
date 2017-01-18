@@ -1078,8 +1078,6 @@ Ve_QPsamp	= 1;
 
 Initialize {
 
-Initialize {
-
 #******************************************************************************
 #***                  Parameter Initialization and Scaling                  ***
 #******************************************************************************
@@ -1677,6 +1675,7 @@ Initialize {
 #printf("ClC=%lf\n KM=%lf\n kDCVGC=%lf\n FracTCA=%lf\n ClClaraC=%lf\n KMClara=%lf\n kDissoc=%lf\n BMax=%lf\n ClTCOHC=%lf\n KMTCOH=%lf\n ClGlucC=%lf\n KMGluc=%lf\n kElimDCVCC=%lf\n kTSD=%lf\n kAD=%lf\n kBileC=%lf\n kEHRC=%lf\n kUrnTCAC=%lf\n kUrnTCOGC=%lf\n TCAPlas=%lf\n VPR=%lf\n lnQCC=%lf\n QFatC=%lf\n QGutC=%lf\n QLivC=%lf\n QSlwC=%lf\n QTBC=%lf\n VFatBldC=%lf\n VFatC=%lf\n VGutC=%lf\n VLivC=%lf\n VRapC=%lf\n VTBC=%lf\n VBldC=%lf\n FracPlas=%lf\n VBodC=%lf\n VDTCOHC=%lf\n PB=%lf\n PFat=%lf\n PGut=%lf\n PLiv=%lf\n PRap=%lf\n PSlw=%lf\n PTB=%lf\n PAFatC1=%lf\n PAFatC2=%lf\n PBodTCA=%lf\n PLivTCA=%lf\n", #(v2.0)
 #ClC, KM, kDCVGC, FracTCA, ClClaraC, KMClara, kDissoc, BMax, ClTCOHC, KMTCOH, ClGlucC, KMGluc, kElimDCVCC, kTSD, kAD, kBileC, kEHRC, kUrnTCAC, kUrnTCOGC, TCAPlas, VPR, lnQCC, QFatC, QGutC, QLivC, QSlwC, QTBC, VFatBldC, VFatC, VGutC, VLivC, VRapC, VTBC, VBldC, FracPlas, VBodC, VDTCOHC, PB, PFat, PGut, PLiv, PRap, PSlw, PTB, PAFatC1, PAFatC2, PBodTCA, PLivTCA);#(v2.0)
 };
+
 ###################### End of Initialization ########################
 
 Dynamics{
@@ -1872,7 +1871,7 @@ Dynamics{
   
   # Rate of oxidation of TCOH to TCA (mg/hr)
   RAMetTCOHTCA = (VMaxLivTCOHTCA * CVLivTCOH) / (KMLivTCOHTCA + CVLivTCOH); #(v2.1)
-  # Amount of glucuronidation to TCOG (mg/hr)
+  # Amount of TCOH to glucuronidation (mg/hr)
   RAMetTCOHGluc = (VMaxLivTCOHGluc * CVLivTCOH) / (KMLivTCOHGluc + CVLivTCOH); #(v2.1)
   # Amount of TCOH metabolized to other (e.g., DCA)
   RAMetTCOH = kMetTCOH * ALivTCOH;
@@ -1912,7 +1911,6 @@ Dynamics{
   CDCAmol = ADCA / MWDCA / VDCA;
   #******************************************************************************
   #***                       TCA Sub-model                                    ***
-  #******************************************************************************
   #******************************************************************************
   #**** Plasma ******************************************************************
   # Concentration of TCA in plasma (umoles/L)
@@ -1981,7 +1979,6 @@ Dynamics{
   #******************************************************************************
   #***                       TCOG Sub-model                                   ***
   #******************************************************************************
-  #******************************************************************************
   #**** Blood (venous=arterial) *************************************************
   # Venous Concentrations (mg/L)
   CVBodTCOG = ABodTCOG / VBodTCOH / PBodTCOG;
@@ -2003,7 +2000,7 @@ Dynamics{
   
   #**** Lung #(v2.1)  ***********************************************************
   # Amount of TCOG in lung (mg)
-  dt(ALunTCOG) = QLun * (CTCOG - CVLunTCOG) + (StochGlucTCOH * RAMetTLunCOHGluc);
+  dt(ALunTCOG) = QLun * (CTCOG - CVLunTCOG) + (StochGlucTCOG * RAMetLunTCOHGluc);
   
   #**** Kidney #(v2.1) **********************************************************
   # Amount of TCOG in kidney (mg)
@@ -2025,18 +2022,12 @@ Dynamics{
   #******************************************************************************
   #***                       DCVG Sub-model      #(v2.1)                      ***
   #******************************************************************************
-  # Rate of metabolism of DCVG to DCVC
-	 #RAMetDCVGmol = kDCVG * ADCVGmol;
-  # Dynamics for DCVG in blood
-  #dt(ADCVGmol) = (RAMetLiv2 + RAMetKid*(1-FracKidDCVC)) / MWTCE - RAMetDCVGmol;
-  # Concentration of DCVG in blood (in mmoles/l)
-	 #CDCVGmol = ADCVGmol / VDCVG;
   #**** Blood (venous=arterial) *************************************************
   # Venous Concentrations (mg/L)
   CVBodDCVG = ABodDCVG / VBodDCVG / PBodDCVG;
   CVLivDCVG = ALivDCVG / VLiv / PLivDCVG;
   CVKidDCVG = AKidDCVG / VKid / PKidDCVG; 
-  CVBraDCVG = ABraDCVG / VBra / PBraDCVG; 
+  CVBraDCVG = ABraDCVG / VBra / PBraDCVG; #(v2.1) 
   CDCVG = (QBod * CVBodDCVG + QLiv * CVLivDCVG + QKid * CVKidDCVG + QBra * CVBraDCVG + QGutLiv * CVLivDCVG)/QCnow; #(v2.1)
   
   #**** Nonmetabolizing tissues ************************************************
@@ -2045,7 +2036,6 @@ Dynamics{
   dt(ABraDCVG) = QBra * (CDCVG - CVBraDCVG); 
 
   #**** Liver *******************************************************************
-  
   # Rate of metabolized of DCVG to DCVC (mg/hr)
   RAMetDCVG = (VMaxLivDCVC * CVLivDCVG) / (KMLivDCVC + CVLivDCVG); 
   # Rate of excretion in bile (mg/hour) 
@@ -2067,18 +2057,12 @@ Dynamics{
   #******************************************************************************
   #***                       DCVC Sub-model                                   ***
   #******************************************************************************
-  # Amount of DCVC in body (mg) #(v2.0)
-  #dt(ADCVC) = RAMetDCVGmol * MWDCVC  
-  #+ RAMetKid * FracKidDCVC * StochDCVCTCE
-  #- kElimDCVC * ADCVC;#(v2.0)
-  # Concentration of DCVG in blood (in mmoles/l)#(v2.0)
-  # CDCVCmol = ADCVC / MWDCVC / VDCVC;#(v2.0)
   #**** Blood (venous=arterial) *************************************************
   # Venous Concentrations (mg/L)
   CVBodDCVC = ABodDCVC / VBodDCVC / PBodDCVC;
   CVLivDCVC = ALivDCVC / VLiv / PLivDCVC;
   CVKidDCVC = AKidDCVC / VKid / PKidDCVC; 
-  CVBraDCVC = ABraDCVC / VBra / PBraDCVC; 
+  CVBraDCVC = ABraDCVC / VBra / PBraDCVC; #(v2.1)
   CDCVC = (QBod * CVBodDCVC + QKid * CVKidDCVC + QBra * CVBraDCVC + QGutLiv * CVLivDCVG)/QCnow; #(v2.1)
   
   #**** Nonmetabolizing tissues ************************************************
@@ -2179,8 +2163,6 @@ Dynamics{
   #******************************************************************************
   # Amount exhaled during exposure (mg)
   dt(AExhExp) = (CInh > 0 ? RAExh : 0); 
-  
-  
   
 };
 ################ End of Dynamics ####################################
