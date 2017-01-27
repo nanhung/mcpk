@@ -38,12 +38,10 @@ States = {
 	AUrnTCOG_collect,# Cumulative Amount of TCA excreted in urine during			
 			
 			
-##-- NAcTCVC and DCA excreted
+##-- TCOH in body
 ABodTCOH, #(v2.1)
 ALivTCOH, #(v2.1)
-     	ANTCVC,	# Amount of NAcTCVC formed that is ultimately excreted in urine
 	ADCA,	# Amount of DCA formed that is ultimately excreted in urine
-     	AUrnNTCVC,	# Amount of NAcTCVC excreted
 	AUrnDCA,	# Amount of DCA excreted
 ##-- Other states for PERC
 	ACh, 		# Amount in closed chamber -- mice and rats only
@@ -127,7 +125,6 @@ zAUrnTCA_sat,	# human - Saturated TCA measurements
 FracBndPlasTCA, # mouse - TCA fraction bound
 
 # Other
-zAUrnNTCVC,	# rat, human - Cumulative urinary NAcTCVC
 zAUrnDCA,	# rat, human - Cumulative urinary DCA
 
   RAO,
@@ -141,20 +138,25 @@ zAUrnDCA,	# rat, human - Cumulative urinary DCA
 #******************************************************************************
 
 # Molecular Weights
+MWTCVC = 133;
+MWNATCVC = 133;
+
 MWTCE = 131.39;     # TCE
-MWPERC = 165.83;        # PERC
 MWTCOH = 149.5;     # TCOH
 MWTCOHGluc = 325.53; # TCOH-Gluc
-MWTCVC = 250.53;        # TCVC
 MWTCA = 163.39;        # TCA
 MWDCA = 128.94;	       # DCA
-MWNATCVC = 292.57;        # N Acetyl TCVC
+
 
 # Stoichiometry
-   StochTCAPERC = MWTCA / MWPERC;
-  StochTCVCPERC = MWTCVC / MWPERC;
-        StochN = MWNATCVC / MWTCVC;
-  StochDCATCVC = MWDCA / MWTCVC;
+StochTCATCE = MWTCA / MWTCE;
+StochTCVCPERC = MWTCVC / MWTCE;
+
+StochDCATCVC = MWDCA / MWTCVC;
+StochN = MWNATCVC / MWTCVC;
+
+StochGlucTCOH = MWTCOHGluc / MWTCOH;
+StochTCOHTCE = MWTCOH / MWTCE;
 
 #******************************************************************************
 #***                  Global Model Parameters                               ***
@@ -272,10 +274,8 @@ kUrnTCOG	= 1;	# Rate constant for TCOG->urine (/hr)
 
 
 #******************************************************************************		
-# TCVC metabolism/clearance		
-FracNATUrn	= 1;	# Fraction of GSH conjugation to NAcTCVC in urine#
+# DCA metabolism/clearance		
 FracDCAUrn	= 1;	# Fraction of GSH conjugation to DCA urine#
-kNAT	= 1;	# Delay rate constant for NAcTCVC excretion in urine (/hr)#
 kDCA	= 1;	# Delay rate constant for DCA excretion in urine (/hr)#
 #******************************************************************************
 # Closed chamber and other exposure parameters 
@@ -408,9 +408,7 @@ lnkEHRC	= 0.0;	# Scaled by BW^-0.25
 lnkUrnTCOGC	= 0.0;	# Scaled by (blood volume)^-1 and species-specific central estimates
 
 # TCVC metabolism		
-lnFracNATUrnC	= 0.0;	#
 lnFracDCAUrnC	= 0.0;	# # This is logit of fraction remaining after NAT
-lnkNATC	= 0.0;	# Scaled by BW^-0.25 #
 lnkDCAC	= 0.0;	# Scaled by BW^-0.25 #
 
 # Closed chamber parameters
@@ -450,12 +448,8 @@ M_M_lnClKidLivTCVGC	= 1.0;
 M_M_lnVMaxLungLivC	= 1.0;
 M_M_lnKMRespLivC	= 1.0;
 	
-M_M_lnFracNATUrnC	= 1.0;
 M_M_lnFracDCAUrnC	= 1.0;
-M_M_lnkNATC	= 1.0;
 M_M_lnkDCAC	= 1.0;
-
-
 
 #******************************************************************************
 # Population means
@@ -518,8 +512,6 @@ M_lnPLivTCOGC	= 1.0; #(2.1)
 M_lnkDissocC	= 1.0;
 M_lnBMaxkDC	= 1.0;
 	
-	
-	
 M_lnkAS	= 1.0;
 M_lnkTSD	= 1.0;
 M_lnkAD	= 1.0;
@@ -565,14 +557,11 @@ M_lnkBilC	= 0.0;
 M_lnkEHRC	= 0.0;	
 M_lnkUrnTCOGC	= 0.0;		
 	
-M_lnFracNATUrnC	= 1.0;
 M_lnFracDCAUrnC	= 1.0;
-M_lnkNATC	= 1.0;
 M_lnkDCAC	= 1.0;
 
 # inter-strain scaling
 M_lnISTCA = 0.0; # fraction to TCA
-
 
 #******************************************************************************
 # Population Variances
@@ -614,10 +603,6 @@ V_VRespEffC	= 1.0;
 V_VKidC	= 1.0;
 V_VBldC	= 1.0;
 	
-	
-	
-	
-	
 V_PBC	= 1.0;
 V_PFatC	= 1.0;
 V_lnPGutC	= 1.0;
@@ -638,8 +623,6 @@ V_lnPLivTCOGC	= 1.0; #(2.1)
 	
 V_lnkDissocC	= 1.0;
 V_lnBMaxkDC	= 1.0;
-	
-	
 	
 V_lnkAS	= 1.0;
 V_lnkTSD	= 1.0;
@@ -688,12 +671,10 @@ V_lnkBilC	= 1.0;
 V_lnkEHRC	= 1.0;	
 V_lnkUrnTCOGC	= 1.0;	
 
-V_lnFracNATUrnC	= 1.0;
 V_lnFracDCAUrnC	= 1.0;
-V_lnkNATC	= 1.0;
 V_lnkDCAC	= 1.0;
 
-#******************************************************************************
+#****************************************
 # Measurement error variances for output
 
 Ve_RetDose	= 1;
@@ -735,7 +716,6 @@ Ve_zAUrnTCA_collect	= 1;
 Ve_zAUrnTCA_sat	= 1;
 	
 	
-Ve_zAUrnNTCVC	= 1;
 Ve_zAUrnDCA	= 1;
 Ve_QPsamp	= 1;
 
@@ -1023,10 +1003,8 @@ Initialize {
 	# /hr/kg^0.25 
 	kMetTCA = exp(lnkTotTCAC)*exp(lnkMetTCAC) / BW25; #(v2.0.0)
 
-# TCVC Kinetics in Kidney (/hr)
 ## Fraction of GSH conjugation resulting in DCA or NAcTCVC in urine
-	FracNATUrn = exp(lnFracNATUrnC)/(1+exp(lnFracNATUrnC));#
-	FracDCAUrn = (1-FracNATUrn)*exp(lnFracDCAUrnC)/(1+exp(lnFracDCAUrnC));# # scaling parameter is logit of fraction remaining after NAT
+	FracDCAUrn = (1+exp(lnFracDCAUrnC));# # scaling parameter is logit of fraction remaining after NAT
 ## Delay rate constants for urinary excretion of DCA and NAcTCVC
 	kDCA = exp(lnkDCAC) / BW25; ##
 	kNAT = exp(lnkNATC) / BW25;
@@ -1043,7 +1021,7 @@ Initialize {
 # NOTE: All State Variables are automatically set to 0 initially, 
 # unless re-initialized here
 
-	ACh = (CC * VCh * MWPERC) / 24450.0;    # Initial amount in chamber
+	ACh = (CC * VCh * MWTCE) / 24450.0;    # Initial amount in chamber
 
 };
 ###################### End of Initialization ########################
@@ -1094,7 +1072,7 @@ Dynamics{
 # Total rate of absorption including gavage and drinking water
     RAO = kDrink + (kAS * AStom) + (kAD * ADuod);
 ## Inhalation route
-    CInh = ACh/VCh + Conc*MWPERC/24450.0; # in mg/l
+    CInh = ACh/VCh + Conc*MWTCE/24450.0; # in mg/l
 
 #### TCA Dosing
 	kIVTCA = (IVDoseTCA * BW) / TChng;  # TCA IV infusion rate (mg/hr) 
@@ -1194,7 +1172,6 @@ Dynamics{
 
 #******************************************************************************
 #**** Plasma ******************************************************************
-StochTCATCE = MWTCA / MWTCE;	
 
 # Concentration of TCA in plasma (umoles/L)
 	CPlasTCA = (APlasTCA<1.0e-15 ? 1.0e-15 : APlasTCA/VPlas); # comment out for #(v1h)
@@ -1247,11 +1224,6 @@ StochTCATCE = MWTCA / MWTCE;
 		# Not saturated and not missing collection times 
 
 #******************************************************************************
-# Dynamics for amount of N Acetyl TCVC excreted (mg)
-     RUrnNTCVC = ANTCVC * kNAT; ##
-     dt(ANTCVC) = (RAMetLiv2) * FracNATUrn * ##
-     		StochTCVCPERC * StochN - RUrnNTCVC; ##
-     dt(AUrnNTCVC) = RUrnNTCVC; ##
 # Dynamics for amount of DCA excreted as a result of Beta Lyase (mg)
      RUrnDCA = ADCA * kDCA; ##
      dt(ADCA) = (RAMetLiv2) * FracDCAUrn * ##
@@ -1274,7 +1246,6 @@ StochTCATCE = MWTCA / MWTCE;
 
 #**** Liver *******************************************************************
 
-StochTCOHTCE = MWTCOH / MWTCE;
 #StochTCOHGluc = MWTCOH / MWTCOHGluc;
 
 # Rate of oxidation of TCOH to TCA (mg/hr)
@@ -1295,7 +1266,6 @@ StochTCOHTCE = MWTCOH / MWTCE;
 #***                       TCOG Sub-model                                   ***
 #******************************************************************************
 #**** Blood (venous=arterial) *************************************************
-StochGlucTCOH = MWTCOHGluc / MWTCOH;
 
 # Venous Concentrations (mg/L)
 	CVBodTCOG = ABodTCOG / VBodTCOH / PBodTCOG;
@@ -1384,8 +1354,8 @@ CalcOutputs{
 	FracRetMetab = ((TotMetab/RetDose) > 1e-15 ? (TotMetab/RetDose) : 1e-15);
 	TotMetab = (TotMetab > 1e-15 ? TotMetab : 1e-15);
 	zRAExh = (RAExh < 1.0e-15 ? 1.0e-15 : RAExh);
-	CAlvPPM = (CAlv < 1.0e-15 ? 1.0e-15 : CAlv * (24450.0 / MWPERC));
-	CInhPPM = (ACh< 1.0e-15 ? 1.0e-15 : ACh/VCh*24450.0/MWPERC); 
+	CAlvPPM = (CAlv < 1.0e-15 ? 1.0e-15 : CAlv * (24450.0 / MWTCE));
+	CInhPPM = (ACh< 1.0e-15 ? 1.0e-15 : ACh/VCh*24450.0/MWTCE); 
 		# CInhPPM Only used for CC inhalation
 	CArt = (CArt < 1.0e-15 ? 1.0e-15 : CArt);
 	CVen = (CVen < 1.0e-15 ? 1.0e-15 : CVen);
@@ -1415,10 +1385,9 @@ CalcOutputs{
 	zAUrnTCA_sat = (AUrnTCA_sat < 1.0e-15 ? 1.0e-15 : AUrnTCA_sat);
 	zAUrnTCA_collect = (AUrnTCA_collect < 1.0e-15 ? 1.0e-15 : AUrnTCA_collect);
 # Other
-	zAUrnNTCVC =(AUrnNTCVC < 1.0e-15 ? 1.0e-15 : AUrnNTCVC); 
 	zAUrnDCA =(AUrnDCA < 1.0e-15 ? 1.0e-15 : AUrnDCA); 
 # Misc
-	CVenMole = CVen / MWPERC; 
+	CVenMole = CVen / MWTCE; 
 	CPlasTCAMole = (CPlasTCAMole < 1.0e-15 ? 1.01e-15 : CPlasTCAMole);
 	CPlasTCAFreeMole = (CPlasTCAFreeMole < 1.0e-15 ? 1.0e-15 : CPlasTCAFreeMole);
 	FracBndPlasTCA = (CPlasTCAMole-CPlasTCAFreeMole)/CPlasTCAMole;
