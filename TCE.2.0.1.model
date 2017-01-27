@@ -201,7 +201,7 @@ CKidDCVG,	# mouse - DCVG concentration in kidney #(V2.1)
 # DCVC #(V2.1)
 CBodDCVC,	# mouse - DCVC concentration in body #(V2.1)
 CBldDCVC,	# mouse - DCVC concentration in blood #(V2.1)
-ClivDCVC,	# mouse - DCVC concentration in liver #(V2.1)
+CivDCVC,	# mouse - DCVC concentration in liver #(V2.1)
 CBraDCVC,	# mouse - DCVC concentration in brain #(V2.1)
 CKidDCVC,	# mouse - DCVC concentration in kidney #(V2.1)
 

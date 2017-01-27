@@ -241,7 +241,7 @@ PKidNADCVC = 1;  #NADCVC kidney/body partition coefficient #(V2.1)
 MWTCE = 131.39;     # TCE
 MWDCA = 129.0;      # DCA
 MWDCVC = 216.1;     # DCVC
-MXDCVG = 402.25;    # DCVG #(V2.1) 
+MWDCVG = 402.25;    # DCVG #(V2.1) 
 MWNADCVC = 258.1;   # N Acetyl DCVC #(V2.1)
 MWTCA = 163.5;      # TCA
 MWTCOH = 149.5;     # TCOH
@@ -260,7 +260,7 @@ StochTCOHTCE = MWTCOH / MWTCE;
 StochGlucTCOH = MWTCOHGluc / MWTCOH;
 StochTCOHGluc = MWTCOH / MWTCOHGluc;
 StochTCEGluc = MWTCE / MWTCOHGluc;
-StochDCVCTCE = MWDCVC / MWTCE;
+StochDCVGTCE = MWDCVG / MWTCE;
 StochN = MWNADCVC / MWDCVC;
 
 # Concentration in compartment

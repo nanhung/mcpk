@@ -26,8 +26,12 @@ States = {
 			# saturated measurements (for lower bounds) 
 	AUrnTCA_collect,# Cumulative Amount of TCA excreted in urine during
 			# collection times (for intermittent collection) 
+
+##-- TCOH 
+ABodTCOH, 
+ALivTCOH, 
 			
-##-- TCOG in body
+##-- TCOG
 	ABodTCOG, 	# Amount of TCOG in lumped body compartment
 	ALivTCOG, 	# Amount of TCOG in liver
     ABilTCOG,	# Amount of TCOG in bile (incl. gut)
@@ -36,13 +40,15 @@ States = {
 	AUrnTCOG_sat,	# Amount of TCOG excreted that during times that had
 			# saturated measurements (for lower bounds) 
 	AUrnTCOG_collect,# Cumulative Amount of TCA excreted in urine during			
+
+##-- DCVG			
+ABodDCVG,
+ALivDCVG,
+AKidDCVG,
+ABraDCVG,
+
 			
-			
-##-- TCOH in body
-ABodTCOH, #(v2.1)
-ALivTCOH, #(v2.1)
-	ADCA,	# Amount of DCA formed that is ultimately excreted in urine
-	AUrnDCA,	# Amount of DCA excreted
+
 ##-- Other states for PERC
 	ACh, 		# Amount in closed chamber -- mice and rats only
 	AExh, 		# Amount exhaled
@@ -125,7 +131,6 @@ zAUrnTCA_sat,	# human - Saturated TCA measurements
 FracBndPlasTCA, # mouse - TCA fraction bound
 
 # Other
-zAUrnDCA,	# rat, human - Cumulative urinary DCA
 
   RAO,
   CVenMole,
@@ -140,19 +145,18 @@ zAUrnDCA,	# rat, human - Cumulative urinary DCA
 # Molecular Weights
 MWTCVC = 133;
 MWNATCVC = 133;
-
+MWDCVG = 402.25;    # DCVG #(V2.1) 
 MWTCE = 131.39;     # TCE
 MWTCOH = 149.5;     # TCOH
 MWTCOHGluc = 325.53; # TCOH-Gluc
 MWTCA = 163.39;        # TCA
-MWDCA = 128.94;	       # DCA
 
 
 # Stoichiometry
 StochTCATCE = MWTCA / MWTCE;
 StochTCVCPERC = MWTCVC / MWTCE;
+StochDCVGTCE = MWDCVG / MWTCE;
 
-StochDCATCVC = MWDCA / MWTCVC;
 StochN = MWNATCVC / MWTCVC;
 
 StochGlucTCOH = MWTCOHGluc / MWTCOH;
@@ -196,6 +200,8 @@ VSlw	= 1;	# Slowly perfused compartment volume (L)
 VPlas	= 1;	# Plasma compartment volume [fraction of blood] (L)
 VBodTCA	= 1;	# TCA Body compartment volume [not incl. blood+liver] (L)
 VBodTCOH = 1; #(v2.1)
+VBodTCOG = 1; #(v2.1)
+VBodDCVG = 1;
 #******************************************************************************		
 # Distribution/partitioning		
 PB	= 1;	# PERC Blood/air partition coefficient
@@ -220,6 +226,13 @@ PLivTCOH= 1; #
 # TCOG
 PBodTCOG=1 ; #
 PLivTCOG=1 ; # 
+
+#DCVG
+PBodDCVG =1 ; #
+PLivDCVG =1 ; #
+PKidDCVG =1 ; #
+PBraDCVG =1 ; #
+
 
 # TCA plasma binding		
 kDissoc	= 1;	# Protein/TCA dissociation constant (umole/L)
@@ -272,11 +285,14 @@ kBil	= 1;	# Rate constant for TCOG liver->bile (/hr)
 kEHR	= 1;	# Lumped rate constant for TCOG bile->TCOH liver (/hr)
 kUrnTCOG	= 1;	# Rate constant for TCOG->urine (/hr)
 
-
 #******************************************************************************		
-# DCA metabolism/clearance		
-FracDCAUrn	= 1;	# Fraction of GSH conjugation to DCA urine#
-kDCA	= 1;	# Delay rate constant for DCA excretion in urine (/hr)#
+# DCVG metabolism/clearance	
+VMaxLivDCVG= 1;	# VMax TCE->TCA (mg/hr)
+VMaxKidDCVG	= 1;	# VMax for hepatic PERC GSH conjugation (mg/hr)
+KMLivDCVG = 1; #(v2.1)
+KMKidDCVG = 1; #(v2.1)
+
+
 #******************************************************************************
 # Closed chamber and other exposure parameters 
 Rodents	= 1;	# Number of rodents in closed chamber data
@@ -349,10 +365,20 @@ lnPSlwC	= 0.0;	# Scaled to species-specific central estimates and by Blood:air
 lnPRBCPlasTCAC	= 0.0;	# Scaled to species-specific central estimates
 lnPBodTCAC	= 0.0;	# Scaled to species-specific central estimates
 lnPLivTCAC	= 0.0;	# Scaled to species-specific central estimates
+
+#
 lnPBodTCOHC	= 0.0;	#(v2.1)
 lnPLivTCOHC	= 0.0;	#(v2.1)
+
+#
 lnPBodTCOGC	= 0.0;	#(v2.1)
 lnPLivTCOGC	= 0.0;	#(v2.1)
+
+#
+lnPBodDCVG = 0.0;	#(v2.1)
+lnPLivDCVG = 0.0;	#(v2.1)
+lnPKidDCVG = 0.0;	#(v2.1)
+lnPBraDCVG = 0.0;	#(v2.1)
 
 # Plasma Binding for TCA		
 lnkDissocC	= 0.0;	# Scaled to species-specific central estimates
@@ -380,6 +406,16 @@ lnClLivTCOH1C	= 0.0;	# Scaled by BW^0.75
 lnClLivTCOH2C	= 0.0;	# Scaled by BW^0.75
 lnkMetLivTCOHC	= 0.0;	# Scaled by BW^-0.25
 
+#DCVG
+lnVMaxKidDCVGC = 0.0; #(2.1)
+lnVMaxLivDCVGC = 0.0; #(2.1)
+lnKMKidDCVGC = 0.0; #(2.1)
+lnKMLivDCVGC = 0.0; #(2.1)
+lnClLivDCVGC = 0.0;
+lnClKidDCVGC = 0.0;
+
+
+#
 lnClC	= 0.0;	# Scaled to species-specific central estimates
 lnCl2OxC	= 0.0;	# Scaled to clearance of first pathway#(v2.0.0)
 lnFracOtherC	= -2.197;	# Ratio of oxidation of non-TCA to TCA
@@ -406,10 +442,6 @@ lnkTotTCAC	= 0.0;  # Scaling of both urine and other metabolism#(v2.0.0)
 lnkBilC	= 0.0;	# Scaled by BW^-0.25
 lnkEHRC	= 0.0;	# Scaled by BW^-0.25
 lnkUrnTCOGC	= 0.0;	# Scaled by (blood volume)^-1 and species-specific central estimates
-
-# TCVC metabolism		
-lnFracDCAUrnC	= 0.0;	# # This is logit of fraction remaining after NAT
-lnkDCAC	= 0.0;	# Scaled by BW^-0.25 #
 
 # Closed chamber parameters
 NRodents	= 1;	# 
@@ -448,8 +480,6 @@ M_M_lnClKidLivTCVGC	= 1.0;
 M_M_lnVMaxLungLivC	= 1.0;
 M_M_lnKMRespLivC	= 1.0;
 	
-M_M_lnFracDCAUrnC	= 1.0;
-M_M_lnkDCAC	= 1.0;
 
 #******************************************************************************
 # Population means
@@ -504,10 +534,23 @@ M_lnPSlwC	= 1.0;
 M_lnPRBCPlasTCAC	= 1.0;
 M_lnPBodTCAC	= 1.0;
 M_lnPLivTCAC	= 1.0;
+
+#TCOH
 M_lnPBodTCOHC	= 1.0; #(2.1)
 M_lnPLivTCOHC	= 1.0; #(2.1)	
+
+#TCOG
 M_lnPBodTCOGC	= 1.0; #(2.1)
 M_lnPLivTCOGC	= 1.0; #(2.1)
+
+# DCVG
+M_lnPBodDCVGC = 1.0;	#(v2.1)
+M_lnPLivDCVGC = 1.0;	#(v2.1)
+M_lnPKidDCVGC = 1.0;	#(v2.1)
+M_lnPBraDCVGC = 1.0;	#(v2.1)
+
+
+
 
 M_lnkDissocC	= 1.0;
 M_lnBMaxkDC	= 1.0;
@@ -518,19 +561,30 @@ M_lnkAD	= 1.0;
 M_lnkASTCA	= 1.0;
 M_lnFracAbsTCAC	= 1.0;
 	
-	
+#	
 M_lnVMaxLiv1C	= 1.0; #(2.1)
 M_lnVMaxLiv2C	= 1.0; #(2.1)
+M_lnKMLivTCOH1C	= 1.0; #(2.1)
+M_lnKMLivTCOH2C	= 1.0; #(2.1)
+#
 M_lnVMaxLivTCOH1C	= 1.0; #(2.1)
 M_lnVMaxLivTCOH2C	= 1.0; #(2.1)
 M_lnKMLiv1C	= 1.0; #(2.1)
 M_lnKMLiv2C	= 1.0; #(2.1)
-M_lnKMLivTCOH1C	= 1.0; #(2.1)
-M_lnKMLivTCOH2C	= 1.0; #(2.1)
 
+#
 M_lnClLivTCOH1C	= 1.0;	
 M_lnClLivTCOH2C	= 1.0;	
 M_lnkMetLivTCOHC	= 0.0;
+#
+
+M_lnVMaxKidDCVGC = 1.0; #(2.1)
+M_lnVMaxLivDCVGC = 1.0; #(2.1)
+M_lnKMKidDCVGC = 1.0; #(2.1)
+M_lnKMLivDCVGC = 1.0; #(2.1)
+M_lnClLivDCVGC = 1.0;
+M_lnClKidDCVGC = 1.0;
+
 
 
 M_lnClC	= 1.0;
@@ -557,8 +611,6 @@ M_lnkBilC	= 0.0;
 M_lnkEHRC	= 0.0;	
 M_lnkUrnTCOGC	= 0.0;		
 	
-M_lnFracDCAUrnC	= 1.0;
-M_lnkDCAC	= 1.0;
 
 # inter-strain scaling
 M_lnISTCA = 0.0; # fraction to TCA
@@ -616,11 +668,22 @@ V_lnPSlwC	= 1.0;
 V_lnPRBCPlasTCAC	= 1.0;
 V_lnPBodTCAC	= 1.0;
 V_lnPLivTCAC	= 1.0;
+
+#
 V_lnPBodTCOHC	= 1.0; #(2.1)
 V_lnPLivTCOHC	= 1.0; #(2.1)
+
+#
 V_lnPBodTCOGC	= 1.0; #(2.1)
 V_lnPLivTCOGC	= 1.0; #(2.1)	
-	
+
+# DCVG
+V_lnPBodDCVG = 0.0;	#(v2.1)
+V_lnPLivDCVG = 0.0;	#(v2.1)
+V_lnPKidDCVG = 0.0;	#(v2.1)
+V_lnPBraDCVG = 0.0;	#(v2.1)
+
+#
 V_lnkDissocC	= 1.0;
 V_lnBMaxkDC	= 1.0;
 	
@@ -630,16 +693,26 @@ V_lnkAD	= 1.0;
 V_lnkASTCA	= 1.0;
 V_lnFracAbsTCAC	= 1.0;
 	
-	
+#	
 V_lnVMaxLiv1C	= 1.0;
 V_lnVMaxLiv2C	= 1.0;
-V_lnVMaxLivTCOH1C	= 1.0; #(v2.1)
-V_lnVMaxLivTCOH2C	= 1.0; #(v2.1)
 V_lnKMLiv1C	= 1.0;
 V_lnKMLiv2C	= 1.0;
-V_lnKMLivTCOH1C	= 1.0; #(v2.1)
-V_lnKMLivTCOH2C	= 1.0; #(v2.1)
+#
+V_lnVMaxLivTCOH1C	= 1.0; 
+V_lnVMaxLivTCOH2C	= 1.0; 
+V_lnKMLivTCOH1C	= 1.0; 
+V_lnKMLivTCOH2C	= 1.0; 
+#
+V_lnVMaxKidDCVGC = 1.0; #(2.1)
+V_lnVMaxLivDCVGC = 1.0; #(2.1)
+V_lnKMKidDCVGC = 1.0; #(2.1)
+V_lnKMLivDCVGC = 1.0; #(2.1)
+V_lnClLivDCVGC = 1.0;
+V_lnClKidDCVGC = 1.0;
 
+
+#
 V_lnClC	= 1.0;
 V_lnCl2OxC	= 1.0;#(v2.0.0)
 V_lnFracOtherC	= 1.0;
@@ -671,8 +744,6 @@ V_lnkBilC	= 1.0;
 V_lnkEHRC	= 1.0;	
 V_lnkUrnTCOGC	= 1.0;	
 
-V_lnFracDCAUrnC	= 1.0;
-V_lnkDCAC	= 1.0;
 
 #****************************************
 # Measurement error variances for output
@@ -716,7 +787,6 @@ Ve_zAUrnTCA_collect	= 1;
 Ve_zAUrnTCA_sat	= 1;
 	
 	
-Ve_zAUrnDCA	= 1;
 Ve_QPsamp	= 1;
 
 #******************************************************************************
@@ -862,9 +932,10 @@ Initialize {
 
 
        VPlas = FracPlas * VBld;
-	VBodTCA = VFat + VGut + VRap + VRespEfftmp + VKid + VSlw; # For TCA
-    VBodTCOH = VBodTCA + VBld - VRespEfftmp - VKid - VBra; #(v2.1)
-
+	VBodTCA = VFat + VGut + VRap + VSlw; # For TCA
+    VBodTCOH = VBodTCA + VBld; #(v2.1)
+    VBodTCOG = VBodTCOH;
+    VBodDCVG = VBodTCA + VRespEfftmp;
 
        PB = (PBmeas > 0.0 ? PBmeas : (PBC * (Species == 3 ? 18.6 : (Species == 2 ? 15.1 : 14.7 )))); # Blood-air
        PFat = PFatC/PB *		# Fat/blood
@@ -896,14 +967,33 @@ Initialize {
 		(Species == 3 ? 0.88 : (Species == 2 ? 0.88 : 0.52 ));
     PLivTCA = TCAPlas * exp(lnPLivTCAC) *
 		(Species == 3 ? 1.18 : (Species == 2 ? 1.18 : 0.66 ));
+
+#
     PBodTCOH = exp(lnPBodTCOHC) *
 		(Species == 3 ? 1.11 : (Species == 2 ? 1.11 : 0.91 ));
     PLivTCOH = exp(lnPLivTCOHC) *
 		(Species == 3 ? 1.3 : (Species == 2 ? 1.3 : 0.59 ));
+
+#
     PBodTCOG = exp(lnPBodTCOGC) *
 		(Species == 3 ? 1.11 : (Species == 2 ? 1.11 : 0.91 ));
     PLivTCOG = exp(lnPLivTCOGC) *
 		(Species == 3 ? 1.3 : (Species == 2 ? 1.3 : 0.59 ));		
+
+# DCVG
+PBodDCVG = exp(lnPBodDCVG) *
+(Species == 3 ? 1.11 : (Species == 2 ? 1.11 : 0.91 ));
+PLivDCVG = exp(lnPLivDCVG) *
+(Species == 3 ? 1.11 : (Species == 2 ? 1.11 : 0.91 ));
+PKidDCVG = exp(lnPKidDCVG) *
+(Species == 3 ? 1.11 : (Species == 2 ? 1.11 : 0.91 ));
+PBraDCVG = exp(lnPBraDCVG) *
+(Species == 3 ? 1.11 : (Species == 2 ? 1.11 : 0.91 ));
+
+
+
+
+
 
 # Binding Parameters for TCA
 	# GM of Lumpkin et al. 2003; Schultz et al. 1999;
@@ -945,6 +1035,18 @@ Initialize {
 		(Species == 3 ? (exp(lnVMaxLivTCOH2C)) : (Species == 2 ? (exp(lnVMaxLivTCOH2C)) : (exp(lnClLivTCOH2C+lnKMLivTCOH2C))));
 	KMLivTCOH2 = exp(lnKMLivTCOH2C);
 	kMetLivTCOH = exp(lnkMetLivTCOHC) / BW25;
+
+# DCVG Metabolism Constants (mg/hr)
+	VMaxLivDCVG = BW75*
+		(Species == 3 ? (exp(lnVMaxLivDCVGC)) : (Species == 2 ? (exp(lnVMaxLivDCVGC)) : (exp(lnClLivDCVGC+lnKMLivDCVGC))));
+	KMLivDCVG = exp(lnKMLivDCVGC);
+	VMaxKidDCVG = BW75*
+		(Species == 3 ? (exp(lnVMaxKidDCVGC)) : (Species == 2 ? (exp(lnVMaxKidDCVGC)) : (exp(lnClKidDCVGC+lnKMKidDCVGC))));
+	KMKidDCVG = exp(lnKMKidDCVGC);
+
+
+
+
 
 # Oxidative metabolism splits
 	# Fractional split of PERC to TCA
@@ -1002,12 +1104,6 @@ Initialize {
 		(Species == 3 ? 0.6 : (Species == 2 ? 0.522 : 0.108));
 	# /hr/kg^0.25 
 	kMetTCA = exp(lnkTotTCAC)*exp(lnkMetTCAC) / BW25; #(v2.0.0)
-
-## Fraction of GSH conjugation resulting in DCA or NAcTCVC in urine
-	FracDCAUrn = (1+exp(lnFracDCAUrnC));# # scaling parameter is logit of fraction remaining after NAT
-## Delay rate constants for urinary excretion of DCA and NAcTCVC
-	kDCA = exp(lnkDCAC) / BW25; ##
-	kNAT = exp(lnkNATC) / BW25;
 
 # CC data initialization
 	Rodents = NRodents; # Closed chamber simulation
@@ -1224,14 +1320,6 @@ Dynamics{
 		# Not saturated and not missing collection times 
 
 #******************************************************************************
-# Dynamics for amount of DCA excreted as a result of Beta Lyase (mg)
-     RUrnDCA = ADCA * kDCA; ##
-     dt(ADCA) = (RAMetLiv2) * FracDCAUrn * ##
-     		StochTCVCPERC * StochDCATCVC - RUrnDCA; ##
-     dt(AUrnDCA) = RUrnDCA; ##
-
-
-#******************************************************************************
 #***                       TCOH Sub-model                                   ***
 #******************************************************************************
 #**** Blood (venous=arterial) *************************************************
@@ -1268,7 +1356,7 @@ Dynamics{
 #**** Blood (venous=arterial) *************************************************
 
 # Venous Concentrations (mg/L)
-	CVBodTCOG = ABodTCOG / VBodTCOH / PBodTCOG;
+	CVBodTCOG = ABodTCOG / VBodTCOG / PBodTCOG;
 	CVLivTCOG = ALivTCOG / VLiv / PLivTCOG;
 	CTCOG = (QBod * CVBodTCOG + QGutLiv * CVLivTCOG)/QCnow;
 #**** Body ********************************************************************
@@ -1293,6 +1381,27 @@ Dynamics{
 		# Saturated, but not missing collection times 
     dt(AUrnTCOG_collect) = (1-TCOGUrnSat)*(1-UrnMissing)*RUrnTCOG;
 		# Not saturated and not missing collection times 
+
+#******************************************************************************
+#***                       DCVG Sub-model                                   ***
+#******************************************************************************
+  #**** Blood (venous=arteriKMal) *************************************************
+  # Venous Concentrations (mg/L)
+  CVBodDCVG = ABodDCVG / VBodDCVG / PBodDCVG;
+  CVLivDCVG = ALivDCVG / VLiv / PLivDCVG;
+  CVKidDCVG = AKidDCVG / VKid / PKidDCVG; 
+  CVBraDCVG = ABraDCVG / VBra / PBraDCVG; #(v2.1) 
+  CDCVG = (QBod * CVBodDCVG + QLiv * CVLivDCVG + QKid * CVKidDCVG + QBra * CVBraDCVG + QGutLiv * CVLivDCVG)/QCnow; #(v2.1)
+  
+  RAMetKidDCVG = (VMaxKidDCVG * CVKidDCVG) / (KMKidDCVG + CVKidDCVG); 
+  RAMetLivDCVG = (VMaxLivDCVG * CVLivDCVG) / (KMLivDCVG + CVLivDCVG); 
+
+  dt(ABodDCVG) = QBod * (CDCVG - CVBodDCVG);
+  dt(ABraDCVG) = QBra * (CDCVG - CVBraDCVG); 
+  dt(ALivDCVG) = QGutLiv * (CDCVG - CVLivDCVG) + StochDCVGTCE * RAMetLiv2 - RAMetLivDCVG; #(v2.1)
+  dt(AKidDCVG) = QKid * (CDCVG - CVKidDCVG) + StochDCVGTCE * RAMetKid - RAMetKidDCVG; #(v2.1)
+
+
 
 
 #******************************************************************************
@@ -1385,7 +1494,6 @@ CalcOutputs{
 	zAUrnTCA_sat = (AUrnTCA_sat < 1.0e-15 ? 1.0e-15 : AUrnTCA_sat);
 	zAUrnTCA_collect = (AUrnTCA_collect < 1.0e-15 ? 1.0e-15 : AUrnTCA_collect);
 # Other
-	zAUrnDCA =(AUrnDCA < 1.0e-15 ? 1.0e-15 : AUrnDCA); 
 # Misc
 	CVenMole = CVen / MWTCE; 
 	CPlasTCAMole = (CPlasTCAMole < 1.0e-15 ? 1.01e-15 : CPlasTCAMole);
