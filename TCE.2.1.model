@@ -26,6 +26,18 @@ States = {
 			# saturated measurements (for lower bounds) 
 	AUrnTCA_collect,# Cumulative Amount of TCA excreted in urine during
 			# collection times (for intermittent collection) 
+			
+##-- TCOG in body
+	ABodTCOG, 	# Amount of TCOG in lumped body compartment
+	ALivTCOG, 	# Amount of TCOG in liver
+    ABilTCOG,	# Amount of TCOG in bile (incl. gut)
+##-- TCOG excreted
+	AUrnTCOG,	# Amount of TCOG excreted in urine
+	AUrnTCOG_sat,	# Amount of TCOG excreted that during times that had
+			# saturated measurements (for lower bounds) 
+	AUrnTCOG_collect,# Cumulative Amount of TCA excreted in urine during			
+			
+			
 ##-- NAcTCVC and DCA excreted
 ABodTCOH, #(v2.1)
 ALivTCOH, #(v2.1)
@@ -58,7 +70,9 @@ Inputs = {
 ##-- Potentially time-varying parameters
 	QPmeas,		# Measured value of Alveolar ventilation QP 
 	TCAUrnSat,	# Flag for saturated TCA urine 
+	TCOGUrnSat, # Flag for saturated TCOG urine 
 	UrnMissing	# Flag for missing urine collection times 
+
 };
 
 #******************************************************************************
@@ -196,9 +210,15 @@ PSlw	= 1;	# PERC Slowly perfused/Blood partition coefficient
 TCAPlas	= 1;	# TCA blood/plasma concentration ratio
 PBodTCA	= 1;	# Free TCA Body/blood plasma partition coefficient
 PLivTCA	= 1;	# Free TCA Liver/blood plasma partition coefficient
-PBodTCOH= 1;	#v(2.1)
-PLivTCOH= 1;	#v(2.1) 
-#		
+
+# TCOH
+PBodTCOH= 1; #
+PLivTCOH= 1; #
+
+# TCOG
+PBodTCOG=1 ; #
+PLivTCOG=1 ; # 
+
 # TCA plasma binding		
 kDissoc	= 1;	# Protein/TCA dissociation constant (umole/L)
 BMax	= 1;	# Protein concentration (UNITS?)
@@ -243,6 +263,13 @@ kUrnTCA	= 1;	# Rate constant for TCA plasma->urine (/hr)
 kMetTCA	= 1;	# Rate constant for hepatic TCA->other (/hr)
 
 kMetLivTCOH = 1; #(v2.1)
+
+#******************************************************************************
+# TCOG metabolism/clearance
+kBil	= 1;	# Rate constant for TCOG liver->bile (/hr)
+kEHR	= 1;	# Lumped rate constant for TCOG bile->TCOH liver (/hr)
+kUrnTCOG	= 1;	# Rate constant for TCOG->urine (/hr)
+
 
 #******************************************************************************		
 # TCVC metabolism/clearance		
@@ -324,7 +351,9 @@ lnPBodTCAC	= 0.0;	# Scaled to species-specific central estimates
 lnPLivTCAC	= 0.0;	# Scaled to species-specific central estimates
 lnPBodTCOHC	= 0.0;	#(v2.1)
 lnPLivTCOHC	= 0.0;	#(v2.1)
-		
+lnPBodTCOGC	= 0.0;	#(v2.1)
+lnPLivTCOGC	= 0.0;	#(v2.1)
+
 # Plasma Binding for TCA		
 lnkDissocC	= 0.0;	# Scaled to species-specific central estimates
 lnBMaxkDC	= 0.0;	# Scaled to species-specific central estimates
@@ -351,10 +380,6 @@ lnClLivTCOH1C	= 0.0;	# Scaled by BW^0.75
 lnClLivTCOH2C	= 0.0;	# Scaled by BW^0.75
 lnkMetLivTCOHC	= 0.0;	# Scaled by BW^-0.25
 
-
-
-
-
 lnClC	= 0.0;	# Scaled to species-specific central estimates
 lnCl2OxC	= 0.0;	# Scaled to clearance of first pathway#(v2.0.0)
 lnFracOtherC	= -2.197;	# Ratio of oxidation of non-TCA to TCA
@@ -376,7 +401,12 @@ lnKMRespLivC	= 0.0;	# Ratio of lung to liver KM
 lnkUrnTCAC	= 0.0;	# Scaled by (plasma volume)^-1 and species-specific central estimates
 lnkMetTCAC	= 0.0;	# Scaled by BW^-0.25
 lnkTotTCAC	= 0.0;  # Scaling of both urine and other metabolism#(v2.0.0)
-		
+	
+# TCOG excretion and reabsorption
+lnkBilC	= 0.0;	# Scaled by BW^-0.25
+lnkEHRC	= 0.0;	# Scaled by BW^-0.25
+lnkUrnTCOGC	= 0.0;	# Scaled by (blood volume)^-1 and species-specific central estimates
+
 # TCVC metabolism		
 lnFracNATUrnC	= 0.0;	#
 lnFracDCAUrnC	= 0.0;	# # This is logit of fraction remaining after NAT
@@ -467,9 +497,6 @@ M_VKidC	= 1.0;
 M_VBldC	= 1.0;
 	
 	
-	
-	
-	
 M_PBC	= 1.0;
 M_PFatC	= 1.0;
 M_lnPGutC	= 1.0;
@@ -485,7 +512,9 @@ M_lnPBodTCAC	= 1.0;
 M_lnPLivTCAC	= 1.0;
 M_lnPBodTCOHC	= 1.0; #(2.1)
 M_lnPLivTCOHC	= 1.0; #(2.1)	
-	
+M_lnPBodTCOGC	= 1.0; #(2.1)
+M_lnPLivTCOGC	= 1.0; #(2.1)
+
 M_lnkDissocC	= 1.0;
 M_lnBMaxkDC	= 1.0;
 	
@@ -530,7 +559,11 @@ M_lnKMRespLivC	= 1.0;
 M_lnkUrnTCAC	= 1.0;
 M_lnkMetTCAC	= 1.0;
 M_lnkTotTCAC	= 1.0;#(v2.0.0)
-	
+
+# TCOG excretion and reabsorption
+M_lnkBilC	= 0.0;
+M_lnkEHRC	= 0.0;	
+M_lnkUrnTCOGC	= 0.0;		
 	
 M_lnFracNATUrnC	= 1.0;
 M_lnFracDCAUrnC	= 1.0;
@@ -600,7 +633,8 @@ V_lnPBodTCAC	= 1.0;
 V_lnPLivTCAC	= 1.0;
 V_lnPBodTCOHC	= 1.0; #(2.1)
 V_lnPLivTCOHC	= 1.0; #(2.1)
-	
+V_lnPBodTCOGC	= 1.0; #(2.1)
+V_lnPLivTCOGC	= 1.0; #(2.1)	
 	
 V_lnkDissocC	= 1.0;
 V_lnBMaxkDC	= 1.0;
@@ -632,8 +666,6 @@ V_lnClLivTCOH1C	= 1.0;	#(v2.1)
 V_lnClLivTCOH2C	= 1.0;	#(v2.1)
 V_lnkMetLivTCOHC	= 1.0;  #(v2.1)
 
-
-
 V_lnClTCVGC	= 1.0; 
 V_lnVMaxKidLivC	= 1.0;
 V_lnKMKidLivC	= 1.0;
@@ -650,8 +682,12 @@ V_lnISTCA = 1.0; # fraction to TCA
 V_lnkUrnTCAC	= 1.0;
 V_lnkMetTCAC	= 1.0;
 V_lnkTotTCAC	= 1.0;#(v2.0.0)
-	
-	
+
+# TCOG excretion and reabsorption
+V_lnkBilC	= 1.0;
+V_lnkEHRC	= 1.0;	
+V_lnkUrnTCOGC	= 1.0;	
+
 V_lnFracNATUrnC	= 1.0;
 V_lnFracDCAUrnC	= 1.0;
 V_lnkNATC	= 1.0;
@@ -688,8 +724,6 @@ Ve_zAExhpost	= 1;
 Ve_zRAExh	= 1;	
 Ve_TotMetab = 1;
 	
-	
-	
 Ve_CPlasTCA	= 1;
 Ve_CBldTCA	= 1;
 Ve_CBodTCA	= 1;
@@ -721,8 +755,10 @@ Ve_QPsamp	= 1;
 	DrinkTCA = 0.0; # Oral drinking water dose (mg/kg/d) of TCA
 ##-- Potentially time-varying parameters
 	QPmeas = 0.0;	# Measured value of Alveolar ventilation QP 
-	TCAUrnSat = 0.0;# Flag for saturated TCA urine 
+	TCAUrnSat = 0.0; # Flag for saturated TCA urine 
+	TCOGUrnSat = 0.0; 
 	UrnMissing = 0.0;# Flag for missing urine collection times 
+	
 
 Initialize {
 
@@ -884,7 +920,10 @@ Initialize {
 		(Species == 3 ? 1.11 : (Species == 2 ? 1.11 : 0.91 ));
     PLivTCOH = exp(lnPLivTCOHC) *
 		(Species == 3 ? 1.3 : (Species == 2 ? 1.3 : 0.59 ));
-		
+    PBodTCOG = exp(lnPBodTCOGC) *
+		(Species == 3 ? 1.11 : (Species == 2 ? 1.11 : 0.91 ));
+    PLivTCOG = exp(lnPLivTCOGC) *
+		(Species == 3 ? 1.3 : (Species == 2 ? 1.3 : 0.59 ));		
 
 # Binding Parameters for TCA
 	# GM of Lumpkin et al. 2003; Schultz et al. 1999;
@@ -1155,8 +1194,11 @@ Dynamics{
 
 #******************************************************************************
 #**** Plasma ******************************************************************
+StochTCATCE = MWTCA / MWTCE;	
+
 # Concentration of TCA in plasma (umoles/L)
-	CPlasTCA = (APlasTCA<1.0e-15 ? 1.0e-15 : APlasTCA/VPlas); 
+	CPlasTCA = (APlasTCA<1.0e-15 ? 1.0e-15 : APlasTCA/VPlas); # comment out for #(v1h)
+	## CPlasTCA = (kIVTCA + (QBodPlas*CVBodTCA) + (QGutLivPlas*CVLivTCA))/QCPlas; #(v1h)
 # Concentration of free TCA in plasma in (umoles/L)
 	CPlasTCAMole = (CPlasTCA / MWTCA) * 1000.0;
 	a = kDissoc+BMax-CPlasTCAMole;
@@ -1174,41 +1216,35 @@ Dynamics{
 # Total concentration in venous plasma (free+bound)
 	CVBodTCAFree = (CBodTCA / PBodTCA);	# free in equilibrium
 	CVBodTCA = CPlasTCABnd + CVBodTCAFree;
+#	CVBodTCA = (BMax+kDissoc + CVBodTCAFree)*CVBodTCAFree / #(v1g)
+#		(kDissoc + CVBodTCAFree);	#(v1g) total in equilibrium
 	CVLivTCAFree = (CLivTCA / PLivTCA);
 	CVLivTCA = CPlasTCABnd + CVLivTCAFree;	# free in equilibrium
-	
-	
+#	CVLivTCA = (BMax+kDissoc + CVLivTCAFree)*CVLivTCAFree / #(v1g)
+#		(kDissoc + CVLivTCAFree);	#(v1g) total in equilibrium
 # Rate of urinary excretion of TCA
-	RUrnTCAplas = kUrnTCA * APlasTCAFree;
+	RUrnTCA = kUrnTCA * APlasTCAFree;
 # Dynamics for amount of total (free+bound) TCA in plasma (mg)
-    dt(APlasTCA) = kIVTCA + (QBodPlas*CVBodTCA) + (QGutLivPlas*CVLivTCA) 
-			- (QCPlas * CPlasTCA) - RUrnTCAplas; 
+    dt(APlasTCA) = kIVTCA + (QBodPlas*CVBodTCA) + (QGutLivPlas*CVLivTCA) # comment out for #(v1h)
+			- (QCPlas * CPlasTCA) - RUrnTCA; # comment out for #(v1h)
 
 #**** Body ********************************************************************
 # Dynamics for amount of TCA in the body (mg)
-    dt(ABodTCA) = QBodPlas * (CPlasTCAFree - CVBodTCAFree) + 
-    		        StochTCAPERC*(1 - FracOther)*RAMetLng + 
-			StochTCAPERC*(1 - FracOther)*(1 - FracKidTCA)*RAMetKid;
-
+    dt(ABodTCA) = QBodPlas * (CPlasTCAFree - CVBodTCAFree);
 #**** Liver *******************************************************************
 # Rate of metabolism of TCA
 	RAMetTCA = kMetTCA * ALivTCA;
 # Dynamics for amount of TCA in the liver (mg)
-    dt(ALivTCA) = kPOTCA + QGutLivPlas*(CPlasTCAFree - CVLivTCAFree) 
-    		  + kDrinkTCA 
-			- RAMetTCA + ((1 - FracOther) * StochTCAPERC * 
-			RAMetLiv1); 
+    dt(ALivTCA) = kPOTCA + QGutLivPlas*(CPlasTCAFree - CVLivTCAFree) + kDrinkTCA 
+			- RAMetTCA + (FracTCA * StochTCATCE * RAMetLiv1); 
 
 #**** Urine *******************************************************************
 # Dynamics for amount of TCA in urine (mg)
-    RUrnTCA = RUrnTCAplas + StochTCAPERC*(1 - FracOther)*FracKidTCA*RAMetKid; 
-            # includes direct from kidney 
     dt(AUrnTCA) = RUrnTCA;
     dt(AUrnTCA_sat) = TCAUrnSat*(1-UrnMissing)* RUrnTCA; 
 		# Saturated, but not missing collection times 
     dt(AUrnTCA_collect) = (1-TCAUrnSat)*(1-UrnMissing)*RUrnTCA;
 		# Not saturated and not missing collection times 
-
 
 #******************************************************************************
 # Dynamics for amount of N Acetyl TCVC excreted (mg)
@@ -1248,7 +1284,7 @@ StochTCOHTCE = MWTCOH / MWTCE;
 # Rate of TCOH metabolized to other (e.g., DCA)
 	RAMetLivTCOH3 = kMetLivTCOH * ALivTCOH;
 # Rate of TCOH-Gluc recirculated (mg)
-#	RARecircTCOG = kEHR * ABileTCOG;
+	RARecircTCOG = kEHR * ABilTCOG;
 # Amount of TCOH in liver (mg)
     dt(ALivTCOH) =  QGutLiv * (CTCOH - CVLivTCOH) 
 		- RAMetLivTCOH3 - RAMetLivTCOH1 - RAMetLivTCOH2 
@@ -1256,9 +1292,43 @@ StochTCOHTCE = MWTCOH / MWTCE;
 #		+ (StochTCOHGluc * RARecircTCOG); 
 
 #******************************************************************************
+#***                       TCOG Sub-model                                   ***
+#******************************************************************************
+#**** Blood (venous=arterial) *************************************************
+StochGlucTCOH = MWTCOHGluc / MWTCOH;
+
+# Venous Concentrations (mg/L)
+	CVBodTCOG = ABodTCOG / VBodTCOH / PBodTCOG;
+	CVLivTCOG = ALivTCOG / VLiv / PLivTCOG;
+	CTCOG = (QBod * CVBodTCOG + QGutLiv * CVLivTCOG)/QCnow;
+#**** Body ********************************************************************
+# Amount of TCOG in body
+	RUrnTCOG = kUrnTCOG * ABodTCOG;
+    dt(ABodTCOG) = QBod * (CTCOG - CVBodTCOG) - RUrnTCOG;
+
+#**** Liver *******************************************************************
+# Amount of TCOG in liver (mg)
+	RBilTCOG = kBil * ALivTCOG;
+    dt(ALivTCOG) = QGutLiv * (CTCOG - CVLivTCOG) 
+		+ (StochGlucTCOH * RAMetLivTCOH2) - RBilTCOG;
+
+#**** Bile ********************************************************************
+# Amount of TCOH-Gluc excreted into bile (mg) 
+    dt(ABilTCOG) = RBilTCOG - RARecircTCOG;
+
+#**** Urine *******************************************************************
+# Amount of TCOH-Gluc excreted in urine (mg)
+    dt(AUrnTCOG) = RUrnTCOG;
+    dt(AUrnTCOG_sat) = TCOGUrnSat*(1-UrnMissing)*RUrnTCOG; 
+		# Saturated, but not missing collection times 
+    dt(AUrnTCOG_collect) = (1-TCOGUrnSat)*(1-UrnMissing)*RUrnTCOG;
+		# Not saturated and not missing collection times 
+
+
+#******************************************************************************
 #***                       Total Mass Balance                               ***
 #******************************************************************************
-#**** Mass Balance for PERC ****************************************************
+#**** Mass Balance for PERC ***************************************************
 # Total intake from inhalation (mg)
 	RInhDose = QM * CInh;
     dt(InhDose) = RInhDose;
