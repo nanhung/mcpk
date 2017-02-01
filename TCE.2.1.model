@@ -53,6 +53,16 @@ ALivDCVC,
 AKidDCVC,
 ABraDCVC,	
 
+##-- NADCVC
+ABodNADCVC,
+ALivNADCVC,
+AKidNADCVC,
+ABraNADCVC,
+##-- NADCVC excreted
+AUrnNADCVC,
+AUrnNADCVC_sat,
+AUrnNADCVC_col,
+
 ##-- Other states for PERC
 	ACh, 		# Amount in closed chamber -- mice and rats only
 	AExh, 		# Amount exhaled
@@ -78,7 +88,8 @@ Inputs = {
 ##-- Potentially time-varying parameters
 	QPmeas,		# Measured value of Alveolar ventilation QP 
 	TCAUrnSat,	# Flag for saturated TCA urine 
-	TCOGUrnSat, # Flag for saturated TCOG urine 
+	TCOGUrnSat, # Flag for saturated TCOG urine
+	NADCVCUrnSat, #(v2.1)
 	UrnMissing	# Flag for missing urine collection times 
 
 };
@@ -207,6 +218,7 @@ VBodTCOH = 1; #(v2.1)
 VBodTCOG = 1; #(v2.1)
 VBodDCVG = 1; #(v2.1)
 VBodDCVC = 1; #(v2.1)
+VBodNADCVC = 1; #(v2.1)
 
 #******************************************************************************		
 # Distribution/partitioning		
@@ -239,11 +251,17 @@ PLivDCVG =1 ; #
 PKidDCVG =1 ; #
 PBraDCVG =1 ; #
 
-#DCVG
+#DCVC
 PBodDCVC =1 ; #
 PLivDCVC =1 ; #
 PKidDCVC =1 ; #
 PBraDCVC =1 ; #
+
+#NADCVC
+PBodNADCVC =1 ; #
+PLivNADCVC =1 ; #
+PKidNADCVC =1 ; #
+PBraNADCVC =1 ; #
 
 # TCA plasma binding		
 kDissoc	= 1;	# Protein/TCA dissociation constant (umole/L)
@@ -310,6 +328,11 @@ VMaxKidDCVC	= 1;	#(v2.1)
 KMLivDCVC = 1; #(v2.1)
 KMKidDCVC = 1; #(v2.1)
 kMetKidDCVC = 1; #(v2.1)
+
+#******************************************************************************		
+# NADCVC clearance	
+kUrnNADCVC	= 1;#(v2.1)	
+
 
 #******************************************************************************
 # Closed chamber and other exposure parameters 
@@ -393,16 +416,22 @@ lnPBodTCOGC	= 0.0;	#(v2.1)
 lnPLivTCOGC	= 0.0;	#(v2.1)
 
 # DCVG
-lnPBodDCVG = 0.0;	#(v2.1)
-lnPLivDCVG = 0.0;	#(v2.1)
-lnPKidDCVG = 0.0;	#(v2.1)
-lnPBraDCVG = 0.0;	#(v2.1)
+lnPBodDCVGC = 0.0;	#(v2.1)
+lnPLivDCVGC = 0.0;	#(v2.1)
+lnPKidDCVGC = 0.0;	#(v2.1)
+lnPBraDCVGC = 0.0;	#(v2.1)
 
 # DCVC
-lnPBodDCVC = 0.0;	#(v2.1)
-lnPLivDCVC = 0.0;	#(v2.1)
-lnPKidDCVC = 0.0;	#(v2.1)
-lnPBraDCVC = 0.0;	#(v2.1)
+lnPBodDCVCC = 0.0;	#(v2.1)
+lnPLivDCVCC = 0.0;	#(v2.1)
+lnPKidDCVCC = 0.0;	#(v2.1)
+lnPBraDCVCC = 0.0;	#(v2.1)
+
+# NADCVC
+lnPBodNADCVCC = 0.0;	#(v2.1)
+lnPLivNADCVCC = 0.0;	#(v2.1)
+lnPKidNADCVCC = 0.0;	#(v2.1)
+lnPBraNADCVCC = 0.0;	#(v2.1)
 
 # Plasma Binding for TCA		
 lnkDissocC	= 0.0;	# Scaled to species-specific central estimates
@@ -481,6 +510,9 @@ lnkUrnTCOGC	= 0.0;	# Scaled by (blood volume)^-1 and species-specific central es
 NRodents	= 1;	# 
 VChC	= 1;	# 
 lnkLossC	= 0;	# 
+
+# NADCVC excretion
+lnkUrnNADCVCC	= 0.0; #(v2.1)
 
 #******************************************************************************
 # Hyper-Population means
@@ -589,6 +621,12 @@ M_lnPLivDCVCC = 1.0;	#(v2.1)
 M_lnPKidDCVCC = 1.0;	#(v2.1)
 M_lnPBraDCVCC = 1.0;	#(v2.1)
 
+# NADCVC
+M_lnPBodNADCVCC = 1.0;	#(v2.1)
+M_lnPLivNADCVCC = 1.0;	#(v2.1)
+M_lnPKidNADCVCC = 1.0;	#(v2.1)
+M_lnPBraNADCVCC = 1.0;	#(v2.1)
+
 #
 M_lnkDissocC	= 1.0;
 M_lnBMaxkDC	= 1.0;
@@ -631,6 +669,9 @@ M_lnKMKidDCVCC = 1.0; #(v2.1)
 M_lnClLivDCVCC = 1.0;
 M_lnClKidDCVCC = 1.0;
 M_lnkMetKidDCVCC = 1.0; #(v2.1)
+
+# NADCVC excretion
+M_lnkUrnNADCVCC	= 1.0; #(v2.1)
 
 #
 M_lnClC	= 1.0;
@@ -735,6 +776,12 @@ V_lnPLivDCVC = 0.0;	#(v2.1)
 V_lnPKidDCVC = 0.0;	#(v2.1)
 V_lnPBraDCVC = 0.0;	#(v2.1)
 
+# NADCVC
+V_lnPBodNADCVC = 0.0;	#(v2.1)
+V_lnPLivNADCVC = 0.0;	#(v2.1)
+V_lnPKidNADCVC = 0.0;	#(v2.1)
+V_lnPBraNADCVC = 0.0;	#(v2.1)
+
 #
 V_lnkDissocC	= 1.0;
 V_lnBMaxkDC	= 1.0;
@@ -773,6 +820,8 @@ V_lnClLivDCVCC = 1.0;
 V_lnClKidDCVCC = 1.0;
 V_lnkMetKidDCVCC = 1.0; #(v2.1)
 
+# NADCVC excretion
+V_lnkUrnNADCVCC	= 1.0; #(v2.1)
 
 #
 V_lnClC	= 1.0;
@@ -869,6 +918,7 @@ Ve_QPsamp	= 1;
 	QPmeas = 0.0;	# Measured value of Alveolar ventilation QP 
 	TCAUrnSat = 0.0; # Flag for saturated TCA urine 
 	TCOGUrnSat = 0.0; 
+	NADCVCUrnSat = 0.0; 
 	UrnMissing = 0.0;# Flag for missing urine collection times 
 	
 
@@ -999,6 +1049,7 @@ Initialize {
     VBodTCOG = VBodTCOH;
     VBodDCVG = VBodTCA + VRespEfftmp;
     VBodDCVC = VBodDCVG;
+    VBodDCVC = VBodDCVG;
 
        PB = (PBmeas > 0.0 ? PBmeas : (PBC * (Species == 3 ? 18.6 : (Species == 2 ? 15.1 : 14.7 )))); # Blood-air
        PFat = PFatC/PB *		# Fat/blood
@@ -1044,26 +1095,34 @@ Initialize {
 		(Species == 3 ? 1.3 : (Species == 2 ? 1.3 : 0.59 ));		
 
 # DCVG
-PBodDCVG = exp(lnPBodDCVG) *
+PBodDCVG = exp(lnPBodDCVGC) *
 (Species == 3 ? 1.11 : (Species == 2 ? 1.11 : 0.91 ));
-PLivDCVG = exp(lnPLivDCVG) *
+PLivDCVG = exp(lnPLivDCVGC) *
 (Species == 3 ? 1.11 : (Species == 2 ? 1.11 : 0.91 ));
-PKidDCVG = exp(lnPKidDCVG) *
+PKidDCVG = exp(lnPKidDCVGC) *
 (Species == 3 ? 1.11 : (Species == 2 ? 1.11 : 0.91 ));
-PBraDCVG = exp(lnPBraDCVG) *
+PBraDCVG = exp(lnPBraDCVGC) *
 (Species == 3 ? 1.11 : (Species == 2 ? 1.11 : 0.91 ));
 
 # DCVC
-PBodDCVC = exp(lnPBodDCVC) *
+PBodDCVC = exp(lnPBodDCVCC) *
 (Species == 3 ? 1.11 : (Species == 2 ? 1.11 : 0.91 ));
-PLivDCVC = exp(lnPLivDCVC) *
+PLivDCVC = exp(lnPLivDCVCC) *
 (Species == 3 ? 1.11 : (Species == 2 ? 1.11 : 0.91 ));
-PKidDCVC = exp(lnPKidDCVC) *
+PKidDCVC = exp(lnPKidDCVCC) *
 (Species == 3 ? 1.11 : (Species == 2 ? 1.11 : 0.91 ));
-PBraDCVC = exp(lnPBraDCVC) *
+PBraDCVC = exp(lnPBraDCVCC) *
 (Species == 3 ? 1.11 : (Species == 2 ? 1.11 : 0.91 ));
 
-
+# NADCVC
+PBodDCVC = exp(lnPBodNADCVCC) *
+(Species == 3 ? 1.11 : (Species == 2 ? 1.11 : 0.91 ));
+PLivDCVC = exp(lnPLivNADCVCC) *
+(Species == 3 ? 1.11 : (Species == 2 ? 1.11 : 0.91 ));
+PKidDCVC = exp(lnPKidNADCVCC) *
+(Species == 3 ? 1.11 : (Species == 2 ? 1.11 : 0.91 ));
+PBraDCVC = exp(lnPBraNADCVCC) *
+(Species == 3 ? 1.11 : (Species == 2 ? 1.11 : 0.91 ));
 
 
 # Binding Parameters for TCA
@@ -1169,7 +1228,6 @@ PBraDCVC = exp(lnPBraDCVC) *
 # PERC GSH Metabolism Constants - Kidney
 # 
 # Ratios to liver - Medium uncertainty
-
 
 # TCA kinetic parameters
 	# Central estimate based on GFR clearance per unit body weight
@@ -1501,6 +1559,28 @@ Dynamics{
   dt(ABraDCVC) = QBra * (CDCVC - CVBraDCVC); 
   dt(ALivDCVC) = QGutLiv * (CDCVC - CVLivDCVC) + StochDCVCDCVG * RAMetLivDCVG - RAMetLivDCVC; #(v2.1)
   dt(AKidDCVC) = QKid * (CDCVC - CVKidDCVC) + StochDCVCDCVG * RAMetKidDCVG - RAMetKidDCVC1 - RAMetKidDCVC2;
+
+  #******************************************************************************
+  #***                       NAcDCVC Sub-model   #(v2.1)                      ***
+  #******************************************************************************
+  #**** Blood (venous=arterial) *************************************************
+  # Venous Concentrations (mg/L)
+  CVBodNADCVC = ABodNADCVC / VBodNADCVC / PBodNADCVC;
+  CVLivNADCVC = ALivNADCVC / VLiv / PLivNADCVC;
+  CVKidNADCVC = AKidNADCVC / VKid / PKidNADCVC; 
+  CVBraNADCVC = ABraNADCVC / VBra / PBraNADCVC; 
+  CNADCVC = (QBod * CVBodNADCVC + QKid * CVKidNADCVC + QBra * CVBraNADCVC + QGutLiv * CVLivNADCVC)/QCnow; 
+
+  RUrnNADCVC = kUrnNADCVC * AKidNADCVC;
+  
+  dt(ABodNADCVC) = QBod * (CNADCVC - CVBodNADCVC);
+  dt(ABraNADCVC) = QBra * (CNADCVC - CVBraNADCVC); 
+  dt(ALivNADCVC) = QLiv * (CNADCVC - CVLivNADCVC) + StochN * RAMetLivDCVC;
+  dt(AKidNADCVC) = QKid * (CNADCVC - CVKidNADCVC) + StochN * RAMetKidDCVC1 - RUrnNADCVC;
+  
+  dt(AUrnNADCVC) = RUrnNADCVC;
+  dt(AUrnNADCVC_sat) = NADCVCUrnSat*(1-UrnMissing)*RUrnNADCVC; 
+  dt(AUrnNADCVC_col) = (1-NADCVCUrnSat)*(1-UrnMissing)*RUrnNADCVC;
 
 #******************************************************************************
 #***                       Total Mass Balance                               ***
