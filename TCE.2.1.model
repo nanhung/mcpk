@@ -47,7 +47,11 @@ ALivDCVG,
 AKidDCVG,
 ABraDCVG,
 
-			
+##-- DCVG			
+ABodDCVC,
+ALivDCVC,
+AKidDCVC,
+ABraDCVC,	
 
 ##-- Other states for PERC
 	ACh, 		# Amount in closed chamber -- mice and rats only
@@ -146,6 +150,7 @@ FracBndPlasTCA, # mouse - TCA fraction bound
 MWTCVC = 133;
 MWNATCVC = 133;
 MWDCVG = 402.25;    # DCVG #(V2.1) 
+MWDCVC = 216.1;     # DCVC
 MWTCE = 131.39;     # TCE
 MWTCOH = 149.5;     # TCOH
 MWTCOHGluc = 325.53; # TCOH-Gluc
@@ -156,9 +161,8 @@ MWTCA = 163.39;        # TCA
 StochTCATCE = MWTCA / MWTCE;
 StochTCVCPERC = MWTCVC / MWTCE;
 StochDCVGTCE = MWDCVG / MWTCE;
-
+StochDCVCDCVG = MWDCVC / MWDCVG;
 StochN = MWNATCVC / MWTCVC;
-
 StochGlucTCOH = MWTCOHGluc / MWTCOH;
 StochTCOHTCE = MWTCOH / MWTCE;
 
@@ -201,7 +205,9 @@ VPlas	= 1;	# Plasma compartment volume [fraction of blood] (L)
 VBodTCA	= 1;	# TCA Body compartment volume [not incl. blood+liver] (L)
 VBodTCOH = 1; #(v2.1)
 VBodTCOG = 1; #(v2.1)
-VBodDCVG = 1;
+VBodDCVG = 1; #(v2.1)
+VBodDCVC = 1; #(v2.1)
+
 #******************************************************************************		
 # Distribution/partitioning		
 PB	= 1;	# PERC Blood/air partition coefficient
@@ -233,6 +239,11 @@ PLivDCVG =1 ; #
 PKidDCVG =1 ; #
 PBraDCVG =1 ; #
 
+#DCVG
+PBodDCVC =1 ; #
+PLivDCVC =1 ; #
+PKidDCVC =1 ; #
+PBraDCVC =1 ; #
 
 # TCA plasma binding		
 kDissoc	= 1;	# Protein/TCA dissociation constant (umole/L)
@@ -287,11 +298,18 @@ kUrnTCOG	= 1;	# Rate constant for TCOG->urine (/hr)
 
 #******************************************************************************		
 # DCVG metabolism/clearance	
-VMaxLivDCVG= 1;	# VMax TCE->TCA (mg/hr)
-VMaxKidDCVG	= 1;	# VMax for hepatic PERC GSH conjugation (mg/hr)
+VMaxLivDCVG= 1;	 #(v2.1)
+VMaxKidDCVG	= 1; #(v2.1)
 KMLivDCVG = 1; #(v2.1)
 KMKidDCVG = 1; #(v2.1)
 
+#******************************************************************************		
+# DCVC metabolism/clearance	
+VMaxLivDCVC = 1;	#(v2.1)
+VMaxKidDCVC	= 1;	#(v2.1)
+KMLivDCVC = 1; #(v2.1)
+KMKidDCVC = 1; #(v2.1)
+kMetKidDCVC = 1; #(v2.1)
 
 #******************************************************************************
 # Closed chamber and other exposure parameters 
@@ -374,11 +392,17 @@ lnPLivTCOHC	= 0.0;	#(v2.1)
 lnPBodTCOGC	= 0.0;	#(v2.1)
 lnPLivTCOGC	= 0.0;	#(v2.1)
 
-#
+# DCVG
 lnPBodDCVG = 0.0;	#(v2.1)
 lnPLivDCVG = 0.0;	#(v2.1)
 lnPKidDCVG = 0.0;	#(v2.1)
 lnPBraDCVG = 0.0;	#(v2.1)
+
+# DCVC
+lnPBodDCVC = 0.0;	#(v2.1)
+lnPLivDCVC = 0.0;	#(v2.1)
+lnPKidDCVC = 0.0;	#(v2.1)
+lnPBraDCVC = 0.0;	#(v2.1)
 
 # Plasma Binding for TCA		
 lnkDissocC	= 0.0;	# Scaled to species-specific central estimates
@@ -413,6 +437,16 @@ lnKMKidDCVGC = 0.0; #(2.1)
 lnKMLivDCVGC = 0.0; #(2.1)
 lnClLivDCVGC = 0.0;
 lnClKidDCVGC = 0.0;
+
+# DCVC
+lnVMaxLivDCVCC = 0.0;	#(v2.1)
+lnVMaxKidDCVCC = 0.0;	#(v2.1)
+lnKMLivDCVCC = 0.0; #(v2.1)
+lnKMKidDCVCC = 0.0; #(v2.1)
+lnClLivDCVCC = 0.0;
+lnClKidDCVCC = 0.0;
+lnkMetKidDCVCC = 0.0; #(v2.1)
+
 
 
 #
@@ -549,9 +583,13 @@ M_lnPLivDCVGC = 1.0;	#(v2.1)
 M_lnPKidDCVGC = 1.0;	#(v2.1)
 M_lnPBraDCVGC = 1.0;	#(v2.1)
 
+# DCVC
+M_lnPBodDCVCC = 1.0;	#(v2.1)
+M_lnPLivDCVCC = 1.0;	#(v2.1)
+M_lnPKidDCVCC = 1.0;	#(v2.1)
+M_lnPBraDCVCC = 1.0;	#(v2.1)
 
-
-
+#
 M_lnkDissocC	= 1.0;
 M_lnBMaxkDC	= 1.0;
 	
@@ -575,9 +613,9 @@ M_lnKMLiv2C	= 1.0; #(2.1)
 #
 M_lnClLivTCOH1C	= 1.0;	
 M_lnClLivTCOH2C	= 1.0;	
-M_lnkMetLivTCOHC	= 0.0;
-#
+M_lnkMetLivTCOHC = 0.0;
 
+# DCVG
 M_lnVMaxKidDCVGC = 1.0; #(2.1)
 M_lnVMaxLivDCVGC = 1.0; #(2.1)
 M_lnKMKidDCVGC = 1.0; #(2.1)
@@ -585,8 +623,16 @@ M_lnKMLivDCVGC = 1.0; #(2.1)
 M_lnClLivDCVGC = 1.0;
 M_lnClKidDCVGC = 1.0;
 
+# DCVC
+M_lnVMaxLivDCVCC = 1.0;	#(v2.1)
+M_lnVMaxKidDCVCC = 1.0;	#(v2.1)
+M_lnKMLivDCVCC = 1.0; #(v2.1)
+M_lnKMKidDCVCC = 1.0; #(v2.1)
+M_lnClLivDCVCC = 1.0;
+M_lnClKidDCVCC = 1.0;
+M_lnkMetKidDCVCC = 1.0; #(v2.1)
 
-
+#
 M_lnClC	= 1.0;
 M_lnCl2OxC	= 1.0;#(v2.0.0)
 M_lnFracOtherC	= 1.0;
@@ -683,6 +729,12 @@ V_lnPLivDCVG = 0.0;	#(v2.1)
 V_lnPKidDCVG = 0.0;	#(v2.1)
 V_lnPBraDCVG = 0.0;	#(v2.1)
 
+# DCVC
+V_lnPBodDCVC = 0.0;	#(v2.1)
+V_lnPLivDCVC = 0.0;	#(v2.1)
+V_lnPKidDCVC = 0.0;	#(v2.1)
+V_lnPBraDCVC = 0.0;	#(v2.1)
+
 #
 V_lnkDissocC	= 1.0;
 V_lnBMaxkDC	= 1.0;
@@ -703,6 +755,7 @@ V_lnVMaxLivTCOH1C	= 1.0;
 V_lnVMaxLivTCOH2C	= 1.0; 
 V_lnKMLivTCOH1C	= 1.0; 
 V_lnKMLivTCOH2C	= 1.0; 
+
 #
 V_lnVMaxKidDCVGC = 1.0; #(2.1)
 V_lnVMaxLivDCVGC = 1.0; #(2.1)
@@ -710,6 +763,15 @@ V_lnKMKidDCVGC = 1.0; #(2.1)
 V_lnKMLivDCVGC = 1.0; #(2.1)
 V_lnClLivDCVGC = 1.0;
 V_lnClKidDCVGC = 1.0;
+
+# DCVC
+V_lnVMaxLivDCVCC = 1.0;	#(v2.1)
+V_lnVMaxKidDCVCC = 1.0;	#(v2.1)
+V_lnKMLivDCVCC = 1.0; #(v2.1)
+V_lnKMKidDCVCC = 1.0; #(v2.1)
+V_lnClLivDCVCC = 1.0;
+V_lnClKidDCVCC = 1.0;
+V_lnkMetKidDCVCC = 1.0; #(v2.1)
 
 
 #
@@ -936,6 +998,7 @@ Initialize {
     VBodTCOH = VBodTCA + VBld; #(v2.1)
     VBodTCOG = VBodTCOH;
     VBodDCVG = VBodTCA + VRespEfftmp;
+    VBodDCVC = VBodDCVG;
 
        PB = (PBmeas > 0.0 ? PBmeas : (PBC * (Species == 3 ? 18.6 : (Species == 2 ? 15.1 : 14.7 )))); # Blood-air
        PFat = PFatC/PB *		# Fat/blood
@@ -990,7 +1053,15 @@ PKidDCVG = exp(lnPKidDCVG) *
 PBraDCVG = exp(lnPBraDCVG) *
 (Species == 3 ? 1.11 : (Species == 2 ? 1.11 : 0.91 ));
 
-
+# DCVC
+PBodDCVC = exp(lnPBodDCVC) *
+(Species == 3 ? 1.11 : (Species == 2 ? 1.11 : 0.91 ));
+PLivDCVC = exp(lnPLivDCVC) *
+(Species == 3 ? 1.11 : (Species == 2 ? 1.11 : 0.91 ));
+PKidDCVC = exp(lnPKidDCVC) *
+(Species == 3 ? 1.11 : (Species == 2 ? 1.11 : 0.91 ));
+PBraDCVC = exp(lnPBraDCVC) *
+(Species == 3 ? 1.11 : (Species == 2 ? 1.11 : 0.91 ));
 
 
 
@@ -1044,8 +1115,14 @@ PBraDCVG = exp(lnPBraDCVG) *
 		(Species == 3 ? (exp(lnVMaxKidDCVGC)) : (Species == 2 ? (exp(lnVMaxKidDCVGC)) : (exp(lnClKidDCVGC+lnKMKidDCVGC))));
 	KMKidDCVG = exp(lnKMKidDCVGC);
 
-
-
+# DCVC Metabolism Constants (mg/hr)
+	VMaxLivDCVC = BW75*
+		(Species == 3 ? (exp(lnVMaxLivDCVCC)) : (Species == 2 ? (exp(lnVMaxLivDCVCC)) : (exp(lnClLivDCVCC+lnKMLivDCVCC))));
+	KMLivDCVC = exp(lnKMLivDCVCC);
+	VMaxKidDCVC = BW75*
+		(Species == 3 ? (exp(lnVMaxKidDCVCC)) : (Species == 2 ? (exp(lnVMaxKidDCVCC)) : (exp(lnClKidDCVCC+lnKMKidDCVCC))));
+	KMKidDCVC = exp(lnKMKidDCVCC);
+	kMetKidDCVC = exp(lnkMetKidDCVCC) / BW25;
 
 
 # Oxidative metabolism splits
@@ -1393,8 +1470,8 @@ Dynamics{
   CVBraDCVG = ABraDCVG / VBra / PBraDCVG; #(v2.1) 
   CDCVG = (QBod * CVBodDCVG + QLiv * CVLivDCVG + QKid * CVKidDCVG + QBra * CVBraDCVG + QGutLiv * CVLivDCVG)/QCnow; #(v2.1)
   
-  RAMetKidDCVG = (VMaxKidDCVG * CVKidDCVG) / (KMKidDCVG + CVKidDCVG); 
   RAMetLivDCVG = (VMaxLivDCVG * CVLivDCVG) / (KMLivDCVG + CVLivDCVG); 
+  RAMetKidDCVG = (VMaxKidDCVG * CVKidDCVG) / (KMKidDCVG + CVKidDCVG); 
 
   dt(ABodDCVG) = QBod * (CDCVG - CVBodDCVG);
   dt(ABraDCVG) = QBra * (CDCVG - CVBraDCVG); 
@@ -1402,7 +1479,28 @@ Dynamics{
   dt(AKidDCVG) = QKid * (CDCVG - CVKidDCVG) + StochDCVGTCE * RAMetKid - RAMetKidDCVG; #(v2.1)
 
 
+  #******************************************************************************
+  #***                       DCVC Sub-model      (v2.1)                       ***
+  #******************************************************************************
+  #**** Blood (venous=arterial) *************************************************
+  # Venous Concentrations (mg/L)
+  CVBodDCVC = ABodDCVC / VBodDCVC / PBodDCVC;
+  CVLivDCVC = ALivDCVC / VLiv / PLivDCVC;
+  CVKidDCVC = AKidDCVC / VKid / PKidDCVC; 
+  CVBraDCVC = ABraDCVC / VBra / PBraDCVC; #(v2.1)
+  CDCVC = (QBod * CVBodDCVC + QKid * CVKidDCVC + QBra * CVBraDCVC + QGutLiv * CVLivDCVG)/QCnow; #(v2.1)
 
+  # Rate of metabolized of DCVC to NADCVC (mg/hr)
+  RAMetLivDCVC = (VMaxLivDCVC * CVLivDCVC) / (KMLivDCVC + CVLivDCVC); 
+  # Rate of Mercapturate of DCVC to NADCVC (mg/hr)	
+  RAMetKidDCVC1 = (VMaxKidDCVC * CVKidDCVC)/(KMKidDCVC + CVKidDCVC);
+  # Rate of Bio-activation of DCVC (mg/hr)
+  RAMetKidDCVC2 = kMetKidDCVC * AKidDCVC;
+  
+  dt(ABodDCVC) = QBod * (CDCVC - CVBodDCVC);
+  dt(ABraDCVC) = QBra * (CDCVC - CVBraDCVC); 
+  dt(ALivDCVC) = QGutLiv * (CDCVC - CVLivDCVC) + StochDCVCDCVG * RAMetLivDCVG - RAMetLivDCVC; #(v2.1)
+  dt(AKidDCVC) = QKid * (CDCVC - CVKidDCVC) + StochDCVCDCVG * RAMetKidDCVG - RAMetKidDCVC1 - RAMetKidDCVC2;
 
 #******************************************************************************
 #***                       Total Mass Balance                               ***
