@@ -1,8 +1,9 @@
 States = {
-##-- PERC uptake
-	AStom,		# Amount of PERC in stomach (oil)
+##-- ##-- TCE uptake
+	AStom,		# Amount of TCE in stomach (oil)
 	ADuod,		# oral gavage absorption (oil) -- mice and rats only
-	InhDose,	# Amount inhaled 
+	InhDose,	# Amount inhaled
+	
 ##-- PERC in the body
 	ARap,		# Amount in rapidly perfused tissues
 	ASlw,		# Amount in slowly perfused tissues
@@ -15,6 +16,12 @@ States = {
 	AInhResp,	# Amount in respiratory lumen during inhalation
 	AResp,		# Amount in respiratory tissue
 	AExhResp,	# Amount in respiratory lumen during exhalation
+
+##-- DCA in body
+        ADCA,	        # Amount in central compartment#(v2.0)
+        ADCAper,	# Amount in peripheral compartment#(v2.0)
+
+
 ##-- TCA in the body
 	AStomTCA,	# Amount of TCA in stomach
 	APlasTCA,	# Amount of TCA in plasma #comment out for
@@ -62,6 +69,9 @@ ABraNADCVC,
 AUrnNADCVC,
 AUrnNADCVC_sat,
 AUrnNADCVC_col,
+
+##-- Metabolism
+	AMetLiv1,	# Amount metabolized by P450 in liver#(vrisk)
 
 ##-- Other states for PERC
 	ACh, 		# Amount in closed chamber -- mice and rats only
@@ -145,6 +155,14 @@ zAUrnTCA_collect,	# human - TCA measurements for intermittent collection
 zAUrnTCA_sat,	# human - Saturated TCA measurements
 FracBndPlasTCA, # mouse - TCA fraction bound
 
+CDCAmol,		# concentration of DCA (mmol/l) #(v2.0)
+CDCAmol0,	# Dummy variable without likelihood (for plotting)#(v2.0)
+CDCA_ND,	# Non-detect of DCA (<0.01 nmol/ml= 1e-5 mmol/l )#(v2.0)
+		# Output -ln(likelihood)#(v2.0)
+
+	TotDCAProd,	# Amount DCA produced in mg DCA #(vrisk)
+
+
 # Other
 
   RAO,
@@ -163,6 +181,8 @@ MWNATCVC = 133;
 MWDCVG = 402.25;    # DCVG #(V2.1) 
 MWDCVC = 216.1;     # DCVC
 MWTCE = 131.39;     # TCE
+        MWDCA = 129.0;        # DCA
+
 MWTCOH = 149.5;     # TCOH
 MWTCOHGluc = 325.53; # TCOH-Gluc
 MWTCA = 163.39;        # TCA
@@ -170,6 +190,7 @@ MWTCA = 163.39;        # TCA
 
 # Stoichiometry
 StochTCATCE = MWTCA / MWTCE;
+   StochDCATCE = MWDCA / MWTCE;
 StochTCVCPERC = MWTCVC / MWTCE;
 StochDCVGTCE = MWDCVG / MWTCE;
 StochDCVCDCVG = MWDCVC / MWDCVG;
@@ -219,7 +240,7 @@ VBodTCOG = 1; #(v2.1)
 VBodDCVG = 1; #(v2.1)
 VBodDCVC = 1; #(v2.1)
 VBodNADCVC = 1; #(v2.1)
-
+VDCA	= 1;	# DCA effective volume of distribution (central compartment)#(v2.0)
 #******************************************************************************		
 # Distribution/partitioning		
 PB	= 1;	# PERC Blood/air partition coefficient
@@ -269,6 +290,10 @@ BMax	= 1;	# Protein concentration (UNITS?)
 
 # Inter-strain scaling - relative to B6C3F1
 lnISTCA = 0.0; # fraction to TCA
+
+#******************************************************************************
+# DCA background
+DCABgd = 0; # mg/kg/d
 	
 #******************************************************************************		
 # Oral absorption		
@@ -300,7 +325,13 @@ FracKidTCA	= 1;	# Fraction of renal PERC TCA "directly" to urine(i.e., via first
 VMaxClara	= 1;	# VMax for Tracheo-bronchial PERC oxidation (mg/hr)
 KMClara	= 1;	# KM for Tracheo-bronchial PERC oxidation (mg/L) but in units of air concentration
 #		
-#		
+#	
+#******************************************************************************
+# DCA metabolism/clearance#(v2.0)
+kClearDCA	= 1;	# Rate constant for DCA elimination (/hr)#(v2.0)
+kDCAcen_per	= 1;	# Rate constant for DCA central->peripheral (/hr)#(v2.0)
+kDCAper_cen	= 1;	# Rate constant for DCA peripheral->central (/hr)#(v2.0)
+
 #******************************************************************************		
 # TCA metabolism/clearance		
 kUrnTCA	= 1;	# Rate constant for TCA plasma->urine (/hr)
@@ -355,6 +386,12 @@ BWmeas	= 0.0;	# Body weight
 VFatCmeas	= 0.0; # Fractional volume fat
 PBmeas	= 0.0;	# Measured blood-air partition coefficient
 Hematocritmeas = 0.0; # Measured hematocrit -- used for FracPlas = 1 - HCt
+
+#******************************************************************************
+#***                  Potentially measured covariates (constants)           ***
+#******************************************************************************
+
+CDCAmolLD = 1e-5; # Detection limit of CDCAmol (in mmol/L)#(v2.0)
 
 #******************************************************************************
 #***                  Global Sampling Parameters                            ***
@@ -436,6 +473,9 @@ lnPBraNADCVCC = 0.0;	#(v2.1)
 # Plasma Binding for TCA		
 lnkDissocC	= 0.0;	# Scaled to species-specific central estimates
 lnBMaxkDC	= 0.0;	# Scaled to species-specific central estimates
+
+#
+lnPeffDCA	= 0.0;	# Scaled to species-specific central estimates#(v2.0)
 		
 # Oral Absorption rates		
 lnkAS	= 0.336;	
@@ -443,6 +483,9 @@ lnkTSD	= 0.336;
 lnkAD	= -0.288;	
 lnkASTCA	= -0.288;	
 lnFracAbsTCAC	= 2.94;
+
+# Background rates
+lnDCABgd = -30;
 		
 # PERC Metabolism		
 lnVMaxLiv1C	= 0.0;	# Scaled by liver weight and species-specific central estimates
@@ -476,6 +519,10 @@ lnClLivDCVCC = 0.0;
 lnClKidDCVCC = 0.0;
 lnkMetKidDCVCC = 0.0; #(v2.1)
 
+# Inter-strain scaling - relative to B6C3F1
+
+lnISDCA = 0.0; # fraction to DCA
+lnISkDCA = 0.0; # DCA metabolism/clearance
 
 
 #
@@ -500,6 +547,11 @@ lnKMRespLivC	= 0.0;	# Ratio of lung to liver KM
 lnkUrnTCAC	= 0.0;	# Scaled by (plasma volume)^-1 and species-specific central estimates
 lnkMetTCAC	= 0.0;	# Scaled by BW^-0.25
 lnkTotTCAC	= 0.0;  # Scaling of both urine and other metabolism#(v2.0.0)
+
+# DCA metabolism/clearance#(v2.0)
+lnkClearDCAC	= 0;	# Scaled by BW^-0.25#(v2.0)
+lnkDCAcen_perC	= 0;	# Scaled by BW^-0.25#(v2.0)
+lnkDCAper_cenC	= 0;	# Scaled by BW^-0.25#(v2.0)
 	
 # TCOG excretion and reabsorption
 lnkBilC	= 0.0;	# Scaled by BW^-0.25
@@ -574,7 +626,13 @@ M_QKidC	= 1.0;
 M_QLngC	= 1.0; #(v2.1)
 M_FracPlasC	= 1.0;
 M_lnDRespC	= 1.0;
-	
+
+M_lnPeffDCA	= 1.0;#(v2.0)
+M_lnISDCA = 0.0; # fraction to DCA
+M_lnISkDCA = 0.0; # DCA metabolism/clearance
+M_lnkClearDCAC	= 1.0;#(v2.0)
+M_lnkDCAcen_perC	= 1.0;#(v2.0)
+M_lnkDCAper_cenC	= 1.0;#(v2.0)	
 	
 M_VFatC	= 1.0;
 M_VGutC	= 1.0;
@@ -721,6 +779,12 @@ M_lnISTCA = 0.0; # fraction to TCA
 V_lnQCC	= 1.0;
 V_lnVPRC	= 1.0;
 	
+V_lnPeffDCA	= 1.0;#(v2.0)
+V_lnISDCA = 1.0; # fraction to DCA
+V_lnISkDCA = 1.0; # DCA metabolism/clearance
+V_lnkClearDCAC	= 1.0;#(v2.0)
+V_lnkDCAcen_perC	= 1.0;#(v2.0)
+V_lnkDCAper_cenC	= 1.0;#(v2.0)	
 	
 V_QFatC	= 1.0;
 V_QGutC	= 1.0;
@@ -897,6 +961,7 @@ Ve_zAUrnTCA	= 1;
 Ve_zAUrnTCA_collect	= 1;
 Ve_zAUrnTCA_sat	= 1;
 	
+Ve_CDCAmol	= 1;#(v2.0)
 	
 Ve_QPsamp	= 1;
 
@@ -1044,6 +1109,7 @@ Initialize {
 
 
        VPlas = FracPlas * VBld;
+    VBod = VFat + VGut + VRap + VRespEfftmp + VKid + VSlw; # For DCA
 	VBodTCA = VFat + VGut + VRap + VSlw; # For TCA
     VBodTCOH = VBodTCA + VBld; #(v2.1)
     VBodTCOG = VBodTCOH;
@@ -1067,6 +1133,14 @@ Initialize {
 		(Species == 3 ? 79.1 : (Species == 2 ? 32.7 : 58.6 ));
        PSlw = exp(lnPSlwC)/PB * 		# Slowly perfused/blood
 		(Species == 3 ? 79.1 : (Species == 2 ? 21.6 : 70.5 ));
+
+# DCA distribution volume#(v2.0)
+	# exp(lnPeffDCA) is the effective partition coefficient for#(v2.0)
+	# the "body" (non-blood) compartment#(v2.0)
+	# Diffuse prior distribution: loguniform 1e-3 to 1e3#(v2.0)
+	VDCA = VBld +  	# blood plus body (with "effective" PC)#(v2.0)
+	exp(lnPeffDCA) * (VBod + VLiv);#(v2.0)
+
 
 # TCA partitioning
     TCAPlas = FracPlas + (1 - FracPlas) * 0.5 * exp(lnPRBCPlasTCAC);
@@ -1123,6 +1197,10 @@ PKidDCVC = exp(lnPKidNADCVCC) *
 (Species == 3 ? 1.11 : (Species == 2 ? 1.11 : 0.91 ));
 PBraDCVC = exp(lnPBraNADCVCC) *
 (Species == 3 ? 1.11 : (Species == 2 ? 1.11 : 0.91 ));
+
+
+# Background
+	DCABgd = (lnDCABgd > -30 ? exp(lnDCABgd) : 0);
 
 
 # Binding Parameters for TCA
@@ -1185,11 +1263,12 @@ PBraDCVC = exp(lnPBraNADCVCC) *
 
 
 # Oxidative metabolism splits
-	# Fractional split of PERC to TCA
-	# exp(lnFracOtherC) = ratio of non-TCA to TCA
-	# Diffuse prior distribution in logit(fraction) from 
-	# fraction=0.01 to 0.5
-	FracOther = exp(lnFracOtherC)/(1+exp(lnFracOtherC));
+	# Fractional split of TCE to DCA
+	# exp(lnFracOtherC) = ratio of DCA to non-DCA
+	# Diffuse prior distribution: loguniform 1e-4 to 1e2
+	FracOther = exp(lnISDCA) * exp(lnFracOtherC)/(1+exp(lnFracOtherC));
+	
+	
 	FracTCA = 0.32*exp(lnISTCA+lnFracTCAC)*(1-FracOther)/
 		(1+0.32*exp(lnISTCA+lnFracTCAC));
 	# Fractional split of PERC to TCA
@@ -1228,6 +1307,13 @@ PBraDCVC = exp(lnPBraNADCVCC) *
 # PERC GSH Metabolism Constants - Kidney
 # 
 # Ratios to liver - Medium uncertainty
+
+# DCA Kinetics (/hr)#(v2.0)
+        # add interstrain variability
+	kClearDCA = exp(lnISkDCA) * exp(lnkClearDCAC) / BW25;#(v2.0)
+	kDCAcen_per = exp(lnkDCAcen_perC) / BW25;#(v2.0)
+	kDCAper_cen = exp(lnkDCAper_cenC) / BW25;#(v2.0)
+
 
 # TCA kinetic parameters
 	# Central estimate based on GFR clearance per unit body weight
@@ -1396,6 +1482,18 @@ Dynamics{
 	RAMetKid = (VMaxKid * CVKid) / (KMKid + CVKid);
 # Amount of PERC in kidney compartment (mg)
     dt(AKid) = (QKid * (CArt - CVKid)) - RAMetKid;
+
+#******************************************************************************
+#***                       DCA Sub-model                                    ***
+#******************************************************************************
+# Amount of DCA in central compartment (mg)
+    dt(ADCA) = DCABgd * BW / 24 + #(v2.0) DCA background in mg/kg/d
+		(FracOther * StochDCATCE * RAMetLiv1) - (kClearDCA * ADCA) -
+     	     kDCAcen_per * ADCA + kDCAper_cen * ADCAper;
+# Amount of DCA in peripheral compartment (mg)
+    dt(ADCAper) = kDCAcen_per * ADCA - kDCAper_cen * ADCAper;
+# Concentration of DCA in blood (in mmoles/l)
+	CDCAmol = ADCA / MWDCA / VDCA;
 
 #******************************************************************************
 #***                       TCA Sub-model                                    ***
@@ -1582,6 +1680,7 @@ Dynamics{
   dt(AUrnNADCVC_sat) = NADCVCUrnSat*(1-UrnMissing)*RUrnNADCVC; 
   dt(AUrnNADCVC_col) = (1-NADCVCUrnSat)*(1-UrnMissing)*RUrnNADCVC;
 
+
 #******************************************************************************
 #***                       Total Mass Balance                               ***
 #******************************************************************************
@@ -1603,6 +1702,8 @@ Dynamics{
 # Mass balance
 #	PERCDiff = TotDose - TotTissue - TotMetab; #(vrisk)
 #	MassBalPERC = PERCDiff - AExh; #(vrisk)
+ dt(AMetLiv1) = RAMetLiv1;
+TotDCAProd = FracOther * StochDCATCE * AMetLiv1;#(vrisk)
 
 
 #******************************************************************************
@@ -1677,6 +1778,12 @@ CalcOutputs{
 	CPlasTCAMole = (CPlasTCAMole < 1.0e-15 ? 1.01e-15 : CPlasTCAMole);
 	CPlasTCAFreeMole = (CPlasTCAFreeMole < 1.0e-15 ? 1.0e-15 : CPlasTCAFreeMole);
 	FracBndPlasTCA = (CPlasTCAMole-CPlasTCAFreeMole)/CPlasTCAMole;
+	
+	# DCA#(v2.0)
+	CDCAmol = (CDCAmol < 1.0e-15 ? 1.0e-15 : CDCAmol);#(v2.0)
+	CDCAmol0 = CDCAmol;#(v2.0)
+		# Assuming LD = 3*sigma_blank, Normally distributed#(v2.0)
+	CDCA_ND = ( CDCA_NDtmp < 1.0 ? ( CDCA_NDtmp >= 1e-100 ? -log(CDCA_NDtmp) : -log(1e-100)) : 1e-100 );#(v2.0)
 
 };
 
