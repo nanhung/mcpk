@@ -157,8 +157,7 @@ FracBndPlasTCA, # mouse - TCA fraction bound
 
 CDCAmol,		# concentration of DCA (mmol/l) #(v2.0)
 CDCAmol0,	# Dummy variable without likelihood (for plotting)#(v2.0)
-CDCA_ND,	# Non-detect of DCA (<0.01 nmol/ml= 1e-5 mmol/l )#(v2.0)
-		# Output -ln(likelihood)#(v2.0)
+
 
 	TotDCAProd,	# Amount DCA produced in mg DCA #(vrisk)
 
@@ -290,6 +289,8 @@ BMax	= 1;	# Protein concentration (UNITS?)
 
 # Inter-strain scaling - relative to B6C3F1
 lnISTCA = 0.0; # fraction to TCA
+
+FracLungSys	= 1;	#(v1.2) Fraction of respiratory oxidative metabolism that enters systemic circulation
 
 #******************************************************************************
 # DCA background
@@ -542,6 +543,7 @@ lnClKidLivTCVGC	= 0.0;	# Ratio of kidney Cl to liver Cl, Scaled to species-speci
 lnVMaxLungLivC	= 0.0;	# Ratio of lung Vmax to liver Vmax, scaled to species-specific central estimates
 lnKMRespLivC	= 0.0;	# Ratio of lung to liver KM
 		
+lnFracLungSysC	= 0.0;	#(v1.2) ratio of systemic to local clearance of lung oxidation
 		
 # TCA Metabolism/clearance		
 lnkUrnTCAC	= 0.0;	# Scaled by (plasma volume)^-1 and species-specific central estimates
@@ -616,7 +618,7 @@ M_M_lnKMRespLivC	= 1.0;
 # Population Mean Parameter	
 M_lnQCC	= 1.0;
 M_lnVPRC	= 1.0;
-	
+M_lnFracLungSysC	= 1.0;
 	
 M_QFatC	= 1.0;
 M_QGutC	= 1.0;
@@ -786,6 +788,8 @@ V_lnkClearDCAC	= 1.0;#(v2.0)
 V_lnkDCAcen_perC	= 1.0;#(v2.0)
 V_lnkDCAper_cenC	= 1.0;#(v2.0)	
 	
+V_lnFracLungSysC	= 1.0;
+
 V_QFatC	= 1.0;
 V_QGutC	= 1.0;
 V_QLivC	= 1.0;
@@ -1296,7 +1300,7 @@ PBraDCVC = exp(lnPBraNADCVCC) *
    VMaxClara = exp(lnVMaxLungLivC) * VMaxLiv1 *
 	(Species == 3 ? (0.55*0.7/5.5):(Species == 2 ? (0.098*0.5/3.4):(0.046*(Male == 0 ? (0.42/1.4) : (0.5/1.8)))));
    KMClara = KMLiv1 * PLiv * exp(lnKMRespLivC) / (PB * PResp);
-
+   FracLungSys = exp(lnFracLungSysC)/(1 + exp(lnFracLungSysC));
 # PERC GSH Metabolism Constants - Liver
 # Large uncertainty for both Vmax and Cl
 	VMaxLiv2 = VLiv*exp(lnVMaxLiv2C)*
@@ -1420,7 +1424,7 @@ Dynamics{
 	CVGut = CGut / PGut;
 	CVLiv = CLiv / PLiv;
 	CVKid = CKid / PKid;
-# Concentration of PERC in mixed venous blood (mg/L)
+# Concentration of TCE in mixed venous blood (mg/L)
 	CVen = ABld/VBld; 
 # Dynamics for blood
     dt(ABld) = (QFat*CVFat + QGutLiv*CVLiv + QSlw*CVSlw + QBra*CVBra + 
@@ -1458,14 +1462,15 @@ Dynamics{
     dt(ACh) = (CC>0) ? ((Conc == 0) ? ((Rodents * (QM * CMixExh - QM * ACh/VCh)) - (kLoss * ACh)) : 0.0) : 0.0;
 
 #**** Non-metabolizing tissues ************************************************
-# Amount of PERC in rapidly perfused tissues (mg)
+# Amount of TCE in rapidly perfused tissues (mg)
     dt(ARap) = QRap * (CArt - CVRap); 
-# Amount of PERC in slowly perfused tissues
+# Amount of TCE in slowly perfused tissues
     dt(ASlw) = QSlw * (CArt - CVSlw);
-# Amount of PERC in fat tissue (mg)
+# Amount of TCE in fat tissue (mg)
     dt(AFat) = QFat*(CArt - CVFat);
+# Amount of TCE in brain tissue (mg) #v(2.1)
     dt(ABra) = QBra*(CBra - CVBra);
-# Amount of PERC in gut compartment (mg)
+# Amount of TCE in gut compartment (mg)
     dt(AGut) = (QGut * (CArt - CVGut)) + RAO;
 
 #**** Liver *******************************************************************
@@ -1476,11 +1481,11 @@ Dynamics{
 # Dynamics for amount of TCE in liver (mg)
     dt(ALiv) = (QLiv * (CArt - CVLiv)) + (QGut * (CVGut - CVLiv)) 
 			- RAMetLiv1 - RAMetLiv2 + kPV; # added PV dose 
-
+		
 #**** Kidney ******************************************************************
 # Rate of TCE oxidized in kidney (mg) # 
 	RAMetKid = (VMaxKid * CVKid) / (KMKid + CVKid);
-# Amount of PERC in kidney compartment (mg)
+# Amount of TCE in kidney compartment (mg)
     dt(AKid) = (QKid * (CArt - CVKid)) - RAMetKid;
 
 #******************************************************************************
@@ -1488,7 +1493,7 @@ Dynamics{
 #******************************************************************************
 # Amount of DCA in central compartment (mg)
     dt(ADCA) = DCABgd * BW / 24 + #(v2.0) DCA background in mg/kg/d
-		(FracOther * StochDCATCE * RAMetLiv1) - (kClearDCA * ADCA) -
+		(FracOther * StochDCATCE * (RAMetLiv1 + FracLungSys*RAMetLng)) - (kClearDCA * ADCA) -
      	     kDCAcen_per * ADCA + kDCAper_cen * ADCAper;
 # Amount of DCA in peripheral compartment (mg)
     dt(ADCAper) = kDCAcen_per * ADCA - kDCAper_cen * ADCAper;
@@ -1783,7 +1788,6 @@ CalcOutputs{
 	CDCAmol = (CDCAmol < 1.0e-15 ? 1.0e-15 : CDCAmol);#(v2.0)
 	CDCAmol0 = CDCAmol;#(v2.0)
 		# Assuming LD = 3*sigma_blank, Normally distributed#(v2.0)
-	CDCA_ND = ( CDCA_NDtmp < 1.0 ? ( CDCA_NDtmp >= 1e-100 ? -log(CDCA_NDtmp) : -log(1e-100)) : 1e-100 );#(v2.0)
 
 };
 
