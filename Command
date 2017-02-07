@@ -19,7 +19,6 @@ sudo apt-get install r-base
 Launched as
 someone:~/workspace/R-3.0.3 $ R
 
-
 ## Git
 git checkout <brance>
 git branch -m 
@@ -31,8 +30,6 @@ git remote -v
 # Verify new remote
 
 git push origin master
-
-
 
 git commit TCE.2.1.pop.model.c
 git status
