@@ -1,41 +1,37 @@
 States = {
-##-- ##-- TCE uptake
-	AStom,		# Amount of TCE in stomach (oil)
-	ADuod,		# oral gavage absorption (oil) -- mice and rats only
-	InhDose,	# Amount inhaled
+## TCE uptake
+AStom,		# Amount of TCE in stomach (oil)
+ADuod,		# oral gavage absorption (oil) -- mice and rats only
+InhDose,	# Amount inhaled
 	
-##-- PERC in the body
-	ARap,		# Amount in rapidly perfused tissues
-	ASlw,		# Amount in slowly perfused tissues
-	AFat,		# Amount in fat
-	ABra,#(v2.1)
-	AGut,		# Amount in gut
-	ALiv,		# Amount in liver
-	AKid, 		# Amount in Kidney -- previously in Rap tissue
-	ABld, 		# Amount in Blood -- previously in Rap tissue
-	AInhResp,	# Amount in respiratory lumen during inhalation
-	AResp,		# Amount in respiratory tissue
-	AExhResp,	# Amount in respiratory lumen during exhalation
+## TCE in the body
+ARap,		# Amount in rapidly perfused tissues
+ASlw,		# Amount in slowly perfused tissues
+AFat,		# Amount in fat
+ABra,       # Amount in Brain #(v2.1)
+AGut,		# Amount in gut
+ALiv,		# Amount in liver
+AKid, 		# Amount in Kidney -- previously in Rap tissue
+ABld, 		# Amount in Blood -- previously in Rap tissue
+AInhResp,	# Amount in respiratory lumen during inhalation
+AResp,		# Amount in respiratory tissue
+AExhResp,	# Amount in respiratory lumen during exhalation
 
-##-- DCA in body
-        ADCA,	        # Amount in central compartment#(v2.0)
-        ADCAper,	# Amount in peripheral compartment#(v2.0)
+##-- DCA
+ADCA,
+ADCAper,
 
-
-##-- TCA in the body
-	AStomTCA,	# Amount of TCA in stomach
-	APlasTCA,	# Amount of TCA in plasma #comment out for
-	ABodTCA,	# Amount of TCA in lumped body compartment
-	ABraTCA,    #(v2.1)
-	AKidTCA,    #(v2.1)
-   	ALivTCA,	# Amount of TCA in liver
-   	ALngTCA,    #(v2.1)
-##-- TCA metabolized
- 	AUrnTCA,	# Cumulative Amount of TCA excreted in urine
-	AUrnTCA_sat,	# Amount of TCA excreted that during times that had
-			# saturated measurements (for lower bounds) 
-	AUrnTCA_collect,# Cumulative Amount of TCA excreted in urine during
-			# collection times (for intermittent collection) 
+##-- TCA 
+AStomTCA,	
+APlasTCA,	
+ABodTCA,	
+ABraTCA,    
+AKidTCA,    
+ALivTCA,	
+ALngTCA,    # Amount in Lung #(v2.1)
+AUrnTCA,	
+AUrnTCA_sat,
+AUrnTCA_collect,
 
 ##-- TCOH 
 ABodTCOH, 
@@ -45,14 +41,15 @@ ALngTCOH,
 AKidTCOH,
 			
 ##-- TCOG
-	ABodTCOG, 	# Amount of TCOG in lumped body compartment
-	ALivTCOG, 	# Amount of TCOG in liver
-    ABilTCOG,	# Amount of TCOG in bile (incl. gut)
-##-- TCOG excreted
-	AUrnTCOG,	# Amount of TCOG excreted in urine
-	AUrnTCOG_sat,	# Amount of TCOG excreted that during times that had
-			# saturated measurements (for lower bounds) 
-	AUrnTCOG_collect,# Cumulative Amount of TCA excreted in urine during			
+ABodTCOG, 	
+ALivTCOG, 	
+ABilTCOG,	
+ALngTCOG,
+ABraTCOG,
+AKidTCOG,
+AUrnTCOG,
+AUrnTCOG_sat,	
+AUrnTCOG_collect,
 
 ##-- DCVG			
 ABodDCVG,
@@ -71,18 +68,14 @@ ABodNADCVC,
 ALivNADCVC,
 AKidNADCVC,
 ABraNADCVC,
-##-- NADCVC excreted
 AUrnNADCVC,
 AUrnNADCVC_sat,
 AUrnNADCVC_col,
 
-##-- Metabolism
-	AMetLiv1,	# Amount metabolized by P450 in liver#(vrisk)
-
-##-- Other states for PERC
-	ACh, 		# Amount in closed chamber -- mice and rats only
-	AExh, 		# Amount exhaled
-	AExhExp, 	# Amount exhaled during expos  [to calc. retention]
+##-- Other states for TCE
+ACh, 		# Amount in closed chamber -- mice and rats only
+AExh, 		# Amount exhaled
+AExhExp, 	# Amount exhaled during expos  [to calc. retention]
 };
 
 #******************************************************************************
@@ -1731,37 +1724,27 @@ Dynamics{
     dt(AUrnTCA_collect) = (1-TCAUrnSat)*(1-UrnMissing)*RUrnTCA;
 		# Not saturated and not missing collection times 
 
-#******************************************************************************
-#***                       TCOG Sub-model                                   ***
-#******************************************************************************
-#**** Blood (venous=arterial) *************************************************
 
-# Venous Concentrations (mg/L)
-	CVBodTCOG = ABodTCOG / VBodTCOG / PBodTCOG;
-	CVLivTCOG = ALivTCOG / VLiv / PLivTCOG;
-	CTCOG = (QBod * CVBodTCOG + QGutLiv * CVLivTCOG)/QCnow;
-#**** Body ********************************************************************
-# Amount of TCOG in body
-	RUrnTCOG = kUrnTCOG * ABodTCOG;
-    dt(ABodTCOG) = QBod * (CTCOG - CVBodTCOG) - RUrnTCOG;
-
-#**** Liver *******************************************************************
-# Amount of TCOG in liver (mg)
-	RBilTCOG = kBil * ALivTCOG;
-    dt(ALivTCOG) = QGutLiv * (CTCOG - CVLivTCOG) 
-		+ (StochGlucTCOH * RAMetLivTCOH2) - RBilTCOG;
-
-#**** Bile ********************************************************************
-# Amount of TCOH-Gluc excreted into bile (mg) 
-    dt(ABilTCOG) = RBilTCOG - RARecircTCOG;
-
-#**** Urine *******************************************************************
-# Amount of TCOH-Gluc excreted in urine (mg)
-    dt(AUrnTCOG) = RUrnTCOG;
-    dt(AUrnTCOG_sat) = TCOGUrnSat*(1-UrnMissing)*RUrnTCOG; 
-		# Saturated, but not missing collection times 
-    dt(AUrnTCOG_collect) = (1-TCOGUrnSat)*(1-UrnMissing)*RUrnTCOG;
-		# Not saturated and not missing collection times 
+## TCOG Sub-model ##                                   
+CVBodTCOG = ABodTCOG / VBodTCOG / PBodTCOG;
+CVLivTCOG = ALivTCOG / VLiv / PLivTCOG;
+CVLngTCOG = ALngTCOG / VRespEff / PLngTCOG; #(v2.1)
+CVBraTCOG = ABraTCOG / VBra / PBraTCOG; #(v2.1)
+CVKidTCOG = AKidTCOG / VKid / PKidTCOG; #(v2.1)
+CTCOG = (QBod * CVBodTCOG + QLng * CVLngTCOG + QBra * CVBraTCOG + QKid * CVKidTCOG + QGutLiv * CVLivTCOG)/QCnow; #(v2.1)
+#	
+RBilTCOG = kBil * ALivTCOG;
+RUrnTCOG = kUrnTCOG * ABodTCOG;
+#	
+dt(ABilTCOG) = RBilTCOG - RARecircTCOG;
+dt(ABodTCOG) = QBod * (CTCOG - CVBodTCOG);
+dt(ABraTCOG) = QBra * (CTCOG - CVBraTCOG); #(v2.1)
+dt(AKidTCOG) = QKid * (CTCOG - CVKidTCOG) - RUrnTCOG; #(v2.1)
+dt(ALngTCOG) = QLng * (CTCOG - CVLngTCOG) + (StochGlucTCOH * RAMetLngTCOH2); #(v2.1)
+dt(ALivTCOG) = QGutLiv * (CTCOG - CVLivTCOG) + (StochGlucTCOH * RAMetLivTCOH2) - RBilTCOG;
+dt(AUrnTCOG) = RUrnTCOG;
+dt(AUrnTCOG_sat) = TCOGUrnSat*(1-UrnMissing)*RUrnTCOG; 
+dt(AUrnTCOG_collect) = (1-TCOGUrnSat)*(1-UrnMissing)*RUrnTCOG;
 
 #******************************************************************************
 #***                       DCVG Sub-model                                   ***
@@ -1847,12 +1830,6 @@ Dynamics{
 # Amount exhaled (mg)
 	RAExh = QM * CMixExh;
     dt(AExh) = RAExh;
-# Mass balance
-#	PERCDiff = TotDose - TotTissue - TotMetab; #(vrisk)
-#	MassBalPERC = PERCDiff - AExh; #(vrisk)
- dt(AMetLiv1) = RAMetLiv1;
-TotDCAProd = FracOther * StochDCATCE * AMetLiv1;#(vrisk)
-
 
 #******************************************************************************
 #***                       Dynamic Outputs                                  ***
