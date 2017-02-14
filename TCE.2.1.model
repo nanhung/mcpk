@@ -200,25 +200,25 @@ CDCAmol0,	# Dummy variable without likelihood (for plotting)#(v2.0)
 # Model Parameters
 #------------------
 #-- TCE dosing
-	Conc = 0.0;	# Inhalation exposure conc. (ppm)
-	IVDose = 0.0;	# IV dose (mg/kg)
-	PDose = 0.0;	# Oral gavage dose (mg/kg) - oil
-	Drink = 0.0;	# Drinking water dose (mg/kg/day)
-	IADose = 0.0;	# Intraarterial dose (mg/kg)
-	PVDose = 0.0;	# Portal vein dose (mg/kg)
+Conc ;	# Inhalation exposure conc. (ppm)
+IVDose;	# IV dose (mg/kg)
+PDose;	# Oral gavage dose (mg/kg) - oil
+Drink;	# Drinking water dose (mg/kg/day)
+IADose;	# Intraarterial dose (mg/kg)
+PVDose;	# Portal vein dose (mg/kg)
 #-- TCA dosing
-	IVDoseTCA = 0.0;# IV dose (mg/kg) of TCA 
-	PODoseTCA = 0.0;# Oral dose (mg/kg) of TCA 
-	DrinkTCA = 0.0; # Oral drinking water dose (mg/kg/d) of TCA
+IVDoseTCA;# IV dose (mg/kg) of TCA 
+PODoseTCA;# Oral dose (mg/kg) of TCA 
+DrinkTCA; # Oral drinking water dose (mg/kg/d) of TCA
 ##-- TCOH dosing
-	IVDoseTCOH = 0.0;# IV dose (mg/kg) of TCOH 
-	PODoseTCOH = 0.0;# Oral dose (mg/kg) of TCOH 	
+IVDoseTCOH;# IV dose (mg/kg) of TCOH 
+PODoseTCOH;# Oral dose (mg/kg) of TCOH 	
 #-- Potentially time-varying parameters
-	QPmeas = 0.0;	# Measured value of Alveolar ventilation QP 
-	TCAUrnSat = 0.0; # Flag for saturated TCA urine 
-	TCOGUrnSat = 0.0; 
-	NADCVCUrnSat = 0.0; 
-	UrnMissing = 0.0; # Flag for missing urine collection times 
+QPmeas;	# Measured value of Alveolar ventilation QP 
+TCAUrnSat; # Flag for saturated TCA urine 
+TCOGUrnSat; 
+NADCVCUrnSat; 
+UrnMissing; # Flag for missing urine collection times 
 
 # Flow Rates		
 QC;	# Cardiac output (L/hr)
@@ -261,11 +261,11 @@ KMKid;	# KM for renal TCE oxidation(mg/L)
 VMaxClara;	# VMax for Tracheo-bronchial TCE oxidation (mg/hr)
 KMClara;	# KM for Tracheo-bronchial TCE oxidation (mg/L) but in units of air concentration
 
-# TCA-specifi		
-TCABgd = 0;
+# TCA-specific		
+TCABgd;
 TCAPlas; PBodTCA; PBraTCA; PKidTCA; PLivTCA; PLngTCA;    
-kDissoc;	# Protein/TCA dissociation constant (umole/L)
-BMax;	# Protein concentration
+kDissoc; # Protein/TCA dissociation constant (umole/L)
+BMax;	 # Protein concentration
 
 # TCOH-specific
 PBodTCOH; PLivTCOH; PBraTCOH; PLngTCOH; PKidTCOH; 
@@ -304,14 +304,14 @@ PBodNADCVC; PLivNADCVC; PKidNADCVC; PBraNADCVC;
 kUrnNADCVC; #(v2.1)	
 
 # DCA background
-DCABgd = 0;
+DCABgd;
 
-kClearDCA	= 1;	# Rate constant for DCA elimination (/hr)#(v2.0)
-kDCAcen_per	= 1;	# Rate constant for DCA central->peripheral (/hr)#(v2.0)
-kDCAper_cen	= 1;	# Rate constant for DCA peripheral->central (/hr)#(v2.0)
+kClearDCA;	# Rate constant for DCA elimination (/hr)#(v2.0)
+kDCAcen_per;	# Rate constant for DCA central->peripheral (/hr)#(v2.0)
+kDCAper_cen;	# Rate constant for DCA peripheral->central (/hr)#(v2.0)
 
 # Oral absorption		
-kAS	= 1.4;	# TCE Stomach absorption coefficient (oil) (/hr)
+kAS = 1;	# TCE Stomach absorption coefficient (oil) (/hr)
 kTSD = 1.4;	# TCE Stomach-duodenum transfer coefficient (oil) (/hr)
 kAD	= 0.75;	# TCE Duodenum absorption coefficient (oil) (/hr)
 kTD = 0.1; 	# TCE Duodenum-feces transfer coefficient (/hr)
@@ -354,6 +354,11 @@ BWmeas	= 0.0;	# Body weight
 VFatCmeas	= 0.0; # Fractional volume fat
 PBmeas	= 0.0;	# Measured blood-air partition coefficient
 Hematocritmeas = 0.0; # Measured hematocrit -- used for FracPlas = 1 - HCt
+
+# Closed chamber parameters
+NRodents	= 1;	# 
+VChC	= 1;	# 
+lnkLossC	= 0;	# 
 
 
 #******************************************************************************
@@ -530,11 +535,6 @@ lnkBilC	= 0.0;	# Scaled by BW^-0.25
 lnkEHRC	= 0.0;	# Scaled by BW^-0.25
 lnkUrnTCOGC	= 0.0;	# Scaled by (blood volume)^-1 and species-specific central estimates
 
-# Closed chamber parameters
-NRodents	= 1;	# 
-VChC	= 1;	# 
-lnkLossC	= 0;	# 
-
 # NADCVC excretion
 lnkUrnNADCVCC	= 0.0; #(v2.1)
 
@@ -596,12 +596,12 @@ M_lnPSlwC;
 M_lnkDissocC;
 M_lnBMaxkDC;
 	
-M_lnkTSD	= 1.0;
-M_lnkAS	= 1.0;
-M_lnkTD	= 1.0;
-M_lnkAD	= 1.0;
-M_lnkASTCA	= 1.0;
-M_lnkASTCOH	= 1.0;
+M_lnkTSD;
+M_lnkAS;
+M_lnkTD;
+M_lnkAD;
+M_lnkASTCA;
+M_lnkASTCOH;
 
 
 M_lnClLiv1C;	# Scaled by BW^0.75
@@ -721,7 +721,6 @@ V_lnISkDCA = 1.0; # DCA metabolism/clearance
 V_lnkClearDCAC	= 1.0;#(v2.0)
 V_lnkDCAcen_perC	= 1.0;#(v2.0)
 V_lnkDCAper_cenC	= 1.0;#(v2.0)	
-	
 V_lnFracLungSysC	= 1.0;
 V_lnISConj = 1.0; # GSH conjugation metabolism	
 V_QFatC	= 1.0;
@@ -1289,7 +1288,6 @@ dt(ALngTCOH) = kPOTCOH + QLng * (CTCOH - CVLngTCOH)
 #----------------- 
 # Concentration of TCA in plasma (umoles/L)
 	CPlasTCA = (APlasTCA<1.0e-15 ? 1.0e-15 : APlasTCA/VPlas); # comment out for #(v1h)
-	## CPlasTCA = (kIVTCA + (QBodPlas*CVBodTCA) + (QGutLivPlas*CVLivTCA))/QCPlas; #(v1h)
 # Concentration of free TCA in plasma in (umoles/L)
 	CPlasTCAMole = (CPlasTCA / MWTCA) * 1000.0;
 	a = kDissoc+BMax-CPlasTCAMole;
@@ -1328,7 +1326,7 @@ dt(ALivTCA) = kPOTCA + QGutLivPlas*(CPlasTCAFree - CVLivTCAFree)
 dt(ABodTCA) = QBodPlas * (CPlasTCAFree - CVBodTCAFree);
 dt(ABraTCA) = QBraPlas * (CPlasTCAFree - CVBraTCAFree);
 dt(AKidTCA) = QKidPlas * (CPlasTCAFree - CVKidTCAFree);
-dt(ALngTCA) = QLngPlas * (CPlasTCAFree - CVLngTCAFree) + StochTCATCOH * RAMetLngTCOH1 
+dt(ALngTCA) = kPOTCA + QLngPlas * (CPlasTCAFree - CVLngTCAFree) + StochTCATCOH * RAMetLngTCOH1 
 	+ FracTCA * StochTCATCE * RAMetLng - RAMetLngTCA; #(v2.1)
 dt(APlasTCA) = kIVTCA + (QBodPlas*CVBodTCA) + (QGutLivPlas*CVLivTCA) 
 	+ (QBraPlas*CVBraTCA) + (QKidPlas*CVKidTCA) + (QLngPlas*CVLngTCA) 

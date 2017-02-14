@@ -1,5 +1,5 @@
 
-MCMC("APAP_split_groups.simdat", "", "", 5000, 0, 1, 5000, 24601); # Full calibration
+MCMC("APAP_split_group_3.txt", "", "", 10000, 0, 10, 10000, 24621); # Full calibration
 
 
 Level { # Population Level
