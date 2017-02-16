@@ -1,6 +1,6 @@
 
-MCMC("APAP_split_group_3.txt", "", "", 10000, 0, 10, 10000, 24621); # Full calibration
-
+MCMC("APAP_split_group.24651.txt", "", "", 100000, 0, 10, 100000, 24651); # Full calibration
+# Set seed at 24601, 24611, 24621, and 24641, 24651 to create 5 different chain 
 
 Level { # Population Level
 
@@ -143,7 +143,7 @@ Distrib(lnVmax_AS, TruncNormal_v, lnVmax_AS, Var_lnVmax_AS, 7., 20.);
 Distrib(lnKm_AS, TruncNormal_v, lnKm_AS, Var_lnKm_AS, 8.974, 10.5427);
 
 
-Simulation { # Chiew et al. (2010) # 8 male and 1 female
+Simulation { # Chiew1 1
 
 mgkg_flag = 1.;
 
@@ -183,7 +183,7 @@ Data(Verr_lnCU_AS_mcg, -1);
 
 }
 
-Simulation { # Critchley et al. (1986) # 66 male 45 females
+Simulation { # Critchley3 2
 
 mgkg_flag = 0;
 
@@ -202,6 +202,8 @@ IVDose_APAP_mg = 0.;
 lnIVDose_APAP_mg = 0.;
 
 BW = 65.;
+
+
 
 Print(lnCPL_APAP_mcgL, 0.);
 Data(lnCPL_APAP_mcgL, -1);
@@ -230,7 +232,7 @@ Data(Verr_lnCU_AS_mcg, 0.047);
 
 }
 
-Simulation { # Prescott (1980); 8 (M/F)
+Simulation { # Prescott1 3
 
 mgkg_flag = 1;
 
@@ -272,7 +274,7 @@ Data(Verr_lnCU_AS_mcg, 0.3, 0.3, 0.3, 0.3, 0.3, 0.3, 0.3, 0.3, 0.3, 0.3, 0.3, 0.
 }
 
 
-Simulation { # Prescott et al. (1989); 10
+Simulation { #Prescott2 4
 
 mgkg_flag = 0;
 
@@ -285,6 +287,9 @@ IVDose_APAP_mg = 0.;
 lnIVDose_APAP_mg = 0.;
 
 BW = 72.;
+
+
+
 
 Print(lnCPL_APAP_mcgL, 0.5, 0.75, 1.0, 1.5, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0);#, 24.0);
 Data(lnCPL_APAP_mcgL, 9.5178, 9.2965, 9.1559, 9.0082, 8.7765, 8.5172, 8.1831, 7.8517, 7.5337, 7.293, 7.0733, -1, -1);
@@ -314,7 +319,8 @@ Data(Verr_lnCU_AS_mcg, -1);
 }
 
 
-Simulation { # Jensen et al. (2004); 6 (M/F)
+
+Simulation { # Jensen 5
 
 mgkg_flag = 0;
 
@@ -361,7 +367,7 @@ Data(Verr_lnCU_AS_mcg, -1);
 
 }
 
-Simulation { # Prescott (1980); 4 (M/F)
+Simulation { # Prescott12_IV 6
 
 mgkg_flag = 1;
 
@@ -404,7 +410,7 @@ Data(Verr_lnCU_AS_mcg, -1);
 
 }
 
-Simulation { # Prescott (1980); 4 (M/F) 
+Simulation { # Prescott12_Oral 7
 
 mgkg_flag = 1;
 
@@ -445,7 +451,7 @@ Data(Verr_lnCU_AS_mcg, -1);
 
 }
 
-Simulation { # Rawlings and Henderson (1977); 6 (M)
+Simulation { # Rawlings1000_IV 8
 
 mgkg_flag = 0;
 
@@ -488,7 +494,7 @@ Data(Verr_lnCU_AS_mcg, -1);
 
 }
 
-Simulation { # Volak et al. (2013); 8(M/F)
+Simulation { #Volak 325 mg 9
 
 mgkg_flag = 0;
 
@@ -564,7 +570,7 @@ Distrib(lnVmax_AS, TruncNormal_v, lnVmax_AS, Var_lnVmax_AS, 7., 20.);
 Distrib(lnKm_AS, TruncNormal_v, lnKm_AS, Var_lnKm_AS, 8.974, 10.5427);
 
 
-Simulation { # Critchley et al. (2005); 11 Chinese
+Simulation { #Grace 1
 
 mgkg_flag = 1;
 
@@ -606,7 +612,7 @@ Data(Verr_lnCU_AS_mcg, 0.2044);
 
 }
 
-Simulation { # Kim et al. (2011); 12 (M/F)
+Simulation { # Kim 2
 
 mgkg_flag = 0;
 
@@ -648,7 +654,7 @@ Data(Verr_lnCU_AS_mcg, -1);
 
 }
 
-Simulation { # Chan et al. (1997) # 6 (M/F)
+Simulation { #Chan 3
 
 mgkg_flag = 1;
 
@@ -694,7 +700,7 @@ Data(Verr_lnCU_AS_mcg, -1);
 #Distrib(BW, TruncNormal, 62.50, 5.60, 46.00, 71.00);
 
 
-Simulation { #Tan et al. (2002) # 12 subjects
+Simulation { #Tan 4
 
 mgkg_flag = 0;
 
@@ -736,7 +742,7 @@ Data(Verr_lnCU_AS_mcg, -1);
 
 }
 
-Simulation { # Shinoda et al. (2007) # 5 (M/F)
+Simulation { # Shinoda 5
 
 mgkg_flag = 0;
 
@@ -777,6 +783,10 @@ Data(Verr_lnCU_AS_mcg, -1);
 
 
 }
+
+
+
+
 
 }
 }
