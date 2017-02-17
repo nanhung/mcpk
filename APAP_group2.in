@@ -1,4 +1,6 @@
 
+MCMC("APAP_split_group.24651.txt", "", "", 100000, 0, 10, 100000, 24651); # Full calibration
+
 # Set seed at 24601, 24611, 24621, and 24641, 24651 to create 5 different chain 
 
 Level { # Population Level
