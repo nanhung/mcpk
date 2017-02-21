@@ -6,6 +6,4 @@
 #BSUB -M 500				## sets to 500MB as the per process enforceable memory limit.
 #BSUB -o stdout_1.%J		## directs the job's standard output (%J is jobid)
 
-cd pbpk-mcsim
-./mcsim.APAP APAP_chain1.in & ./mcsim.APAP APAP_chain2.in & ./mcsim.APAP APAP_chain3.in & ./mcsim.APAP APAP_chain4.in
-wait
+./mcsim.APAP APAP_chain1.in
