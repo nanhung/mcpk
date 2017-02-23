@@ -375,17 +375,17 @@ Verr_CPL_APAP_mcmolL; Verr_CPL_APAP_mcgL;
 Verr_CPL_AG_mcmolL; Verr_CPL_AG_mcgL;
 Verr_CPL_AS_mcmolL; Verr_CPL_AS_mcgL;
 
-#Verr_lnCPL_APAP_mcmolL; Verr_lnCPL_APAP_mcgL;
-#Verr_lnCPL_AG_mcmolL; Verr_lnCPL_AG_mcgL;
-#Verr_lnCPL_AS_mcmolL; Verr_lnCPL_AS_mcgL;
+Verr_lnCPL_APAP_mcmolL_samp; Verr_lnCPL_APAP_mcgL_samp;
+Verr_lnCPL_AG_mcmolL_samp; Verr_lnCPL_AG_mcgL_samp;
+Verr_lnCPL_AS_mcmolL_samp; Verr_lnCPL_AS_mcgL_samp;
 
 Verr_CU_APAP_mcg;
 Verr_CU_AG_mcg;
 Verr_CU_AS_mcg;
 
-#Verr_lnCU_APAP_mcg;
-#Verr_lnCU_AG_mcg;
-#Verr_lnCU_AS_mcg;
+Verr_lnCU_APAP_mcg_samp;
+Verr_lnCU_AG_mcg_samp;
+Verr_lnCU_AS_mcg_samp;
 
 
 #endregion
@@ -431,13 +431,10 @@ AM_APAP, AM_AS, AM_AG,
 ABL_IV_APAP, ABLV_APAP, ABLV_AS, ABLV_AG,
 
 # Urine
-AU_APAP, AU_AS, AU_AG, pct_abs,
+AU_APAP, AU_AS, AU_AG, pct_abs
 
 # Inactive Cofactor
-#AL_PAPS_inact, AL_GA_inact, 
-
-# AUC
-AUC_CPL_APAP, AUC_CPL_AG, AUC_CPL_AS,
+#AL_PAPS_inact, AL_GA_inact 
 
 };
 #endregion
@@ -489,11 +486,9 @@ Verr_lnCPL_APAP_mcmolL, Verr_lnCPL_APAP_mcgL,
 Verr_lnCPL_AG_mcmolL, Verr_lnCPL_AG_mcgL,
 Verr_lnCPL_AS_mcmolL, Verr_lnCPL_AS_mcgL,
 
-lnAUC_CPL_APAP,
-
 Verr_lnCU_APAP_mcg,
 Verr_lnCU_AG_mcg,
-Verr_lnCU_AS_mcg
+Verr_lnCU_AS_mcg,
 
 };
 
@@ -851,16 +846,7 @@ dt(AK_AG) = QK*(CA_AG - CVK_AG) - dt(AKE_AG);
 dt(AU_AG) = dt(AKE_AG);
 
 
-#***********************************************************************
-#***                       Dose Metrics                              ***
-#***********************************************************************
-#**** AUCs in mcg-hr/L unless otherwise noted **************************
-#AUC of APAP in arterial blood
-    dt(AUC_CPL_APAP) = CPL_APAP; 
-#AUC of APAP-G in arterial blood
-    dt(AUC_CPL_AG) = CPL_AG_mcgL; 
-#AUC of APAP-S in arterial blood
-    dt(AUC_CPL_AS) = CPL_AS_mcgL; 
+
 };
 #endregion
 
@@ -878,8 +864,6 @@ CU_APAP_mcg = AU_APAP*MW_APAP;
 CU_AG_mcg = AU_AG*MW_AG;
 CU_AS_mcg = AU_AS*MW_AS;
 f_abs = AST_to_Gut_APAP/true_dose;
-
-lnAUC_CPL_APAP = (AUC_CPL_APAP > 0 ? log(AUC_CPL_APAP):-20.);
 
 lnCPL_APAP_mcgL = (CPL_APAP_mcgL > 0 ? log(CPL_APAP_mcgL):-20.); # APAP in Plasma
 lnCPL_AG_mcgL = (CPL_AG_mcgL > 0 ? log(CPL_AG_mcgL):-20.); # AG in Plasma
