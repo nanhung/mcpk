@@ -1,7 +1,7 @@
 # Fix parameters
 
 Integrate(Lsodes, 1.0e-5, 3.09e-7, 1);
-MCMC("APAP_split_24601.txt", "", "", 100000, 0, 10, 100000, 24601); # Full calibration
+MCMC("APAP_split_13245.txt", "", "", 100000, 0, 10, 100000, 13245); # Full calibration
 
 
 Level { # Population Level
