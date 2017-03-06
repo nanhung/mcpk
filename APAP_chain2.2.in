@@ -1,5 +1,3 @@
-# Fix parameters
-
 Integrate(Lsodes, 1.0e-5, 3.09e-7, 1);
 MCMC("APAP_split_24601.txt", "", "", 100000, 0, 10, 100000, 24601); # Full calibration
 
@@ -12,32 +10,42 @@ Level { # Population Level
 # Distrib(M_lnparam, Uniform, low, high)
 # Remove the ... and fill these in
 # ======================================
+lnTp = -2.864071;
 
-lnTp = 6.114;
-lnCYP_Km = 4.844;
-lnCYP_VmaxC = 1.597;
+lnCYP_Km = 4.770566;
+lnCYP_VmaxC = -0.6213363;
 
-lnSULT_Ki = 6.114; 
-lnSULT_Km_paps = -0.74024;
-lnUGT_Ki = 10.73857;
-lnUGT_Km_GA = -0.8;
+lnSULT_Ki = 6.161611; 
+lnSULT_Km_paps = -0.8522667;
+lnUGT_Ki = 10.85208;
+lnUGT_Km_GA = -0.7857949;
 
-lnKm_AG = 9.918376;
-lnVmax_AG = 12;
-lnKm_AS = 10;
-lnkGA_syn = 11;
-
+lnKm_AG = 9.902103;
+lnVmax_AG = 10.63242;
+lnKm_AS = 10.02791;
+lnkGA_syn = 11.41956;
 
 Distrib(M_lnTg, TruncNormal, -1.4552, 0.5, -2.5, 0.);
-Distrib(M_lnUGT_VmaxC, Uniform, 0., 15.);
-Distrib(M_lnUGT_Km, TruncNormal, 8.6995, 1., 7.6009, 9.3926);
-Distrib(M_lnSULT_VmaxC, Uniform, 0., 15.);
+#Distrib(M_lnTp, TruncNormal, -3.401, 0.5, -4.5, -2.5);
+#Distrib(M_lnSULT_Km_paps, TruncNormal, -0.6931, 0.5, -3., 0.);
 Distrib(M_lnSULT_Km_apap, TruncNormal, 5.703, 1., 4.24, 8.);
+Distrib(M_lnSULT_VmaxC, Uniform, 0., 10.); #**
+#Distrib(M_lnUGT_Km_GA, TruncNormal, -0.6931, 0.5, -3., 0.);
+#Distrib(M_lnCYP_VmaxC, Uniform, -2., 5.); 
+#Distrib(M_lnCYP_Km, TruncNormal, 4.867, 1., 4.1431, 5.347);
+Distrib(M_lnUGT_Km, TruncNormal, 8.6995, 1., 7.6009, 9.3926);
+Distrib(M_lnUGT_VmaxC, Uniform, 0., 15.); #**
 Distrib(M_lnVmax_AS, Uniform, 7., 20.);
-Distrib(M_lnkPAPS_syn, Uniform, 0., 10.);
+Distrib(M_lnkPAPS_syn, Uniform, 3., 10.);
+#Distrib(M_lnkGA_syn, Uniform, 3., 13.);
+#Distrib(M_lnSULT_Ki, TruncNormal, 6.265, 0.5, 5.4337, 6.7129);
+#Distrib(M_lnUGT_Ki, TruncNormal, 10.968, 0.5, 9.998, 11.451);
+#Distrib(M_lnVmax_AG, Uniform, 7., 15.);
+#Distrib(M_lnKm_AG, TruncNormal, 9.903, 0.3, 8.071, 10.513);
+#Distrib(M_lnKm_AS, TruncNormal, 10.039, 0.22, 8.974, 10.5427);
 Distrib(M_lnCLC_APAP, Uniform, -6., 0.);
-Distrib(M_lnCLC_AS, Uniform, -6., 1.);
 Distrib(M_lnCLC_AG, Uniform, -6., 1);
+Distrib(M_lnCLC_AS, Uniform, -6., 1.);
 
 # CU=2 CV = 0.5
 Distrib(Var_lnfa, InvGamma, 2.25, 0.3125);
@@ -80,6 +88,7 @@ Distrib(Verr_lnCU_APAP_mcg_samp, LogUniform, 0.01, 0.5);
 Distrib(Verr_lnCU_AG_mcg_samp, LogUniform, 0.01, 0.5); 
 Distrib(Verr_lnCU_AS_mcg_samp, LogUniform, 0.01, 0.5);
 
+
 Likelihood(Data(lnCPL_APAP_mcgL), Normal_v, Prediction(lnCPL_APAP_mcgL), Verr_lnCPL_APAP_mcgL_samp);
 Likelihood(Data(lnCPL_AG_mcgL), Normal_v, Prediction(lnCPL_AG_mcgL), Verr_lnCPL_AG_mcgL_samp);
 Likelihood(Data(lnCPL_AS_mcgL), Normal_v, Prediction(lnCPL_AS_mcgL), Verr_lnCPL_AS_mcgL_samp);
@@ -103,12 +112,12 @@ Distrib(lnCLC_APAP, TruncNormal_v, M_lnCLC_APAP, Var_lnCLC_APAP, -6., 0.);
 Distrib(lnCLC_AS, TruncNormal_v, M_lnCLC_AS, Var_lnCLC_AS, -6., 1);
 #Distrib(lnCYP_VmaxC, TruncNormal_v, M_lnCYP_VmaxC, Var_lnCYP_VmaxC, -2., 5.); 
 #Distrib(lnCYP_Km, TruncNormal_v, M_lnCYP_Km, Var_lnCYP_Km, 4.1431, 5.347);
-Distrib(lnSULT_VmaxC, TruncNormal_v, M_lnSULT_VmaxC, Var_lnSULT_VmaxC, 0., 15.);
+Distrib(lnSULT_VmaxC, TruncNormal_v, M_lnSULT_VmaxC, Var_lnSULT_VmaxC, 0., 10.);
 Distrib(lnCLC_AG, TruncNormal_v, M_lnCLC_AG, Var_lnCLC_AG, -6., 1);
 Distrib(lnUGT_Km, TruncNormal_v, M_lnUGT_Km, Var_lnUGT_Km, 7.6009, 9.3926);
 Distrib(lnUGT_VmaxC, TruncNormal_v, M_lnUGT_VmaxC, Var_lnUGT_VmaxC, 0., 15.);
 
-Distrib(lnkPAPS_syn, TruncNormal_v, M_lnkPAPS_syn, Var_lnkPAPS_syn,  0., 10.);
+Distrib(lnkPAPS_syn, TruncNormal_v, M_lnkPAPS_syn, Var_lnkPAPS_syn,  3., 10.);
 #Distrib(lnkGA_syn, TruncNormal_v, M_lnkGA_syn, Var_lnkGA_syn, 3., 13.);
 
 #Distrib(lnSULT_Ki, TruncNormal_v, M_lnSULT_Ki, Var_lnSULT_Ki, 5.4337, 6.7129);
@@ -142,12 +151,12 @@ Distrib(lnCLC_APAP, TruncNormal_v, lnCLC_APAP, Var_lnCLC_APAP, -6., 0.);
 Distrib(lnCLC_AS, TruncNormal_v, lnCLC_AS, Var_lnCLC_AS, -6., 1);
 #Distrib(lnCYP_VmaxC, TruncNormal_v, lnCYP_VmaxC, Var_lnCYP_VmaxC, -2., 5.); 
 #Distrib(lnCYP_Km, TruncNormal_v, lnCYP_Km, Var_lnCYP_Km, 4.1431, 5.347);
-Distrib(lnSULT_VmaxC, TruncNormal_v, lnSULT_VmaxC, Var_lnSULT_VmaxC, 0., 15.);
+Distrib(lnSULT_VmaxC, TruncNormal_v, lnSULT_VmaxC, Var_lnSULT_VmaxC, 0., 10.);
 Distrib(lnCLC_AG, TruncNormal_v, lnCLC_AG, Var_lnCLC_AG, -6., 1);
 Distrib(lnUGT_Km, TruncNormal_v, lnUGT_Km, Var_lnUGT_Km, 7.6009, 9.3926);
 Distrib(lnUGT_VmaxC, TruncNormal_v, lnUGT_VmaxC, Var_lnUGT_VmaxC, 0., 15.);
 
-Distrib(lnkPAPS_syn, TruncNormal_v, lnkPAPS_syn, Var_lnkPAPS_syn,  0., 10.);
+Distrib(lnkPAPS_syn, TruncNormal_v, lnkPAPS_syn, Var_lnkPAPS_syn,  3., 10.);
 #Distrib(lnkGA_syn, TruncNormal_v, lnkGA_syn, Var_lnkGA_syn, 3., 13.);
 
 #Distrib(lnSULT_Ki, TruncNormal_v, M_lnSULT_Ki, Var_lnSULT_Ki, 5.4337, 6.7129);
@@ -569,12 +578,12 @@ Distrib(lnCLC_APAP, TruncNormal_v, lnCLC_APAP, Var_lnCLC_APAP, -6., 0.);
 Distrib(lnCLC_AS, TruncNormal_v, lnCLC_AS, Var_lnCLC_AS, -6., 1);
 #Distrib(lnCYP_VmaxC, TruncNormal_v, lnCYP_VmaxC, Var_lnCYP_VmaxC, -2., 5.); 
 #Distrib(lnCYP_Km, TruncNormal_v, lnCYP_Km, Var_lnCYP_Km, 4.1431, 5.347);
-Distrib(lnSULT_VmaxC, TruncNormal_v, lnSULT_VmaxC, Var_lnSULT_VmaxC, 0., 15.);
+Distrib(lnSULT_VmaxC, TruncNormal_v, lnSULT_VmaxC, Var_lnSULT_VmaxC, 0., 10.);
 Distrib(lnCLC_AG, TruncNormal_v, lnCLC_AG, Var_lnCLC_AG, -6., 1);
 Distrib(lnUGT_Km, TruncNormal_v, lnUGT_Km, Var_lnUGT_Km, 7.6009, 9.3926);
 Distrib(lnUGT_VmaxC, TruncNormal_v, lnUGT_VmaxC, Var_lnUGT_VmaxC, 0., 15.);
 
-Distrib(lnkPAPS_syn, TruncNormal_v, lnkPAPS_syn, Var_lnkPAPS_syn,  0., 10.);
+Distrib(lnkPAPS_syn, TruncNormal_v, lnkPAPS_syn, Var_lnkPAPS_syn,  3., 10.);
 #Distrib(lnkGA_syn, TruncNormal_v, lnkGA_syn, Var_lnkGA_syn, 3., 13.);
 
 #Distrib(lnSULT_Ki, TruncNormal_v, M_lnSULT_Ki, Var_lnSULT_Ki, 5.4337, 6.7129);
