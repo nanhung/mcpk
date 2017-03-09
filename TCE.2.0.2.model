@@ -52,6 +52,9 @@ States = {
 	AMetTCOHTCA,	# Amount of TCOH metabolized to TCA#(vrisk)
 };
 
+#******************************************************************************
+#***                  Input Variable Specifications                         ***
+#******************************************************************************
 
 Inputs = {
 ##-- TCE dosing
@@ -74,9 +77,12 @@ Inputs = {
 	UrnMissing,	# Flag for missing urine collection times 
 };
 
-#
+#******************************************************************************
+#***                  Output Variable Specifications                        ***
+#******************************************************************************
 Outputs = {
-
+#******************************************************************************
+#*** Outputs for mass balance check
 MassBalTCE,
 MassBalTCOH,
 MassBalDCA,#(v2.0)
@@ -99,6 +105,7 @@ CFat,	# mouse, rat - Concentration in fat
 CGut,	# rat
 CRap,	# needed for unlumped tissues
 CSlw,	# needed for unlumped tissues
+#(v1.2) CTB,	# needed for lung
 CHrt,	# rat - Concentration in heart tissue [use CRap]
 CKid,	# mouse, rat -  Concentration in kidney
 CLiv,	# mouse, rat - Concentration in liver 
@@ -249,6 +256,9 @@ QPsamp,	# human - sampled value of alveolar ventilation rate
 
 };
 
+#******************************************************************************
+#***                  Global Constants                                      ***
+#******************************************************************************
 
 # Molecular Weights
         MWTCE = 131.39;        # TCE
@@ -1863,6 +1873,12 @@ TotTCAProd =  (FracTCA*StochTCATCE*(AMetLiv1 + FracLungSys*AMetLng)) + #(vrisk)
 
 
 CalcOutputs{
+
+
+
+#**** Static outputs for comparison to data ***********************************
+# TCE
+#(v1.2)	AlvRet = (InhDose > 0 ? 1 - AExhExp/InhDose : 1); #  
 	RetDose = ((InhDose-AExhExp) > 0 ? (InhDose - AExhExp) : 1e-15); # 
 	CAlvPPM = (CAlv < 1.0e-15 ? 1.0e-15 : CAlv * (24450.0 / MWTCE));
 	CInhPPM = (ACh< 1.0e-15 ? 1.0e-15 : ACh/VCh*24450.0/MWTCE); 
@@ -1948,6 +1964,5 @@ CalcOutputs{
 AMetOX = AMetLiv1 + AMetLng;#(vrisk)
 AMetGSH = AMetLiv2 + AMetKid;#(vrisk)
 
-};
-
+}
 End.

@@ -8,12 +8,26 @@
 ## Molecular Weights
 MWTCE = 131.39;  # TCE
 
+## Anatomical Parameters
+QC	= 1; lnBW = log(70.);	# Cardiac output (L/hr)
+
+## Fractional volumes (fraction of body weight).
+VRespLumC	= 1.0;	
+VRespEffC	= 1.0;
+VFatC	= 1.0;	# Scaled to species-specific central estimates
+VGutC	= 1.0;	# Scaled to species-specific central estimates
+VLivC	= 1.0;	# Scaled to species-specific central estimates
+VRapC	= 1.0;	# Scaled to species-specific central estimates
+VKidC	= 1.0;	# Scaled to species-specific central estimates
+VBldC	= 1.0;	# Scaled to species-specific central estimates
+
+# Fractional blood flows (fraction of cardiac output).
+
 
 #-----------------
 ## Flows
-QC	= 1;	# Cardiac output (L/hr)
-QPsamp	= 1;	# Alveolar ventilation (L/hr)
-VPR	= 1;	# Alveolar ventilation-perfusion ratio
+QPsamp	= 1;	    # Alveolar ventilation (L/hr)
+VPR	= 1;	        # Alveolar ventilation-perfusion ratio
 QFatCtmp	= 1;	# Scaled fat blood flow
 QGutCtmp	= 1;	# Scaled gut blood flow
 QLivCtmp	= 1;	# Scaled liver blood flow
@@ -92,18 +106,10 @@ QLivC	= 1.0;	# Scaled to species-specific central estimates
 QSlwC	= 1.0;	# Scaled to species-specific central estimates
 #(v1.2) QTBC	= 1.0;	# Scaled to species-specific central estimates
 QKidC	= 1.0;	# Scaled to species-specific central estimates
-FracPlasC	= 1.0;	# Scaled to species-specific central estimates
 lnDRespC	= 0.0;	#(v1.2) Scaled to alveolar ventilation rate in dynamics
 
 # Fractional Tissue Volumes (fraction of BW)
-VFatC	= 1.0;	# Scaled to species-specific central estimates
-VGutC	= 1.0;	# Scaled to species-specific central estimates
-VLivC	= 1.0;	# Scaled to species-specific central estimates
-VRapC	= 1.0;	# Scaled to species-specific central estimates
-VRespLumC	= 1.0;	# Scaled to species-specific central estimates
-VRespEffC	= 1.0;	# Scaled to species-specific central estimates
-VKidC	= 1.0;	# Scaled to species-specific central estimates
-VBldC	= 1.0;	# Scaled to species-specific central estimate
+
 
 # Partition Coefficients for TCE
 lnPBC	= 0.0;	# Scaled to species-specific central estimates
@@ -186,7 +192,7 @@ Inputs = {
 };
 
 Outputs = {
-	CInhPPM, CAlv, CAlvPPM, CVen,CBldMix,
+	CInhPPM, CAlv, CAlvPPM, CVen,
 	
 	## PARAMETERS #(vrisk3)
   QCnow, # (vrisk3) #Cardiac output (L/hr)
@@ -454,7 +460,6 @@ CalcOutputs{
 	CInhPPM = (ACh< 1.0e-15 ? 1.0e-15 : ACh/VCh*24450.0/MWTCE); 
 	CAlvPPM = (CAlv < 1.0e-15 ? 1.0e-15 : CAlv * (24450.0 / MWTCE));
 	CVen = (CVen < 1.0e-15 ? 1.0e-15 : CVen);
-	CBldMix = (CArt+CVen)/2;
 };
 
 End.

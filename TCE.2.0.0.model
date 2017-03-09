@@ -1624,13 +1624,7 @@ Initialize {
 #	Bound on CL of 0.0031~0.0102, with GM of 0.0056.  Converting 
 #	to l/hr/kg tissue gives 0.34 l/hr/kg tissue.
 
-# apply interstrain scaling to both liver and kidney
-	VMaxDCVG = exp(lnISConj) * VLiv*(Species == 3 ? (300.*exp(lnVMaxDCVGC)) : (Species == 2 ? (66.*exp(lnVMaxDCVGC)) : (2.9*19.*exp(lnClDCVGC+lnKMDCVGC))));
-        KMDCVG = (Species == 3 ? (VMaxDCVG/(VLiv*1.53*exp(lnClDCVGC))) : (Species == 2 ? (VMaxDCVG/(VLiv*0.25*exp(lnClDCVGC))) : 2.9*exp(lnKMDCVGC)));
-	ClDCVG = VMaxDCVG/KMDCVG;#(vrisk)
-	VMaxKidDCVG = exp(lnISConj) * VKid*(Species == 3 ? (60.*exp(lnVMaxKidDCVGC)) : (Species == 2 ? (6.0*exp(lnVMaxKidDCVGC)) : (2.7*230.*exp(lnClKidDCVGC+lnKMKidDCVGC))));
-        KMKidDCVG = (Species == 3 ? (VMaxKidDCVG/(VKid*0.34*exp(lnClKidDCVGC))) : (Species == 2 ? (VMaxKidDCVG/(VKid*0.026*exp(lnClKidDCVGC))) : 2.7*exp(lnKMKidDCVGC)));
-    
+   
 # TCE Metabolism Constants for Chloral Kinetics in Lung (mg/hr)
 #(v1.2)	Scaled to liver VMax using data from Green et al. (1997)
 #	in microsomal preparations (nmol/min/mg protein) at ~1 mM.
