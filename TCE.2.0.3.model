@@ -1,35 +1,4 @@
-# ==============================================================================
-# TCE PBPK model (version 2.1)
-# ==============================================================================
-#-----------------------------------------------------------------------
-#          Chemical Parameters
-#-----------------------------------------------------------------------
-
-# Molecular Weights
-MWDCVG = 402.25;     # DCVG #(V2.1) 
-MWDCVC = 216.1;      # DCVC
-MWNADCVC = 258.1;   # N Acetyl DCVC #(V2.1)
-MWTCE = 131.39;      # TCE
-MWDCA = 129.0;       # DCA
-MWTCOH = 149.5;      # TCOH
-MWTCOHGluc = 325.53; # TCOH-Gluc
-MWTCA = 163.39;      # TCA
-
-# Stoichiometry
-StochTCATCE = MWTCA / MWTCE;
-StochTCATCOH = MWTCA / MWTCOH;
-StochTCOHGluc = MWTCOH / MWTCOHGluc;
-StochDCATCE = MWDCA / MWTCE;
-StochDCVGTCE = MWDCVG / MWTCE;
-StochDCVCDCVG = MWDCVC / MWDCVG;
-StochN = MWNADCVC / MWNADCVC;
-StochGlucTCOH = MWTCOHGluc / MWTCOH;
-StochTCOHTCE = MWTCOH / MWTCE;
-
-#-----------------------------------------------------------------------
-#          State Variables (Dependent Variables in ODE)
-#-----------------------------------------------------------------------
-States = {  # 58states
+States = {
 ## TCE uptake
 AStom,		# Amount of TCE in stomach (oil)
 ADuod,		# oral gavage absorption (oil) -- mice and rats only
@@ -48,10 +17,6 @@ AInhResp,	# Amount in respiratory lumen during inhalation
 AResp,		# Amount in respiratory tissue
 AExhResp,	# Amount in respiratory lumen during exhalation
 
-##-- DCA
-ADCA,
-ADCAper,
-
 ##-- TCA 
 AStomTCA,	
 APlasTCA,	
@@ -64,6 +29,9 @@ AUrnTCA,
 AUrnTCA_sat,
 AUrnTCA_col,
 
+##-- DCA
+ADCA,
+ADCAper,
 ##-- TCOH 
 AStomTCOH,
 ABodTCOH, 
@@ -108,11 +76,17 @@ AUrnNADCVC_col,
 ACh, 		# Amount in closed chamber -- mice and rats only
 AExh, 		# Amount exhaled
 AExhExp, 	# Amount exhaled during expos  [to calc. retention]
+
+AMetLng, 
+AMetLiv1, 
+AMetLiv2, 
+AMetKid,
+AMetTCOHTCA,
 };
 
-#-----------------------------------------------------------------------
-#          Inpute Variables (Dependent Variables in ODE)
-#-----------------------------------------------------------------------
+#******************************************************************************
+#***                  Input Variable Specifications                         ***
+#******************************************************************************
 
 Inputs = {
 ##-- TCE dosing
@@ -137,17 +111,12 @@ Inputs = {
 	UrnMissing	# Flag for missing urine collection times 
 };
 
-#-----------------------------------------------------------------------
-#                       Outputs from the Model
-#-----------------------------------------------------------------------
-
+#---
+# Output Variable Specifications
+#---
 Outputs = {
-TotMetab, # Total metabolism
 
-# TCE
-RetDose,	# mouse, human - = (InhDose - AExhExp)
-FracRetMetab,	# mouse - fraction of retained dose metabolized
-FracRetExh,	# mouse - fraction of retained dose exhaled (post-exposure)
+RetDose,	# human - = (InhDose - AExhExp)
 CAlv,	# needed for CAlvPPM
 CAlvPPM,	# human
 CInhPPM,	# mouse, rat
@@ -161,6 +130,7 @@ CFat,	# mouse, rat - Concentration in fat
 CGut,	# rat
 CRap,	# needed for unlumped tissues
 CSlw,	# needed for unlumped tissues
+#(v1.2) CTB,	# needed for lung
 CHrt,	# rat - Concentration in heart tissue [use CRap]
 CKid,	# mouse, rat -  Concentration in kidney
 CLiv,	# mouse, rat - Concentration in liver 
@@ -169,88 +139,229 @@ CMus,	# rat - Concentration in muscle [use CSlw]
 CSpl, 	# rat - Concentration in spleen [use CRap]
 CBrn, 	# rat - Concentration in brain [use CRap]
 zAExh,	# mouse
-zAExhpost,	# mouse,rat - Amount exhaled post-exposure (mg)
-RAExh, #
-zRAExh, # mouse and rat - rate of Tce exhalation (mg/hr)
+zAExhpost,	# rat - Amount exhaled post-exposure (mg)
+
+# TCOH
+CTCOH,	# mouse, rat, human - TCOH concentration in blood
+CKidTCOH,	# mouse - TCOH concentration in kidney
+CLivTCOH,	# mouse - TCOH concentration in liver
+CLungTCOH,	# mouse - TCOH concentration in lung
 
 # TCA
 CPlasTCA,	# mouse, rat, human - TCA concentration in plasma
 CBldTCA,	# mouse, rat, human - TCA concentration in blood
-CBodTCA,	#
-CBraTCA, #(v2.1)
+CBodTCA,	# needed for CKidTCA and CLungTCA
 CKidTCA,	# mouse - TCA concentration in kidney
 CLivTCA,	# mouse, rat - TCA concentration in liver
-CLngTCA,	# mouse - TCA concentration in lung
+CLungTCA,	# mouse - TCA concentration in lung
 zAUrnTCA,	# mouse, rat, human - Cumulative Urinary TCA
 zAUrnTCA_col,	# human - TCA measurements for intermittent collection
 zAUrnTCA_sat,	# human - Saturated TCA measurements
-FracBndPlasTCA, # mouse - TCA fraction bound
-CDCAmol,		# concentration of DCA (mmol/l) #(v2.0)
-CDCAmol0,	# Dummy variable without likelihood (for plotting)#(v2.0)
+
+# TCOG
+zABilTCOG,	# rat - Amount of TCOG in bile (mg)
+CTCOG,	# needed for CTCOGTCOH
+CTCOGTCOH,	# mouse - TCOG concentration in blood (in TCOH-equiv)
+CKidTCOGTCOH,	# mouse - TCOG concentration in kidney (in TCOH-equiv)
+CLivTCOGTCOH,	# mouse - TCOG concentration in liver (in TCOH-equiv)
+CLungTCOGTCOH,	# mouse - TCOG concentration in lung (in TCOH-equiv)
+AUrnTCOGTCOH,	# mouse, rat, human - Cumulative Urinary TCOG (in TCOH-equiv)
+AUrnTCOGTCOH_col,	# human - TCOG (in TCOH-equiv) measurements for 
+			# intermittent collection 
+AUrnTCOGTCOH_sat,	# human - Saturated TCOG (in TCOH-equiv) measurements 
 
 # Other
+CDCVGmol,		# concentration of DCVG (mmol/l) 
+CDCVGmol0,	# Dummy variable without likelihood (for plotting)
+CDCVG_ND,	# Non-detect of DCVG (<0.001 nmol/ml= 1e-6 mmol/l )#(v2.0)
+		# Output -ln(likelihood)
+CDCVCmol,		# concentration of DCVC (mmol/l) #(v2.0)
+CDCVCmol0,	# Dummy variable without likelihood (for plotting)#(v2.0)
+CDCVC_ND,	# Non-detect of DCVC (<0.001 nmol/ml= 1e-6 mmol/l )#(v2.0)
+		# Output -ln(likelihood)#(v2.0)
+CDCAmol,		# concentration of DCA (mmol/l) #(v2.0)
+CDCAmol0,	# Dummy variable without likelihood (for plotting)#(v2.0)
+CDCA_ND,	# Non-detect of DCA (<0.01 nmol/ml= 1e-5 mmol/l )#(v2.0)
+		# Output -ln(likelihood)#(v2.0)
+AUrnTCTotMole,	# rat, human - Cumulative urinary TCOH+TCA in mmoles
+TotCTCOH,	# mouse, human - TCOH+TCOG Concentration (in TCOH-equiv)
+TotCTCOHcomp,	# ONLY FOR COMPARISON WITH HACK
+ATCOG,		# ONLY FOR COMPARISON WITH HACK
+	AMetOX,		# Amount of TCE oxidized #(vrisk)
+	AMetGSH,	# Amount of TCE conjugated #(vrisk)
+	TotTCAProd,	# Amount TCA produced in mg TCA #(vrisk)
+	TotDCAProd,	# Amount DCA produced in mg DCA #(vrisk)
+
+## PARAMETERS #(vrisk3)
+  QCnow, # (vrisk3) #Cardiac output (L/hr)
+  QP, # (vrisk3) #Alveolar ventilation (L/hr)
+  QFatSC, # (vrisk3) #Scaled fat blood flow
+  QGutSC, # (vrisk3) #Scaled gut blood flow
+  QLivSC, # (vrisk3) #Scaled liver blood flow
+  QSlwSC, # (vrisk3) #Scaled slowly perfused blood flow
+  QRapSC, # (vrisk3) #Scaled rapidly perfused blood flow
+  QKidSC, # (vrisk3) #Scaled kidney blood flow
+  DResp, # (vrisk3) #Respiratory lumen:tissue diffusive clearance rate
+  VFatSC, # (vrisk3) #Fat fractional compartment volume 
+  VGutSC, # (vrisk3) #Gut fractional compartment volume
+  VLivSC, # (vrisk3) #Liver fractional compartment volume
+  VRapSC, # (vrisk3) #Rapidly perfused fractional compartment volume
+  VRespLumSC, # (vrisk3) # Fractional volume of respiratory lumen
+  VRespEffSC, # (vrisk3) #Effective fractional volume of respiratory tissue
+  VKidSC, # (vrisk3) #Kidney fractional compartment volume
+  VBldSC, # (vrisk3) #Blood fractional compartment volume 
+  VSlwSC, # (vrisk3) #Slowly perfused fractional compartment volume 
+  VPlasSC, # (vrisk3) #Plasma fractional compartment volume 
+  VBodSC, # (vrisk3) #TCA Body fractional compartment volume [not incl. blood+liver]
+  VBodTCOHSC, # (vrisk3) #TCOH/G Body fractional compartment volume [not incl. liver]
+  #PB, # (vrisk3) #TCE Blood/air partition coefficient
+  #PFat, # (vrisk3) #TCE Fat/Blood partition coefficient
+  #PGut, # (vrisk3) #TCE Gut/Blood partition coefficient
+  #PLiv, # (vrisk3) #TCE Liver/Blood partition coefficient
+  #PRap, # (vrisk3) #TCE Rapidly perfused/Blood partition coefficient
+  #PResp, # (vrisk3) #TCE Respiratory tissue:air partition coefficient
+  #PKid, # (vrisk3) #TCE Kidney/Blood partition coefficient
+  #PSlw, # (vrisk3) #TCE Slowly perfused/Blood partition coefficient
+  #TCAPlas, # (vrisk3) #TCA blood/plasma concentration ratio
+  #PBodTCA, # (vrisk3) #Free TCA Body/blood plasma partition coefficient
+  #PLivTCA, # (vrisk3) #Free TCA Liver/blood plasma partition coefficient
+  #kDissoc, # (vrisk3) #Protein/TCA dissociation constant (umole/L)
+  #BMax, # (vrisk3) #Maximum binding concentration (umole/L)
+  #PBodTCOH, # (vrisk3) #TCOH body/blood partition coefficient
+  #PLivTCOH, # (vrisk3) #TCOH liver/body partition coefficient
+  #PBodTCOG, # (vrisk3) #TCOG body/blood partition coefficient
+  #PLivTCOG, # (vrisk3) #TCOG liver/body partition coefficient
+  #VDCVG, # (vrisk3) #DCVG effective volume of distribution
+  #VDCVC, # (v2.0risk)
+  #VDCA, # (v2.0risk)
+  #kAS, # (vrisk3) #TCE Stomach absorption coefficient (/hr)
+  #kTSD, # (vrisk3) #TCE Stomach-duodenum transfer coefficient (/hr)
+  #kAD, # (vrisk3) #TCE Duodenum absorption coefficient (/hr)
+  #kTD, # (vrisk3) #TCE Duodenum-feces transfer coefficient (/hr)
+  #kASTCA, # (vrisk3) #TCA Stomach absorption coefficient (/hr)
+  #kASTCOH, # (vrisk3) #TCOH Stomach absorption coefficient (/hr)
+  #VMax, # (vrisk3) #VMax for hepatic TCE oxidation (mg/hr)
+  #KM, # (vrisk3) #KM for hepatic TCE oxidation (mg/L)
+  #FracOther, # (vrisk3) #Fraction of hepatic TCE oxidation not to TCA+TCOH
+  #FracTCA, # (vrisk3) #Fraction of hepatic TCE oxidation to TCA
+  #VMaxDCVG, # (vrisk3) #VMax for hepatic TCE GSH conjugation (mg/hr)
+  #KMDCVG, # (vrisk3) #KM for hepatic TCE GSH conjugation (mg/L)
+  #ClDCVG, # (vrisk3) #CL for hepatic TCE GSH conjugation (L/hr)
+  #VMaxKidDCVG, # (vrisk3) #VMax for renal TCE GSH conjugation (mg/hr)
+  #KMKidDCVG, # (vrisk3) #KM for renal TCE GSH conjugation (mg/L)
+  #FracKidDCVC, # (vrisk3) #Fraction of renal TCE GSH conj. "directly" to DCVC 
+               # (vrisk3) #(i.e., via first pass)
+  #VMaxClara, # (vrisk3) #VMax for Tracheo-bronchial TCE oxidation (mg/hr)
+  #KMClara, # (vrisk3) #KM for Tracheo-bronchial TCE oxidation (mg/L)
+  #FracLungSys, # (vrisk3) #Fraction of respiratory metabolism to systemic circ.
+  #kClearDCA,	# Rate constant for DCA elimination (/hr)#(v2.0risk)
+  #kDCAcen_per,	# Rate constant for DCA central->peripheral (/hr)#(v2.0risk)
+  #kDCAper_cen,	# Rate constant for DCA peripheral->central (/hr)#(v2.0risk)
+  #VMaxTCOH, # (vrisk3) #VMax for hepatic TCOH->TCA (mg/hr)
+  #KMTCOH, # (vrisk3) #KM for hepatic TCOH->TCA (mg/L)
+  #VMaxGluc, # (vrisk3) #VMax for hepatic TCOH->TCOG (mg/hr)
+  #KMGluc, # (vrisk3) #KM for hepatic TCOH->TCOG (mg/L)
+  #kMetTCOH, # (vrisk3) #Rate constant for hepatic TCOH->other (/hr)
+  #kUrnTCA, # (vrisk3) #Rate constant for TCA plasma->urine (/hr)
+  #kMetTCA, # (vrisk3) #Rate constant for hepatic TCA->other (/hr)
+  #kBile, # (vrisk3) #Rate constant for TCOG liver->bile (/hr)
+  #kEHR, # (vrisk3) #Lumped rate constant for TCOG bile->TCOH liver (/hr)
+  #kUrnTCOG, # (vrisk3) #Rate constant for TCOG->urine (/hr)
+  #kDCVG, # (vrisk3) #Rate constant for hepatic DCVG->DCVC (/hr)
+  #kElimDCVC,	# Lumped rate constant for DCVC elimination (/hr)#(v2.0risk)
+
+## Misc
   RAO,
   CVenMole,
   CPlasTCAMole, 
-  CPlasTCAFreeMole
+  CPlasTCAFreeMole, #(v1d), #
+
 };
 
-#------------------
-# Model Parameters
-#------------------
-#-- TCE dosing
-Conc ;	# Inhalation exposure conc. (ppm)
-IVDose;	# IV dose (mg/kg)
-PDose;	# Oral gavage dose (mg/kg) - oil
-Drink;	# Drinking water dose (mg/kg/day)
-IADose;	# Intraarterial dose (mg/kg)
-PVDose;	# Portal vein dose (mg/kg)
-#-- TCA dosing
-IVDoseTCA;# IV dose (mg/kg) of TCA 
-PODoseTCA;# Oral dose (mg/kg) of TCA 
-DrinkTCA; # Oral drinking water dose (mg/kg/d) of TCA
-##-- TCOH dosing
-IVDoseTCOH;# IV dose (mg/kg) of TCOH 
-PODoseTCOH;# Oral dose (mg/kg) of TCOH 	
-#-- Potentially time-varying parameters
-QPmeas;	# Measured value of Alveolar ventilation QP 
-TCAUrnSat; # Flag for saturated TCA urine 
-TCOGUrnSat; 
-NADCVCUrnSat; 
-UrnMissing; # Flag for missing urine collection times 
+#******************************************************************************
+#***                  Global Constants                                      ***
+#******************************************************************************
 
-# Flow Rates		
-QC;	# Cardiac output (L/hr)
-VPR;	# Alveolar ventilation-perfusion ratio
-QPsamp;	# Alveolar ventilation (L/hr)
+# Molecular Weights
+MWDCVG = 402.25;     # DCVG #(V2.1) 
+MWDCVC = 216.1;      # DCVC
+MWNADCVC = 258.1;   # N Acetyl DCVC #(V2.1)
+MWTCE = 131.39;      # TCE
+MWDCA = 129.0;       # DCA
+MWTCOH = 149.5;      # TCOH
+MWTCOHGluc = 325.53; # TCOH-Gluc
+MWTCA = 163.39;      # TCA
 
-# Fractional Blood flows		
-QFatCtmp;	# Scaled fat blood flow
-QGutCtmp;	# Scaled gut blood flow
-QLivCtmp;	# Scaled liver blood flow
-QSlwCtmp;	# Scaled slowly perfused blood flow
+# Stoichiometry
+StochTCATCE = MWTCA / MWTCE;
+StochTCATCOH = MWTCA / MWTCOH;
+StochTCOHGluc = MWTCOH / MWTCOHGluc;
+StochDCATCE = MWDCA / MWTCE;
+StochDCVGTCE = MWDCVG / MWTCE;
+StochDCVCDCVG = MWDCVC / MWDCVG;
+StochN = MWNADCVC / MWNADCVC;
+StochGlucTCOH = MWTCOHGluc / MWTCOH;
+StochTCOHTCE = MWTCOH / MWTCE;
+
+#******************************************************************************
+#***                  Global Model Parameters                               ***
+#******************************************************************************
+# These are the actual model parameters used in "dynamics." 
+# Values that are assigned in the "initialize" section, 
+# are all set to 1 to avoid confusion.
+
+#******************************************************************************
+# Flows
+QC	= 1;	# Cardiac output (L/hr)
+QPsamp	= 1;	# Alveolar ventilation (L/hr)
+VPR	= 1;	# Alveolar ventilation-perfusion ratio
+QFatCtmp	= 1;	# Scaled fat blood flow
+QGutCtmp	= 1;	# Scaled gut blood flow
+QLivCtmp	= 1;	# Scaled liver blood flow
+QSlwCtmp	= 1;	# Scaled slowly perfused blood flow
+#(v1.2) QTBCtmp 	= 1;	# Scaled tracheo-bronchial blood flow
+DResptmp	= 1;	#(v1.2) Respiratory lumen:tissue diffusive clearance rate (L/hr) [scaled to QP]
+QKidCtmp	= 1;	# Scaled kidney blood flow
 QBraCtmp;    # (v2.1)
-QKidCtmp;	# Scaled kidney blood flow
-QLngCtmp;	# Scaled lung blood flow
-FracPlas;	# Fraction of blood that is plasma (1-hematocrit)
-DResptmp;	# Respiratory lumen:tissue diffusive clearance rate (L/hr) [scaled to QP]
+QLngCtmp;	 # (v2.1)
+FracPlas	= 1;	# Fraction of blood that is plasma (1-hematocrit)
+#******************************************************************************
+# Volumes
+VFat	= 1;	# Fat compartment volume (L)
+VBra    = 1;    #(v2.1) 
+VGut	= 1;	# Gut compartment volume (L)
+VLiv	= 1;	# Liver compartment volume (L)
+VRap	= 1;	# Rapidly perfused compartment volume (L)
+#(v1.2) VTB	= 1;	# Tracheo-bronchial compartment volume (L)
+VRespLum	= 1;	#(v1.2) Volume of respiratory lumen (L air)
+VRespEff	= 1;	#(v1.2) Effective volume for respiratory tissue (L air) = V(tissue) * Resp:Air partition coefficient
+VKid	= 1;	# Kidney compartment volume (L)
+VBld	= 1;	# Blood compartment volume (L)
+VSlw	= 1;	# Slowly perfused compartment volume (L)
+VPlas	= 1;	# Plasma compartment volume [fraction of blood] (L)
+#VBod	= 1;	# TCA Body compartment volume [not incl. blood+liver] (L)
 
-# Volumes		
-VFat; VBra; VGut; VLiv;	VRap;
-VKid; VBld;	VSlw; VPlas;
-VRespLum;	# Volume of respiratory lumen (L air)
-VRespEff;	# Effective volume for respiratory tissue (L air) = V(tissue) * Resp:Air partition coefficient
-VDCA;
-
-VBodTCA;  #
+VBodTCA;  #(v2.1)
 VBodTCOH; #(v2.1)
 VBodTCOG; #(v2.1)
 VBodDCVG; #(v2.1)
 VBodDCVC; #(v2.1)
 VBodNADCVC; #(v2.1)
 
+#******************************************************************************
+# Distribution/partitioning
+PB	= 1;	# TCE Blood/air partition coefficient
+PFat	= 1;	# TCE Fat/Blood partition coefficient
+PBra    = 1; #(v2.1)
+PGut	= 1;	# TCE Gut/Blood partition coefficient
+PLiv	= 1;	# TCE Liver/Blood partition coefficient
+PRap	= 1;	# TCE Rapidly perfused/Blood partition coefficient
+#(v1.2) PTB	= 1;	# TCE Tracheo-bronchial/Blood partition coefficient
+PResp	= 1;	#(v1.2) TCE Respiratory tissue:air partition coefficient
+PKid	= 1;	# TCE Kidney/Blood partition coefficient
+PSlw	= 1;	# TCE Slowly perfused/Blood partition coefficient
+
 # TCE-specific
-PB; PFat; PBra; PGut; PLiv; PRap; PResp; PKid; PSlw;
 VMaxLiv1;	# VMax TCE->TCA (mg/hr)
 VMaxLiv2;	# VMax for hepatic TCE GSH conjugation (mg/hr)
 KMLiv1;	# KM 
@@ -259,6 +370,7 @@ VMaxKid;	# VMax for renal TCE oxidation (mg/hr)
 KMKid;	# KM for renal TCE oxidation(mg/L)
 VMaxClara;	# VMax for Tracheo-bronchial TCE oxidation (mg/hr)
 KMClara;	# KM for Tracheo-bronchial TCE oxidation (mg/L) but in units of air concentration
+
 
 # TCA-specific		
 TCABgd;
@@ -269,26 +381,13 @@ BMax;	 # Protein concentration
 # TCOH-specific
 PBodTCOH; PLivTCOH; PBraTCOH; PLngTCOH; PKidTCOH; 
 
-VMaxLivTCOH1; #(v2.1)
-VMaxLivTCOH2; #(v2.1)
-VMaxLngTCOH1; #(v2.1)
-VMaxLngTCOH2; #(v2.1)
-KMLivTCOH1; #(v2.1)
-KMLivTCOH2; #(v2.1)
-KMLngTCOH1; #(v2.1)
-KMLngTCOH2; #(v2.1)
-kMetLivTCOH; #(v2.1)
-kMetLngTCOH; #(v2.1)
-
 # TCOG-specific
 PBodTCOG; PLivTCOG; PBraTCOG; PLngTCOG; PKidTCOG;
 
 # DCVG-specific
 PBodDCVG; PLivDCVG; PKidDCVG; PBraDCVG; 
 VMaxLivDCVG; #(v2.1)
-VMaxKidDCVG; #(v2.1)
 KMLivDCVG; #(v2.1)
-KMKidDCVG; #(v2.1)
 
 # DCVC-specific
 PBodDCVC; PLivDCVC; PKidDCVC; PBraDCVC;
@@ -302,14 +401,11 @@ kMetKidDCVC; #(v2.1)
 PBodNADCVC; PLivNADCVC; PKidNADCVC; PBraNADCVC;
 kUrnNADCVC; #(v2.1)	
 
-# DCA background
-DCABgd;
-
-kClearDCA;	# Rate constant for DCA elimination (/hr)#(v2.0)
-kDCAcen_per;	# Rate constant for DCA central->peripheral (/hr)#(v2.0)
-kDCAper_cen;	# Rate constant for DCA peripheral->central (/hr)#(v2.0)
-
-# Oral absorption		
+VDCVG	= 1;	# DCVG effective volume of distribution
+VDCVC	= 1;	# DCVC effective volume of distribution#(v2.0)
+VDCA	= 1;	# DCA effective volume of distribution (central compartment)#(v2.0)
+#******************************************************************************
+# Oral absorption
 kAS = 1;	# TCE Stomach absorption coefficient (oil) (/hr)
 kTSD = 1.4;	# TCE Stomach-duodenum transfer coefficient (oil) (/hr)
 kAD	= 0.75;	# TCE Duodenum absorption coefficient (oil) (/hr)
@@ -317,33 +413,81 @@ kTD = 0.1; 	# TCE Duodenum-feces transfer coefficient (/hr)
 kASTCA	= 0.75;	# TCA Stomach absorption coefficient (/hr)
 kASTCOH	= 0.75;	# TCOH Stomach absorption coefficient (/hr)
 FracAbsTCA = 1.0; # TCA drinking water fractional absorption
-	
+#******************************************************************************
 #		
 FracOther	= 1;	# Fraction of hepatic TCE oxidation not to TCA
 FracTCA =1; #(v2.1)
 FracLungSys = 1; #Fraction of respiratory oxidative metabolism that enters systemic circulation
 FracKidTCA	= 1;	# Fraction of renal TCE TCA "directly" to urine(i.e., via first pass)
 
+
+
+
+# TCA and DCA background
+DCABgd = 0; # mg/kg/d
+#******************************************************************************
+# TCE Metabolism
+VMaxDCVG	= 1;	# VMax for hepatic TCE GSH conjugation (mg/hr)
+KMDCVG	= 1;	# KM for hepatic TCE GSH conjugation (mg/L)
+VMaxKidDCVG	= 1;	# VMax for renal TCE GSH conjugation (mg/hr)
+KMKidDCVG	= 1;	# KM for renal TCE GSH conjugation (mg/L)
+		#(v1.2) but in units of air concentration
+#(v1.2) VMaxClear	= 1;	# VMax for Tracheo-bronchial CH clearance (mg/hr)
+#(v1.2) KMClear	= 1;	# KM for Tracheo-bronchial CH clearance (mg/L)
+
+#******************************************************************************
+# DCA metabolism/clearance#(v2.0)
+kClearDCA	= 1;	# Rate constant for DCA elimination (/hr)#(v2.0)
+kDCAcen_per	= 1;	# Rate constant for DCA central->peripheral (/hr)#(v2.0)
+kDCAper_cen	= 1;	# Rate constant for DCA peripheral->central (/hr)#(v2.0)
+#******************************************************************************
+# TCOH metabolism
+VMaxTCOH	= 1;	# VMax for hepatic TCOH->TCA (mg/hr)
+KMTCOH	= 1;	# KM for hepatic TCOH->TCA (mg/L)
+VMaxGluc	= 1;	# VMax for hepatic TCOH->TCOG (mg/hr)
+KMGluc	= 1;	# KM for hepatic TCOH->TCOG (mg/L)
+kMetTCOH	= 1;	# Rate constant for hepatic TCOH->other (/hr)
+
+VMaxLivTCOH1; #(v2.1)
+VMaxLivTCOH2; #(v2.1)
+VMaxLngTCOH1; #(v2.1)
+VMaxLngTCOH2; #(v2.1)
+KMLivTCOH1; #(v2.1)
+KMLivTCOH2; #(v2.1)
+KMLngTCOH1; #(v2.1)
+KMLngTCOH2; #(v2.1)
+kMetLivTCOH; #(v2.1)
+kMetLngTCOH; #(v2.1)
+#******************************************************************************
 # TCA metabolism/clearance		
 kUrnTCA	= 1;	# Rate constant for TCA plasma->urine (/hr)
 kMetLivTCA	= 1;	# Rate constant for hepatic TCA->other (/hr)
 kMetLngTCA = 1; #(v2.1)
 
+#******************************************************************************
 # TCOG metabolism/clearance
 kBil	= 1;	# Rate constant for TCOG liver->bile (/hr)
 kEHR	= 1;	# Lumped rate constant for TCOG bile->TCOH liver (/hr)
 kUrnTCOG	= 1;	# Rate constant for TCOG->urine (/hr)
+#******************************************************************************
+# DCVG metabolism
+kDCVG	= 1;	# Rate constant for hepatic DCVG->DCVC (/hr)
+FracKidDCVC	= 1;	# Fraction of renal TCE GSH conj. "directly" to DCVC (i.e., via first pass)
 
+#******************************************************************************
+# DCVC metabolism/clearance
+kElimDCVC	= 1;	# Lumped rate constant for DCVC elimination (/hr)#(v2.0)
+#******************************************************************************
 # Closed chamber and other exposure parameters 
 Rodents	= 1;	# Number of rodents in closed chamber data
 VCh	= 1;	# Chamber volume for closed chamber data
 kLoss	= 1;	# Rate constant for closed chamber air loss
 CC 	= 0.0;	# Initial chamber concentration (ppm)
 TChng 	= 0.003;	# IV infusion duration (hour)
-
+#******************************************************************************
 ## Flag for species, sex -- these are global parameters
 BW	= 0.0;  # Species-specific defaults during initialization
-Male 	= 0.5;	# 1 = male, 0 = female, 0.5 = unknown or mixed
+Male 	= 1.0;	# 1 = male, 0 = female
 Species	= 1.0;	# 1 = human, 2 = rat, 3 = mouse
 
 #******************************************************************************
@@ -353,16 +497,17 @@ BWmeas	= 0.0;	# Body weight
 VFatCmeas	= 0.0; # Fractional volume fat
 PBmeas	= 0.0;	# Measured blood-air partition coefficient
 Hematocritmeas = 0.0; # Measured hematocrit -- used for FracPlas = 1 - HCt
+CDCVGmolLD = 1e-6; # Detection limit of CDCVGmol (in mmol/L)#(v2.0)
+CDCVCmolLD = 1e-6; # Detection limit of CDCVCmol (in mmol/L)#(v2.0)
+CDCAmolLD = 1e-5; # Detection limit of CDCAmol (in mmol/L)#(v2.0)
 
 # Closed chamber parameters
 NRodents	= 1;	# 
 VChC	= 1;	# 
 lnkLossC	= 0;	# 
 
-
-#******************************************************************************
-#***                  Global Sampling Parameters                            ***
-#******************************************************************************
+#---------------------------
+# Global Sampling Parameters
 
 # Flow Rates 		
 lnQCC	= 0.0;	# Scaled by BW^0.75 and species-specific central estimates
@@ -547,342 +692,109 @@ lnISkDCA; # DCA metabolism/clearance
 lnISkDCVG = 0.0; # DCVG -> DCVC
 lnISkDCVC = 0.0; # DCVC clearance
 
-#-----------------------------------------------------------------------
-#                   Population Mean Parameters (M_...)
-#-----------------------------------------------------------------------
-M_lnQCC;
-M_lnVPRC;
-M_lnFracLungSysC;
+
+
+#---------------------
+# Population means 
+
+M_lnQCC	= 1.0; M_lnVPRC	= 1.0;
+M_QFatC	= 1.0; M_QGutC	= 1.0;
+M_QLivC	= 1.0; M_QSlwC	= 1.0;
+M_QKidC	= 1.0; M_FracPlasC	= 1.0;
+M_lnDRespC = 1.0; M_VFatC	= 1.0;
+M_VGutC	= 1.0; M_VLivC	= 1.0;
+M_VRapC	= 1.0; M_VRespLumC = 1.0; 
+M_VRespEffC = 1.0; M_VKidC	= 1.0;
+M_VBldC	= 1.0; M_lnPBC	= 1.0;
+M_lnPFatC	= 1.0; M_lnPGutC	= 1.0;
+M_lnPLivC	= 1.0; M_lnPRapC	= 1.0;
+M_lnPRespC	= 1.0; M_lnPKidC	= 1.0;
+M_lnPSlwC	= 1.0; M_lnPRBCPlasTCAC	= 1.0;
+M_lnPBodTCAC	= 1.0; M_lnPLivTCAC	= 1.0;
+M_lnkDissocC	= 1.0; M_lnBMaxkDC	= 1.0;
+M_lnPBodTCOHC	= 1.0; M_lnPLivTCOHC	= 1.0;
+M_lnPBodTCOGC	= 1.0; M_lnPLivTCOGC	= 1.0;
+M_lnPeffDCVG	= 1.0; M_lnPeffDCVC	= 1.0;
+M_lnPeffDCA	= 1.0; M_lnkTSD	= 1.0;
+M_lnkAS	= 1.0; M_lnkTD	= 1.0;
+M_lnkAD	= 1.0; M_lnkASTCA	= 1.0;
+M_lnkASTCOH	= 1.0; M_lnVMaxC	= 1.0;
+M_lnKMC	= 1.0; M_lnClC	= 1.0;
+M_lnFracOtherC	= 1.0; M_lnFracTCAC	= 1.0;
+M_lnVMaxDCVGC	= 1.0; M_lnClDCVGC	= 1.0;
+M_lnKMDCVGC	= 1.0; M_lnVMaxKidDCVGC	= 1.0;
+M_lnClKidDCVGC	= 1.0; M_lnKMKidDCVGC	= 1.0;
+M_lnVMaxLungLivC = 1.0; M_lnKMClara	= 1.0; 
+
+M_lnISOx = 0.0; M_lnISTCA = 0.0; M_lnISDCA = 0.0; 
+M_lnISConj = 0.0; M_lnISkTCA = 0.0; M_lnISkDCA = 0.0; 
+M_lnISkDCVG = 0.0; M_lnISkDCVC = 0.0; 
+
+M_lnFracLungSysC = 1.0; M_lnVMaxTCOHC	= 1.0;
+M_lnClTCOHC	= 1.0; M_lnKMTCOH	= 1.0;
+M_lnVMaxGlucC	= 1.0; M_lnClGlucC	= 1.0;
+M_lnKMGluc	= 1.0; M_lnkMetTCOHC	= 1.0;
+M_lnkUrnTCAC	= 1.0; M_lnkMetTCAC	= 1.0;
+M_lnkBilC	= 1.0; M_lnkEHRC	= 1.0;
+M_lnkUrnTCOGC	= 1.0; M_lnFracKidDCVCC	= 1.0;
+M_lnkDCVGC	= 1.0; M_lnkElimDCVCC	= 1.0;
+M_lnkClearDCAC	= 1.0; M_lnkDCAcen_perC	= 1.0;
+M_lnkDCAper_cenC = 1.0; 
+
+#---------------------
+# Population Variances
+
+V_lnQCC	= 1.0; V_lnVPRC	= 1.0;
+V_QFatC	= 1.0; V_QGutC	= 1.0;
+V_QLivC	= 1.0; V_QSlwC	= 1.0;
+V_QKidC	= 1.0; V_FracPlasC	= 1.0;
+V_lnDRespC = 1.0; V_VFatC	= 1.0;
+V_VGutC	= 1.0; V_VLivC	= 1.0;
+V_VRapC	= 1.0; V_VRespLumC = 1.0;
+V_VRespEffC = 1.0; V_VKidC	= 1.0;
+V_VBldC	= 1.0; V_lnPBC	= 1.0;
+V_lnPFatC	= 1.0; V_lnPGutC	= 1.0;
+V_lnPLivC	= 1.0; V_lnPRapC	= 1.0;
+V_lnPRespC	= 1.0; V_lnPKidC	= 1.0;
+V_lnPSlwC	= 1.0; V_lnPRBCPlasTCAC	= 1.0;
+V_lnPBodTCAC	= 1.0; V_lnPLivTCAC	= 1.0;
+V_lnkDissocC	= 1.0; V_lnBMaxkDC	= 1.0;
+V_lnPBodTCOHC	= 1.0; V_lnPLivTCOHC	= 1.0;
+V_lnPBodTCOGC	= 1.0; V_lnPLivTCOGC	= 1.0;
+V_lnPeffDCVG	= 1.0; V_lnPeffDCVC	= 1.0;
+V_lnPeffDCA	= 1.0; V_lnkTSD	= 1.0;
+V_lnkAS	= 1.0; V_lnkTD	= 1.0;
+V_lnkAD	= 1.0; V_lnkASTCA	= 1.0;
+V_lnkASTCOH	= 1.0; V_lnVMaxC	= 1.0;
+V_lnKMC	= 1.0; V_lnClC	= 1.0;
+V_lnFracOtherC	= 1.0; V_lnFracTCAC	= 1.0;
+V_lnVMaxDCVGC	= 1.0; V_lnClDCVGC	= 1.0;
+V_lnKMDCVGC	= 1.0; V_lnVMaxKidDCVGC	= 1.0;
+V_lnClKidDCVGC	= 1.0; V_lnKMKidDCVGC	= 1.0;
+V_lnVMaxLungLivC = 1.0; V_lnKMClara	= 1.0;
+
+V_lnISOx = 1.0; V_lnISTCA = 1.0; V_lnISDCA = 1.0; 
+V_lnISConj = 1.0; V_lnISkTCA = 1.0; V_lnISkDCA = 1.0;
+V_lnISkDCVG = 1.0; V_lnISkDCVC = 1.0; 
+
+V_lnFracLungSysC	= 1.0; V_lnVMaxTCOHC	= 1.0;
+V_lnClTCOHC	= 1.0; V_lnKMTCOH	= 1.0;
+V_lnVMaxGlucC	= 1.0; V_lnClGlucC	= 1.0;
+V_lnKMGluc	= 1.0; V_lnkMetTCOHC	= 1.0;
+V_lnkUrnTCAC	= 1.0; V_lnkMetTCAC	= 1.0;
+V_lnkBilC	= 1.0; V_lnkEHRC	= 1.0;
+V_lnkUrnTCOGC	= 1.0; V_lnFracKidDCVCC	= 1.0;
+V_lnkDCVGC	= 1.0; V_lnkElimDCVCC	= 1.0; 
+V_lnkClearDCAC	= 1.0; V_lnkDCAcen_perC	= 1.0;
+V_lnkDCAper_cenC	= 1.0;
+
+
+#******************************************************************************
+# Measurement error variances for output
+
+#(v1.2) Ve_AlvRet	= 1;
 	
-M_QFatC;
-M_QGutC;
-M_QLivC;
-M_QSlwC;
-M_QKidC;
-M_QLngC; #(v2.1)
-M_FracPlasC;
-M_lnDRespC;
-M_lnISConj; # GSH conjugation metabolism
-M_lnISOx; # P450 oxidative metabolism
-
-M_lnPeffDCA	;#(v2.0)
-M_lnISDCA; # fraction to DCA
-M_lnISkDCA; # DCA metabolism/clearance
-M_lnkClearDCAC;#(v2.0)
-M_lnkDCAcen_perC;#(v2.0)
-M_lnkDCAper_cenC;#(v2.0)	
-
-
-M_VFatC;
-M_VGutC;
-M_VLivC;
-M_VRapC;
-M_VRespLumC;
-M_VRespEffC;
-	
-M_VKidC;
-M_VBldC;
-	
-M_PBC;
-M_PFatC;
-M_lnPGutC;
-M_lnPLivC;
-M_lnPRapC;
-M_lnPRespC;
-M_lnPKidC;
-M_lnPSlwC;
-
-M_lnkDissocC;
-M_lnBMaxkDC;
-	
-M_lnkTSD;
-M_lnkAS;
-M_lnkTD;
-M_lnkAD;
-M_lnkASTCA;
-M_lnkASTCOH;
-
-
-M_lnClLiv1C;	# Scaled by BW^0.75
-M_lnClLiv2C;	# Scaled by BW^0.75
-	
-M_lnVMaxKidC;
-M_lnKMKidC;
-M_lnClKidC;
-M_lnVMaxLiv1C; #(2.1)
-M_lnVMaxLiv2C; #(2.1)
-M_lnKMLiv1C; #(2.1)
-M_lnKMLiv2C; #(2.1)
-
-# TCA	
-M_lnPRBCPlasTCAC;
-M_lnPBodTCAC;
-M_lnPBraTCAC; #(v2.1)
-M_lnPKidTCAC; #(v2.1)
-M_lnPLivTCAC;
-M_lnPLngTCAC;	#(v2.1)
-M_lnFracTCAC; #(2.1)
-
-#TCOH
-M_lnPBodTCOHC; #(v2.1)
-M_lnPLivTCOHC; #(v2.1)	
-M_lnPBraTCOHC; #(v2.1)
-M_lnPLngTCOHC; #(v2.1)
-M_lnPKidTCOHC; #(v2.1)
-M_lnKMLivTCOH1C; #(2.1)
-M_lnKMLivTCOH2C; #(2.1)
-M_lnVMaxLivTCOH1C; #(2.1)
-M_lnVMaxLivTCOH2C; #(2.1)
-M_lnKMLngTCOH1C; #(2.1)
-M_lnKMLngTCOH2C; #(2.1)
-M_lnVMaxLngTCOH1C; #(2.1)
-M_lnVMaxLngTCOH2C; #(2.1)
-M_lnClLivTCOH1C;	
-M_lnClLivTCOH2C;
-M_lnClLngTCOH1C;	
-M_lnClLngTCOH2C;
-M_lnkMetLivTCOHC;
-M_lnkMetLngTCOHC;
-
-
-#TCOG
-M_lnPBodTCOGC; #(v2.1)
-M_lnPLivTCOGC; #(v2.1)	
-M_lnPBraTCOGC; #(v2.1)
-M_lnPLngTCOGC; #(v2.1)
-M_lnPKidTCOGC; #(v2.1)
-
-# DCVG
-M_lnPBodDCVGC;	#(v2.1)
-M_lnPLivDCVGC;	#(v2.1)
-M_lnPKidDCVGC;	#(v2.1)
-M_lnPBraDCVGC;	#(v2.1)
-M_lnVMaxKidDCVGC; #(2.1)
-M_lnVMaxLivDCVGC; #(2.1)
-M_lnKMKidDCVGC; #(2.1)
-M_lnKMLivDCVGC; #(2.1)
-M_lnClLivDCVGC;
-M_lnClKidDCVGC;
-
-# DCVC
-M_lnPBodDCVCC;	#(v2.1)
-M_lnPLivDCVCC;	#(v2.1)
-M_lnPKidDCVCC;	#(v2.1)
-M_lnPBraDCVCC;	#(v2.1)
-M_lnVMaxLivDCVCC;	#(v2.1)
-M_lnVMaxKidDCVCC;	#(v2.1)
-M_lnKMLivDCVCC; #(v2.1)
-M_lnKMKidDCVCC; #(v2.1)
-M_lnClLivDCVCC;
-M_lnClKidDCVCC;
-M_lnkMetKidDCVCC; #(v2.1)
-
-# NADCVC
-M_lnPBodNADCVCC;	#(v2.1)
-M_lnPLivNADCVCC;	#(v2.1)
-M_lnPKidNADCVCC;	#(v2.1)
-M_lnPBraNADCVCC;	#(v2.1)
-M_lnkUrnNADCVCC; #(v2.1)
-
-#
-M_lnClC;
-M_lnCl2OxC;#(v2.0.0)
-M_lnFracOtherC;
-
-M_lnVMaxKidLivC;
-M_lnKMKidLivC;
-M_lnClKidLivC;
-M_lnFracKidTCAC;
-M_lnVMaxLungLivC;
-M_lnKMRespLivC;
-	
-M_lnkUrnTCAC;
-M_lnkMetLivTCAC;
-M_lnkMetLngTCAC;
-
-# TCOG excretion and reabsorption
-M_lnkBilC;
-M_lnkEHRC;	
-M_lnkUrnTCOGC;		
-	
-# inter-strain scaling
-M_lnISTCA; # fraction to TCA
-
-#-----------------------------------------------------------------------
-#                   Population Variance Parameters (V_...)
-#-----------------------------------------------------------------------
-V_lnQCC	= 1.0;
-V_lnVPRC	= 1.0;
-V_lnISOx = 1.0; # P450 oxidative metabolism	
-V_lnPeffDCA	= 1.0;#(v2.0)
-V_lnISDCA = 1.0; # fraction to DCA
-V_lnISkDCA = 1.0; # DCA metabolism/clearance
-V_lnkClearDCAC	= 1.0;#(v2.0)
-V_lnkDCAcen_perC	= 1.0;#(v2.0)
-V_lnkDCAper_cenC	= 1.0;#(v2.0)	
-V_lnFracLungSysC	= 1.0;
-V_lnISConj = 1.0; # GSH conjugation metabolism	
-V_QFatC	= 1.0;
-V_QGutC	= 1.0;
-V_QLivC	= 1.0;
-V_QSlwC	= 1.0;
-V_QKidC	= 1.0;
-V_QLngC	= 1.0; #(v2.1)
-V_FracPlasC	= 1.0;
-V_lnDRespC	= 1.0;
-	
-V_VFatC	= 1.0;
-V_VGutC	= 1.0;
-V_VLivC	= 1.0;
-V_VRapC	= 1.0;
-V_VRespLumC	= 1.0;
-V_VRespEffC	= 1.0;
-	
-V_VKidC	= 1.0;
-V_VBldC	= 1.0;
-	
-V_PBC	= 1.0;
-V_PFatC	= 1.0;
-V_lnPGutC	= 1.0;
-V_lnPLivC	= 1.0;
-V_lnPRapC	= 1.0;
-V_lnPRespC	= 1.0;
-V_lnPKidC	= 1.0;
-V_lnPSlwC	= 1.0;
-	
-V_lnPRBCPlasTCAC = 1.0;
-V_lnPBodTCAC	= 1.0;
-V_lnPBraTCAC	= 1.0; #(v2.1)
-V_lnPKidTCAC	= 1.0; #(v2.1)
-V_lnPLivTCAC	= 1.0;
-V_lnPLngTCAC	= 1.0;	#(v2.1)
-
-#
-V_lnPBodTCOHC = 1.0; #(v2.1)
-V_lnPLivTCOHC = 1.0; #(v2.1)	
-V_lnPBraTCOHC = 1.0; #(v2.1)
-V_lnPLngTCOHC = 1.0; #(v2.1)
-V_lnPKidTCOHC = 1.0; #(v2.1)
-
-#
-V_lnPBodTCOGC = 1.0; #(v2.1)
-V_lnPLivTCOGC = 1.0; #(v2.1)	
-V_lnPBraTCOGC = 1.0; #(v2.1)
-V_lnPLngTCOGC = 1.0; #(v2.1)
-V_lnPKidTCOGC = 1.0; #(v2.1)
-
-# DCVG
-V_lnPBodDCVG = 0.0;	#(v2.1)
-V_lnPLivDCVG = 0.0;	#(v2.1)
-V_lnPKidDCVG = 0.0;	#(v2.1)
-V_lnPBraDCVG = 0.0;	#(v2.1)
-
-# DCVC
-V_lnPBodDCVC = 0.0;	#(v2.1)
-V_lnPLivDCVC = 0.0;	#(v2.1)
-V_lnPKidDCVC = 0.0;	#(v2.1)
-V_lnPBraDCVC = 0.0;	#(v2.1)
-
-# NADCVC
-V_lnPBodNADCVC = 0.0;	#(v2.1)
-V_lnPLivNADCVC = 0.0;	#(v2.1)
-V_lnPKidNADCVC = 0.0;	#(v2.1)
-V_lnPBraNADCVC = 0.0;	#(v2.1)
-
-#
-V_lnkDissocC	= 1.0;
-V_lnBMaxkDC	= 1.0;
-#	
-V_lnkTSD	= 1.0;
-V_lnkAS	= 1.0;
-V_lnkTD	= 1.0;
-V_lnkAD	= 1.0;
-V_lnkASTCA	= 1.0;
-V_lnkASTCOH	= 1.0;
-	
-#	
-V_lnVMaxLiv1C	= 1.0;
-V_lnVMaxLiv2C	= 1.0;
-V_lnKMLiv1C	= 1.0;
-V_lnKMLiv2C	= 1.0;
-
-# TCOH
-V_lnVMaxLivTCOH1C	= 1.0; 
-V_lnVMaxLivTCOH2C	= 1.0; 
-V_lnKMLivTCOH1C	= 1.0; 
-V_lnKMLivTCOH2C	= 1.0; 
-V_lnkMetLivTCOHC	= 1.0;  #(v2.1)
-V_lnVMaxLngTCOH1C	= 1.0; 
-V_lnVMaxLngTCOH2C	= 1.0; 
-V_lnKMLngTCOH1C	= 1.0; 
-V_lnKMLngTCOH2C	= 1.0; 
-V_lnkMetLngTCOHC	= 1.0;  #(v2.1)
-V_lnClLivTCOH1C	= 1.0;	#(v2.1)
-V_lnClLivTCOH2C	= 1.0;	#(v2.1)
-V_lnClLngTCOH1C	= 1.0;	#(v2.1)
-V_lnClLngTCOH2C	= 1.0;	#(v2.1)
-
-V_lnClLiv1C	= 0.0;	# Scaled by BW^0.75
-V_lnClLiv2C	= 0.0;	# Scaled by BW^0.75
-
-V_lnVMaxKidC;
-V_lnKMKidC;
-V_lnClKidC;
-
-#
-V_lnVMaxKidDCVGC = 1.0; #(2.1)
-V_lnVMaxLivDCVGC = 1.0; #(2.1)
-V_lnKMKidDCVGC = 1.0; #(2.1)
-V_lnKMLivDCVGC = 1.0; #(2.1)
-V_lnClLivDCVGC = 1.0;
-V_lnClKidDCVGC = 1.0;
-
-# DCVC
-V_lnVMaxLivDCVCC = 1.0;	#(v2.1)
-V_lnVMaxKidDCVCC = 1.0;	#(v2.1)
-V_lnKMLivDCVCC = 1.0; #(v2.1)
-V_lnKMKidDCVCC = 1.0; #(v2.1)
-V_lnClLivDCVCC = 1.0;
-V_lnClKidDCVCC = 1.0;
-V_lnkMetKidDCVCC = 1.0; #(v2.1)
-
-# NADCVC excretion
-V_lnkUrnNADCVCC	= 1.0; #(v2.1)
-
-#
-V_lnClC	= 1.0;
-V_lnCl2OxC	= 1.0;#(v2.0.0)
-V_lnFracOtherC	= 1.0;
-V_lnFracTCAC	= 1.0;#(v2.1)
-
-
-
-V_lnVMaxKidLivC	= 1.0;
-V_lnKMKidLivC	= 1.0;
-V_lnClKidLivC	= 1.0;
-V_lnFracKidTCAC	= 1.0;
-V_lnVMaxLungLivC	= 1.0;
-V_lnKMRespLivC	= 1.0;
-
-# inter-strain scaling
-V_lnISTCA = 1.0; # fraction to TCA
-	
-V_lnkUrnTCAC	= 1.0;
-V_lnkMetLivTCAC	= 1.0;
-V_lnkMetLngTCAC	= 1.0;
-
-# TCOG excretion and reabsorption
-V_lnkBilC	= 1.0;
-V_lnkEHRC	= 1.0;	
-V_lnkUrnTCOGC	= 1.0;	
-
-
-#-----------------------------------------------------------------------
-#          Measurement error variances for output (Ve_...)
-#-----------------------------------------------------------------------
 Ve_RetDose	= 1;
-Ve_FracRetMetab = 1;
-Ve_FracRetExh = 1;
 Ve_CAlv	= 1;
 Ve_CAlvPPM	= 1;
 Ve_CInhPPM	= 1;
@@ -896,6 +808,7 @@ Ve_CFat	= 1;
 Ve_CGut	= 1;
 Ve_CRap	= 1;
 Ve_CSlw	= 1;
+#(v1.2) Ve_CTB	= 1;
 Ve_CHrt	= 1;
 Ve_CKid	= 1;
 Ve_CLiv	= 1;
@@ -905,27 +818,66 @@ Ve_CSpl	= 1;
 Ve_CBrn	= 1;
 Ve_zAExh	= 1;
 Ve_zAExhpost	= 1;
-Ve_zRAExh	= 1;	
-Ve_TotMetab = 1;
+	
+	
+Ve_CTCOH	= 1;
+Ve_CKidTCOH	= 1;
+Ve_CLivTCOH	= 1;
+Ve_CLungTCOH	= 1;
+	
 	
 Ve_CPlasTCA	= 1;
 Ve_CBldTCA	= 1;
 Ve_CBodTCA	= 1;
 Ve_CKidTCA	= 1;
 Ve_CLivTCA	= 1;
-Ve_CLngTCA	= 1;
+Ve_CLungTCA	= 1;
 Ve_zAUrnTCA	= 1;
 Ve_zAUrnTCA_col	= 1;
 Ve_zAUrnTCA_sat	= 1;
 	
-Ve_CDCAmol	= 1;#(v2.0)
 	
+Ve_zABilTCOG	= 1;
+Ve_CTCOG	= 1;
+Ve_CTCOGTCOH	= 1;
+Ve_CKidTCOGTCOH	= 1;
+Ve_CLivTCOGTCOH	= 1;
+Ve_CLungTCOGTCOH	= 1;
+Ve_AUrnTCOGTCOH	= 1;
+Ve_AUrnTCOGTCOH_col	= 1;
+	
+Ve_AUrnTCOGTCOH_sat	= 1;
+	
+	
+Ve_CDCVGmol	= 1;#(v2.0)
+Ve_CDCVCmol	= 1;#(v2.0)
+Ve_CDCAmol	= 1;#(v2.0)
+Ve_AUrnTCTotMole	= 1;
+Ve_TotCTCOH	= 1;
 Ve_QPsamp	= 1;
 
-#-----------------------------------------------------------------------
-#                       Initialize the Model
-#-----------------------------------------------------------------------	
-	
+#******************************************************************************
+#***                  Defaults for input parameters                         ***
+#******************************************************************************
+##-- TCE dosing
+	Conc = 0.0;	# Inhalation exposure conc. (ppm)
+	IVDose = 0.0;	# IV dose (mg/kg)
+	PDose = 0.0;	# Oral gavage dose (mg/kg)
+	Drink = 0.0;	# Drinking water dose (mg/kg/day)
+	IADose = 0.0;	# Intraarterial dose (mg/kg)
+	PVDose = 0.0;	# Portal vein dose (mg/kg)
+##-- TCA dosing
+	IVDoseTCA = 0.0;# IV dose (mg/kg) of TCA 
+	PODoseTCA = 0.0;# Oral dose (mg/kg) of TCA 
+##-- TCOH dosing
+	IVDoseTCOH = 0.0;# IV dose (mg/kg) of TCOH 
+	PODoseTCOH = 0.0;# Oral dose (mg/kg) of TCOH 
+##-- Potentially time-varying parameters
+	QPmeas = 0.0;	# Measured value of Alveolar ventilation QP 
+	TCAUrnSat = 0.0;# Flag for saturated TCA urine 
+	TCOGUrnSat = 0.0;# Flag for saturated TCOG urine 
+	UrnMissing = 0.0;# Flag for missing urine collection times 
+
 Initialize {
 	# use measured value of > 0, otherwise use 0.03 for mouse, 
 	#	0.3 for rat, 60 for female human, 70 for male human
@@ -1053,10 +1005,12 @@ kASTCOH = exp(lnkASTCOH);
 
 ################### Metabolism parameters
 #TCE
+VMaxLiv1 = exp(lnISOx) * VLiv*exp(lnVMaxLiv1C) * (Species == 3 ? 2700. : (Species == 2 ? 600. : 255.));
+VMaxLiv2 = exp(lnISConj) * VLiv * (Species == 3 ? (300.*exp(lnVMaxLiv2C)) : (Species == 2 ? (66.*exp(lnVMaxLiv2C)) : (2.9*19.*exp(lnClLiv2C+lnKMLiv2C))));
 	KMLiv1 = (Species == 3 ? 36.*exp(lnKMLiv1C) : (Species == 2 ? 21.*exp(lnKMLiv1C) : VMaxLiv1/(VLiv*66.*exp(lnClLiv1C))));
-	VMaxLiv1 = exp(lnISOx) * VLiv*exp(lnVMaxLiv1C) * (Species == 3 ? 2700. : (Species == 2 ? 600. : 255.));
+	
 	KMLiv2 = (Species == 3 ? 36.*exp(lnKMLiv2C) : (Species == 2 ? 21.*exp(lnKMLiv2C) : VMaxLiv2/(VLiv*66.*exp(lnClLiv2C))));
-	VMaxLiv2 = exp(lnISConj) * VLiv * (Species == 3 ? (300.*exp(lnVMaxLiv2C)) : (Species == 2 ? (66.*exp(lnVMaxLiv2C)) : (2.9*19.*exp(lnClLiv2C+lnKMLiv2C))));
+	
 	VMaxKid = exp(lnISConj) * VKid*(Species == 3 ? (60.*exp(lnVMaxKidC)) : (Species == 2 ? (6.0*exp(lnVMaxKidC)) : (2.7*230.*exp(lnClKidC+lnKMKidC))));
 	KMKid = (Species == 3 ? (VMaxKid/(VKid*0.34*exp(lnClKidC))) : (Species == 2 ? (VMaxKid/(VKid*0.026*exp(lnClKidC))) : 2.7*exp(lnKMKidC)));
 	VMaxClara = exp(lnVMaxLungLivC) * VMaxLiv1 * (Species == 3 ? (0.55*0.7/5.5):(Species == 2 ? (0.098*0.5/3.4):(0.046*(Male == 0 ? (0.42/1.4) : (0.5/1.8)))));
@@ -1124,74 +1078,97 @@ kASTCOH = exp(lnkASTCOH);
 # Calculate net chamber volume
 	kLoss = exp(lnkLossC);
 #Initial amount in chamber
-	ACh = (CC * VCh * MWTCE) / 24450.0;    
-	
+	ACh = (CC * VCh * MWTCE) / 24450.0;   
 };
 ###################### End of Initialization ########################
 
 Dynamics{
 # QP uses QPmeas if value is > 0, otherwise uses sampled value 
 	QP = (QPmeas > 0 ? QPmeas : QPsamp);
+# Scale diffusion flow rate
 	DResp = DResptmp * QP;
-
 # QCnow uses QPmeas/VPR if QPmeas > 0, otherwise uses sampled value 
 	QCnow = (QPmeas > 0 ? QPmeas/VPR : QC);
-
-# These done here in dynamics in case QCnow changes 
-# Blood Flows to Tissues (L/hr)
-        QFat = (QFatCtmp) * QCnow; # 
-        QGut = (QGutCtmp) * QCnow; # 
-        QLiv = (QLivCtmp) * QCnow; # 
-        QSlw = (QSlwCtmp) * QCnow; # 
-		QBra = (QBraCtmp) * QCnow; #(v2.1)
-        QKid = (QKidCtmp) * QCnow; # 
-        QLng = (QLngCtmp) * QCnow; #(v2.1)
-     QGutLiv = QGut + QLiv; # 
- 	QRap = QCnow - QFat - QGut - QLiv - QSlw - QKid - QBra; 
-#	QRapCtmp = QRap/QCnow; #(vrisk)
-    QBod = QCnow - QGutLiv - QLng - QKid - QBra; #(v2.1)
+    QFat = (QFatCtmp) * QCnow; # 
+    QGut = (QGutCtmp) * QCnow; # 
+    QLiv = (QLivCtmp) * QCnow; # 
+    QSlw = (QSlwCtmp) * QCnow; # 
+    QKid = (QKidCtmp) * QCnow; # 
+    QBra = (QBraCtmp) * QCnow; #(v2.1)
+    QLng = (QLngCtmp) * QCnow; #(v2.1)
+    QGutLiv = QGut + QLiv; # 
+ 	QRap = QCnow - QFat - QGut - QLiv - QSlw - QKid; #(v1.2)
+	# QBod = QCnow - QGutLiv; #(v2.0)
+	QBod = QCnow - QGutLiv - QLng - QKid - QBra; #(v2.1)
+	
+  QFatSC = QFat/QCnow; # (vrisk3) #Scaled fat blood flow
+  QGutSC = QGut/QCnow; # (vrisk3) #Scaled gut blood flow
+  QLivSC = QLiv/QCnow; # (vrisk3) #Scaled liver blood flow
+  QSlwSC = QSlw/QCnow; # (vrisk3) #Scaled slowly perfused blood flow
+  QRapSC = QRap/QCnow; # (vrisk3) #Scaled rapidly perfused blood flow
+  QKidSC = QKid/QCnow; # (vrisk3) #Scaled kidney blood flow
 
 # Plasma Flows to Tissues (L/hr)
-      QCPlas = FracPlas * QCnow; # 
+    QCPlas = FracPlas * QCnow; # 
     QBodPlas = FracPlas * QBod; # 
     QKidPlas = FracPlas * QKid; #(v2.1)
     QBraPlas = FracPlas * QBra; #(v2.1)
     QLngPlas = FracPlas * QLng; #(v2.1)
     QGutLivPlas = FracPlas * QGutLiv; # 
 
+  VFatSC=VFat/BW; # (vrisk3) #Fat fractional compartment volume 
+  VGutSC=VGut/BW; # (vrisk3) #Gut fractional compartment volume
+  VLivSC=VLiv/BW; # (vrisk3) #Liver fractional compartment volume
+  VRapSC=VRap/BW; # (vrisk3) #Rapidly perfused fractional compartment volume
+  VRespLumSC=VRespLum/BW; # (vrisk3) # Fractional volume of respiratory lumen
+  VRespEffSC=VRespEff/BW; # (vrisk3) #Effective fractional volume of respiratory tissue
+  VKidSC=VKid/BW; # (vrisk3) #Kidney fractional compartment volume
+  VBldSC=VBld/BW; # (vrisk3) #Blood fractional compartment volume 
+  VSlwSC=VSlw/BW; # (vrisk3) #Slowly perfused fractional compartment volume 
+  VPlasSC=VPlas/BW; # (vrisk3) #Plasma fractional compartment volume 
+  VBodSC=VBodTCA/BW; # (vrisk3) #TCA Body fractional compartment volume [not incl. blood+liver]
+  VBodTCOHSC=VBodTCOH/BW; # (vrisk3) #TCOH/G Body fractional compartment volume [not incl. liver]
+
+#### TCE DOSING
 ## IV route
     kIV = (IVDose * BW) / TChng;# IV infusion rate (mg/hr)
-    kIA = (IADose * BW) / TChng;	# IA infusion rate (mg/hr) 
-    kPV = (PVDose * BW) / TChng;	# PV infusion rate (mg/hr) 
-    kStom = (PDose * BW) / TChng; # PO dose rate (into stomach) (mg/hr) - oil
+    				# (IVDose constant for duration TChng)
+    kIA = (IADose * BW) / TChng;	# IA infusion rate (mg/hr) (v1f)
+    kPV = (PVDose * BW) / TChng;	# PV infusion rate (mg/hr) (v1f)
+    kStom = (PDose * BW) / TChng;# PO dose rate (into stomach) (mg/hr) (v1.2.1)
 
-## Oral route - oil
-# Amount of TEC in stomach -- for oral dosing only (mg)
+## Oral route
+# Amount of TCE in stomach -- for oral dosing only (mg)
+    dt(AStom) = kStom - AStom * (kAS + kTSD);
+
+# Amount of TCE in duodenum -- for oral dosing only (mg)
+    dt(ADuod) = (kTSD * AStom) - (kAD + kTD) * ADuod;
 # Rate of absorption from drinking water
     kDrink = (Drink * BW) / 24.0; #Ingestion rate via drinking water (mg/hr)
+
 # Total rate of absorption including gavage and drinking water
     RAO = kDrink + (kAS * AStom) + (kAD * ADuod);
 ## Inhalation route
-    CInh = ACh/VCh + Conc*MWTCE/24450.0; # in mg/l
+    CInh = (CC > 0 ? ACh/VCh : Conc*MWTCE/24450.0); # in mg/l
 
 #### TCA Dosing
-kIVTCA = (IVDoseTCA * BW) / TChng;  # TCA IV infusion rate (mg/hr) 
-kStomTCA =  TCABgd * BW / 24 + (PODoseTCA * BW) / TChng; # TCA PO dose rate into stomach
-kPOTCA = AStomTCA * kASTCA;  # TCA oral absorption rate (mg/hr) 
-kDrinkTCA = FracAbsTCA * (DrinkTCA * BW) / 24.0; 
-dt(AStomTCA) = kStomTCA - AStomTCA * kASTCA;
-
+	kIVTCA = (IVDoseTCA * BW) / TChng;  # TCA IV infusion rate (mg/hr) 
+	kStomTCA =  TCABgd * BW / 24 + #(v2.0) TCA background in mg/kg/d
+		 (PODoseTCA * BW) / TChng; # TCA PO dose rate into stomach
+    kDrinkTCA = FracAbsTCA * (DrinkTCA * BW) / 24.0; 
+	dt(AStomTCA) = kStomTCA - AStomTCA * kASTCA;
+	kPOTCA = AStomTCA * kASTCA;  # TCA oral absorption rate (mg/hr) 
 
 #### TCOH Dosing
-kIVTCOH = (IVDoseTCOH * BW) / TChng;#TCOH IV infusion rate (mg/hr) 
-kStomTCOH = (PODoseTCOH * BW) / TChng; # TCOH PO dose rate into stomach
-kPOTCOH = AStomTCOH * kASTCOH;
-dt(AStomTCOH) = kStomTCOH - AStomTCOH * kASTCOH;
-	
-  
-##---------------
-#  TCE Sub-model  
-##---------------
+	kIVTCOH = (IVDoseTCOH * BW) / TChng;#TCOH IV infusion rate (mg/hr) 
+	kStomTCOH = (PODoseTCOH * BW) / TChng; # TCOH PO dose rate into stomach
+#(v1.2.1.)    dt(AStomTCOH) = PODoseTCOH * BW - AStomTCOH * kASTCOH;
+    dt(AStomTCOH) = kStomTCOH - AStomTCOH * kASTCOH;
+	kPOTCOH = AStomTCOH * kASTCOH;# TCOH oral absorption rate (mg/hr) 
+
+#----------
+#TCE Model
+
 CRap = ARap/VRap; 
 CSlw = ASlw/VSlw;
 CBra = ABra/VBra; #v(2.1)
@@ -1243,18 +1220,10 @@ dt(AKid) = (QKid * (CArt - CVKid)) - RAMetKid;
 dt(AStom) = kStom - (kAS + kTSD) * AStom;
 dt(ADuod) = kTSD * AStom - (kAD + kTD) * ADuod;
 
-##---------------
-#  DCA Sub-model  
-##--------------- 
-CDCAmol = ADCA / MWDCA / VDCA;
-dt(ADCA) = DCABgd * BW / 24 
-			+ (FracOther * StochDCATCE * (RAMetLiv1 + FracLungSys*RAMetLng)) - (kClearDCA * ADCA)
-			- kDCAcen_per * ADCA + kDCAper_cen * ADCAper;
-dt(ADCAper) = kDCAcen_per * ADCA - kDCAper_cen * ADCAper;
+#******************************************************************************
+#***                       TCOH Sub-model                                   ***
+#******************************************************************************
 
-#-----------------
-## TCOH Sub-model 
-#----------------- 
 CVBodTCOH = ABodTCOH / VBodTCOH / PBodTCOH;
 CVBraTCOH = ABraTCOH / VKid / PBraTCOH; #(v2.1)
 CVKidTCOH = AKidTCOH / VKid / PKidTCOH; #(v2.1)
@@ -1281,7 +1250,19 @@ dt(ALngTCOH) = kPOTCOH + QLng * (CTCOH - CVLngTCOH)
 			- RAMetLngTCOH3 - RAMetLngTCOH1 - RAMetLngTCOH2 
 			+ (1.0 - FracOther - FracTCA) * StochTCOHTCE * RAMetLng
 			+ (StochTCOHGluc * RARecircTCOG);
-		
+
+
+#******************************************************************************
+# Amount of DCA in central compartment (mg)
+    dt(ADCA) = DCABgd * BW / 24 + #(v2.0) DCA background in mg/kg/d
+		(FracOther * StochDCATCE * 
+    	     (RAMetLiv1 + FracLungSys*RAMetLng)) - (kClearDCA * ADCA) -
+     	     kDCAcen_per * ADCA + kDCAper_cen * ADCAper;
+# Amount of DCA in peripheral compartment (mg)
+    dt(ADCAper) = kDCAcen_per * ADCA - kDCAper_cen * ADCAper;
+# Concentration of DCA in blood (in mmoles/l)
+	CDCAmol = ADCA / MWDCA / VDCA;
+
 #-----------------
 # TCA Sub-model 
 #----------------- 
@@ -1334,9 +1315,9 @@ dt(AUrnTCA) = RUrnTCA;
 dt(AUrnTCA_sat) = TCAUrnSat*(1-UrnMissing)* RUrnTCA; 
 dt(AUrnTCA_col) = (1-TCAUrnSat)*(1-UrnMissing)*RUrnTCA;
 
-#-----------------
-## TCOG Sub-model 
-#-----------------                                 
+#******************************************************************************
+#***                       TCOG Sub-model                                   ***
+#******************************************************************************
 CVBodTCOG = ABodTCOG / VBodTCOG / PBodTCOG;
 CVLivTCOG = ALivTCOG / VLiv / PLivTCOG;
 CVLngTCOG = ALngTCOG / VRespEff / PLngTCOG; #(v2.1)
@@ -1357,9 +1338,10 @@ dt(AUrnTCOG) = RUrnTCOG;
 dt(AUrnTCOG_sat) = TCOGUrnSat*(1-UrnMissing)*RUrnTCOG; 
 dt(AUrnTCOG_col) = (1-TCOGUrnSat)*(1-UrnMissing)*RUrnTCOG;
 
-#-----------------#
-## DCVG Sub-model #
-#-----------------#
+#******************************************************************************
+#***                       DCVG Sub-model                                   ***
+#******************************************************************************
+
 CVBodDCVG = ABodDCVG / VBodDCVG / PBodDCVG;
 CVLivDCVG = ALivDCVG / VLiv / PLivDCVG;
 CVKidDCVG = AKidDCVG / VKid / PKidDCVG; 
@@ -1374,9 +1356,11 @@ dt(ABraDCVG) = QBra * (CDCVG - CVBraDCVG);
 dt(ALivDCVG) = QGutLiv * (CDCVG - CVLivDCVG) + StochDCVGTCE * RAMetLiv2 - RAMetLivDCVG; #(v2.1)
 dt(AKidDCVG) = QKid * (CDCVG - CVKidDCVG) + StochDCVGTCE * RAMetKid - RAMetKidDCVG; #(v2.1)
 
-#-----------------#
-## DCVC Sub-model #
-#-----------------#
+#******************************************************************************
+#***                       DCVC Sub-model                                   ***
+#******************************************************************************
+
+#*****************************************************************************
 CVBodDCVC = ABodDCVC / VBodDCVC / PBodDCVC;
 CVLivDCVC = ALivDCVC / VLiv / PLivDCVC;
 CVKidDCVC = AKidDCVC / VKid / PKidDCVC; 
@@ -1393,7 +1377,7 @@ dt(ALivDCVC) = QGutLiv * (CDCVC - CVLivDCVC) + StochDCVCDCVG * RAMetLivDCVG - RA
 dt(AKidDCVC) = QKid * (CDCVC - CVKidDCVC) + StochDCVCDCVG * RAMetKidDCVG - RAMetKidDCVC1 - RAMetKidDCVC2;
 
 #-----------------#
-## DCVG Sub-model #
+## NADCVG Sub-model #
 #-----------------#
 CVBodNADCVC = ABodNADCVC / VBodNADCVC / PBodNADCVC;
 CVLivNADCVC = ALivNADCVC / VLiv / PLivNADCVC;
@@ -1411,36 +1395,59 @@ dt(AUrnNADCVC) = RUrnNADCVC;
 dt(AUrnNADCVC_sat) = NADCVCUrnSat*(1-UrnMissing)*RUrnNADCVC; 
 dt(AUrnNADCVC_col) = (1-NADCVCUrnSat)*(1-UrnMissing)*RUrnNADCVC;
 
-##-------------------##
-# Total Mass Balance  #
-##-------------------##
+
+#******************************************************************************
+#***                       Total Mass Balance                               ***
+#******************************************************************************
 # Total intake from inhalation (mg)
 	RInhDose = QM * CInh;
     dt(InhDose) = RInhDose;
-
+# Total metabolized
+    dt(AMetLng) = RAMetLng; #(vrisk)
+    dt(AMetLiv1) = RAMetLiv1; #(vrisk)
+    dt(AMetLiv2) = RAMetLiv2; #(vrisk)
+    dt(AMetKid) = RAMetKid; #(vrisk)
 # Amount exhaled (mg)
 	RAExh = QM * CMixExh;
     dt(AExh) = RAExh;
+# Mass balance
+# Amount of DCA eliminated (mg)#(v2.0)
+
+    TotDCAProd = (FracOther * StochDCATCE * #(vrisk)
+    	     (AMetLiv1 + FracLungSys*AMetLng));#(vrisk)
+
+
+# Total metabolism of TCOH
+    RAMetTCOHTCA = (VMaxTCOH * CVLivTCOH) / (KMTCOH + CVLivTCOH);
+    dt(AMetTCOHTCA) = RAMetTCOHTCA; #(vrisk)
+
+
+#**** Mass Balance for TCA ****************************************************
+# Total production/intake of TCA
+#(v1e)    dt(AOTCA) = kPOTCA;
+#(v1e)	TotTCAIn = AOTCA + IVDoseTCA * BW
+TotTCAProd =  (FracTCA*StochTCATCE*(AMetLiv1 + FracLungSys*AMetLng)) + #(vrisk)
+		(StochTCATCOH*AMetTCOHTCA);#(vrisk)#(vrisk)
 
 # Amount exhaled during exposure (mg)
-    dt(AExhExp) = (Conc > 0 ? RAExh : 0); 
+    dt(AExhExp) = (CInh > 0 ? RAExh : 0); 
 
 };
+################ End of Dynamics ####################################
 
-#-----------------------------------------------------------------------
-#                       Calculate the Model Outputs
-#-----------------------------------------------------------------------
+
 CalcOutputs{
+
+
 
 #**** Static outputs for comparison to data ***********************************
 # TCE
-	RetDose = ((InhDose-AExhExp) > 1e-15 ? (InhDose - AExhExp) : 1e-15);  
-	FracRetMetab = ((TotMetab/RetDose) > 1e-15 ? (TotMetab/RetDose) : 1e-15);
-	TotMetab = (TotMetab > 1e-15 ? TotMetab : 1e-15);
-	zRAExh = (RAExh < 1.0e-15 ? 1.0e-15 : RAExh);
+#(v1.2)	AlvRet = (InhDose > 0 ? 1 - AExhExp/InhDose : 1); #  
+	RetDose = ((InhDose-AExhExp) > 0 ? (InhDose - AExhExp) : 1e-15); # 
 	CAlvPPM = (CAlv < 1.0e-15 ? 1.0e-15 : CAlv * (24450.0 / MWTCE));
 	CInhPPM = (ACh< 1.0e-15 ? 1.0e-15 : ACh/VCh*24450.0/MWTCE); 
 		# CInhPPM Only used for CC inhalation
+#(v1.2)	CMixExh = (0.7 * CAlv) + (0.3 * CInh); 
 	CArt = (CArt < 1.0e-15 ? 1.0e-15 : CArt);
 	CVen = (CVen < 1.0e-15 ? 1.0e-15 : CVen);
 	CBldMix = (CArt+CVen)/2;
@@ -1448,39 +1455,78 @@ CalcOutputs{
 	CGut = (CGut < 1.0e-15 ? 1.0e-15 : CGut);
 	CRap = (CRap < 1.0e-15 ? 1.0e-15 : CRap);
 	CSlw = (CSlw < 1.0e-15 ? 1.0e-15 : CSlw);
+#(v1.2)	CTB = (CTB < 1.0e-15 ? 1.0e-15 : CTB);
 	CHrt = CRap;
 	CKid = (CKid < 1.0e-15 ? 1.0e-15 : CKid);
 	CLiv = (CLiv < 1.0e-15 ? 1.0e-15 : CLiv);
-	CLung = CRap; 
+	CLung = CRap; #(v1.2)
 	CMus = (CSlw < 1.0e-15 ? 1.0e-15 : CSlw);
 	CSpl = CRap;
 	CBrn = CRap;
 	zAExh = (AExh < 1.0e-15 ? 1.0e-15 : AExh);
 	zAExhpost = ((AExh - AExhExp) < 1.0e-15 ? 1.0e-15 : AExh - AExhExp); 
-	FracRetExh = zAExhpost/RetDose;
+# TCOH
+	CTCOH = (CTCOH < 1.0e-15 ? 1.0e-15 : CTCOH);
+	CBodTCOH = (ABodTCOH < 1.0e-15 ? 1.0e-15 : ABodTCOH/VBodTCOH);
+	CKidTCOH = CBodTCOH;
+	CLivTCOH = (ALivTCOH < 1.0e-15 ? 1.0e-15 : ALivTCOH/VLiv);
+	CLungTCOH = CBodTCOH;
 # TCA
 	CPlasTCA = (CPlasTCA < 1.0e-15 ? 1.0e-15 : CPlasTCA);
 	CBldTCA = CPlasTCA*TCAPlas;
 	CBodTCA = (CBodTCA < 1.0e-15 ? 1.0e-15 : CBodTCA);
-	CBraTCA = (CBraTCA < 1.0e-15 ? 1.0e-15 : CBraTCA);
-	CKidTCA = (CKidTCA < 1.0e-15 ? 1.0e-15 : CKidTCA);
 	CLivTCA = (CLivTCA < 1.0e-15 ? 1.0e-15 : CLivTCA);
-	CLngTCA = (CLngTCA < 1.0e-15 ? 1.0e-15 : CLngTCA);
+	CKidTCA = CBodTCA;
+	CLungTCA = CBodTCA;
 	zAUrnTCA = (AUrnTCA < 1.0e-15 ? 1.0e-15 : AUrnTCA);
 	zAUrnTCA_sat = (AUrnTCA_sat < 1.0e-15 ? 1.0e-15 : AUrnTCA_sat);
 	zAUrnTCA_col = (AUrnTCA_col < 1.0e-15 ? 1.0e-15 : AUrnTCA_col);
+# TCOG
+	zABilTCOG = (ABilTCOG < 1.0e-15 ? 1.0e-15 : ABilTCOG);
+	#  Concentrations are in TCOH-equivalents 
+	CTCOG = (CTCOG < 1.0e-15 ? 1.0e-15 : CTCOG); 
+	CTCOGTCOH = StochTCOHGluc*CTCOG; 
+	CBodTCOGTCOH = (ABodTCOG < 1.0e-15 ? 1.0e-15 : StochTCOHGluc*ABodTCOG/VBodTCOH); 
+	CKidTCOGTCOH = CBodTCOGTCOH;
+	CLivTCOGTCOH = (ALivTCOG < 1.0e-15 ? 1.0e-15 : StochTCOHGluc*ALivTCOG/VLiv); 
+	CLungTCOGTCOH = CBodTCOGTCOH;
+	AUrnTCOGTCOH = (AUrnTCOG < 1.0e-15 ? 1.0e-15 : StochTCOHGluc*AUrnTCOG);
+	AUrnTCOGTCOH_sat = (AUrnTCOG_sat < 1.0e-15 ? 1.0e-15 : StochTCOHGluc*AUrnTCOG_sat);
+	AUrnTCOGTCOH_col = (AUrnTCOG_col < 1.0e-15 ? 1.0e-15 : StochTCOHGluc*AUrnTCOG_col);
 # Other
-# Misc
-	CVenMole = CVen / MWTCE; 
-	CPlasTCAMole = (CPlasTCAMole < 1.0e-15 ? 1.01e-15 : CPlasTCAMole);
-	CPlasTCAFreeMole = (CPlasTCAFreeMole < 1.0e-15 ? 1.0e-15 : CPlasTCAFreeMole);
-	FracBndPlasTCA = (CPlasTCAMole-CPlasTCAFreeMole)/CPlasTCAMole;
-	
-	# DCA#(v2.0)
+	CDCVGmol = (CDCVGmol < 1.0e-15 ? 1.0e-15 : CDCVGmol);
+	CDCVGmol0 = CDCVGmol;
+	CDCVG_NDtmp = CDFNormal(3*(1-CDCVGmol/CDCVGmolLD)); 
+		# Assuming LD = 3*sigma_blank, Normally distributed
+	CDCVG_ND = ( CDCVG_NDtmp < 1.0 ? ( CDCVG_NDtmp >= 1e-100 ? -log(CDCVG_NDtmp) : -log(1e-100)) : 1e-100 );
+# DCVC#(v2.0)
+	CDCVCmol = (CDCVCmol < 1.0e-15 ? 1.0e-15 : CDCVCmol);#(v2.0)
+	CDCVCmol0 = CDCVCmol;#(v2.0)
+	CDCVC_NDtmp = CDFNormal(3*(1-CDCVCmol/CDCVCmolLD)); #(v2.0)
+		# Assuming LD = 3*sigma_blank, Normally distributed#(v2.0)
+	CDCVC_ND = ( CDCVC_NDtmp < 1.0 ? ( CDCVC_NDtmp >= 1e-100 ? -log(CDCVC_NDtmp) : -log(1e-100)) : 1e-100 );#(v2.0)
+# DCA#(v2.0)
 	CDCAmol = (CDCAmol < 1.0e-15 ? 1.0e-15 : CDCAmol);#(v2.0)
 	CDCAmol0 = CDCAmol;#(v2.0)
+	CDCA_NDtmp = CDFNormal(3*(1-CDCAmol/CDCAmolLD)); #(v2.0)
 		# Assuming LD = 3*sigma_blank, Normally distributed#(v2.0)
+	CDCA_ND = ( CDCA_NDtmp < 1.0 ? ( CDCA_NDtmp >= 1e-100 ? -log(CDCA_NDtmp) : -log(1e-100)) : 1e-100 );#(v2.0)
+	   # 
+	AUrnTCTotMole = zAUrnTCA / MWTCA + AUrnTCOGTCOH / MWTCOH;
+	TotCTCOH = CTCOH + CTCOGTCOH;
+	TotCTCOHcomp = CTCOH + CTCOG; # ONLY FOR COMPARISON WITH HACK
+	ATCOG = ABodTCOG + ALivTCOG; # ONLY FOR COMPARISON WITH HACK
+# Misc
+	CVenMole = CVen / MWTCE; 
+	CPlasTCAMole = (CPlasTCAMole < 1.0e-15 ? 1.0e-15 : CPlasTCAMole);
+	CPlasTCAFreeMole = (CPlasTCAFreeMole < 1.0e-15 ? 1.0e-15 : CPlasTCAFreeMole);
 
-};
+#**** Dose Metrics ************************************************************
+# Oxidation/BW
+#(v1d)	AMetLiv1BW = AMetLiv1 / BW; 
 
+AMetOX = AMetLiv1 + AMetLng;#(vrisk)
+AMetGSH = AMetLiv2 + AMetKid;#(vrisk)
+
+}
 End.
