@@ -29,6 +29,8 @@ States = {
 ##-- TCOH in body
 	AStomTCOH,	# Amount of TCOH in stomach
 	ABodTCOH, 	# Amount of TCOH in lumped body compartment
+	ABraTCOH; #(v2.1)
+	AKidTCOH; #(v2.1)
 	ALivTCOH, 	# Amount of TCOH in liver
 ##-- TCOG in body
 	ABodTCOG, 	# Amount of TCOG in lumped body compartment
@@ -113,6 +115,7 @@ CTCOH,	# mouse, rat, human - TCOH concentration in blood
 CKidTCOH,	# mouse - TCOH concentration in kidney
 CLivTCOH,	# mouse - TCOH concentration in liver
 CLungTCOH,	# mouse - TCOH concentration in lung
+CBraTCOH, #(v2.1)
 
 # TCA
 CPlasTCA,	# mouse, rat, human - TCA concentration in plasma
@@ -327,6 +330,8 @@ kDissoc	= 1;	# Protein/TCA dissociation constant (umole/L)
 BMax	= 1;	# Protein concentration (UNITS?)
 PBodTCOH	= 1;	# TCOH body/blood partition coefficient
 PLivTCOH	= 1;	# TCOH liver/body partition coefficient
+PBraTCOH	= 1; #(v2.1)
+PKidTCOH	= 1; #(v2.1)
 PBodTCOG	= 1;	# TCOG body/blood partition coefficient
 PLivTCOG	= 1;	# TCOG liver/body partition coefficient
 VDCVG	= 1;	# DCVG effective volume of distribution
@@ -472,6 +477,8 @@ lnBMaxkDC	= 0.0;	# Scaled to species-specific central estimates
 # Partition Coefficients for TCOH and TCOG
 lnPBodTCOHC	= 0.0;	# Scaled to species-specific central estimates
 lnPLivTCOHC	= 0.0;	# Scaled to species-specific central estimates
+lnPKidTCOHC	= 0.0; #(v2.1)
+lnPBraTCOHC	= 0.0; #(v2.1)
 lnPBodTCOGC	= 0.0;	# Scaled to species-specific central estimates
 lnPLivTCOGC	= 0.0;	# Scaled to species-specific central estimates
 lnPeffDCVG	= 0.0;	# Scaled to species-specific central estimates
@@ -568,6 +575,9 @@ M_lnPSlwC	= 1.0; M_lnPRBCPlasTCAC	= 1.0;
 M_lnPBodTCAC	= 1.0; M_lnPLivTCAC	= 1.0;
 M_lnkDissocC	= 1.0; M_lnBMaxkDC	= 1.0;
 M_lnPBodTCOHC	= 1.0; M_lnPLivTCOHC	= 1.0;
+M_lnPKidTCOHC	= 1.0; #(v2.1)
+M_lnPBraTCOHC	= 1.0; #(v2.1)
+
 M_lnPBodTCOGC	= 1.0; M_lnPLivTCOGC	= 1.0;
 M_lnPeffDCVG	= 1.0; M_lnPeffDCVC	= 1.0;
 M_lnPeffDCA	= 1.0; M_lnkTSD	= 1.0;
@@ -618,6 +628,8 @@ V_lnPSlwC	= 1.0; V_lnPRBCPlasTCAC	= 1.0;
 V_lnPBodTCAC	= 1.0; V_lnPLivTCAC	= 1.0;
 V_lnkDissocC	= 1.0; V_lnBMaxkDC	= 1.0;
 V_lnPBodTCOHC	= 1.0; V_lnPLivTCOHC	= 1.0;
+V_lnPKidTCOHC	= 1.0; #(v2.1)
+V_lnPBraTCOHC	= 1.0; #(v2.1)
 V_lnPBodTCOGC	= 1.0; V_lnPLivTCOGC	= 1.0;
 V_lnPeffDCVG	= 1.0; V_lnPeffDCVC	= 1.0;
 V_lnPeffDCA	= 1.0; V_lnkTSD	= 1.0;
@@ -682,6 +694,7 @@ Ve_CTCOH	= 1;
 Ve_CKidTCOH	= 1;
 Ve_CLivTCOH	= 1;
 Ve_CLungTCOH	= 1;
+Ve_CBraTCOH = 1; #(v2.1)
 	
 	
 Ve_CPlasTCA	= 1;
@@ -1448,10 +1461,16 @@ Dynamics{
 
 	CVBodTCOH = ABodTCOH / VBodTCOH / PBodTCOH;
 	CVLivTCOH = ALivTCOH / VLiv / PLivTCOH;
-	CTCOH = (QBod * CVBodTCOH + QGutLiv * CVLivTCOH + kIVTCOH)/QCnow;
+	CVBraTCOH = ABraTCOH / VKid / PBraTCOH; #(v2.1)
+  CVKidTCOH = AKidTCOH / VKid / PKidTCOH; #(v2.1)
+	
+	
+	CTCOH = (QBod * CVBodTCOH + QGutLiv * CVLivTCOH + kIVTCOH + QBra * CVBraTCOH + QKid * CVKidTCOH )/QCnow;  #(v2.1)
 
-# Amount of TCOH in body
+# Amount of TCOH
     dt(ABodTCOH) = QBod * (CTCOH - CVBodTCOH);
+    dt(ABraTCOH) = QBra * (CTCOH - CVBraTCOH); #(v2.1)
+    dt(AKidTCOH) = QKid * (CTCOH - CVKidTCOH); #(v2.1)
 
 #**** Liver *******************************************************************
 # Rate of oxidation of TCOH to TCA (mg/hr)
@@ -1667,7 +1686,8 @@ CalcOutputs{
 # TCOH
 	CTCOH = (CTCOH < 1.0e-15 ? 1.0e-15 : CTCOH);
 	CBodTCOH = (ABodTCOH < 1.0e-15 ? 1.0e-15 : ABodTCOH/VBodTCOH);
-	CKidTCOH = CBodTCOH;
+	CBraTCOH = (ABodTCOH < 1.0e-15 ? 1.0e-15 : ABraTCOH/VBra); #(v2.1)
+	CKidTCOH = (AKidTCOH < 1.0e-15 ? 1.0e-15 : AKidTCOH/VKid); #(v2.1)
 	CLivTCOH = (ALivTCOH < 1.0e-15 ? 1.0e-15 : ALivTCOH/VLiv);
 	CLungTCOH = CBodTCOH;
 # TCA
