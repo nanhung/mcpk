@@ -19,6 +19,8 @@ States = {
 	AStomTCA,	# Amount of TCA in stomach
 	APlasTCA,	# Amount of TCA in plasma #comment out for #(v1h)
 	ABodTCA,	# Amount of TCA in lumped body compartment
+	ABraTCA, #(v2.1)
+	AKidTCA, #(v2.1)
    	ALivTCA,	# Amount of TCA in liver
 ##-- TCA metabolized
  	AUrnTCA,	# Cumulative Amount of TCA excreted in urine
@@ -185,62 +187,7 @@ ATCOG,		# ONLY FOR COMPARISON WITH HACK
   VPlasSC, # (vrisk3) #Plasma fractional compartment volume 
   VBodSC, # (vrisk3) #TCA Body fractional compartment volume [not incl. blood+liver]
   VBodTCOHSC, # (vrisk3) #TCOH/G Body fractional compartment volume [not incl. liver]
-  #PB, # (vrisk3) #TCE Blood/air partition coefficient
-  #PFat, # (vrisk3) #TCE Fat/Blood partition coefficient
-  #PGut, # (vrisk3) #TCE Gut/Blood partition coefficient
-  #PLiv, # (vrisk3) #TCE Liver/Blood partition coefficient
-  #PRap, # (vrisk3) #TCE Rapidly perfused/Blood partition coefficient
-  #PResp, # (vrisk3) #TCE Respiratory tissue:air partition coefficient
-  #PKid, # (vrisk3) #TCE Kidney/Blood partition coefficient
-  #PSlw, # (vrisk3) #TCE Slowly perfused/Blood partition coefficient
-  #TCAPlas, # (vrisk3) #TCA blood/plasma concentration ratio
-  #PBodTCA, # (vrisk3) #Free TCA Body/blood plasma partition coefficient
-  #PLivTCA, # (vrisk3) #Free TCA Liver/blood plasma partition coefficient
-  #kDissoc, # (vrisk3) #Protein/TCA dissociation constant (umole/L)
-  #BMax, # (vrisk3) #Maximum binding concentration (umole/L)
-  #PBodTCOH, # (vrisk3) #TCOH body/blood partition coefficient
-  #PLivTCOH, # (vrisk3) #TCOH liver/body partition coefficient
-  #PBodTCOG, # (vrisk3) #TCOG body/blood partition coefficient
-  #PLivTCOG, # (vrisk3) #TCOG liver/body partition coefficient
-  #VDCVG, # (vrisk3) #DCVG effective volume of distribution
-  #VDCVC, # (v2.0risk)
-  #VDCA, # (v2.0risk)
-  #kAS, # (vrisk3) #TCE Stomach absorption coefficient (/hr)
-  #kTSD, # (vrisk3) #TCE Stomach-duodenum transfer coefficient (/hr)
-  #kAD, # (vrisk3) #TCE Duodenum absorption coefficient (/hr)
-  #kTD, # (vrisk3) #TCE Duodenum-feces transfer coefficient (/hr)
-  #kASTCA, # (vrisk3) #TCA Stomach absorption coefficient (/hr)
-  #kASTCOH, # (vrisk3) #TCOH Stomach absorption coefficient (/hr)
-  #VMax, # (vrisk3) #VMax for hepatic TCE oxidation (mg/hr)
-  #KM, # (vrisk3) #KM for hepatic TCE oxidation (mg/L)
-  #FracOther, # (vrisk3) #Fraction of hepatic TCE oxidation not to TCA+TCOH
-  #FracTCA, # (vrisk3) #Fraction of hepatic TCE oxidation to TCA
-  #VMaxDCVG, # (vrisk3) #VMax for hepatic TCE GSH conjugation (mg/hr)
-  #KMDCVG, # (vrisk3) #KM for hepatic TCE GSH conjugation (mg/L)
-  #ClDCVG, # (vrisk3) #CL for hepatic TCE GSH conjugation (L/hr)
-  #VMaxKidDCVG, # (vrisk3) #VMax for renal TCE GSH conjugation (mg/hr)
-  #KMKidDCVG, # (vrisk3) #KM for renal TCE GSH conjugation (mg/L)
-  #FracKidDCVC, # (vrisk3) #Fraction of renal TCE GSH conj. "directly" to DCVC 
-               # (vrisk3) #(i.e., via first pass)
-  #VMaxClara, # (vrisk3) #VMax for Tracheo-bronchial TCE oxidation (mg/hr)
-  #KMClara, # (vrisk3) #KM for Tracheo-bronchial TCE oxidation (mg/L)
-  #FracLungSys, # (vrisk3) #Fraction of respiratory metabolism to systemic circ.
-  #kClearDCA,	# Rate constant for DCA elimination (/hr)#(v2.0risk)
-  #kDCAcen_per,	# Rate constant for DCA central->peripheral (/hr)#(v2.0risk)
-  #kDCAper_cen,	# Rate constant for DCA peripheral->central (/hr)#(v2.0risk)
-  #VMaxTCOH, # (vrisk3) #VMax for hepatic TCOH->TCA (mg/hr)
-  #KMTCOH, # (vrisk3) #KM for hepatic TCOH->TCA (mg/L)
-  #VMaxGluc, # (vrisk3) #VMax for hepatic TCOH->TCOG (mg/hr)
-  #KMGluc, # (vrisk3) #KM for hepatic TCOH->TCOG (mg/L)
-  #kMetTCOH, # (vrisk3) #Rate constant for hepatic TCOH->other (/hr)
-  #kUrnTCA, # (vrisk3) #Rate constant for TCA plasma->urine (/hr)
-  #kMetTCA, # (vrisk3) #Rate constant for hepatic TCA->other (/hr)
-  #kBile, # (vrisk3) #Rate constant for TCOG liver->bile (/hr)
-  #kEHR, # (vrisk3) #Lumped rate constant for TCOG bile->TCOH liver (/hr)
-  #kUrnTCOG, # (vrisk3) #Rate constant for TCOG->urine (/hr)
-  #kDCVG, # (vrisk3) #Rate constant for hepatic DCVG->DCVC (/hr)
-  #kElimDCVC,	# Lumped rate constant for DCVC elimination (/hr)#(v2.0risk)
-
+  
 ## Misc
   RAO,
   CVenMole,
@@ -326,6 +273,8 @@ PSlw	= 1;	# TCE Slowly perfused/Blood partition coefficient
 TCAPlas	= 1;	# TCA blood/plasma concentration ratio
 PBodTCA	= 1;	# Free TCA Body/blood plasma partition coefficient
 PLivTCA	= 1;	# Free TCA Liver/blood plasma partition coefficient
+PBraTCA	= 1; #(v2.1)
+PKidTCA	= 1; #(v2.1)
 kDissoc	= 1;	# Protein/TCA dissociation constant (umole/L)
 BMax	= 1;	# Protein concentration (UNITS?)
 PBodTCOH	= 1;	# TCOH body/blood partition coefficient
@@ -469,6 +418,8 @@ lnPSlwC	= 0.0;	# Scaled to species-specific central estimates
 lnPRBCPlasTCAC	= 0.0;	# Scaled to species-specific central estimates
 lnPBodTCAC	= 0.0;	# Scaled to species-specific central estimates
 lnPLivTCAC	= 0.0;	# Scaled to species-specific central estimates
+lnPKidTCAC	= 0.0;	#(v2.1)
+lnPBraTCAC	= 0.0;	#(v2.1)
 
 # Plasma Binding for TCA
 lnkDissocC	= 0.0;	# Scaled to species-specific central estimates
@@ -573,6 +524,8 @@ M_lnPLivC	= 1.0; M_lnPRapC	= 1.0;
 M_lnPRespC	= 1.0; M_lnPKidC	= 1.0;
 M_lnPSlwC	= 1.0; M_lnPRBCPlasTCAC	= 1.0;
 M_lnPBodTCAC	= 1.0; M_lnPLivTCAC	= 1.0;
+M_lnPBraTCAC	= 1.0; #(v2.1)
+M_lnPKidTCAC	= 1.0; #(v2.1)
 M_lnkDissocC	= 1.0; M_lnBMaxkDC	= 1.0;
 M_lnPBodTCOHC	= 1.0; M_lnPLivTCOHC	= 1.0;
 M_lnPKidTCOHC	= 1.0; #(v2.1)
@@ -626,6 +579,8 @@ V_lnPLivC	= 1.0; V_lnPRapC	= 1.0;
 V_lnPRespC	= 1.0; V_lnPKidC	= 1.0;
 V_lnPSlwC	= 1.0; V_lnPRBCPlasTCAC	= 1.0;
 V_lnPBodTCAC	= 1.0; V_lnPLivTCAC	= 1.0;
+V_lnPBraTCAC 	= 1.0; #(v2.1)
+V_lnPKidTCAC 	= 1.0; #(v2.1)
 V_lnkDissocC	= 1.0; V_lnBMaxkDC	= 1.0;
 V_lnPBodTCOHC	= 1.0; V_lnPLivTCOHC	= 1.0;
 V_lnPKidTCOHC	= 1.0; #(v2.1)
@@ -956,29 +911,12 @@ Initialize {
 	#	100-fold up/down
     PBodTCA = TCAPlas * exp(lnPBodTCAC) * 
 		(Species == 3 ? 0.88 : (Species == 2 ? 0.88 : 0.52 ));
-	# Note -- these were done at 10~20 microg/ml (Abbas and Fisher 1997),
-	#	which is 1.635-3.27 mmol/ml (1.635-3.27 x 10^6 microM).  
-	#	At this high concentration, plasma binding should be 
-	#	saturated -- e.g., plasma albumin concentration was 
-	#	measured to be P=190-239 microM in mouse, rat, and human
-	# 	plasma by Lumpkin et al. 2003, or > 6800 molecules of
-	#	TCA per molecule of albumin.  So the measured partition 
-	#	coefficients should reflect free blood-tissue partitioning.
-	# Used muscle values, multiplied by blood:plasma ratio to get 
-	#	Body:Plasma partition coefficient
-	# Rats = mice from Abbas and Fisher 1997
-	# Humans from Fisher et al. 1998
-	#	Uncertainty in mice, humans GSD = 1.4
-	#	For rats, GSD = 2.0, based on difference between mice
-	#	and humans.
+
     PLivTCA = TCAPlas * exp(lnPLivTCAC) *
 		(Species == 3 ? 1.18 : (Species == 2 ? 1.18 : 0.66 ));
-	# Multiplied by blood:plasma ratio to get Liver:Plasma 
-	# Rats = mice from Abbas and Fisher 1997
-	# Humans from Fisher et al. 1998
-	#	Uncertainty in mice, humans GSD = 1.4
-	#	For rats, GSD = 2.0, based on difference between mice
-	#	and humans.
+
+    PBraTCA = TCAPlas * exp(lnPBraTCAC) * (Species == 3 ? 1.18 : (Species == 2 ? 1.18 : 0.66 )); #(v2.1)
+    PKidTCA = TCAPlas * exp(lnPKidTCAC) * (Species == 3 ? 1.18 : (Species == 2 ? 1.18 : 0.66 )); #(v2.1)
 
 # Binding Parameters for TCA
 	# GM of Lumpkin et al. 2003; Schultz et al. 1999;
@@ -1503,7 +1441,6 @@ Dynamics{
 #*******************************************
 # Concentration of TCA in plasma (umoles/L)
 	CPlasTCA = (APlasTCA<1.0e-15 ? 1.0e-15 : APlasTCA/VPlas); # comment out for #(v1h)
-	## CPlasTCA = (kIVTCA + (QBodPlas*CVBodTCA) + (QGutLivPlas*CVLivTCA))/QCPlas; #(v1h)
 # Concentration of free TCA in plasma in (umoles/L)
 	CPlasTCAMole = (CPlasTCA / MWTCA) * 1000.0;
 	a = kDissoc+BMax-CPlasTCAMole;
@@ -1517,17 +1454,22 @@ Dynamics{
 	CPlasTCABnd = (CPlasTCA<CPlasTCAFree ? 0 : CPlasTCA-CPlasTCAFree);
 # Concentration in body and liver
 	CBodTCA = (ABodTCA<0 ? 0 : ABodTCA/VBod);
+	CBraTCA = (ABraTCA<0 ? 0 : ABraTCA/VBra); #(v2.1)
+	CKidTCA = (ABraTCA<0 ? 0 : AKidTCA/VKid); #(v2.1)
+	
 	CLivTCA = (ALivTCA<1.0e-15 ? 1.0e-15 : ALivTCA/VLiv);
 # Total concentration in venous plasma (free+bound)
 	CVBodTCAFree = (CBodTCA / PBodTCA);	# free in equilibrium
 	CVBodTCA = CPlasTCABnd + CVBodTCAFree;
-#	CVBodTCA = (BMax+kDissoc + CVBodTCAFree)*CVBodTCAFree / #(v1g)
-#		(kDissoc + CVBodTCAFree);	#(v1g) total in equilibrium
+	
+	CVBraTCAFree = (CBraTCA / PBraTCA);	# free in equilibrium
+	CVBraTCA = CPlasTCABnd + CVBraTCAFree;
+	CVKidTCAFree = (CKidTCA / PKidTCA);	# free in equilibrium
+	CVKidTCA = CPlasTCABnd + CVKidTCAFree;
+	
 	CVLivTCAFree = (CLivTCA / PLivTCA);
 	CVLivTCA = CPlasTCABnd + CVLivTCAFree;	# free in equilibrium
-#	CVLivTCA = (BMax+kDissoc + CVLivTCAFree)*CVLivTCAFree / #(v1g)
-#		(kDissoc + CVLivTCAFree);	#(v1g) total in equilibrium
-# Rate of urinary excretion of TCA
+
 	RUrnTCA = kUrnTCA * APlasTCAFree;
 # Dynamics for amount of total (free+bound) TCA in plasma (mg)
     dt(APlasTCA) = kIVTCA + (QBodPlas*CVBodTCA) + (QGutLivPlas*CVLivTCA) # comment out for #(v1h)
@@ -1536,9 +1478,7 @@ Dynamics{
 #**** Body ********************************************************************
 # Dynamics for amount of TCA in the body (mg)
     dt(ABodTCA) = QBodPlas * (CPlasTCAFree - CVBodTCAFree);
-	## dt(ABodTCA) = QBodPlas * (CPlasTCAFree - CVBodTCAFree) - RUrnTCA; #(v1h)
-#    dt(ABodTCA) = QBodPlas * (CPlasTCA - CVBodTCA); #(v1g)
-	## dt(ABodTCA) = QBodPlas * (CPlasTCA - CVBodTCA) - RUrnTCA; #(v1g)+(v1h)
+
 
 #**** Liver *******************************************************************
 # Rate of metabolism of TCA
@@ -1548,9 +1488,7 @@ Dynamics{
 			- RAMetTCA + (FracTCA * StochTCATCE * 
 			(RAMetLiv1 + FracLungSys*RAMetLng)) #(v1.2)
 			+ (StochTCATCOH * RAMetTCOHTCA); 
-#    dt(ALivTCA) = kPOTCA + QGutLivPlas*(CPlasTCA - CVLivTCA) #(v1g)
-#			- RAMetTCA + (FracTCA * StochTCATCE * RAMetLiv1) #(v1g)
-#			+ (StochTCATCOH * RAMetTCOHTCA); #(v1g)
+
 
 #**** Urine *******************************************************************
 # Dynamics for amount of TCA in urine (mg)
