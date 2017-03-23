@@ -1133,12 +1133,8 @@ Dynamics{
 # QP uses QPmeas if value is > 0, otherwise uses sampled value 
 	QP = (QPmeas > 0 ? QPmeas : QPsamp);
 	DResp = DResptmp * QP;
-
 # QCnow uses QPmeas/VPR if QPmeas > 0, otherwise uses sampled value 
 	QCnow = (QPmeas > 0 ? QPmeas/VPR : QC);
-
-# These done here in dynamics in case QCnow changes 
-# Blood Flows to Tissues (L/hr)
         QFat = (QFatCtmp) * QCnow; # 
         QGut = (QGutCtmp) * QCnow; # 
         QLiv = (QLivCtmp) * QCnow; # 
@@ -1147,8 +1143,8 @@ Dynamics{
         QKid = (QKidCtmp) * QCnow; # 
         QLng = (QLngCtmp) * QCnow; #(v2.1)
      QGutLiv = QGut + QLiv; # 
+
  	QRap = QCnow - QFat - QGut - QLiv - QSlw - QKid - QBra; 
-#	QRapCtmp = QRap/QCnow; #(vrisk)
     QBod = QCnow - QGutLiv - QLng - QKid - QBra; #(v2.1)
 
 # Plasma Flows to Tissues (L/hr)
@@ -1178,9 +1174,8 @@ Dynamics{
 kIVTCA = (IVDoseTCA * BW) / TChng;  # TCA IV infusion rate (mg/hr) 
 kStomTCA =  TCABgd * BW / 24 + (PODoseTCA * BW) / TChng; # TCA PO dose rate into stomach
 kPOTCA = AStomTCA * kASTCA;  # TCA oral absorption rate (mg/hr) 
-kDrinkTCA = FracAbsTCA * (DrinkTCA * BW) / 24.0; 
 dt(AStomTCA) = kStomTCA - AStomTCA * kASTCA;
-
+kDrinkTCA = FracAbsTCA * (DrinkTCA * BW) / 24.0; 
 
 #### TCOH Dosing
 kIVTCOH = (IVDoseTCOH * BW) / TChng;#TCOH IV infusion rate (mg/hr) 
@@ -1426,6 +1421,7 @@ dt(AUrnNADCVC_col) = (1-NADCVCUrnSat)*(1-UrnMissing)*RUrnNADCVC;
     dt(AExhExp) = (Conc > 0 ? RAExh : 0); 
 
 };
+
 
 #-----------------------------------------------------------------------
 #                       Calculate the Model Outputs
