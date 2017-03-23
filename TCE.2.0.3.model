@@ -1260,6 +1260,8 @@ Dynamics{
 # Plasma Flows to Tissues (L/hr)
     QCPlas = FracPlas * QCnow; # 
     QBodPlas = FracPlas * QBod; # 
+    QBraPlas = FracPlas * QBod; #(v2.1)
+    QKidPlas = FracPlas * QBod; #(v2.1)
     QGutLivPlas = FracPlas * QGutLiv; # 
     
   QFatSC = QFat/QCnow; # (vrisk3) #Scaled fat blood flow
@@ -1472,13 +1474,13 @@ Dynamics{
 
 	RUrnTCA = kUrnTCA * APlasTCAFree;
 # Dynamics for amount of total (free+bound) TCA in plasma (mg)
-    dt(APlasTCA) = kIVTCA + (QBodPlas*CVBodTCA) + (QGutLivPlas*CVLivTCA) # comment out for #(v1h)
-			- (QCPlas * CPlasTCA) - RUrnTCA; # comment out for #(v1h)
+    dt(APlasTCA) = kIVTCA + (QBodPlas*CVBodTCA) + (QGutLivPlas*CVLivTCA) +  (QBraPlas*CVBraTCA) + (QKidPlas*CVKidTCA)
+			- (QCPlas * CPlasTCA) - RUrnTCA;  #(v2.1)
 
-#**** Body ********************************************************************
-# Dynamics for amount of TCA in the body (mg)
+# Dynamics for amount of TCA 
     dt(ABodTCA) = QBodPlas * (CPlasTCAFree - CVBodTCAFree);
-
+    dt(ABraTCA) = QBraPlas * (CPlasTCAFree - CVBraTCAFree); #(v2.1)
+    dt(AKidTCA) = QKidPlas * (CPlasTCAFree - CVKidTCAFree); #(v2.1)
 
 #**** Liver *******************************************************************
 # Rate of metabolism of TCA
@@ -1541,6 +1543,14 @@ Dynamics{
 		- RAMetDCVGmol;
 # Concentration of DCVG in blood (in mmoles/l)
 	CDCVGmol = ADCVGmol / VDCVG;
+	
+	CVBraDCVG = ABraDCVG / VBra / PBraDCVG; #(v2.1)
+	CVLivDCVG = ALivDCVG / VLiv / PLivDCVG; #(v2.1)
+	CVKidDCVG = AKidDCVG / VKid / PKidDCVG; #(v2.1)
+	
+dt(ABraDCVG) = QBra * (CDCVGmol - CVBraDCVG); #(v2.1)
+dt(ALivDCVG) = QGutLiv * (CDCVGmol - CVLivDCVG); #(v2.1)
+dt(AKidDCVG) = QKid * (CDCVGmol - CVKidDCVG); #(v2.1)
 
 #******************************************************************************
 #***                       DCVC Sub-model                                   ***
