@@ -5,7 +5,6 @@ States = {
 	ARap,		# Amount in rapidly perfused tissues
 	ASlw,		# Amount in slowly perfused tissues
 	AFat,		# Amount in fat
-	ABra, #(V2.1)
 	AGut,		# Amount in gut
 	ALiv,		# Amount in liver
 	AKid, 		# Amount in Kidney -- previously in Rap tissue
@@ -303,6 +302,9 @@ PKidDCVG	= 1; #(v2.1)
 PBraDCVC	= 1; #(v2.1)
 PLivDCVC	= 1; #(v2.1)
 PKidDCVC	= 1; #(v2.1)
+PBraNADCVC	= 1; #(v2.1)
+PLivNADCVC	= 1; #(v2.1)
+PKidNADCVC	= 1; #(v2.1)
 #******************************************************************************
 # Oral absorption
 kTSD	= 1.4;	# TCE Stomach-duodenum transfer coefficient (/hr)
@@ -360,6 +362,8 @@ FracKidDCVC	= 1;	# Fraction of renal TCE GSH conj. "directly" to DCVC (i.e., via
 #******************************************************************************
 # DCVC metabolism/clearance
 kElimDCVC	= 1;	# Lumped rate constant for DCVC elimination (/hr)#(v2.0)
+#
+kElimNADCVC	= 1; #(v2.1)
 #******************************************************************************
 # Closed chamber and other exposure parameters 
 Rodents	= 1;	# Number of rodents in closed chamber data
@@ -495,6 +499,7 @@ lnISkTCA = 0.0; # TCA metabolism/clearance
 lnISkDCA = 0.0; # DCA metabolism/clearance
 lnISkDCVG = 0.0; # DCVG -> DCVC
 lnISkDCVC = 0.0; # DCVC clearance
+lnISkNADCVC = 0.0; # DCVC #(v2.1)
 
 # Clearance in lung
 lnFracLungSysC	= 0.0;	#(v1.2) ratio of systemic to local clearance of lung oxidation
@@ -528,7 +533,7 @@ lnkDCVGC	= 0.0;	# Scaled by BW^-0.25
 
 # DCVC metabolism
 lnkElimDCVCC	= 0.0;	# Scaled by BW^-0.25#(v2.0)
-
+lnkElimNADCVCC	= 0.0;	##(v2.1)
 
 
 #---------------------
@@ -584,7 +589,7 @@ M_lnPKidNADCVCC	= 1.0; #(v2.1)
 M_lnISOx = 0.0; M_lnISTCA = 0.0; M_lnISDCA = 0.0; 
 M_lnISConj = 0.0; M_lnISkTCA = 0.0; M_lnISkDCA = 0.0; 
 M_lnISkDCVG = 0.0; M_lnISkDCVC = 0.0; 
-
+M_lnISkNADCVC = 0.0; #(v2.1)
 M_lnFracLungSysC = 1.0; M_lnVMaxTCOHC	= 1.0;
 M_lnClTCOHC	= 1.0; M_lnKMTCOH	= 1.0;
 M_lnVMaxGlucC	= 1.0; M_lnClGlucC	= 1.0;
@@ -593,6 +598,7 @@ M_lnkUrnTCAC	= 1.0; M_lnkMetTCAC	= 1.0;
 M_lnkBileC	= 1.0; M_lnkEHRC	= 1.0;
 M_lnkUrnTCOGC	= 1.0; M_lnFracKidDCVCC	= 1.0;
 M_lnkDCVGC	= 1.0; M_lnkElimDCVCC	= 1.0;
+M_lnkElimNADCVCC	= 1.0; #(v2.1)
 M_lnkClearDCAC	= 1.0; M_lnkDCAcen_perC	= 1.0;
 M_lnkDCAper_cenC = 1.0; 
 
@@ -648,7 +654,7 @@ V_lnPKidNADCVCC	= 1.0; #(v2.1)
 V_lnISOx = 1.0; V_lnISTCA = 1.0; V_lnISDCA = 1.0; 
 V_lnISConj = 1.0; V_lnISkTCA = 1.0; V_lnISkDCA = 1.0;
 V_lnISkDCVG = 1.0; V_lnISkDCVC = 1.0; 
-
+V_lnISkNADCVC = 0.0; #(v2.1)
 V_lnFracLungSysC	= 1.0; V_lnVMaxTCOHC	= 1.0;
 V_lnClTCOHC	= 1.0; V_lnKMTCOH	= 1.0;
 V_lnVMaxGlucC	= 1.0; V_lnClGlucC	= 1.0;
@@ -657,6 +663,7 @@ V_lnkUrnTCAC	= 1.0; V_lnkMetTCAC	= 1.0;
 V_lnkBileC	= 1.0; V_lnkEHRC	= 1.0;
 V_lnkUrnTCOGC	= 1.0; V_lnFracKidDCVCC	= 1.0;
 V_lnkDCVGC	= 1.0; V_lnkElimDCVCC	= 1.0; 
+V_lnkElimNADCVCC	= 1.0; #(v2.1)
 V_lnkClearDCAC	= 1.0; V_lnkDCAcen_perC	= 1.0;
 V_lnkDCAper_cenC	= 1.0;
 
@@ -1266,7 +1273,8 @@ Initialize {
 	# 	1e-4 to 1e2 /hr/kg^0.25 (0.3/hr to 35/hr for human) 
         # add interstrain variability
 	kElimDCVC = exp(lnISkDCVC) * exp(lnkElimDCVCC) / BW25;#(v2.0)
-
+#
+    kElimNADCVC = exp(lnISkNADCVC) * exp(lnkElimDCVCC) / BW25;#(v2.1)
 # DCA Kinetics (/hr)#(v2.0)
         # add interstrain variability
 	kClearDCA = exp(lnISkDCA) * exp(lnkClearDCAC) / BW25;#(v2.0)
@@ -1582,10 +1590,11 @@ Dynamics{
 # Rate of metabolism of DCVG to DCVC
 	RAMetDCVGmol = kDCVG * ADCVGmol;
 # Dynamics for DCVG in blood
-    dt(ADCVGmol) = (RAMetLiv2 + RAMetKid*(1-FracKidDCVC)) / MWTCE 
-		- RAMetDCVGmol;
+# dt(ADCVGmol) = (RAMetLiv2 + RAMetKid*(1-FracKidDCVC)) / MWTCE 
+    dt(ADCVGmol) = (RAMetLiv2 + RAMetKid*(1-FracKidDCVC)) / MWTCE; #(v2.1)
 # Concentration of DCVG in blood (in mmoles/l)
 	CDCVGmol = ADCVGmol / VDCVG;
+	CDCVG = (QBod * CVBodDCVG + QLiv * CVLivDCVG + QKid * CVKidDCVG + QBra * CVBraDCVG + QGutLiv * CVLivDCVG)/QCnow; #(v2.1)
 #	
 	CVBraDCVGmol = ABraDCVGmol / VBra / PBraDCVG; #(v2.1)
 	CVLivDCVGmol = ALivDCVGmol / VLiv / PLivDCVG; #(v2.1)
@@ -1593,13 +1602,13 @@ Dynamics{
 	
 dt(ABraDCVGmol) = QBra * (CDCVGmol - CVBraDCVGmol); #(v2.1)
 dt(ALivDCVGmol) = QGutLiv * (CDCVGmol - CVLivDCVGmol); #(v2.1)
-dt(AKidDCVGmol) = QKid * (CDCVGmol - CVKidDCVGmol); #(v2.1)
+dt(AKidDCVGmol) = QKid * (CDCVGmol - CVKidDCVGmol)- RAMetDCVGmol; #(v2.1)
 
 #******************************************************************************
 #***                       DCVC Sub-model                                   ***
 #****************************************************************************
 
-# Amount of DCVC in body (mg) #(v2.0)
+# Amount of DCVC in blood (mg) #(v2.0)
     dt(ADCVC) = RAMetDCVGmol * MWDCVC  
 		+ RAMetKid * FracKidDCVC * StochDCVCTCE
 		- kElimDCVC * ADCVC;#(v2.0)
