@@ -16,11 +16,12 @@ States = {
     ADCA,	        # Amount in central compartment#(v2.0)
     ADCAper,	# Amount in peripheral compartment#(v2.0)
 ##-- TCA in the body
+
 	AStomTCA,	# Amount of TCA in stomach
 	APlasTCA,	# Amount of TCA in plasma #comment out for #(v1h)
 	ABodTCA,	# Amount of TCA in lumped body compartment
-	ABraTCA, #(v2.1)
 	AKidTCA, #(v2.1)
+	ABraTCA, #(v2.1)
    	ALivTCA,	# Amount of TCA in liver
 ##-- TCA metabolized
  	AUrnTCA,	# Cumulative Amount of TCA excreted in urine
@@ -49,13 +50,13 @@ States = {
 	ALivDCVGmol, #(v2.1)
 	AKidDCVGmol, #(v2.1)
     ADCVC,		# Amount of DCVC in body
-    ABraDCVC, #(v2.1)
-	ALivDCVC, #(v2.1)
-	AKidDCVC, #(v2.1)
+    ABraDCVCmol, #(v2.1)
+	ALivDCVCmol, #(v2.1)
+	AKidDCVCmol, #(v2.1)
 	ANADCVC,	# Amount of NADCVC in body #(v2.1)
-    ABraNADCVC, #(v2.1)
-	ALivNADCVC, #(v2.1)
-	AKidNADCVC, #(v2.1)
+    ABraNADCVCmol, #(v2.1)
+	ALivNADCVCmol, #(v2.1)
+	AKidNADCVCmol, #(v2.1)
 	ACh, 		# Amount in closed chamber -- mice and rats only
 	AExh, 		# Amount exhaled
 	AExhExp, 	# Amount exhaled during expos  [to calc. retention]
@@ -274,7 +275,6 @@ PB	= 1;	# TCE Blood/air partition coefficient
 PFat	= 1;	# TCE Fat/Blood partition coefficient
 PGut	= 1;	# TCE Gut/Blood partition coefficient
 PLiv	= 1;	# TCE Liver/Blood partition coefficient
-PBra  = 1;  #(v2.1)
 PRap	= 1;	# TCE Rapidly perfused/Blood partition coefficient
 #(v1.2) PTB	= 1;	# TCE Tracheo-bronchial/Blood partition coefficient
 PResp	= 1;	#(v1.2) TCE Respiratory tissue:air partition coefficient
@@ -425,7 +425,6 @@ lnPBC	= 0.0;	# Scaled to species-specific central estimates
 lnPFatC	= 0.0;	# Scaled to species-specific central estimates
 lnPGutC	= 0.0;	# Scaled to species-specific central estimates
 lnPLivC	= 0.0;	# Scaled to species-specific central estimates
-lnPBraC	= 0.0; #(v2.1)
 lnPRapC	= 0.0;	# Scaled to species-specific central estimates
 lnPRespC	= 0.0;	#(v1.2) Scaled to species-specific central estimates
 lnPKidC	= 0.0;	# Scaled to species-specific central estimates
@@ -547,7 +546,6 @@ M_VRapC	= 1.0; M_VRespLumC = 1.0;
 M_VRespEffC = 1.0; M_VKidC	= 1.0;
 M_VBldC	= 1.0; M_lnPBC	= 1.0;
 M_lnPFatC	= 1.0; M_lnPGutC	= 1.0;
-M_lnPBraC	= 1.0; #(v2.1)
 M_lnPLivC	= 1.0; M_lnPRapC	= 1.0;
 M_lnPRespC	= 1.0; M_lnPKidC	= 1.0;
 M_lnPSlwC	= 1.0; M_lnPRBCPlasTCAC	= 1.0;
@@ -613,7 +611,6 @@ V_VRapC	= 1.0; V_VRespLumC = 1.0;
 V_VRespEffC = 1.0; V_VKidC	= 1.0;
 V_VBldC	= 1.0; V_lnPBC	= 1.0;
 V_lnPFatC	= 1.0; V_lnPGutC	= 1.0;
-V_lnPBraC	= 1.0; #(v2.1)
 V_lnPLivC	= 1.0; V_lnPRapC	= 1.0;
 V_lnPRespC	= 1.0; V_lnPKidC	= 1.0;
 V_lnPSlwC	= 1.0; V_lnPRBCPlasTCAC	= 1.0;
@@ -900,8 +897,6 @@ Initialize {
        PLiv = exp(lnPLivC) * 		# Liver/blood
 		(Species == 3 ? 1.7 : (Species == 2 ? 1.5 : 4.1 ));
 		
-       PBra = exp(lnPBraC) * 		# (v2.1)
-		(Species == 3 ? 1.7 : (Species == 2 ? 1.5 : 4.1 ));
 		
        PRap = exp(lnPRapC) * 		# Rapidly perfused/blood
 		       ## PRaptmp = exp(lnPRapC) * #(v1a)#(v1b)#(v1c) -- temporary
@@ -1377,7 +1372,6 @@ Dynamics{
 
 # Tissue Concentrations (mg/L)
 	CRap = ARap/VRap;
-    CBra = ABra/VBra; #v(2.1)
 	CSlw = ASlw/VSlw; 
 	CFat = AFat/VFat; 
 	CGut = AGut/VGut; 
@@ -1386,7 +1380,6 @@ Dynamics{
 # Venous Concentrations (mg/L)
 	CVRap = CRap / PRap;
 	CVSlw = CSlw / PSlw;
-  CVBra = CBra / PBra; #v(2.1)
 	CVFat = CFat / PFat;  
 	CVGut = CGut / PGut;
 	CVLiv = CLiv / PLiv;
@@ -1394,7 +1387,7 @@ Dynamics{
 # Concentration of TCE in mixed venous blood (mg/L)
 	CVen = ABld/VBld; # Comment out for #(v1a)#(v1c)
 # Dynamics for blood
-    dt(ABld) = (QFat*CVFat + QGutLiv*CVLiv + QSlw*CVSlw + QBra*CVBra +
+    dt(ABld) = (QFat*CVFat + QGutLiv*CVLiv + QSlw*CVSlw +
 		QRap*CVRap + QKid*CVKid + kIV) - CVen * QCnow; #(v2.1)
 
 
@@ -1430,9 +1423,6 @@ Dynamics{
     dt(AFat) = QFat*(CArt - CVFat);
 # Amount of TCE in gut compartment (mg)
     dt(AGut) = (QGut * (CArt - CVGut)) + RAO;
-    
-    dt(ABra) = QBra*(CBra - CVBra);  #v(2.1)
-
 #**** Liver *******************************************************************
 # Rate of TCE oxidation by P450 to TCA, TCOH, and other (DCA) in liver (mg/hr)
 	RAMetLiv1 = (VMax * CVLiv) / (KM + CVLiv);
@@ -1596,14 +1586,14 @@ Dynamics{
 		- RAMetDCVGmol;
 # Concentration of DCVG in blood (in mmoles/l)
 	CDCVGmol = ADCVGmol / VDCVG;
+#	
+	CVBraDCVGmol = ABraDCVGmol / VBra / PBraDCVG; #(v2.1)
+	CVLivDCVGmol = ALivDCVGmol / VLiv / PLivDCVG; #(v2.1)
+	CVKidDCVGmol = AKidDCVGmol / VKid / PKidDCVG; #(v2.1)
 	
-	CVBraDCVG = ABraDCVG / VBra / PBraDCVG; #(v2.1)
-	CVLivDCVG = ALivDCVG / VLiv / PLivDCVG; #(v2.1)
-	CVKidDCVG = AKidDCVG / VKid / PKidDCVG; #(v2.1)
-	
-dt(ABraDCVGmol) = QBra * (CDCVGmol - CVBraDCVG); #(v2.1)
-dt(ALivDCVGmol) = QGutLiv * (CDCVGmol - CVLivDCVG); #(v2.1)
-dt(AKidDCVGmol) = QKid * (CDCVGmol - CVKidDCVG); #(v2.1)
+dt(ABraDCVGmol) = QBra * (CDCVGmol - CVBraDCVGmol); #(v2.1)
+dt(ALivDCVGmol) = QGutLiv * (CDCVGmol - CVLivDCVGmol); #(v2.1)
+dt(AKidDCVGmol) = QKid * (CDCVGmol - CVKidDCVGmol); #(v2.1)
 
 #******************************************************************************
 #***                       DCVC Sub-model                                   ***
@@ -1616,29 +1606,29 @@ dt(AKidDCVGmol) = QKid * (CDCVGmol - CVKidDCVG); #(v2.1)
 # Concentration of DCVG in blood (in mmoles/l)#(v2.0)
 	CDCVCmol = ADCVC / MWDCVC / VDCVC;#(v2.0)
 	
-	CVBraDCVC = ABraDCVC / VBra / PBraDCVC; #(v2.1)
-	CVLivDCVC = ALivDCVC / VLiv / PLivDCVC; #(v2.1)
-	CVKidDCVC = AKidDCVC / VKid / PKidDCVC; #(v2.1)
+	CVBraDCVCmol = ABraDCVCmol / VBra / PBraDCVC; #(v2.1)
+	CVLivDCVCmol = ALivDCVCmol / VLiv / PLivDCVC; #(v2.1)
+	CVKidDCVCmol = AKidDCVCmol / VKid / PKidDCVC; #(v2.1)
 	
-dt(ABraDCVCmol) = QBra * (CDCVCmol - CVBraDCVC); #(v2.1)
-dt(ALivDCVCmol) = QGutLiv * (CDCVCmol - CVLivDCVC); #(v2.1)
-dt(AKidDCVCmol) = QKid * (CDCVCmol - CVKidDCVC); #(v2.1)
+dt(ABraDCVCmol) = QBra * (CDCVCmol - CVBraDCVCmol); #(v2.1)
+dt(ALivDCVCmol) = QGutLiv * (CDCVCmol - CVLivDCVCmol); #(v2.1)
+dt(AKidDCVCmol) = QKid * (CDCVCmol - CVKidDCVCmol); #(v2.1)
 
 #******************************************
 #***                   NADCVC Sub-model                 
 #******************************************
 # Amount of NADCVC in body (mg) #(v2.0)
     dt(ANADCVC) = kElimDCVC * ADCVC - kElimNADCVC * ANADCVC;#(v2.1)
-# Concentration of NADCVC in blood (in mmoles/l)#(v2.0)
+# Concentration of NADCVC in blood (in mmoles/l)
 	CNADCVCmol = ANADCVC / MWNADCVC / VNADCVC;#(v2.1)
 	
-	CVBraNADCVC = ABraNADCVC / VBra / PBraNADCVC; #(v2.1)
-	CVLivNADCVC = ALivNADCVC / VLiv / PLivNADCVC; #(v2.1)
-	CVKidNADCVC = AKidNADCVC / VKid / PKidNADCVC; #(v2.1)
+	CVBraNADCVCmol = ABraNADCVCmol / VBra / PBraNADCVC; #(v2.1)
+	CVLivNADCVCmol = ALivNADCVCmol / VLiv / PLivNADCVC; #(v2.1)
+	CVKidNADCVCmol = AKidNADCVCmol / VKid / PKidNADCVC; #(v2.1)
 	
-dt(ABraNADCVCmol) = QBra * (CNADCVCmol - CVBraNADCVC); #(v2.1)
-dt(ALivNADCVCmol) = QGutLiv * (CNADCVCmol - CVLivNADCVC); #(v2.1)
-dt(AKidNADCVCmol) = QKid * (CNADCVCmol - CVKidNADCVC); #(v2.1)	
+dt(ABraNADCVCmol) = QBra * (CNADCVCmol - CVBraNADCVCmol); #(v2.1)
+dt(ALivNADCVCmol) = QGutLiv * (CNADCVCmol - CVLivNADCVCmol); #(v2.1)
+dt(AKidNADCVCmol) = QKid * (CNADCVCmol - CVKidNADCVCmol); #(v2.1)	
 	
 #******************************************************************************
 #***                       Total Mass Balance                               ***
