@@ -45,13 +45,17 @@ States = {
 	AUrnTCOG_collect,# Cumulative Amount of TCA excreted in urine during
 			# collection times (for intermittent collection) 	
 	ADCVGmol,	# Amount of DCVG in body in mmoles 
-	ABraDCVG, #(v2.1)
-	ALivDCVG, #(v2.1)
-	AKidDCVG, #(v2.1)
+	ABraDCVGmol, #(v2.1)
+	ALivDCVGmol, #(v2.1)
+	AKidDCVGmol, #(v2.1)
     ADCVC,		# Amount of DCVC in body
     ABraDCVC, #(v2.1)
 	ALivDCVC, #(v2.1)
 	AKidDCVC, #(v2.1)
+	ANADCVC,	# Amount of NADCVC in body #(v2.1)
+    ABraNADCVC, #(v2.1)
+	ALivNADCVC, #(v2.1)
+	AKidNADCVC, #(v2.1)
 	ACh, 		# Amount in closed chamber -- mice and rats only
 	AExh, 		# Amount exhaled
 	AExhExp, 	# Amount exhaled during expos  [to calc. retention]
@@ -291,6 +295,7 @@ PBodTCOG	= 1;	# TCOG body/blood partition coefficient
 PLivTCOG	= 1;	# TCOG liver/body partition coefficient
 VDCVG	= 1;	# DCVG effective volume of distribution
 VDCVC	= 1;	# DCVC effective volume of distribution#(v2.0)
+VNADCVC = 1; #(v2.1)
 VDCA	= 1;	# DCA effective volume of distribution (central compartment)#(v2.0)
 PBraDCVG	= 1; #(v2.1)
 PLivDCVG	= 1; #(v2.1)
@@ -446,6 +451,7 @@ lnPBodTCOGC	= 0.0;	# Scaled to species-specific central estimates
 lnPLivTCOGC	= 0.0;	# Scaled to species-specific central estimates
 lnPeffDCVG	= 0.0;	# Scaled to species-specific central estimates
 lnPeffDCVC	= 0.0;	# Scaled to species-specific central estimates#(v2.0)
+lnPeffNADCVC	= 0.0;	##(v2.1)
 lnPeffDCA	= 0.0;	# Scaled to species-specific central estimates#(v2.0)
 
 lnPBraDCVGC	= 0.0; #(v2.1)
@@ -454,7 +460,9 @@ lnPKidDCVGC	= 0.0; #(v2.1)
 lnPBraDCVCC	= 0.0; #(v2.1)
 lnPLivDCVCC	= 0.0; #(v2.1)
 lnPKidDCVCC	= 0.0; #(v2.1)
-
+lnPBraNADCVCC	= 0.0; #(v2.1)
+lnPLivNADCVCC	= 0.0; #(v2.1)
+lnPKidNADCVCC	= 0.0; #(v2.1)
 
 # Oral Absorption rates
 lnkTSD	= 0.336;
@@ -553,6 +561,7 @@ M_lnPBraTCOHC	= 1.0; #(v2.1)
 
 M_lnPBodTCOGC	= 1.0; M_lnPLivTCOGC	= 1.0;
 M_lnPeffDCVG	= 1.0; M_lnPeffDCVC	= 1.0;
+M_lnPeffNADCVC	= 1.0; #(v2.1)
 M_lnPeffDCA	= 1.0; M_lnkTSD	= 1.0;
 M_lnkAS	= 1.0; M_lnkTD	= 1.0;
 M_lnkAD	= 1.0; M_lnkASTCA	= 1.0;
@@ -570,6 +579,9 @@ M_lnPKidDCVGC	= 1.0; #(v2.1)
 M_lnPBraDCVCC	= 1.0; #(v2.1)
 M_lnPLivDCVCC	= 1.0; #(v2.1)
 M_lnPKidDCVCC	= 1.0; #(v2.1)
+M_lnPBraNADCVCC	= 1.0; #(v2.1)
+M_lnPLivNADCVCC	= 1.0; #(v2.1)
+M_lnPKidNADCVCC	= 1.0; #(v2.1)
 
 M_lnISOx = 0.0; M_lnISTCA = 0.0; M_lnISDCA = 0.0; 
 M_lnISConj = 0.0; M_lnISkTCA = 0.0; M_lnISkDCA = 0.0; 
@@ -614,6 +626,7 @@ V_lnPKidTCOHC	= 1.0; #(v2.1)
 V_lnPBraTCOHC	= 1.0; #(v2.1)
 V_lnPBodTCOGC	= 1.0; V_lnPLivTCOGC	= 1.0;
 V_lnPeffDCVG	= 1.0; V_lnPeffDCVC	= 1.0;
+V_lnPeffNADCVC	= 1.0; #(v2.1)
 V_lnPeffDCA	= 1.0; V_lnkTSD	= 1.0;
 V_lnkAS	= 1.0; V_lnkTD	= 1.0;
 V_lnkAD	= 1.0; V_lnkASTCA	= 1.0;
@@ -631,6 +644,9 @@ V_lnPKidDCVGC	= 1.0; #(v2.1)
 V_lnPBraDCVCC	= 1.0; #(v2.1)
 V_lnPLivDCVCC	= 1.0; #(v2.1)
 V_lnPKidDCVCC	= 1.0; #(v2.1)
+V_lnPBraNADCVCC	= 1.0; #(v2.1)
+V_lnPLivNADCVCC	= 1.0; #(v2.1)
+V_lnPKidNADCVCC	= 1.0; #(v2.1)
 
 V_lnISOx = 1.0; V_lnISTCA = 1.0; V_lnISDCA = 1.0; 
 V_lnISConj = 1.0; V_lnISkTCA = 1.0; V_lnISkDCA = 1.0;
@@ -998,6 +1014,9 @@ Initialize {
 	# Diffuse prior distribution: loguniform 1e-3 to 1e3#(v2.0)
 	VDCVC = VBld +  	# blood plus body (with "effective" PC)#(v2.0)
 	exp(lnPeffDCVC) * (VBod + VLiv);#(v2.0)
+	
+	VNADCVC = VBld +  	# blood plus body (with "effective" PC)#(v2.0)
+	exp(lnPeffNADCVC) * (VBod + VLiv);#(v2.0)
 
 # DCA distribution volume#(v2.0)
 	# exp(lnPeffDCA) is the effective partition coefficient for#(v2.0)
@@ -1582,13 +1601,14 @@ Dynamics{
 	CVLivDCVG = ALivDCVG / VLiv / PLivDCVG; #(v2.1)
 	CVKidDCVG = AKidDCVG / VKid / PKidDCVG; #(v2.1)
 	
-dt(ABraDCVG) = QBra * (CDCVGmol - CVBraDCVG); #(v2.1)
-dt(ALivDCVG) = QGutLiv * (CDCVGmol - CVLivDCVG); #(v2.1)
-dt(AKidDCVG) = QKid * (CDCVGmol - CVKidDCVG); #(v2.1)
+dt(ABraDCVGmol) = QBra * (CDCVGmol - CVBraDCVG); #(v2.1)
+dt(ALivDCVGmol) = QGutLiv * (CDCVGmol - CVLivDCVG); #(v2.1)
+dt(AKidDCVGmol) = QKid * (CDCVGmol - CVKidDCVG); #(v2.1)
 
 #******************************************************************************
 #***                       DCVC Sub-model                                   ***
 #****************************************************************************
+
 # Amount of DCVC in body (mg) #(v2.0)
     dt(ADCVC) = RAMetDCVGmol * MWDCVC  
 		+ RAMetKid * FracKidDCVC * StochDCVCTCE
@@ -1600,11 +1620,25 @@ dt(AKidDCVG) = QKid * (CDCVGmol - CVKidDCVG); #(v2.1)
 	CVLivDCVC = ALivDCVC / VLiv / PLivDCVC; #(v2.1)
 	CVKidDCVC = AKidDCVC / VKid / PKidDCVC; #(v2.1)
 	
-dt(ABraDCVC) = QBra * (CDCVCmol - CVBraDCVC); #(v2.1)
-dt(ALivDCVC) = QGutLiv * (CDCVCmol - CVLivDCVC); #(v2.1)
-dt(AKidDCVC) = QKid * (CDCVCmol - CVKidDCVC); #(v2.1)
+dt(ABraDCVCmol) = QBra * (CDCVCmol - CVBraDCVC); #(v2.1)
+dt(ALivDCVCmol) = QGutLiv * (CDCVCmol - CVLivDCVC); #(v2.1)
+dt(AKidDCVCmol) = QKid * (CDCVCmol - CVKidDCVC); #(v2.1)
 
+#******************************************
+#***                   NADCVC Sub-model                 
+#******************************************
+# Amount of NADCVC in body (mg) #(v2.0)
+    dt(ANADCVC) = kElimDCVC * ADCVC - kElimNADCVC * ANADCVC;#(v2.1)
+# Concentration of NADCVC in blood (in mmoles/l)#(v2.0)
+	CNADCVCmol = ANADCVC / MWNADCVC / VNADCVC;#(v2.1)
 	
+	CVBraNADCVC = ABraNADCVC / VBra / PBraNADCVC; #(v2.1)
+	CVLivNADCVC = ALivNADCVC / VLiv / PLivNADCVC; #(v2.1)
+	CVKidNADCVC = AKidNADCVC / VKid / PKidNADCVC; #(v2.1)
+	
+dt(ABraNADCVCmol) = QBra * (CNADCVCmol - CVBraNADCVC); #(v2.1)
+dt(ALivNADCVCmol) = QGutLiv * (CNADCVCmol - CVLivNADCVC); #(v2.1)
+dt(AKidNADCVCmol) = QKid * (CNADCVCmol - CVKidNADCVC); #(v2.1)	
 	
 #******************************************************************************
 #***                       Total Mass Balance                               ***
