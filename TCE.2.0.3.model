@@ -45,7 +45,13 @@ States = {
 	AUrnTCOG_collect,# Cumulative Amount of TCA excreted in urine during
 			# collection times (for intermittent collection) 	
 	ADCVGmol,	# Amount of DCVG in body in mmoles 
+	ABraDCVG, #(v2.1)
+	ALivDCVG, #(v2.1)
+	AKidDCVG, #(v2.1)
     ADCVC,		# Amount of DCVC in body
+    ABraDCVC, #(v2.1)
+	ALivDCVC, #(v2.1)
+	AKidDCVC, #(v2.1)
 	ACh, 		# Amount in closed chamber -- mice and rats only
 	AExh, 		# Amount exhaled
 	AExhExp, 	# Amount exhaled during expos  [to calc. retention]
@@ -286,6 +292,12 @@ PLivTCOG	= 1;	# TCOG liver/body partition coefficient
 VDCVG	= 1;	# DCVG effective volume of distribution
 VDCVC	= 1;	# DCVC effective volume of distribution#(v2.0)
 VDCA	= 1;	# DCA effective volume of distribution (central compartment)#(v2.0)
+PBraDCVG	= 1; #(v2.1)
+PLivDCVG	= 1; #(v2.1)
+PKidDCVG	= 1; #(v2.1)
+PBraDCVC	= 1; #(v2.1)
+PLivDCVC	= 1; #(v2.1)
+PKidDCVC	= 1; #(v2.1)
 #******************************************************************************
 # Oral absorption
 kTSD	= 1.4;	# TCE Stomach-duodenum transfer coefficient (/hr)
@@ -436,6 +448,14 @@ lnPeffDCVG	= 0.0;	# Scaled to species-specific central estimates
 lnPeffDCVC	= 0.0;	# Scaled to species-specific central estimates#(v2.0)
 lnPeffDCA	= 0.0;	# Scaled to species-specific central estimates#(v2.0)
 
+lnPBraDCVGC	= 0.0; #(v2.1)
+lnPLivDCVGC	= 0.0; #(v2.1)
+lnPKidDCVGC	= 0.0; #(v2.1)
+lnPBraDCVCC	= 0.0; #(v2.1)
+lnPLivDCVCC	= 0.0; #(v2.1)
+lnPKidDCVCC	= 0.0; #(v2.1)
+
+
 # Oral Absorption rates
 lnkTSD	= 0.336;
 lnkAS	= 0.336;
@@ -544,6 +564,13 @@ M_lnKMDCVGC	= 1.0; M_lnVMaxKidDCVGC	= 1.0;
 M_lnClKidDCVGC	= 1.0; M_lnKMKidDCVGC	= 1.0;
 M_lnVMaxLungLivC = 1.0; M_lnKMClara	= 1.0; 
 
+M_lnPBraDCVGC	= 1.0; #(v2.1)
+M_lnPLivDCVGC	= 1.0; #(v2.1)
+M_lnPKidDCVGC	= 1.0; #(v2.1)
+M_lnPBraDCVCC	= 1.0; #(v2.1)
+M_lnPLivDCVCC	= 1.0; #(v2.1)
+M_lnPKidDCVCC	= 1.0; #(v2.1)
+
 M_lnISOx = 0.0; M_lnISTCA = 0.0; M_lnISDCA = 0.0; 
 M_lnISConj = 0.0; M_lnISkTCA = 0.0; M_lnISkDCA = 0.0; 
 M_lnISkDCVG = 0.0; M_lnISkDCVC = 0.0; 
@@ -597,6 +624,13 @@ V_lnVMaxDCVGC	= 1.0; V_lnClDCVGC	= 1.0;
 V_lnKMDCVGC	= 1.0; V_lnVMaxKidDCVGC	= 1.0;
 V_lnClKidDCVGC	= 1.0; V_lnKMKidDCVGC	= 1.0;
 V_lnVMaxLungLivC = 1.0; V_lnKMClara	= 1.0;
+
+V_lnPBraDCVGC	= 1.0; #(v2.1)
+V_lnPLivDCVGC	= 1.0; #(v2.1)
+V_lnPKidDCVGC	= 1.0; #(v2.1)
+V_lnPBraDCVCC	= 1.0; #(v2.1)
+V_lnPLivDCVCC	= 1.0; #(v2.1)
+V_lnPKidDCVCC	= 1.0; #(v2.1)
 
 V_lnISOx = 1.0; V_lnISTCA = 1.0; V_lnISDCA = 1.0; 
 V_lnISConj = 1.0; V_lnISkTCA = 1.0; V_lnISkDCA = 1.0;
@@ -1554,15 +1588,24 @@ dt(AKidDCVG) = QKid * (CDCVGmol - CVKidDCVG); #(v2.1)
 
 #******************************************************************************
 #***                       DCVC Sub-model                                   ***
-#******************************************************************************
-
-#*****************************************************************************
+#****************************************************************************
 # Amount of DCVC in body (mg) #(v2.0)
     dt(ADCVC) = RAMetDCVGmol * MWDCVC  
 		+ RAMetKid * FracKidDCVC * StochDCVCTCE
 		- kElimDCVC * ADCVC;#(v2.0)
 # Concentration of DCVG in blood (in mmoles/l)#(v2.0)
 	CDCVCmol = ADCVC / MWDCVC / VDCVC;#(v2.0)
+	
+	CVBraDCVC = ABraDCVC / VBra / PBraDCVC; #(v2.1)
+	CVLivDCVC = ALivDCVC / VLiv / PLivDCVC; #(v2.1)
+	CVKidDCVC = AKidDCVC / VKid / PKidDCVC; #(v2.1)
+	
+dt(ABraDCVC) = QBra * (CDCVCmol - CVBraDCVC); #(v2.1)
+dt(ALivDCVC) = QGutLiv * (CDCVCmol - CVLivDCVC); #(v2.1)
+dt(AKidDCVC) = QKid * (CDCVCmol - CVKidDCVC); #(v2.1)
+
+	
+	
 #******************************************************************************
 #***                       Total Mass Balance                               ***
 #******************************************************************************
