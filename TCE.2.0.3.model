@@ -128,6 +128,7 @@ CKidTCOH,	# mouse - TCOH concentration in kidney
 CLivTCOH,	# mouse - TCOH concentration in liver
 CLungTCOH,	# mouse - TCOH concentration in lung
 CBraTCOH, #(v2.1)
+CKidTCOH, #(v2.1)
 
 # TCA
 CPlasTCA,	# mouse, rat, human - TCA concentration in plasma
@@ -135,6 +136,8 @@ CBldTCA,	# mouse, rat, human - TCA concentration in blood
 CBodTCA,	# needed for CKidTCA and CLungTCA
 CKidTCA,	# mouse - TCA concentration in kidney
 CLivTCA,	# mouse, rat - TCA concentration in liver
+CKidTCA, #(v2.1)
+CBraTCA, #(v2.1)
 CLungTCA,	# mouse - TCA concentration in lung
 zAUrnTCA,	# mouse, rat, human - Cumulative Urinary TCA
 zAUrnTCA_collect,	# human - TCA measurements for intermittent collection
@@ -153,6 +156,15 @@ AUrnTCOGTCOH_collect,	# human - TCOG (in TCOH-equiv) measurements for
 AUrnTCOGTCOH_sat,	# human - Saturated TCOG (in TCOH-equiv) measurements 
 
 # Other
+CLivDCVGmol, #(v2.1)
+CKidDCVGmol, #(v2.1)
+CBraDCVGmol, #(v2.1)
+CLivDCVCmol, #(v2.1)
+CKidDCVCmol, #(v2.1)
+CBraDCVCmol, #(v2.1)
+CLivNADCVCmol, #(v2.1)
+CKidNADCVCmol, #(v2.1)
+CBraNADCVCmol, #(v2.1)
 CDCVGmol,		# concentration of DCVG (mmol/l) 
 CDCVGmol0,	# Dummy variable without likelihood (for plotting)
 CDCVG_ND,	# Non-detect of DCVG (<0.001 nmol/ml= 1e-6 mmol/l )#(v2.0)
@@ -689,6 +701,7 @@ Ve_CRap	= 1;
 Ve_CSlw	= 1;
 #(v1.2) Ve_CTB	= 1;
 Ve_CHrt	= 1;
+Ve_CBra = 1; #(v2.1)
 Ve_CKid	= 1;
 Ve_CLiv	= 1;
 Ve_CLung	= 1;
@@ -709,6 +722,7 @@ Ve_CBraTCOH = 1; #(v2.1)
 Ve_CPlasTCA	= 1;
 Ve_CBldTCA	= 1;
 Ve_CBodTCA	= 1;
+Ve_CBraTCA  = 1; #(v2.1)
 Ve_CKidTCA	= 1;
 Ve_CLivTCA	= 1;
 Ve_CLungTCA	= 1;
@@ -730,11 +744,22 @@ Ve_AUrnTCOGTCOH_sat	= 1;
 	
 	
 Ve_CDCVGmol	= 1;#(v2.0)
+Ve_CBraDCVGmol = 1; #(v2.1)
+Ve_CKidDCVGmol = 1; #(v2.1)
+Ve_CLivDCVGmol = 1; #(v2.1)
 Ve_CDCVCmol	= 1;#(v2.0)
-Ve_CDCAmol	= 1;#(v2.0)
+Ve_CBraDCVCmol = 1; #(v2.1)
+Ve_CKidDCVCmol = 1; #(v2.1)
+Ve_CLivDCVCmol = 1; #(v2.1)
+Ve_CNADCVCmol	 = 1; #(v2.1)
+Ve_CBraNADCVCmol = 1; #(v2.1)
+Ve_CKidNADCVCmol = 1; #(v2.1)
+Ve_CLivNADCVCmol = 1; #(v2.1)
+Ve_CDCAmol	= 1;
 Ve_AUrnTCTotMole	= 1;
 Ve_TotCTCOH	= 1;
 Ve_QPsamp	= 1;
+
 
 #******************************************************************************
 #***                  Defaults for input parameters                         ***
@@ -885,12 +910,11 @@ Initialize {
 		- VFat - VGut - VLiv - VRap - VRespEfftmp - VKid - VBra - VBld; #(v2.1)
 
        VPlas = FracPlas * VBld;
-#(v1.2)	VBod = VFat + VGut + VRap + VTB + VKid + VSlw; # For TCA
-	VBod = VFat + VGut + VRap + VRespEfftmp + VKid + VSlw; # For TCA
+       
+	VBod = VFat + VGut + VRap + VRespEfftmp + VKid + VSlw; # For TCA #(v2.0)
 
 	VBodTCOH = VBod + VBld;	# for TCOH and TCOG -- body without liver
-	## VBodTCOH = VBod; #(v1h)
-
+	
 # Partition coefficients
        PB = (PBmeas > 0.0 ? PBmeas : (exp(lnPBC) * (Species == 3 ? 15. : (Species == 2 ? 22. : 9.5 )))); # Blood-air
 
@@ -1453,7 +1477,7 @@ Dynamics{
 	CVBodTCOH = ABodTCOH / VBodTCOH / PBodTCOH;
 	CVLivTCOH = ALivTCOH / VLiv / PLivTCOH;
 	CVBraTCOH = ABraTCOH / VKid / PBraTCOH; #(v2.1)
-  CVKidTCOH = AKidTCOH / VKid / PKidTCOH; #(v2.1)
+    CVKidTCOH = AKidTCOH / VKid / PKidTCOH; #(v2.1)
 	
 	
 	CTCOH = (QBod * CVBodTCOH + QGutLiv * CVLivTCOH + kIVTCOH + QBra * CVBraTCOH + QKid * CVKidTCOH )/QCnow;  #(v2.1)
@@ -1590,28 +1614,24 @@ Dynamics{
 # Rate of metabolism of DCVG to DCVC
 	RAMetDCVGmol = kDCVG * ADCVGmol;
 # Dynamics for DCVG in blood
-# dt(ADCVGmol) = (RAMetLiv2 + RAMetKid*(1-FracKidDCVC)) / MWTCE 
-    dt(ADCVGmol) = (RAMetLiv2 + RAMetKid*(1-FracKidDCVC)) / MWTCE; #(v2.1)
+    dt(ADCVGmol) = (RAMetLiv2 + RAMetKid*(1-FracKidDCVC)) / MWTCE - RAMetDCVGmol; #(v2.0)
 # Concentration of DCVG in blood (in mmoles/l)
-	CDCVGmol = ADCVGmol / VDCVG;
-	CDCVG = (QBod * CVBodDCVG + QLiv * CVLivDCVG + QKid * CVKidDCVG + QBra * CVBraDCVG + QGutLiv * CVLivDCVG)/QCnow; #(v2.1)
-#	
+
 	CVBraDCVGmol = ABraDCVGmol / VBra / PBraDCVG; #(v2.1)
 	CVLivDCVGmol = ALivDCVGmol / VLiv / PLivDCVG; #(v2.1)
 	CVKidDCVGmol = AKidDCVGmol / VKid / PKidDCVG; #(v2.1)
 	
 dt(ABraDCVGmol) = QBra * (CDCVGmol - CVBraDCVGmol); #(v2.1)
 dt(ALivDCVGmol) = QGutLiv * (CDCVGmol - CVLivDCVGmol); #(v2.1)
-dt(AKidDCVGmol) = QKid * (CDCVGmol - CVKidDCVGmol)- RAMetDCVGmol; #(v2.1)
+dt(AKidDCVGmol) = QKid * (CDCVGmol - CVKidDCVGmol); #(v2.1)
 
 #******************************************************************************
 #***                       DCVC Sub-model                                   ***
 #****************************************************************************
 
 # Amount of DCVC in blood (mg) #(v2.0)
-    dt(ADCVC) = RAMetDCVGmol * MWDCVC  
-		+ RAMetKid * FracKidDCVC * StochDCVCTCE
-		- kElimDCVC * ADCVC;#(v2.0)
+    dt(ADCVC) = RAMetDCVGmol * MWDCVC + RAMetKid * FracKidDCVC * StochDCVCTCE - 
+    kElimDCVC * ADCVC;#(v2.0)
 # Concentration of DCVG in blood (in mmoles/l)#(v2.0)
 	CDCVCmol = ADCVC / MWDCVC / VDCVC;#(v2.0)
 	
@@ -1719,7 +1739,9 @@ CalcOutputs{
 	CBldTCA = CPlasTCA*TCAPlas;
 	CBodTCA = (CBodTCA < 1.0e-15 ? 1.0e-15 : CBodTCA);
 	CLivTCA = (CLivTCA < 1.0e-15 ? 1.0e-15 : CLivTCA);
-	CKidTCA = CBodTCA;
+	#CKidTCA = CBodTCA; #(V2.0)
+	CKidTCA = (CKidTCA < 1.0e-15 ? 1.0e-15 : CKidTCA); #(v2.1)
+	CBraTCA = (CBraTCA < 1.0e-15 ? 1.0e-15 : CBraTCA); #(v2.1)
 	CLungTCA = CBodTCA;
 	zAUrnTCA = (AUrnTCA < 1.0e-15 ? 1.0e-15 : AUrnTCA);
 	zAUrnTCA_sat = (AUrnTCA_sat < 1.0e-15 ? 1.0e-15 : AUrnTCA_sat);
@@ -1738,12 +1760,18 @@ CalcOutputs{
 	AUrnTCOGTCOH_collect = (AUrnTCOG_collect < 1.0e-15 ? 1.0e-15 : StochTCOHGluc*AUrnTCOG_collect);
 # Other
 	CDCVGmol = (CDCVGmol < 1.0e-15 ? 1.0e-15 : CDCVGmol);
+    CLivDCVGmol = (CLivDCVGmol < 1.0e-15 ? 1.0e-15 : CLivDCVGmol); #(v2.1)
+	CKidDCVGmol = (CKidDCVGmol < 1.0e-15 ? 1.0e-15 : CKidDCVGmol); #(v2.1)
+	CBraDCVGmol = (CBraDCVGmol < 1.0e-15 ? 1.0e-15 : CBraDCVGmol); #(v2.1)
 	CDCVGmol0 = CDCVGmol;
 	CDCVG_NDtmp = CDFNormal(3*(1-CDCVGmol/CDCVGmolLD)); 
 		# Assuming LD = 3*sigma_blank, Normally distributed
 	CDCVG_ND = ( CDCVG_NDtmp < 1.0 ? ( CDCVG_NDtmp >= 1e-100 ? -log(CDCVG_NDtmp) : -log(1e-100)) : 1e-100 );
 # DCVC#(v2.0)
 	CDCVCmol = (CDCVCmol < 1.0e-15 ? 1.0e-15 : CDCVCmol);#(v2.0)
+	CLivDCVCmol = (CLivDCVCmol < 1.0e-15 ? 1.0e-15 : CLivDCVCmol); #(v2.1)
+	CKidDCVCmol = (CKidDCVCmol < 1.0e-15 ? 1.0e-15 : CKidDCVCmol); #(v2.1)
+	CBraDCVCmol = (CBraDCVCmol < 1.0e-15 ? 1.0e-15 : CBraDCVCmol); #(v2.1)
 	CDCVCmol0 = CDCVCmol;#(v2.0)
 	CDCVC_NDtmp = CDFNormal(3*(1-CDCVCmol/CDCVCmolLD)); #(v2.0)
 		# Assuming LD = 3*sigma_blank, Normally distributed#(v2.0)
