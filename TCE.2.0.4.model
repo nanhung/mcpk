@@ -17,7 +17,8 @@ States = {
 ##-- TCA in the body
 	AStomTCA,	# Amount of TCA in stomach
 	APlasTCA,	# Amount of TCA in plasma #comment out for #(v1h)
-	ABodTCA,	# Amount of TCA in lumped body compartment
+	ABodTCA,	# Amount of TCA in lumped body compartment 
+	ABrnTCA, #(v2.1)
    	ALivTCA,	# Amount of TCA in liver
 ##-- TCA metabolized
  	AUrnTCA,	# Cumulative Amount of TCA excreted in urine
@@ -116,7 +117,8 @@ CBrnTCOH, # (v2.1)
 # TCA
 CPlasTCA,	# mouse, rat, human - TCA concentration in plasma
 CBldTCA,	# mouse, rat, human - TCA concentration in blood
-CBodTCA,	# needed for CKidTCA and CLungTCA
+CBodTCA,
+CBrnTCA,	# (v2.1)
 CKidTCA,	# mouse - TCA concentration in kidney
 CLivTCA,	# mouse, rat - TCA concentration in liver
 CLungTCA,	# mouse - TCA concentration in lung
@@ -321,7 +323,8 @@ PResp	= 1;	#(v1.2) TCE Respiratory tissue:air partition coefficient
 PKid	= 1;	# TCE Kidney/Blood partition coefficient
 PSlw	= 1;	# TCE Slowly perfused/Blood partition coefficient
 TCAPlas	= 1;	# TCA blood/plasma concentration ratio
-PBodTCA	= 1;	# Free TCA Body/blood plasma partition coefficient
+PBodTCA	= 1;	# Free TCA Body/blood plasma partition coefficient 
+PBrnTCA	= 1; #(v2.1)
 PLivTCA	= 1;	# Free TCA Liver/blood plasma partition coefficient
 kDissoc	= 1;	# Protein/TCA dissociation constant (umole/L)
 BMax	= 1;	# Protein concentration (UNITS?)
@@ -462,7 +465,8 @@ lnPSlwC	= 0.0;	# Scaled to species-specific central estimates
 
 # Partition Coefficients for TCA
 lnPRBCPlasTCAC	= 0.0;	# Scaled to species-specific central estimates
-lnPBodTCAC	= 0.0;	# Scaled to species-specific central estimates
+lnPBodTCAC	= 0.0;	# Scaled to species-specific central estimates 
+lnPBrnTCAC	= 0.0; #(v2.1)
 lnPLivTCAC	= 0.0;	# Scaled to species-specific central estimates
 
 # Plasma Binding for TCA
@@ -565,7 +569,8 @@ M_lnPFatC	= 1.0; M_lnPGutC	= 1.0;
 M_lnPLivC	= 1.0; M_lnPRapC	= 1.0;
 M_lnPRespC	= 1.0; M_lnPKidC	= 1.0;
 M_lnPSlwC	= 1.0; M_lnPRBCPlasTCAC	= 1.0;
-M_lnPBodTCAC	= 1.0; M_lnPLivTCAC	= 1.0;
+M_lnPBrnTCAC	= 1.0; #(v2.1)
+M_lnPLivTCAC	= 1.0; M_lnPBodTCAC	= 1.0;
 M_lnkDissocC	= 1.0; M_lnBMaxkDC	= 1.0;
 M_lnPBodTCOHC	= 1.0; M_lnPLivTCOHC	= 1.0;
 M_lnPBrnTCOHC   = 1.0; #(v2.1)
@@ -615,7 +620,8 @@ V_lnPFatC	= 1.0; V_lnPGutC	= 1.0;
 V_lnPLivC	= 1.0; V_lnPRapC	= 1.0;
 V_lnPRespC	= 1.0; V_lnPKidC	= 1.0;
 V_lnPSlwC	= 1.0; V_lnPRBCPlasTCAC	= 1.0;
-V_lnPBodTCAC	= 1.0; V_lnPLivTCAC	= 1.0;
+V_lnPBrnTCAC	= 1.0; #(v2.1)
+V_lnPLivTCAC	= 1.0; V_lnPBodTCAC	= 1.0;
 V_lnkDissocC	= 1.0; V_lnBMaxkDC	= 1.0;
 V_lnPBodTCOHC	= 1.0; V_lnPLivTCOHC	= 1.0;
 V_lnPBrnTCOHC	= 1.0; #(v2.1)
@@ -688,7 +694,8 @@ Ve_CLungTCOH	= 1;
 	
 Ve_CPlasTCA	= 1;
 Ve_CBldTCA	= 1;
-Ve_CBodTCA	= 1;
+Ve_CBrnTCA	= 1; #(v2.1)
+Ve_CBodTCA  = 1;
 Ve_CKidTCA	= 1;
 Ve_CLivTCA	= 1;
 Ve_CLungTCA	= 1;
@@ -998,7 +1005,9 @@ Initialize {
 	#	For rats, Normal uncertainty with GSD = 1.4
 	#	For mice and humans, diffuse prior uncertainty of 
 	#	100-fold up/down
-    PBodTCA = TCAPlas * exp(lnPBodTCAC) * 
+    PBrnTCA = TCAPlas * exp(lnPBrnTCAC) * #(v2.1)
+		(Species == 3 ? 0.8 : (Species == 2 ? 0.8 : 0.5 ));
+	PBodTCA = TCAPlas * exp(lnPBodTCAC) *
 		(Species == 3 ? 0.88 : (Species == 2 ? 0.88 : 0.52 ));
 	# Note -- these were done at 10~20 microg/ml (Abbas and Fisher 1997),
 	#	which is 1.635-3.27 mmol/ml (1.635-3.27 x 10^6 microM).  
@@ -1375,7 +1384,8 @@ Dynamics{
 
 # Plasma Flows to Tissues (L/hr)
     QCPlas = FracPlas * QCnow; # 
-    QBodPlas = FracPlas * QBod; # 
+    QBrnPlas = FracPlas * QBrn; #(v2.1) 
+    QBodPlas = FracPlas * QBod;
     QGutLivPlas = FracPlas * QGutLiv; # 
 
   VFatSC=VFat/BW; # (vrisk3) #Fat fractional compartment volume 
@@ -1556,14 +1566,15 @@ Dynamics{
 	APlasTCAFree = CPlasTCAFree * VPlas;
 # Concentration of bound TCA in plasma (mg/L)
 	CPlasTCABnd = (CPlasTCA<CPlasTCAFree ? 0 : CPlasTCA-CPlasTCAFree);
-# Concentration in body and liver
-	CBodTCA = (ABodTCA<0 ? 0 : ABodTCA/VBod);
-	CLivTCA = (ALivTCA<1.0e-15 ? 1.0e-15 : ALivTCA/VLiv);
+# Concentration in body 
+	CBrnTCA = ABrnTCA/VBrn; #(v2.1)
+	CBodTCA = ABodTCA/VBod;
+	CLivTCA = ALivTCA/VLiv;
 # Total concentration in venous plasma (free+bound)
-	CVBodTCAFree = (CBodTCA / PBodTCA);	# free in equilibrium
-	CVBodTCA = CPlasTCABnd + CVBodTCAFree;
-#	CVBodTCA = (BMax+kDissoc + CVBodTCAFree)*CVBodTCAFree / #(v1g)
-#		(kDissoc + CVBodTCAFree);	#(v1g) total in equilibrium
+	CVBrnTCAFree = (CBrnTCA / PBrnTCA);	#(v2.1)
+	#CVBrnTCA = CPlasTCABnd + CVBrnTCAFree; #(v2.1)
+	CVBodTCAFree = (CBodTCA / PBodTCA);	
+	CVBodTCA = CPlasTCABnd + CVBodTCAFree; 
 	CVLivTCAFree = (CLivTCA / PLivTCA);
 	CVLivTCA = CPlasTCABnd + CVLivTCAFree;	# free in equilibrium
 #	CVLivTCA = (BMax+kDissoc + CVLivTCAFree)*CVLivTCAFree / #(v1g)
@@ -1571,12 +1582,13 @@ Dynamics{
 # Rate of urinary excretion of TCA
 	RUrnTCA = kUrnTCA * APlasTCAFree;
 # Dynamics for amount of total (free+bound) TCA in plasma (mg)
-    dt(APlasTCA) = kIVTCA + (QBodPlas*CVBodTCA) + (QGutLivPlas*CVLivTCA) # comment out for #(v1h)
-			- (QCPlas * CPlasTCA) - RUrnTCA; # comment out for #(v1h)
-
+    #dt(APlasTCA) = kIVTCA  + QBodPlas*CVBodTCA + QBrnPlas*CVBrnTCA + QGutLivPlas*CVLivTCA  - QCPlas * CPlasTCA - RUrnTCA; #(v2.1) 
+    dt(APlasTCA) = kIVTCA  + QBodPlas*CVBodTCA  + QGutLivPlas*CVLivTCA  - QCPlas * CPlasTCA - RUrnTCA; #(v2.1)
+#
+    dt(ABrnTCA) = QBrnPlas * (CPlasTCAFree - CVBrnTCAFree); #(v2.1)
 #**** Body ********************************************************************
 # Dynamics for amount of TCA in the body (mg)
-    dt(ABodTCA) = QBodPlas * (CPlasTCAFree - CVBodTCAFree);
+	dt(ABodTCA) = QBodPlas * (CPlasTCAFree - CVBodTCAFree);
 	## dt(ABodTCA) = QBodPlas * (CPlasTCAFree - CVBodTCAFree) - RUrnTCA; #(v1h)
 #    dt(ABodTCA) = QBodPlas * (CPlasTCA - CVBodTCA); #(v1g)
 	## dt(ABodTCA) = QBodPlas * (CPlasTCA - CVBodTCA) - RUrnTCA; #(v1g)+(v1h)
@@ -1731,10 +1743,11 @@ CalcOutputs{
 # TCA
 	CPlasTCA = (CPlasTCA < 1.0e-15 ? 1.0e-15 : CPlasTCA);
 	CBldTCA = CPlasTCA*TCAPlas;
+	CBrnTCA = (CBrnTCA < 1.0e-15 ? 1.0e-15 : CBrnTCA); #(v2.1)
 	CBodTCA = (CBodTCA < 1.0e-15 ? 1.0e-15 : CBodTCA);
 	CLivTCA = (CLivTCA < 1.0e-15 ? 1.0e-15 : CLivTCA);
-	CKidTCA = CBodTCA;
-	CLungTCA = CBodTCA;
+	CKidTCA = CBrnTCA;
+	CLungTCA = CBrnTCA;
 	zAUrnTCA = (AUrnTCA < 1.0e-15 ? 1.0e-15 : AUrnTCA);
 	zAUrnTCA_sat = (AUrnTCA_sat < 1.0e-15 ? 1.0e-15 : AUrnTCA_sat);
 	zAUrnTCA_collect = (AUrnTCA_collect < 1.0e-15 ? 1.0e-15 : AUrnTCA_collect);

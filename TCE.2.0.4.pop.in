@@ -60,6 +60,7 @@ Level { #Population level
 	Distrib( Ve_CPlasTCA , LogUniform , 0.01 , 3.3 );
 	Distrib( Ve_CBldTCA , LogUniform , 0.01 , 3.3 );
 #	Distrib( Ve_CBodTCA , LogUniform , 0.01 , 3.3 );
+    Distrib( Ve_CBrnTCA , LogUniform , 0.01 , 3.3 ); #(v2.1)
 #	Distrib( Ve_CKidTCA , LogUniform , 0.01 , 3.3 );
 	Distrib( Ve_CLivTCA , LogUniform , 0.01 , 3.3 );
 #	Distrib( Ve_CLungTCA , LogUniform , 0.01 , 3.3 );
@@ -358,6 +359,7 @@ Distrib(	V_lnISkDCVC	InvGamma	2.25	5.0000	);
 	Likelihood( CPlasTCA , LogNormal_v , Prediction( CPlasTCA ) , Ve_CPlasTCA );
 	Likelihood( CBldTCA , LogNormal_v , Prediction( CBldTCA ) , Ve_CBldTCA );
 #	Likelihood( CBodTCA , LogNormal_v , Prediction( CBodTCA ) , Ve_CBodTCA );
+    Likelihood( CBrnTCA , LogNormal_v , Prediction( CBrnTCA ) , Ve_CBrnTCA ); #(v2.1)
 #	Likelihood( CKidTCA , LogNormal_v , Prediction( CKidTCA ) , Ve_CKidTCA );
 	Likelihood( CLivTCA , LogNormal_v , Prediction( CLivTCA ) , Ve_CLivTCA );
 #	Likelihood( CLungTCA , LogNormal_v , Prediction( CLungTCA ) , Ve_CLungTCA );
@@ -536,6 +538,8 @@ Print( CBrnTCOH , 0); #(v2.1)
 Data( CBrnTCOH , -1);
 Print( CPlasTCA , 0);
 Data( CPlasTCA , -1);
+Print( CBrnTCA , 0); #(v2.1)
+Data( CBrnTCA , -1);
 Print( CTCOGTCOH , 0.25, 0.5, 0.75, 1, 1.5, 2, 3, 4, 6, 8, 16 );
 Data( CTCOGTCOH , 62.12, 63.13, 67.59, 50.86, 64.31, 95.02, 41.5, 46.7, 51.86, 40.88, 10.11 );
 Print( CTCOH , 0.25, 0.5, 0.75, 1, 1.5, 2, 3, 4, 6, 12 );
@@ -592,6 +596,8 @@ Print( CBrnTCOH , 0); #(v2.1)
 Data( CBrnTCOH , -1);
 Print( CPlasTCA , 0);
 Data( CPlasTCA , -1);
+Print( CBrnTCA , 0); #(v2.1)
+Data( CBrnTCA , -1);
 Print( CTCOGTCOH , 0.25, 0.5, 1, 2, 4, 8, 16 );
 Data( CTCOGTCOH , 16.2, 22.88, 26.1, 30.21, 61.1, 40.88, 21.68 );
 Print( CTCOH , 0.25, 0.5, 1, 2, 4, 16 );
@@ -648,6 +654,8 @@ Print( CBrnTCOH , 0); #(v2.1)
 Data( CBrnTCOH , -1);
 Print( CPlasTCA , 0);
 Data( CPlasTCA , -1);
+Print( CBrnTCA , 0); #(v2.1)
+Data( CBrnTCA , -1);
 Print( CTCOGTCOH , 0.25, 0.5, 1, 2, 4, 8, 16 );
 Data( CTCOGTCOH , 15.92, 21.31, 31.27, 10.58, 13.57, 9.51, 1.82 );
 Print( CTCOH , 0.25, 0.5, 1, 2, 4, 8, 16 );
@@ -704,6 +712,8 @@ Print( CBrnTCOH , 0.25, 0.5, 0.75, 1, 1.5, 2, 3, 4, 6, 8, 16); #(v2.1)
 Data( CBrnTCOH , 2,3,4,5,6,8,9,8,7,6,5);
 Print( CPlasTCA , 0);
 Data( CPlasTCA , -1);
+Print( CBrnTCA , 0); #(v2.1)
+Data( CBrnTCA , -1);
 Print( CTCOGTCOH , 0.25, 0.5, 2, 4, 8, 12 );
 Data( CTCOGTCOH , 10.51, 39.66, 27.01, 23.55, 14.76, 6.89 );
 Print( CTCOH , 0.25, 0.5, 2, 4, 8, 12 );
@@ -763,6 +773,8 @@ Print( CBrnTCOH , 0); #(v2.1)
 Data( CBrnTCOH , -1);
 Print( CPlasTCA , 0);
 Data( CPlasTCA , -1);
+Print( CBrnTCA , 0); #(v2.1)
+Data( CBrnTCA , -1);
 Print( CTCOGTCOH , 0);
 Data( CTCOGTCOH , -1);
 Print( CTCOH , 0);
@@ -819,6 +831,8 @@ Print( CBrnTCOH , 0); #(v2.1)
 Data( CBrnTCOH , -1);
 Print( CPlasTCA , 0);
 Data( CPlasTCA , -1);
+Print( CBrnTCA , 0); #(v2.1)
+Data( CBrnTCA , -1);
 Print( CTCOGTCOH , 0);
 Data( CTCOGTCOH , -1);
 Print( CTCOH , 0.05, 0.1, 0.5, 1, 2 );
@@ -882,6 +896,8 @@ Print( CBrnTCOH , 0); #(v2.1)
 Data( CBrnTCOH , -1);
 Print( CPlasTCA , 2, 3.75, 3.9, 4.2, 5, 6, 8, 21 );
 Data( CPlasTCA , 17.76, 46.18, 49.81, 38.99, 70.53, 54.29, 41.02, 7.06 );
+Print( CBrnTCA , 0); #(v2.1)
+Data( CBrnTCA , -1);
 Print( CTCOGTCOH , 0);
 Data( CTCOGTCOH , -1);
 Print( CTCOH , 0);
@@ -937,6 +953,8 @@ Print( CBrnTCOH , 0); #(v2.1)
 Data( CBrnTCOH , -1);
 Print( CPlasTCA , 2.5, 4.2, 4.4, 4.8, 4.9, 5.3, 5.5, 6.3, 24 );
 Data( CPlasTCA , 58, 101.7, 88.5, 109.6, 114.7, 85.8, 80.6, 83, 5.7 );
+Print( CBrnTCA , 0); #(v2.1)
+Data( CBrnTCA , -1);
 Print( CTCOGTCOH , 0);
 Data( CTCOGTCOH , -1);
 Print( CTCOH , 0);
@@ -992,6 +1010,8 @@ Print( CBrnTCOH , 0); #(v2.1)
 Data( CBrnTCOH , -1);
 Print( CPlasTCA , 2, 3.9, 4.2, 4.4, 4.75, 5, 5.5, 6.5, 24 );
 Data( CPlasTCA , 61.8, 94.2, 103.1, 103, 97, 101.4, 71.6, 58.8, 9.8 );
+Print( CBrnTCA , 0); #(v2.1)
+Data( CBrnTCA , -1);
 Print( CTCOGTCOH , 0);
 Data( CTCOGTCOH , -1);
 Print( CTCOH , 0);
@@ -1047,6 +1067,8 @@ Print( CBrnTCOH , 0); #(v2.1)
 Data( CBrnTCOH , -1);
 Print( CPlasTCA , 2, 3.9, 4.2, 4.5, 4.75, 5, 7.75, 9, 24 );
 Data( CPlasTCA , 88.6, 127.4, 123.6, 123.6, 125.5, 106.2, 82.1, 58, 9.4 );
+Print( CBrnTCA , 0); #(v2.1)
+Data( CBrnTCA , -1);
 Print( CTCOGTCOH , 0);
 Data( CTCOGTCOH , -1);
 Print( CTCOH , 0);
@@ -1105,6 +1127,8 @@ Print( CBrnTCOH , 0); #(v2.1)
 Data( CBrnTCOH , -1);
 Print( CPlasTCA , 0);
 Data( CPlasTCA , -1);
+Print( CBrnTCA , 0); #(v2.1)
+Data( CBrnTCA , -1);
 Print( CTCOGTCOH , 0);
 Data( CTCOGTCOH , -1);
 Print( CTCOH , 0);
@@ -1163,6 +1187,8 @@ Print( CBrnTCOH , 0); #(v2.1)
 Data( CBrnTCOH , -1);
 Print( CPlasTCA , 0);
 Data( CPlasTCA , -1);
+Print( CBrnTCA , 0); #(v2.1)
+Data( CBrnTCA , -1);
 Print( CTCOGTCOH , 0);
 Data( CTCOGTCOH , -1);
 Print( CTCOH , 0);
@@ -1221,6 +1247,8 @@ Print( CBrnTCOH , 0); #(v2.1)
 Data( CBrnTCOH , -1);
 Print( CPlasTCA , 0);
 Data( CPlasTCA , -1);
+Print( CBrnTCA , 0); #(v2.1)
+Data( CBrnTCA , -1);
 Print( CTCOGTCOH , 0);
 Data( CTCOGTCOH , -1);
 Print( CTCOH , 0);
@@ -1279,6 +1307,8 @@ Print( CBrnTCOH , 0); #(v2.1)
 Data( CBrnTCOH , -1);
 Print( CPlasTCA , 0);
 Data( CPlasTCA , -1);
+Print( CBrnTCA , 0); #(v2.1)
+Data( CBrnTCA , -1);
 Print( CTCOGTCOH , 0);
 Data( CTCOGTCOH , -1);
 Print( CTCOH , 0);
@@ -1337,6 +1367,8 @@ Print( CBrnTCOH , 0); #(v2.1)
 Data( CBrnTCOH , -1);
 Print( CPlasTCA , 0);
 Data( CPlasTCA , -1);
+Print( CBrnTCA , 0); #(v2.1)
+Data( CBrnTCA , -1);
 Print( CTCOGTCOH , 0);
 Data( CTCOGTCOH , -1);
 Print( CTCOH , 0);
@@ -1400,6 +1432,8 @@ Print( CBrnTCOH , 0); #(v2.1)
 Data( CBrnTCOH , -1);
 Print( CPlasTCA , 0.033, 0.083, 0.17, 0.25, 0.5, 1, 2, 3, 4, 5, 6, 7, 24, 30, 48, 72 );
 Data( CPlasTCA , 1.2, 3.9, 11.9, 16.3, 32.7, 61.6, 41.3, 56.1, 54.9, 61.1, 91, 94.4, 47.5, 29.4, 28.5, 1.9 );
+Print( CBrnTCA , 0); #(v2.1)
+Data( CBrnTCA , -1);
 Print( CTCOGTCOH , 0);
 Data( CTCOGTCOH , -1);
 Print( CTCOH , 0);
@@ -1456,6 +1490,8 @@ Print( CBrnTCOH , 0); #(v2.1)
 Data( CBrnTCOH , -1);
 Print( CPlasTCA , 0.083, 0.17, 0.5, 1, 2, 7, 24, 30 );
 Data( CPlasTCA , 5.8, 6.9, 17.9, 32, 54.9, 82.2, 13.8, 4.1 );
+Print( CBrnTCA , 0); #(v2.1)
+Data( CBrnTCA , -1);
 Print( CTCOGTCOH , 0);
 Data( CTCOGTCOH , -1);
 Print( CTCOH , 0);
@@ -1512,6 +1548,8 @@ Print( CBrnTCOH , 0); #(v2.1)
 Data( CBrnTCOH , -1);
 Print( CPlasTCA , 0.033, 0.083, 0.17, 0.25, 0.5, 1, 2, 3, 4, 5, 6, 7, 30, 48 );
 Data( CPlasTCA , 8.933333333, 12.1, 11.8, 17.9, 27.4, 49.2, 76.6, 85.3, 48.6, 80.9, 86.4, 91.4, 12.56666667, 2 );
+Print( CBrnTCA , 0); #(v2.1)
+Data( CBrnTCA , -1);
 Print( CTCOGTCOH , 0);
 Data( CTCOGTCOH , -1);
 Print( CTCOH , 0);
@@ -1575,6 +1613,8 @@ Print( CBrnTCOH , 0); #(v2.1)
 Data( CBrnTCOH , -1);
 Print( CPlasTCA , 0);
 Data( CPlasTCA , -1);
+Print( CBrnTCA , 0); #(v2.1)
+Data( CBrnTCA , -1);
 Print( CTCOGTCOH , 0);
 Data( CTCOGTCOH , -1);
 Print( CTCOH , 0);
@@ -1631,6 +1671,8 @@ Print( CBrnTCOH , 0); #(v2.1)
 Data( CBrnTCOH , -1);
 Print( CPlasTCA , 0);
 Data( CPlasTCA , -1);
+Print( CBrnTCA , 0); #(v2.1)
+Data( CBrnTCA , -1);
 Print( CTCOGTCOH , 0);
 Data( CTCOGTCOH , -1);
 Print( CTCOH , 0);
@@ -1687,6 +1729,8 @@ Print( CBrnTCOH , 0); #(v2.1)
 Data( CBrnTCOH , -1);
 Print( CPlasTCA , 0);
 Data( CPlasTCA , -1);
+Print( CBrnTCA , 0); #(v2.1)
+Data( CBrnTCA , -1);
 Print( CTCOGTCOH , 0);
 Data( CTCOGTCOH , -1);
 Print( CTCOH , 0);
@@ -1743,6 +1787,8 @@ Print( CBrnTCOH , 0); #(v2.1)
 Data( CBrnTCOH , -1);
 Print( CPlasTCA , 0);
 Data( CPlasTCA , -1);
+Print( CBrnTCA , 0); #(v2.1)
+Data( CBrnTCA , -1);
 Print( CTCOGTCOH , 0);
 Data( CTCOGTCOH , -1);
 Print( CTCOH , 0);
@@ -1802,6 +1848,8 @@ Print( CBrnTCOH , 0); #(v2.1)
 Data( CBrnTCOH , -1);
 Print( CPlasTCA , 0);
 Data( CPlasTCA , -1);
+Print( CBrnTCA , 0); #(v2.1)
+Data( CBrnTCA , -1);
 Print( CTCOGTCOH , 0);
 Data( CTCOGTCOH , -1);
 Print( CTCOH , 0);
@@ -1864,6 +1912,8 @@ Print( CBrnTCOH , 0); #(v2.1)
 Data( CBrnTCOH , -1);
 Print( CPlasTCA , 0);
 Data( CPlasTCA , -1);
+Print( CBrnTCA , 0); #(v2.1)
+Data( CBrnTCA , -1);
 Print( CTCOGTCOH , 2, 4, 4.25, 4.5, 4.75, 6 );
 Data( CTCOGTCOH , 4.51, 6.222, 2.733, 1.97, 2.09, 0.1985 );
 Print( CTCOH , 2, 4, 4.25, 4.5, 4.75, 6 );
@@ -1919,6 +1969,8 @@ Print( CBrnTCOH , 0); #(v2.1)
 Data( CBrnTCOH , -1);
 Print( CPlasTCA , 0);
 Data( CPlasTCA , -1);
+Print( CBrnTCA , 0); #(v2.1)
+Data( CBrnTCA , -1);
 Print( CTCOGTCOH , 2, 4, 4.25, 4.5, 4.75, 6, 12 );
 Data( CTCOGTCOH , 16.17, 25.1, 17.87, 6.746, 8.252, 2.028, 0.3544 );
 Print( CTCOH , 2, 4, 4.25, 4.5, 4.75, 6 );
@@ -1983,6 +2035,8 @@ Print( CBrnTCOH , 0); #(v2.1)
 Data( CBrnTCOH , -1);
 Print( CPlasTCA , 0.25, 1, 3, 5, 10, 16 );
 Data( CPlasTCA , 35.131, 33.6604, 33.6604, 23.5296, 9.1504, 4.085 );
+Print( CBrnTCA , 0); #(v2.1)
+Data( CBrnTCA , -1);
 Print( CTCOGTCOH , 0);
 Data( CTCOGTCOH , -1);
 Print( CTCOH , 0);
@@ -2039,6 +2093,8 @@ Print( CBrnTCOH , 0); #(v2.1)
 Data( CBrnTCOH , -1);
 Print( CPlasTCA , 0.25, 1, 3, 5, 10, 16, 24 );
 Data( CPlasTCA , 104.576, 119.9356, 109.8048, 89.7066, 49.02, 7.6798, 5.2288 );
+Print( CBrnTCA , 0); #(v2.1)
+Data( CBrnTCA , -1);
 Print( CTCOGTCOH , 0);
 Data( CTCOGTCOH , -1);
 Print( CTCOH , 0);
@@ -2102,6 +2158,8 @@ Print( CBrnTCOH , 0); #(v2.1)
 Data( CBrnTCOH , -1);
 Print( CPlasTCA , 0);
 Data( CPlasTCA , -1);
+Print( CBrnTCA , 0); #(v2.1)
+Data( CBrnTCA , -1);
 Print( CTCOGTCOH , 0);
 Data( CTCOGTCOH , -1);
 Print( CTCOH , 0);
@@ -2174,6 +2232,8 @@ Print( CBrnTCOH , 0); #(v2.1)
 Data( CBrnTCOH , -1);
 Print( CPlasTCA , 0);
 Data( CPlasTCA , -1);
+Print( CBrnTCA , 0); #(v2.1)
+Data( CBrnTCA , -1);
 Print( CTCOGTCOH , 0);
 Data( CTCOGTCOH , -1);
 Print( CTCOH , 0);
@@ -2266,6 +2326,8 @@ Print( CBrnTCOH , 0); #(v2.1)
 Data( CBrnTCOH , -1);
 Print( CPlasTCA , 0);
 Data( CPlasTCA , -1);
+Print( CBrnTCA , 0); #(v2.1)
+Data( CBrnTCA , -1);
 Print( CTCOGTCOH , 0);
 Data( CTCOGTCOH , -1);
 Print( CTCOH , 0);
@@ -2329,6 +2391,8 @@ Print( CBrnTCOH , 0); #(v2.1)
 Data( CBrnTCOH , -1);
 Print( CPlasTCA , 0);
 Data( CPlasTCA , -1);
+Print( CBrnTCA , 0); #(v2.1)
+Data( CBrnTCA , -1);
 Print( CTCOGTCOH , 0);
 Data( CTCOGTCOH , -1);
 Print( CTCOH , 0);
@@ -2392,6 +2456,8 @@ Print( CBrnTCOH , 0); #(v2.1)
 Data( CBrnTCOH , -1);
 Print( CPlasTCA , 0);
 Data( CPlasTCA , -1);
+Print( CBrnTCA , 0); #(v2.1)
+Data( CBrnTCA , -1);
 Print( CTCOGTCOH , 0);
 Data( CTCOGTCOH , -1);
 Print( CTCOH , 0);
@@ -2455,6 +2521,8 @@ Print( CBrnTCOH , 0); #(v2.1)
 Data( CBrnTCOH , -1);
 Print( CPlasTCA , 0);
 Data( CPlasTCA , -1);
+Print( CBrnTCA , 0); #(v2.1)
+Data( CBrnTCA , -1);
 Print( CTCOGTCOH , 0);
 Data( CTCOGTCOH , -1);
 Print( CTCOH , 0);
@@ -2518,6 +2586,8 @@ Print( CBrnTCOH , 0); #(v2.1)
 Data( CBrnTCOH , -1);
 Print( CPlasTCA , 0);
 Data( CPlasTCA , -1);
+Print( CBrnTCA , 0); #(v2.1)
+Data( CBrnTCA , -1);
 Print( CTCOGTCOH , 0);
 Data( CTCOGTCOH , -1);
 Print( CTCOH , 0);
@@ -2581,6 +2651,8 @@ Print( CBrnTCOH , 0); #(v2.1)
 Data( CBrnTCOH , -1);
 Print( CPlasTCA , 0);
 Data( CPlasTCA , -1);
+Print( CBrnTCA , 0); #(v2.1)
+Data( CBrnTCA , -1);
 Print( CTCOGTCOH , 0);
 Data( CTCOGTCOH , -1);
 Print( CTCOH , 0);
@@ -2644,6 +2716,8 @@ Print( CBrnTCOH , 0); #(v2.1)
 Data( CBrnTCOH , -1);
 Print( CPlasTCA , 0);
 Data( CPlasTCA , -1);
+Print( CBrnTCA , 0); #(v2.1)
+Data( CBrnTCA , -1);
 Print( CTCOGTCOH , 0);
 Data( CTCOGTCOH , -1);
 Print( CTCOH , 0);
@@ -2707,6 +2781,8 @@ Print( CBrnTCOH , 0); #(v2.1)
 Data( CBrnTCOH , -1);
 Print( CPlasTCA , 0);
 Data( CPlasTCA , -1);
+Print( CBrnTCA , 0); #(v2.1)
+Data( CBrnTCA , -1);
 Print( CTCOGTCOH , 0);
 Data( CTCOGTCOH , -1);
 Print( CTCOH , 0);
@@ -2770,6 +2846,8 @@ Print( CBrnTCOH , 0); #(v2.1)
 Data( CBrnTCOH , -1);
 Print( CPlasTCA , 0);
 Data( CPlasTCA , -1);
+Print( CBrnTCA , 0); #(v2.1)
+Data( CBrnTCA , -1);
 Print( CTCOGTCOH , 0);
 Data( CTCOGTCOH , -1);
 Print( CTCOH , 0);
@@ -2833,6 +2911,8 @@ Print( CBrnTCOH , 0); #(v2.1)
 Data( CBrnTCOH , -1);
 Print( CPlasTCA , 0);
 Data( CPlasTCA , -1);
+Print( CBrnTCA , 0); #(v2.1)
+Data( CBrnTCA , -1);
 Print( CTCOGTCOH , 0);
 Data( CTCOGTCOH , -1);
 Print( CTCOH , 0);
@@ -2896,6 +2976,8 @@ Print( CBrnTCOH , 0); #(v2.1)
 Data( CBrnTCOH , -1);
 Print( CPlasTCA , 0);
 Data( CPlasTCA , -1);
+Print( CBrnTCA , 0); #(v2.1)
+Data( CBrnTCA , -1);
 Print( CTCOGTCOH , 0);
 Data( CTCOGTCOH , -1);
 Print( CTCOH , 0);
@@ -2960,6 +3042,8 @@ Print( CBrnTCOH , 0); #(v2.1)
 Data( CBrnTCOH , -1);
 Print( CPlasTCA , 0);
 Data( CPlasTCA , -1);
+Print( CBrnTCA , 0); #(v2.1)
+Data( CBrnTCA , -1);
 Print( CTCOGTCOH , 0);
 Data( CTCOGTCOH , -1);
 Print( CTCOH , 0);
@@ -3024,6 +3108,8 @@ Print( CBrnTCOH , 0); #(v2.1)
 Data( CBrnTCOH , -1);
 Print( CPlasTCA , 0);
 Data( CPlasTCA , -1);
+Print( CBrnTCA , 0); #(v2.1)
+Data( CBrnTCA , -1);
 Print( CTCOGTCOH , 0);
 Data( CTCOGTCOH , -1);
 Print( CTCOH , 0);
@@ -3088,6 +3174,8 @@ Print( CBrnTCOH , 0); #(v2.1)
 Data( CBrnTCOH , -1);
 Print( CPlasTCA , 0);
 Data( CPlasTCA , -1);
+Print( CBrnTCA , 0); #(v2.1)
+Data( CBrnTCA , -1);
 Print( CTCOGTCOH , 0);
 Data( CTCOGTCOH , -1);
 Print( CTCOH , 0);
@@ -3151,6 +3239,8 @@ Print( CBrnTCOH , 0); #(v2.1)
 Data( CBrnTCOH , -1);
 Print( CPlasTCA , 0);
 Data( CPlasTCA , -1);
+Print( CBrnTCA , 0); #(v2.1)
+Data( CBrnTCA , -1);
 Print( CTCOGTCOH , 0);
 Data( CTCOGTCOH , -1);
 Print( CTCOH , 0);
@@ -3212,6 +3302,8 @@ Print( CBrnTCOH , 0); #(v2.1)
 Data( CBrnTCOH , -1);
 Print( CPlasTCA , 0);
 Data( CPlasTCA , -1);
+Print( CBrnTCA , 0); #(v2.1)
+Data( CBrnTCA , -1);
 Print( CTCOGTCOH , 0);
 Data( CTCOGTCOH , -1);
 Print( CTCOH , 0);
