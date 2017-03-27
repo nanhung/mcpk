@@ -1,7 +1,3 @@
-## 
-# Original TCE2.0.model
-##
-
 States = {
 	AStom,		# Amount of TCE in stomach
 	ADuod,		# oral gavage absorption -- mice and rats only
@@ -31,7 +27,8 @@ States = {
 			# collection times (for intermittent collection) 
 ##-- TCOH in body
 	AStomTCOH,	# Amount of TCOH in stomach
-	ABodTCOH, 	# Amount of TCOH in lumped body compartment
+	ABrnTCOH, #(v2.1)
+	ABodTCOH,   # Amount of TCOH in lumped body compartment
 	ALivTCOH, 	# Amount of TCOH in liver
 ##-- TCOG in body
 	ABodTCOG, 	# Amount of TCOG in lumped body compartment
@@ -113,9 +110,8 @@ zAExhpost,	# rat - Amount exhaled post-exposure (mg)
 
 # TCOH
 CTCOH,	# mouse, rat, human - TCOH concentration in blood
-CKidTCOH,	# mouse - TCOH concentration in kidney
 CLivTCOH,	# mouse - TCOH concentration in liver
-CLungTCOH,	# mouse - TCOH concentration in lung
+CBrnTCOH, # (v2.1)
 
 # TCA
 CPlasTCA,	# mouse, rat, human - TCA concentration in plasma
@@ -166,6 +162,7 @@ ATCOG,		# ONLY FOR COMPARISON WITH HACK
   QCnow, # (vrisk3) #Cardiac output (L/hr)
   QP, # (vrisk3) #Alveolar ventilation (L/hr)
   QFatSC, # (vrisk3) #Scaled fat blood flow
+  QBrnSC,
   QGutSC, # (vrisk3) #Scaled gut blood flow
   QLivSC, # (vrisk3) #Scaled liver blood flow
   QSlwSC, # (vrisk3) #Scaled slowly perfused blood flow
@@ -173,6 +170,7 @@ ATCOG,		# ONLY FOR COMPARISON WITH HACK
   QKidSC, # (vrisk3) #Scaled kidney blood flow
   DResp, # (vrisk3) #Respiratory lumen:tissue diffusive clearance rate
   VFatSC, # (vrisk3) #Fat fractional compartment volume 
+  VBrnSC, # (v2.1)
   VGutSC, # (vrisk3) #Gut fractional compartment volume
   VLivSC, # (vrisk3) #Liver fractional compartment volume
   VRapSC, # (vrisk3) #Rapidly perfused fractional compartment volume
@@ -287,6 +285,7 @@ QC	= 1;	# Cardiac output (L/hr)
 QPsamp	= 1;	# Alveolar ventilation (L/hr)
 VPR	= 1;	# Alveolar ventilation-perfusion ratio
 QFatCtmp	= 1;	# Scaled fat blood flow
+QBrnCtmp = 1; #(v2.1)
 QGutCtmp	= 1;	# Scaled gut blood flow
 QLivCtmp	= 1;	# Scaled liver blood flow
 QSlwCtmp	= 1;	# Scaled slowly perfused blood flow
@@ -297,6 +296,7 @@ FracPlas	= 1;	# Fraction of blood that is plasma (1-hematocrit)
 #******************************************************************************
 # Volumes
 VFat	= 1;	# Fat compartment volume (L)
+VBrn    = 1; #(v2.1)
 VGut	= 1;	# Gut compartment volume (L)
 VLiv	= 1;	# Liver compartment volume (L)
 VRap	= 1;	# Rapidly perfused compartment volume (L)
@@ -325,7 +325,8 @@ PBodTCA	= 1;	# Free TCA Body/blood plasma partition coefficient
 PLivTCA	= 1;	# Free TCA Liver/blood plasma partition coefficient
 kDissoc	= 1;	# Protein/TCA dissociation constant (umole/L)
 BMax	= 1;	# Protein concentration (UNITS?)
-PBodTCOH	= 1;	# TCOH body/blood partition coefficient
+PBrnTCOH	= 1; #(v2.1)
+PBodTCOH = 1; # TCOH body/blood partition coefficient
 PLivTCOH	= 1;	# TCOH liver/body partition coefficient
 PBodTCOG	= 1;	# TCOG body/blood partition coefficient
 PLivTCOG	= 1;	# TCOG liver/body partition coefficient
@@ -430,6 +431,7 @@ lnVPRC	= 0.0;	# Scaled to species-specific central estimates
 
 # Fractional Blood Flows to Tissues (fraction of cardiac output)
 QFatC	= 1.0;	# Scaled to species-specific central estimates
+QBrnC = 1.0; #(v2.1)
 QGutC	= 1.0;	# Scaled to species-specific central estimates
 QLivC	= 1.0;	# Scaled to species-specific central estimates
 QSlwC	= 1.0;	# Scaled to species-specific central estimates
@@ -439,6 +441,7 @@ lnDRespC	= 0.0;	#(v1.2) Scaled to alveolar ventilation rate in dynamics
 
 # Fractional Tissue Volumes (fraction of BW)
 VFatC	= 1.0;	# Scaled to species-specific central estimates
+VBrnC = 1.0; #(v2.1)
 VGutC	= 1.0;	# Scaled to species-specific central estimates
 VLivC	= 1.0;	# Scaled to species-specific central estimates
 VRapC	= 1.0;	# Scaled to species-specific central estimates
@@ -468,6 +471,7 @@ lnBMaxkDC	= 0.0;	# Scaled to species-specific central estimates
 
 # Partition Coefficients for TCOH and TCOG
 lnPBodTCOHC	= 0.0;	# Scaled to species-specific central estimates
+lnPBrnTCOHC	= 0.0; #(v2.1)
 lnPLivTCOHC	= 0.0;	# Scaled to species-specific central estimates
 lnPBodTCOGC	= 0.0;	# Scaled to species-specific central estimates
 lnPLivTCOGC	= 0.0;	# Scaled to species-specific central estimates
@@ -548,9 +552,11 @@ lnkElimDCVCC	= 0.0;	# Scaled by BW^-0.25#(v2.0)
 
 M_lnQCC	= 1.0; M_lnVPRC	= 1.0;
 M_QFatC	= 1.0; M_QGutC	= 1.0;
+M_QBrnC = 1.0; #(v2.1)
 M_QLivC	= 1.0; M_QSlwC	= 1.0;
 M_QKidC	= 1.0; M_FracPlasC	= 1.0;
-M_lnDRespC = 1.0; M_VFatC	= 1.0;
+M_lnDRespC = 1.0; M_VFatC	= 1.0; 
+M_VBrnC = 1.0; #(v2.1)
 M_VGutC	= 1.0; M_VLivC	= 1.0;
 M_VRapC	= 1.0; M_VRespLumC = 1.0; 
 M_VRespEffC = 1.0; M_VKidC	= 1.0;
@@ -562,6 +568,7 @@ M_lnPSlwC	= 1.0; M_lnPRBCPlasTCAC	= 1.0;
 M_lnPBodTCAC	= 1.0; M_lnPLivTCAC	= 1.0;
 M_lnkDissocC	= 1.0; M_lnBMaxkDC	= 1.0;
 M_lnPBodTCOHC	= 1.0; M_lnPLivTCOHC	= 1.0;
+M_lnPBrnTCOHC   = 1.0; #(v2.1)
 M_lnPBodTCOGC	= 1.0; M_lnPLivTCOGC	= 1.0;
 M_lnPeffDCVG	= 1.0; M_lnPeffDCVC	= 1.0;
 M_lnPeffDCA	= 1.0; M_lnkTSD	= 1.0;
@@ -595,9 +602,11 @@ M_lnkDCAper_cenC = 1.0;
 
 V_lnQCC	= 1.0; V_lnVPRC	= 1.0;
 V_QFatC	= 1.0; V_QGutC	= 1.0;
+V_QBrnC = 1.0; #(v2.1)
 V_QLivC	= 1.0; V_QSlwC	= 1.0;
 V_QKidC	= 1.0; V_FracPlasC	= 1.0;
 V_lnDRespC = 1.0; V_VFatC	= 1.0;
+V_VBrnC = 1.0; #(v2.1)
 V_VGutC	= 1.0; V_VLivC	= 1.0;
 V_VRapC	= 1.0; V_VRespLumC = 1.0;
 V_VRespEffC = 1.0; V_VKidC	= 1.0;
@@ -609,6 +618,7 @@ V_lnPSlwC	= 1.0; V_lnPRBCPlasTCAC	= 1.0;
 V_lnPBodTCAC	= 1.0; V_lnPLivTCAC	= 1.0;
 V_lnkDissocC	= 1.0; V_lnBMaxkDC	= 1.0;
 V_lnPBodTCOHC	= 1.0; V_lnPLivTCOHC	= 1.0;
+V_lnPBrnTCOHC	= 1.0; #(v2.1)
 V_lnPBodTCOGC	= 1.0; V_lnPLivTCOGC	= 1.0;
 V_lnPeffDCVG	= 1.0; V_lnPeffDCVC	= 1.0;
 V_lnPeffDCA	= 1.0; V_lnkTSD	= 1.0;
@@ -671,6 +681,7 @@ Ve_zAExhpost	= 1;
 	
 Ve_CTCOH	= 1;
 Ve_CKidTCOH	= 1;
+Ve_CBrnTCOH = 1; #(v2.1)
 Ve_CLivTCOH	= 1;
 Ve_CLungTCOH	= 1;
 	
@@ -784,6 +795,8 @@ Initialize {
  
 	QFatCtmp = QFatC*
 	(Species == 3 ? 0.07 : (Species == 2 ? 0.07 : (Male == 0 ? 0.085 : 0.05) ));
+    QBrnCtmp = QBrnC* #(v2.1)
+	(Species == 3 ? 0.07 : (Species == 2 ? 0.07 : (Male == 0 ? 0.085 : 0.05) ));
 	QGutCtmp = QGutC*
 	(Species == 3 ? 0.141 : (Species == 2 ? 0.153 : (Male == 0 ? 0.21 : 0.19) ));
 	QLivCtmp = QLivC*
@@ -826,6 +839,8 @@ Initialize {
 
         VFat = BW * (VFatCmeas > 0.0 ? VFatCmeas : (VFatC * (Species == 3 ? 0.07 : (Species == 2 ? 0.07 : (Male == 0 ? 0.317 : 0.199)  ))));
         VGut = VGutC * BW *
+	(Species == 3 ? 0.049 : (Species == 2 ? 0.032 : (Male == 0 ? 0.022 : 0.020) ));
+	    VBrn = VBrnC * BW * #(v2.1)
 	(Species == 3 ? 0.049 : (Species == 2 ? 0.032 : (Male == 0 ? 0.022 : 0.020) ));
         VLiv = VLivC * BW *
 	(Species == 3 ? 0.055 : (Species == 2 ? 0.034 : (Male == 0 ? 0.023 : 0.025) ));
@@ -1029,7 +1044,9 @@ Initialize {
 	#	For rats, GSD = 2.0, based on difference between mice
 	#	and humans.
 
-    PBodTCOH = exp(lnPBodTCOHC) *
+	PBodTCOH = exp(lnPBodTCOHC) *
+		(Species == 3 ? 1.11 : (Species == 2 ? 1.11 : 0.91 ));
+    PBrnTCOH = exp(lnPBrnTCOHC) * #(v2.1)
 		(Species == 3 ? 1.11 : (Species == 2 ? 1.11 : 0.91 ));
     PLivTCOH = exp(lnPLivTCOHC) *
 		(Species == 3 ? 1.3 : (Species == 2 ? 1.3 : 0.59 ));
@@ -1343,11 +1360,13 @@ Dynamics{
     QLiv = (QLivCtmp) * QCnow; # 
     QSlw = (QSlwCtmp) * QCnow; # 
     QKid = (QKidCtmp) * QCnow; # 
+	QBrn = (QBrnCtmp) * QCnow; # #(v2.1)
     QGutLiv = QGut + QLiv; # 
  	QRap = QCnow - QFat - QGut - QLiv - QSlw - QKid; #(v1.2)
 	QBod = QCnow - QGutLiv;
 	
   QFatSC = QFat/QCnow; # (vrisk3) #Scaled fat blood flow
+  QBrnSC = QBrn/QCnow; #(v2.1)
   QGutSC = QGut/QCnow; # (vrisk3) #Scaled gut blood flow
   QLivSC = QLiv/QCnow; # (vrisk3) #Scaled liver blood flow
   QSlwSC = QSlw/QCnow; # (vrisk3) #Scaled slowly perfused blood flow
@@ -1360,6 +1379,7 @@ Dynamics{
     QGutLivPlas = FracPlas * QGutLiv; # 
 
   VFatSC=VFat/BW; # (vrisk3) #Fat fractional compartment volume 
+  VBrnSC=VBrn/BW; #(v2.1)
   VGutSC=VGut/BW; # (vrisk3) #Gut fractional compartment volume
   VLivSC=VLiv/BW; # (vrisk3) #Liver fractional compartment volume
   VRapSC=VRap/BW; # (vrisk3) #Rapidly perfused fractional compartment volume
@@ -1483,12 +1503,15 @@ Dynamics{
 #***                       TCOH Sub-model                                   ***
 #******************************************************************************
 
+
+	CVBrnTCOH = ABrnTCOH / VBrn / PBrnTCOH; #(v2.1)
 	CVBodTCOH = ABodTCOH / VBodTCOH / PBodTCOH;
 	CVLivTCOH = ALivTCOH / VLiv / PLivTCOH;
-	CTCOH = (QBod * CVBodTCOH + QGutLiv * CVLivTCOH + kIVTCOH)/QCnow;
+	CTCOH = (QBrn * CVBrnTCOH + QBod * CVBodTCOH + QGutLiv * CVLivTCOH + kIVTCOH)/QCnow; #(v2.1)
 
-# Amount of TCOH in body
+# Amount of TCOH
     dt(ABodTCOH) = QBod * (CTCOH - CVBodTCOH);
+    dt(ABrnTCOH) = QBrn * (CTCOH - CVBrnTCOH); #(v2.1)
 
 #**** Liver *******************************************************************
 # Rate of oxidation of TCOH to TCA (mg/hr)
@@ -1703,10 +1726,8 @@ CalcOutputs{
 	zAExhpost = ((AExh - AExhExp) < 1.0e-15 ? 1.0e-15 : AExh - AExhExp); 
 # TCOH
 	CTCOH = (CTCOH < 1.0e-15 ? 1.0e-15 : CTCOH);
-	CBodTCOH = (ABodTCOH < 1.0e-15 ? 1.0e-15 : ABodTCOH/VBodTCOH);
-	CKidTCOH = CBodTCOH;
+	CBrnTCOH = (ABrnTCOH < 1.0e-15 ? 1.0e-15 : ABrnTCOH/VBrn); #(v2.1)
 	CLivTCOH = (ALivTCOH < 1.0e-15 ? 1.0e-15 : ALivTCOH/VLiv);
-	CLungTCOH = CBodTCOH;
 # TCA
 	CPlasTCA = (CPlasTCA < 1.0e-15 ? 1.0e-15 : CPlasTCA);
 	CBldTCA = CPlasTCA*TCAPlas;

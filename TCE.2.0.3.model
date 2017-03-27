@@ -128,7 +128,6 @@ CKidTCOH,	# mouse - TCOH concentration in kidney
 CLivTCOH,	# mouse - TCOH concentration in liver
 CLungTCOH,	# mouse - TCOH concentration in lung
 CBraTCOH, #(v2.1)
-CKidTCOH, #(v2.1)
 
 # TCA
 CPlasTCA,	# mouse, rat, human - TCA concentration in plasma
@@ -136,7 +135,6 @@ CBldTCA,	# mouse, rat, human - TCA concentration in blood
 CBodTCA,	# needed for CKidTCA and CLungTCA
 CKidTCA,	# mouse - TCA concentration in kidney
 CLivTCA,	# mouse, rat - TCA concentration in liver
-CKidTCA, #(v2.1)
 CBraTCA, #(v2.1)
 CLungTCA,	# mouse - TCA concentration in lung
 zAUrnTCA,	# mouse, rat, human - Cumulative Urinary TCA
@@ -162,6 +160,7 @@ CBraDCVGmol, #(v2.1)
 CLivDCVCmol, #(v2.1)
 CKidDCVCmol, #(v2.1)
 CBraDCVCmol, #(v2.1)
+CNADCVCmol, #(v2.1)
 CLivNADCVCmol, #(v2.1)
 CKidNADCVCmol, #(v2.1)
 CBraNADCVCmol, #(v2.1)
@@ -190,6 +189,7 @@ ATCOG,		# ONLY FOR COMPARISON WITH HACK
   QCnow, # (vrisk3) #Cardiac output (L/hr)
   QP, # (vrisk3) #Alveolar ventilation (L/hr)
   QFatSC, # (vrisk3) #Scaled fat blood flow
+  QBraSC, #(v2.1)
   QGutSC, # (vrisk3) #Scaled gut blood flow
   QLivSC, # (vrisk3) #Scaled liver blood flow
   QSlwSC, # (vrisk3) #Scaled slowly perfused blood flow
@@ -682,8 +682,6 @@ V_lnkDCAper_cenC	= 1.0;
 
 #******************************************************************************
 # Measurement error variances for output
-
-#(v1.2) Ve_AlvRet	= 1;
 	
 Ve_RetDose	= 1;
 Ve_CAlv	= 1;
@@ -699,9 +697,7 @@ Ve_CFat	= 1;
 Ve_CGut	= 1;
 Ve_CRap	= 1;
 Ve_CSlw	= 1;
-#(v1.2) Ve_CTB	= 1;
 Ve_CHrt	= 1;
-Ve_CBra = 1; #(v2.1)
 Ve_CKid	= 1;
 Ve_CLiv	= 1;
 Ve_CLung	= 1;
@@ -1337,22 +1333,21 @@ Dynamics{
     QRap = QCnow - QFat - QGut - QLiv - QSlw - QKid - QBra; #(v2.1)
 	QBod = QCnow - QGutLiv - QKid - QBra; #(v2.1)
 
-# Plasma Flows to Tissues (L/hr)
-    QCPlas = FracPlas * QCnow; # 
-    QBodPlas = FracPlas * QBod; # 
-    QBraPlas = FracPlas * QBod; #(v2.1)
-    QKidPlas = FracPlas * QBod; #(v2.1)
-    QGutLivPlas = FracPlas * QGutLiv; # 
-    
   QFatSC = QFat/QCnow; # (vrisk3) #Scaled fat blood flow
   QGutSC = QGut/QCnow; # (vrisk3) #Scaled gut blood flow
   QLivSC = QLiv/QCnow; # (vrisk3) #Scaled liver blood flow
   QSlwSC = QSlw/QCnow; # (vrisk3) #Scaled slowly perfused blood flow
   QRapSC = QRap/QCnow; # (vrisk3) #Scaled rapidly perfused blood flow
   QKidSC = QKid/QCnow; # (vrisk3) #Scaled kidney blood flow
+  QBraSC = QBra/QCnow; # #(v2.1)
 
-
-
+# Plasma Flows to Tissues (L/hr)
+    QCPlas = FracPlas * QCnow; # 
+    QBodPlas = FracPlas * QBod; # 
+    QBraPlas = FracPlas * QBra; #(v2.1)
+    QKidPlas = FracPlas * QKid; #(v2.1)
+    QGutLivPlas = FracPlas * QGutLiv; # 
+    
   VFatSC=VFat/BW; # (vrisk3) #Fat fractional compartment volume 
   VBraSC=VBra/BW; # (v2.1)
   VGutSC=VGut/BW; # (vrisk3) #Gut fractional compartment volume
@@ -1372,7 +1367,7 @@ Dynamics{
     kIV = (IVDose * BW) / TChng;# IV infusion rate (mg/hr)
     kIA = (IADose * BW) / TChng;	# IA infusion rate (mg/hr) (v1f)
     kPV = (PVDose * BW) / TChng;	# PV infusion rate (mg/hr) (v1f)
-    kStom = (PDose * BW) / TChng;# PO dose rate (into stomach) (mg/hr) (v1.2.1)
+    kStom = (PDose * BW) / TChng;# PO dose rate (into stomach) (mg/hr) 
 
 ## Oral route
 # Amount of TCE in stomach -- for oral dosing only (mg)
@@ -1476,7 +1471,7 @@ Dynamics{
 
 	CVBodTCOH = ABodTCOH / VBodTCOH / PBodTCOH;
 	CVLivTCOH = ALivTCOH / VLiv / PLivTCOH;
-	CVBraTCOH = ABraTCOH / VKid / PBraTCOH; #(v2.1)
+	CVBraTCOH = ABraTCOH / VBra / PBraTCOH; #(v2.1)
     CVKidTCOH = AKidTCOH / VKid / PKidTCOH; #(v2.1)
 	
 	
@@ -1740,8 +1735,8 @@ CalcOutputs{
 	CBodTCA = (CBodTCA < 1.0e-15 ? 1.0e-15 : CBodTCA);
 	CLivTCA = (CLivTCA < 1.0e-15 ? 1.0e-15 : CLivTCA);
 	#CKidTCA = CBodTCA; #(V2.0)
-	CKidTCA = (CKidTCA < 1.0e-15 ? 1.0e-15 : CKidTCA); #(v2.1)
-	CBraTCA = (CBraTCA < 1.0e-15 ? 1.0e-15 : CBraTCA); #(v2.1)
+	CKidTCA = (CKidTCA < 1.0e-15 ? 1.0e-15 : AKidTCA/VKid); #(v2.1)
+	CBraTCA = (CBraTCA < 1.0e-15 ? 1.0e-15 : ABraTCA/VBra); #(v2.1)
 	CLungTCA = CBodTCA;
 	zAUrnTCA = (AUrnTCA < 1.0e-15 ? 1.0e-15 : AUrnTCA);
 	zAUrnTCA_sat = (AUrnTCA_sat < 1.0e-15 ? 1.0e-15 : AUrnTCA_sat);
@@ -1760,22 +1755,29 @@ CalcOutputs{
 	AUrnTCOGTCOH_collect = (AUrnTCOG_collect < 1.0e-15 ? 1.0e-15 : StochTCOHGluc*AUrnTCOG_collect);
 # Other
 	CDCVGmol = (CDCVGmol < 1.0e-15 ? 1.0e-15 : CDCVGmol);
-    CLivDCVGmol = (CLivDCVGmol < 1.0e-15 ? 1.0e-15 : CLivDCVGmol); #(v2.1)
-	CKidDCVGmol = (CKidDCVGmol < 1.0e-15 ? 1.0e-15 : CKidDCVGmol); #(v2.1)
-	CBraDCVGmol = (CBraDCVGmol < 1.0e-15 ? 1.0e-15 : CBraDCVGmol); #(v2.1)
+    CLivDCVGmol = (CLivDCVGmol < 1.0e-15 ? 1.0e-15 : ALivDCVGmol/VLiv); #(v2.1)
+	CKidDCVGmol = (CKidDCVGmol < 1.0e-15 ? 1.0e-15 : AKidDCVGmol/VKid); #(v2.1)
+	CBraDCVGmol = (CBraDCVGmol < 1.0e-15 ? 1.0e-15 : ABraDCVGmol/VBra); #(v2.1)
 	CDCVGmol0 = CDCVGmol;
 	CDCVG_NDtmp = CDFNormal(3*(1-CDCVGmol/CDCVGmolLD)); 
 		# Assuming LD = 3*sigma_blank, Normally distributed
 	CDCVG_ND = ( CDCVG_NDtmp < 1.0 ? ( CDCVG_NDtmp >= 1e-100 ? -log(CDCVG_NDtmp) : -log(1e-100)) : 1e-100 );
 # DCVC#(v2.0)
 	CDCVCmol = (CDCVCmol < 1.0e-15 ? 1.0e-15 : CDCVCmol);#(v2.0)
-	CLivDCVCmol = (CLivDCVCmol < 1.0e-15 ? 1.0e-15 : CLivDCVCmol); #(v2.1)
-	CKidDCVCmol = (CKidDCVCmol < 1.0e-15 ? 1.0e-15 : CKidDCVCmol); #(v2.1)
-	CBraDCVCmol = (CBraDCVCmol < 1.0e-15 ? 1.0e-15 : CBraDCVCmol); #(v2.1)
+	CLivDCVCmol = (CLivDCVCmol < 1.0e-15 ? 1.0e-15 : ALivDCVGmol/VLiv); #(v2.1)
+	CKidDCVCmol = (CKidDCVCmol < 1.0e-15 ? 1.0e-15 : AKidDCVGmol/VKid); #(v2.1)
+	CBraDCVCmol = (CBraDCVCmol < 1.0e-15 ? 1.0e-15 : ABraDCVGmol/VBra); #(v2.1)
 	CDCVCmol0 = CDCVCmol;#(v2.0)
 	CDCVC_NDtmp = CDFNormal(3*(1-CDCVCmol/CDCVCmolLD)); #(v2.0)
 		# Assuming LD = 3*sigma_blank, Normally distributed#(v2.0)
 	CDCVC_ND = ( CDCVC_NDtmp < 1.0 ? ( CDCVC_NDtmp >= 1e-100 ? -log(CDCVC_NDtmp) : -log(1e-100)) : 1e-100 );#(v2.0)
+
+# NADCVC#(v2.1)	
+	CNADCVCmol = (CNADCVCmol < 1.0e-15 ? 1.0e-15 : CNADCVCmol);#(v2.0)
+	CLivNADCVCmol = (CLivNADCVCmol < 1.0e-15 ? 1.0e-15 : ALivNADCVCmol/VLiv); #(v2.1)
+	CKidNADCVCmol = (CKidNADCVCmol < 1.0e-15 ? 1.0e-15 : AKidNADCVCmol/VKid); #(v2.1)
+	CBraNADCVCmol = (CBraNADCVCmol < 1.0e-15 ? 1.0e-15 : ABraNADCVCmol/VBra); #(v2.1)	
+	
 # DCA#(v2.0)
 	CDCAmol = (CDCAmol < 1.0e-15 ? 1.0e-15 : CDCAmol);#(v2.0)
 	CDCAmol0 = CDCAmol;#(v2.0)
