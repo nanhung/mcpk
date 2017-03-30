@@ -1585,7 +1585,7 @@ Dynamics{
 	CVKidTCAFree = (CKidTCA / PKidTCA);	#(v2.1)
 	#CVKidTCA = CPlasTCABnd + CVKidTCAFree; #(v2.1)
 	CVBodTCAFree = (CBodTCA / PBodTCA);	
-	CVBodTCA = CPlasTCABnd + CVBodTCAFree; 
+	#CVBodTCA = CPlasTCABnd + CVBodTCAFree; 
 	CVLivTCAFree = (CLivTCA / PLivTCA);
 	CVLivTCA = CPlasTCABnd + CVLivTCAFree;	# free in equilibrium
 #	CVLivTCA = (BMax+kDissoc + CVLivTCAFree)*CVLivTCAFree / #(v1g)
@@ -1594,10 +1594,10 @@ Dynamics{
 	RUrnTCA = kUrnTCA * APlasTCAFree;
 # Dynamics for amount of total (free+bound) TCA in plasma (mg)
     #dt(APlasTCA) = kIVTCA  + QBodPlas*CVBodTCA + QBrnPlas*CVBrnTCA +  QKidPlas*CVKidTCA + QGutLivPlas*CVLivTCA  - QCPlas * CPlasTCA - RUrnTCA; #(v2.1) 
-    dt(APlasTCA) = kIVTCA  + QBodPlas*CVBodTCA  + QGutLivPlas*CVLivTCA  - QCPlas * CPlasTCA - RUrnTCA; #(v2.1)
+    dt(APlasTCA) = kIVTCA + QGutLivPlas*CVLivTCA - QCPlas * CPlasTCA; #(v2.1)
 #
     dt(ABrnTCA) = QBrnPlas * (CPlasTCAFree - CVBrnTCAFree); #(v2.1)
-    dt(AKidTCA) = QKidPlas * (CPlasTCAFree - CVKidTCAFree); #(v2.1)
+    dt(AKidTCA) = QKidPlas * (CPlasTCAFree - CVKidTCAFree) - RUrnTCA; #(v2.1)
 #**** Body ********************************************************************
 # Dynamics for amount of TCA in the body (mg)
 	dt(ABodTCA) = QBodPlas * (CPlasTCAFree - CVBodTCAFree);
