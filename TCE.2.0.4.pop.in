@@ -9,7 +9,7 @@
 #TCA and DCA have background subtracted
 
 Integrate(Lsodes, 1e-5, 0.3e-8 , 1)
-MCMC ("TCE.2.1.pop.out","","", 5000, 0, 50, 5000, 12345);
+MCMC ("TCE.2.1.pop.out","","", 500, 0, 50, 5000, 12345);
 
 
 # Fix following parameters at baseline values
@@ -3430,6 +3430,509 @@ Data( CDCVGmol  -1 -1 -1 -1 -1 -1 -1 -1 -1 2.28453e-06 0 -1 -1 -1 -1 -1 -1 -1 -1
 ######## END GROUP 9
 }
 
+Level {
+######## BEGIN AU18042 
+
+Experiment { # male
+Species =  3 ;
+Male =  1 ;
+
+# Measured Covariates (if any)
+BWmeas =  0.0251 ;
+
+# Exposure/Dosing
+PDose = NDoses(2, 800 0 , 0 0.05 );
+TChng =  0.05 ;
+
+# Data
+Print( AUrnTCOGTCOH , 0);
+Data( AUrnTCOGTCOH , -1);
+Print( CBldMix , 0);
+Data( CBldMix , -1);
+Print( CFat , 0);
+Data( CFat , -1);
+Print( CInhPPM , 0);
+Data( CInhPPM , -1);
+Print( CKid , 0);
+Data( CKid , -1);
+Print( CLiv , 0);
+Data( CLiv , -1);
+Print( CLivTCOGTCOH , 0);
+Data( CLivTCOGTCOH , -1);
+Print( CLivTCOH , 0); #(v2.1)
+Data( CLivTCOH , -1);
+Print( CBrnTCOH , 0); #(v2.1)
+Data( CBrnTCOH , -1);
+Print( CPlasTCA , 0,1,2,6,12,24,36);
+Data( CPlasTCA , -1,2.99,90.74,38.35,25.58,2.23,2.59);
+Print( CBrnTCA , 0); #(v2.1)
+Data( CBrnTCA , -1);
+Print( CKidTCA , 0); #(v2.1)
+Data( CKidTCA , -1);
+Print( CLivTCA , 0); #(v2.1)
+Data( CLivTCA , -1);
+Print( CTCOGTCOH , 0);
+Data( CTCOGTCOH , -1);
+Print( CTCOH , 0);
+Data( CTCOH , -1);
+Print( CVen , 0);
+Data( CVen , -1);
+Print( TotCTCOH , 0);
+Data( TotCTCOH , -1);
+Print( zAExhpost , 0);
+Data( zAExhpost , -1);
+Print( zAUrnTCA , 0);
+Data( zAUrnTCA , -1);
+Print( CDCAmol  0 );
+Data( CDCAmol  -1);
+Print( CBldTCA  0 );
+Data( CBldTCA  -1 );
+Print( CDCVCmol  0);
+Data( CDCVCmol  -1);
+Print( CDCVGmol  0);
+Data( CDCVGmol  -1);
+} # end male
+
+Experiment { # female
+Species =  3 ;
+Male =  0 ;
+
+# Measured Covariates (if any)
+BWmeas =  0.0188 ;
+
+# Exposure/Dosing
+PDose = NDoses(2, 800 0 , 0 0.05 );
+TChng =  0.05 ;
+
+# Data
+Print( AUrnTCOGTCOH , 0);
+Data( AUrnTCOGTCOH , -1);
+Print( CBldMix , 0);
+Data( CBldMix , -1);
+Print( CFat , 0);
+Data( CFat , -1);
+Print( CInhPPM , 0);
+Data( CInhPPM , -1);
+Print( CKid , 0);
+Data( CKid , -1);
+Print( CLiv , 0);
+Data( CLiv , -1);
+Print( CLivTCOGTCOH , 0);
+Data( CLivTCOGTCOH , -1);
+Print( CLivTCOH , 0); #(v2.1)
+Data( CLivTCOH , -1);
+Print( CBrnTCOH , 0); #(v2.1)
+Data( CBrnTCOH , -1);
+Print( CPlasTCA , 0,1,2,6,12,24,36);
+Data( CPlasTCA , -1,46.90,54.66,37.55,23.70,21.20,-1);
+Print( CBrnTCA , 0); #(v2.1)
+Data( CBrnTCA , -1);
+Print( CKidTCA , 0); #(v2.1)
+Data( CKidTCA , -1);
+Print( CLivTCA , 0); #(v2.1)
+Data( CLivTCA , -1);
+Print( CTCOGTCOH , 0);
+Data( CTCOGTCOH , -1);
+Print( CTCOH , 0);
+Data( CTCOH , -1);
+Print( CVen , 0);
+Data( CVen , -1);
+Print( TotCTCOH , 0);
+Data( TotCTCOH , -1);
+Print( zAExhpost , 0);
+Data( zAExhpost , -1);
+Print( zAUrnTCA , 0);
+Data( zAUrnTCA , -1);
+Print( CDCAmol  0 );
+Data( CDCAmol  -1);
+Print( CBldTCA  0 );
+Data( CBldTCA  -1 );
+Print( CDCVCmol  0);
+Data( CDCVCmol  -1);
+Print( CDCVGmol  0);
+Data( CDCVGmol  -1);
+} # End Female
+
+######## END AU18042 
+}
+
+Level {
+######## BEGIN AU8005
+
+Experiment { # male
+Species =  3 ;
+Male =  1 ;
+
+# Measured Covariates (if any)
+BWmeas =  0.0226 ;
+
+# Exposure/Dosing
+PDose = NDoses(2, 800 0 , 0 0.05 );
+TChng =  0.05 ;
+
+# Data
+Print( AUrnTCOGTCOH , 0);
+Data( AUrnTCOGTCOH , -1);
+Print( CBldMix , 0);
+Data( CBldMix , -1);
+Print( CFat , 0);
+Data( CFat , -1);
+Print( CInhPPM , 0);
+Data( CInhPPM , -1);
+Print( CKid , 0);
+Data( CKid , -1);
+Print( CLiv , 0);
+Data( CLiv , -1);
+Print( CLivTCOGTCOH , 0);
+Data( CLivTCOGTCOH , -1);
+Print( CLivTCOH , 0); #(v2.1)
+Data( CLivTCOH , -1);
+Print( CBrnTCOH , 0); #(v2.1)
+Data( CBrnTCOH , -1);
+Print( CPlasTCA , 0,1,2,6,12,24,36);
+Data( CPlasTCA , -1,51.46,61.42,183.18,-1,89.06,-1);
+Print( CBrnTCA , 0); #(v2.1)
+Data( CBrnTCA , -1);
+Print( CKidTCA , 0); #(v2.1)
+Data( CKidTCA , -1);
+Print( CLivTCA , 0); #(v2.1)
+Data( CLivTCA , -1);
+Print( CTCOGTCOH , 0);
+Data( CTCOGTCOH , -1);
+Print( CTCOH , 0);
+Data( CTCOH , -1);
+Print( CVen , 0);
+Data( CVen , -1);
+Print( TotCTCOH , 0);
+Data( TotCTCOH , -1);
+Print( zAExhpost , 0);
+Data( zAExhpost , -1);
+Print( zAUrnTCA , 0);
+Data( zAUrnTCA , -1);
+Print( CDCAmol  0 );
+Data( CDCAmol  -1);
+Print( CBldTCA  0 );
+Data( CBldTCA  -1 );
+Print( CDCVCmol  0);
+Data( CDCVCmol  -1);
+Print( CDCVGmol  0);
+Data( CDCVGmol  -1);
+} # end male
+
+Experiment { # female
+Species =  3 ;
+Male =  0 ;
+
+# Measured Covariates (if any)
+BWmeas =  0.01767 ;
+
+# Exposure/Dosing
+PDose = NDoses(2, 800 0 , 0 0.05 );
+TChng =  0.05 ;
+
+# Data
+Print( AUrnTCOGTCOH , 0);
+Data( AUrnTCOGTCOH , -1);
+Print( CBldMix , 0);
+Data( CBldMix , -1);
+Print( CFat , 0);
+Data( CFat , -1);
+Print( CInhPPM , 0);
+Data( CInhPPM , -1);
+Print( CKid , 0);
+Data( CKid , -1);
+Print( CLiv , 0);
+Data( CLiv , -1);
+Print( CLivTCOGTCOH , 0);
+Data( CLivTCOGTCOH , -1);
+Print( CLivTCOH , 0); #(v2.1)
+Data( CLivTCOH , -1);
+Print( CBrnTCOH , 0); #(v2.1)
+Data( CBrnTCOH , -1);
+Print( CPlasTCA , 0,1,2,6,12,24,36);
+Data( CPlasTCA , -1,-1,76.31,104.32,13.44,2.53,12.95);
+Print( CBrnTCA , 0); #(v2.1)
+Data( CBrnTCA , -1);
+Print( CKidTCA , 0); #(v2.1)
+Data( CKidTCA , -1);
+Print( CLivTCA , 0); #(v2.1)
+Data( CLivTCA , -1);
+Print( CTCOGTCOH , 0);
+Data( CTCOGTCOH , -1);
+Print( CTCOH , 0);
+Data( CTCOH , -1);
+Print( CVen , 0);
+Data( CVen , -1);
+Print( TotCTCOH , 0);
+Data( TotCTCOH , -1);
+Print( zAExhpost , 0);
+Data( zAExhpost , -1);
+Print( zAUrnTCA , 0);
+Data( zAUrnTCA , -1);
+Print( CDCAmol  0 );
+Data( CDCAmol  -1);
+Print( CBldTCA  0 );
+Data( CBldTCA  -1 );
+Print( CDCVCmol  0);
+Data( CDCVCmol  -1);
+Print( CDCVGmol  0);
+Data( CDCVGmol  -1);
+} # End Female
+
+######## END AU8005
+}
+
+Level {
+######## BEGIN AU8034
+
+Experiment { # male
+Species =  3 ;
+Male =  1 ;
+
+# Measured Covariates (if any)
+BWmeas =  0.02727 ;
+
+# Exposure/Dosing
+PDose = NDoses(2, 800 0 , 0 0.05 );
+TChng =  0.05 ;
+
+# Data
+Print( AUrnTCOGTCOH , 0);
+Data( AUrnTCOGTCOH , -1);
+Print( CBldMix , 0);
+Data( CBldMix , -1);
+Print( CFat , 0);
+Data( CFat , -1);
+Print( CInhPPM , 0);
+Data( CInhPPM , -1);
+Print( CKid , 0);
+Data( CKid , -1);
+Print( CLiv , 0);
+Data( CLiv , -1);
+Print( CLivTCOGTCOH , 0);
+Data( CLivTCOGTCOH , -1);
+Print( CLivTCOH , 0); #(v2.1)
+Data( CLivTCOH , -1);
+Print( CBrnTCOH , 0); #(v2.1)
+Data( CBrnTCOH , -1);
+Print( CPlasTCA , 0,1,2,6,12,24,36);
+Data( CPlasTCA , -1,-1,60.13,-1,-1,-1,-1);
+Print( CBrnTCA , 0); #(v2.1)
+Data( CBrnTCA , -1);
+Print( CKidTCA , 0); #(v2.1)
+Data( CKidTCA , -1);
+Print( CLivTCA , 0); #(v2.1)
+Data( CLivTCA , -1);
+Print( CTCOGTCOH , 0);
+Data( CTCOGTCOH , -1);
+Print( CTCOH , 0);
+Data( CTCOH , -1);
+Print( CVen , 0);
+Data( CVen , -1);
+Print( TotCTCOH , 0);
+Data( TotCTCOH , -1);
+Print( zAExhpost , 0);
+Data( zAExhpost , -1);
+Print( zAUrnTCA , 0);
+Data( zAUrnTCA , -1);
+Print( CDCAmol  0 );
+Data( CDCAmol  -1);
+Print( CBldTCA  0 );
+Data( CBldTCA  -1 );
+Print( CDCVCmol  0);
+Data( CDCVCmol  -1);
+Print( CDCVGmol  0);
+Data( CDCVGmol  -1);
+} # end male
+
+Experiment { # female
+Species =  3 ;
+Male =  0 ;
+
+# Measured Covariates (if any)
+BWmeas =  0.01947 ;
+
+# Exposure/Dosing
+PDose = NDoses(2, 800 0 , 0 0.05 );
+TChng =  0.05 ;
+
+# Data
+Print( AUrnTCOGTCOH , 0);
+Data( AUrnTCOGTCOH , -1);
+Print( CBldMix , 0);
+Data( CBldMix , -1);
+Print( CFat , 0);
+Data( CFat , -1);
+Print( CInhPPM , 0);
+Data( CInhPPM , -1);
+Print( CKid , 0);
+Data( CKid , -1);
+Print( CLiv , 0);
+Data( CLiv , -1);
+Print( CLivTCOGTCOH , 0);
+Data( CLivTCOGTCOH , -1);
+Print( CLivTCOH , 0); #(v2.1)
+Data( CLivTCOH , -1);
+Print( CBrnTCOH , 0); #(v2.1)
+Data( CBrnTCOH , -1);
+Print( CPlasTCA , 0,1,2,6,12,24,36);
+Data( CPlasTCA , -1,39.10,11.02,62.08,32.13,12.99,-1);
+Print( CBrnTCA , 0); #(v2.1)
+Data( CBrnTCA , -1);
+Print( CKidTCA , 0); #(v2.1)
+Data( CKidTCA , -1);
+Print( CLivTCA , 0); #(v2.1)
+Data( CLivTCA , -1);
+Print( CTCOGTCOH , 0);
+Data( CTCOGTCOH , -1);
+Print( CTCOH , 0);
+Data( CTCOH , -1);
+Print( CVen , 0);
+Data( CVen , -1);
+Print( TotCTCOH , 0);
+Data( TotCTCOH , -1);
+Print( zAExhpost , 0);
+Data( zAExhpost , -1);
+Print( zAUrnTCA , 0);
+Data( zAUrnTCA , -1);
+Print( CDCAmol  0 );
+Data( CDCAmol  -1);
+Print( CBldTCA  0 );
+Data( CBldTCA  -1 );
+Print( CDCVCmol  0);
+Data( CDCVCmol  -1);
+Print( CDCVGmol  0);
+Data( CDCVGmol  -1);
+} # End Female
+
+######## END AU8034
+}
+
+Level {
+######## BEGIN IL1688
+
+Experiment { # male
+Species =  3 ;
+Male =  1 ;
+
+# Measured Covariates (if any)
+
+
+# Exposure/Dosing
+PDose = NDoses(2, 800 0 , 0 0.05 );
+TChng =  0.05 ;
+
+# Data
+Print( AUrnTCOGTCOH , 0);
+Data( AUrnTCOGTCOH , -1);
+Print( CBldMix , 0);
+Data( CBldMix , -1);
+Print( CFat , 0);
+Data( CFat , -1);
+Print( CInhPPM , 0);
+Data( CInhPPM , -1);
+Print( CKid , 0);
+Data( CKid , -1);
+Print( CLiv , 0);
+Data( CLiv , -1);
+Print( CLivTCOGTCOH , 0);
+Data( CLivTCOGTCOH , -1);
+Print( CLivTCOH , 0); #(v2.1)
+Data( CLivTCOH , -1);
+Print( CBrnTCOH , 0); #(v2.1)
+Data( CBrnTCOH , -1);
+Print( CPlasTCA , 0,1,2,6,12,24,36);
+Data( CPlasTCA , -1,-1,41.66,84.96,100.53,15.36,-1);
+Print( CBrnTCA , 0); #(v2.1)
+Data( CBrnTCA , -1);
+Print( CKidTCA , 0); #(v2.1)
+Data( CKidTCA , -1);
+Print( CLivTCA , 0); #(v2.1)
+Data( CLivTCA , -1);
+Print( CTCOGTCOH , 0);
+Data( CTCOGTCOH , -1);
+Print( CTCOH , 0);
+Data( CTCOH , -1);
+Print( CVen , 0);
+Data( CVen , -1);
+Print( TotCTCOH , 0);
+Data( TotCTCOH , -1);
+Print( zAExhpost , 0);
+Data( zAExhpost , -1);
+Print( zAUrnTCA , 0);
+Data( zAUrnTCA , -1);
+Print( CDCAmol  0 );
+Data( CDCAmol  -1);
+Print( CBldTCA  0 );
+Data( CBldTCA  -1 );
+Print( CDCVCmol  0);
+Data( CDCVCmol  -1);
+Print( CDCVGmol  0);
+Data( CDCVGmol  -1);
+} # end male
+
+Experiment { # female
+Species =  3 ;
+Male =  0 ;
+
+# Measured Covariates (if any)
+BWmeas =  0.02523 ;
+
+# Exposure/Dosing
+PDose = NDoses(2, 800 0 , 0 0.05 );
+TChng =  0.05 ;
+
+# Data
+Print( AUrnTCOGTCOH , 0);
+Data( AUrnTCOGTCOH , -1);
+Print( CBldMix , 0);
+Data( CBldMix , -1);
+Print( CFat , 0);
+Data( CFat , -1);
+Print( CInhPPM , 0);
+Data( CInhPPM , -1);
+Print( CKid , 0);
+Data( CKid , -1);
+Print( CLiv , 0);
+Data( CLiv , -1);
+Print( CLivTCOGTCOH , 0);
+Data( CLivTCOGTCOH , -1);
+Print( CLivTCOH , 0); #(v2.1)
+Data( CLivTCOH , -1);
+Print( CBrnTCOH , 0); #(v2.1)
+Data( CBrnTCOH , -1);
+Print( CPlasTCA , 0,1,2,6,12,24,36);
+Data( CPlasTCA , -1,38.51,97.01,79.86,94.84,17.81,8.60);
+Print( CBrnTCA , 0); #(v2.1)
+Data( CBrnTCA , -1);
+Print( CKidTCA , 0); #(v2.1)
+Data( CKidTCA , -1);
+Print( CLivTCA , 0); #(v2.1)
+Data( CLivTCA , -1);
+Print( CTCOGTCOH , 0);
+Data( CTCOGTCOH , -1);
+Print( CTCOH , 0);
+Data( CTCOH , -1);
+Print( CVen , 0);
+Data( CVen , -1);
+Print( TotCTCOH , 0);
+Data( TotCTCOH , -1);
+Print( zAExhpost , 0);
+Data( zAExhpost , -1);
+Print( zAUrnTCA , 0);
+Data( zAUrnTCA , -1);
+Print( CDCAmol  0 );
+Data( CDCAmol  -1);
+Print( CBldTCA  0 );
+Data( CBldTCA  -1 );
+Print( CDCVCmol  0);
+Data( CDCVCmol  -1);
+Print( CDCVGmol  0);
+Data( CDCVGmol  -1);
+} # End Female
+
+######## END IL1688
+}
 
 };
 };

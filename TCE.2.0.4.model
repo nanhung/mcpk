@@ -1669,33 +1669,6 @@ Dynamics{
 # Concentration of DCVG in blood (in mmoles/l)
 	CDCVGmol = ADCVGmol / VDCVG;
 
-
-	CVBrnTCOH = ABrnTCOH / VBrn / PBrnTCOH; #(v2.1)
-	CVBodTCOH = ABodTCOH / VBodTCOH / PBodTCOH;
-	CVLivTCOH = ALivTCOH / VLiv / PLivTCOH;
-	CTCOH = (QBrn * CVBrnTCOH + QBod * CVBodTCOH + QGutLiv * CVLivTCOH + kIVTCOH)/QCnow; #(v2.1)
-
-# Amount of TCOH
-    dt(ABodTCOH) = QBod * (CTCOH - CVBodTCOH);
-    dt(ABrnTCOH) = QBrn * (CTCOH - CVBrnTCOH); #(v2.1)
-
-#**** Liver *******************************************************************
-# Rate of oxidation of TCOH to TCA (mg/hr)
-	RAMetTCOHTCA = (VMaxTCOH * CVLivTCOH) / (KMTCOH + CVLivTCOH);
-# Amount of glucuronidation to TCOG (mg/hr)
-	RAMetTCOHGluc = (VMaxGluc * CVLivTCOH) / (KMGluc + CVLivTCOH);
-# Amount of TCOH metabolized to other (e.g., DCA)
-	RAMetTCOH = kMetTCOH * ALivTCOH;
-# Amount of TCOH-Gluc recirculated (mg)
-	RARecircTCOG = kEHR * ABileTCOG;
-# Amount of TCOH in liver (mg)
-    dt(ALivTCOH) = kPOTCOH + QGutLiv * (CTCOH - CVLivTCOH) 
-		- RAMetTCOH - RAMetTCOHTCA - RAMetTCOHGluc 
-		+ ((1.0 - FracOther - FracTCA) * StochTCOHTCE * 
-		(RAMetLiv1 + FracLungSys*RAMetLng)) #(v1.2)
-		+ (StochTCOHGluc * RARecircTCOG); 
-
-
 #******************************************************************************
 #***                       DCVC Sub-model                                   ***
 #******************************************************************************
