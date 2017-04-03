@@ -29,7 +29,8 @@ States = {
 			# collection times (for intermittent collection) 
 ##-- TCOH in body
 	AStomTCOH,	# Amount of TCOH in stomach
-	ABrnTCOH, #(v2.1)
+	ABrnTCOH,   #(v2.1)
+	AKidTCOH,   #(v2.1)
 	ABodTCOH,   # Amount of TCOH in lumped body compartment
 	ALivTCOH, 	# Amount of TCOH in liver
 ##-- TCOG in body
@@ -113,7 +114,9 @@ zAExhpost,	# rat - Amount exhaled post-exposure (mg)
 # TCOH
 CTCOH,	# mouse, rat, human - TCOH concentration in blood
 CLivTCOH,	# mouse - TCOH concentration in liver
-CBrnTCOH, # (v2.1)
+CLivTCOHmol, # (v2.1)
+CBrnTCOHmol, # (v2.1)
+CKidTCOHmol, # (v2.1)
 
 # TCA
 CPlasTCA,	# mouse, rat, human - TCA concentration in plasma
@@ -331,6 +334,7 @@ PLivTCA	= 1;	# Free TCA Liver/blood plasma partition coefficient
 kDissoc	= 1;	# Protein/TCA dissociation constant (umole/L)
 BMax	= 1;	# Protein concentration (UNITS?)
 PBrnTCOH	= 1; #(v2.1)
+PKidTCOH	= 1; #(v2.1)
 PBodTCOH = 1; # TCOH body/blood partition coefficient
 PLivTCOH	= 1;	# TCOH liver/body partition coefficient
 PBodTCOG	= 1;	# TCOG body/blood partition coefficient
@@ -479,6 +483,7 @@ lnBMaxkDC	= 0.0;	# Scaled to species-specific central estimates
 # Partition Coefficients for TCOH and TCOG
 lnPBodTCOHC	= 0.0;	# Scaled to species-specific central estimates
 lnPBrnTCOHC	= 0.0; #(v2.1)
+lnPKidTCOHC	= 0.0; #(v2.1)
 lnPLivTCOHC	= 0.0;	# Scaled to species-specific central estimates
 lnPBodTCOGC	= 0.0;	# Scaled to species-specific central estimates
 lnPLivTCOGC	= 0.0;	# Scaled to species-specific central estimates
@@ -578,6 +583,7 @@ M_lnPLivTCAC	= 1.0; M_lnPBodTCAC	= 1.0;
 M_lnkDissocC	= 1.0; M_lnBMaxkDC	= 1.0;
 M_lnPBodTCOHC	= 1.0; M_lnPLivTCOHC	= 1.0;
 M_lnPBrnTCOHC   = 1.0; #(v2.1)
+M_lnPKidTCOHC   = 1.0; #(v2.1)
 M_lnPBodTCOGC	= 1.0; M_lnPLivTCOGC	= 1.0;
 M_lnPeffDCVG	= 1.0; M_lnPeffDCVC	= 1.0;
 M_lnPeffDCA	= 1.0; M_lnkTSD	= 1.0;
@@ -630,6 +636,7 @@ V_lnPLivTCAC	= 1.0; V_lnPBodTCAC	= 1.0;
 V_lnkDissocC	= 1.0; V_lnBMaxkDC	= 1.0;
 V_lnPBodTCOHC	= 1.0; V_lnPLivTCOHC	= 1.0;
 V_lnPBrnTCOHC	= 1.0; #(v2.1)
+V_lnPKidTCOHC	= 1.0; #(v2.1)
 V_lnPBodTCOGC	= 1.0; V_lnPLivTCOGC	= 1.0;
 V_lnPeffDCVG	= 1.0; V_lnPeffDCVC	= 1.0;
 V_lnPeffDCA	= 1.0; V_lnkTSD	= 1.0;
@@ -691,8 +698,8 @@ Ve_zAExhpost	= 1;
 	
 	
 Ve_CTCOH	= 1;
-Ve_CKidTCOH	= 1;
-Ve_CBrnTCOH = 1; #(v2.1)
+Ve_CKidTCOHmol	= 1; #(v2.1)
+Ve_CBrnTCOHmol  = 1; #(v2.1)
 Ve_CLivTCOH	= 1;
 Ve_CLungTCOH	= 1;
 	
@@ -808,7 +815,7 @@ Initialize {
 	QFatCtmp = QFatC*
 	(Species == 3 ? 0.07 : (Species == 2 ? 0.07 : (Male == 0 ? 0.085 : 0.05) ));
     QBrnCtmp = QBrnC* #(v2.1)
-	(Species == 3 ? 0.07 : (Species == 2 ? 0.07 : (Male == 0 ? 0.085 : 0.05) ));
+	(Species == 3 ? 0.033: (Species == 2 ? 0.02 : 0.06 )); #(v2.1)
 	QGutCtmp = QGutC*
 	(Species == 3 ? 0.141 : (Species == 2 ? 0.153 : (Male == 0 ? 0.21 : 0.19) ));
 	QLivCtmp = QLivC*
@@ -853,7 +860,7 @@ Initialize {
         VGut = VGutC * BW *
 	(Species == 3 ? 0.049 : (Species == 2 ? 0.032 : (Male == 0 ? 0.022 : 0.020) ));
 	    VBrn = VBrnC * BW * #(v2.1)
-	(Species == 3 ? 0.049 : (Species == 2 ? 0.032 : (Male == 0 ? 0.022 : 0.020) ));
+	(Species == 3 ? 0.017: (Species == 2 ? 0.007 : 0.004 )); #(v2.1)
         VLiv = VLivC * BW *
 	(Species == 3 ? 0.055 : (Species == 2 ? 0.034 : (Male == 0 ? 0.023 : 0.025) ));
         VRap = VRapC * BW * ## VRaptmp = VRapC * BW * #(v1a)#(v1b)#(v1c) -- temporary variable
@@ -876,7 +883,7 @@ Initialize {
 #(v1.2)        VSlw = (Species == 3 ? 0.8897 : (Species == 2 ? 0.8995 : (Male == 0 ? 0.85778 : 0.856))) * BW 
 #(v1.2)		- VFat - VGut - VLiv - VRap - VTB - VKid - VBld;
         VSlw = (Species == 3 ? 0.8897 : (Species == 2 ? 0.8995 : (Male == 0 ? 0.85778 : 0.856))) * BW 
-		- VFat - VGut - VLiv - VRap - VRespEfftmp - VKid - VBld;
+		- VFat - VGut - VLiv - VKid - VRap - VRespEfftmp - VKid - VBld;
 	#(v1.2) replaced VTB by VRespEfftmp
 
 			## - VFat - VGut - VLiv - VRaptmp - VTB - VKid - VBld; #(v1a)#(v1b)#(v1c)
@@ -888,7 +895,7 @@ Initialize {
 
        VPlas = FracPlas * VBld;
 #(v1.2)	VBod = VFat + VGut + VRap + VTB + VKid + VSlw; # For TCA
-	VBod = VFat + VGut + VRap + VRespEfftmp + VKid + VSlw; # For TCA
+	VBod = VFat + VGut + VRap + VRespEfftmp + VSlw; #(v2.1)
 	## VFat + VGut + VRap + VTB + VKid + VSlw + VBld;#(v1h)
 			## VFat + VGut + VRaptmp + VTB + VKid + VSlw; #(v1a)#(v1b)#(v1c) For TCA
 	## VFat + VGut + VRaptmp + VTB + VKid + VSlw + VBld;#(v1a)(v1b)+(v1h)
@@ -1063,6 +1070,8 @@ Initialize {
 	PBodTCOH = exp(lnPBodTCOHC) *
 		(Species == 3 ? 1.11 : (Species == 2 ? 1.11 : 0.91 ));
     PBrnTCOH = exp(lnPBrnTCOHC) * #(v2.1)
+		(Species == 3 ? 1.11 : (Species == 2 ? 1.11 : 0.91 ));
+    PKidTCOH = exp(lnPKidTCOHC) * #(v2.1)
 		(Species == 3 ? 1.11 : (Species == 2 ? 1.11 : 0.91 ));
     PLivTCOH = exp(lnPLivTCOHC) *
 		(Species == 3 ? 1.3 : (Species == 2 ? 1.3 : 0.59 ));
@@ -1378,8 +1387,8 @@ Dynamics{
     QKid = (QKidCtmp) * QCnow; # 
 	QBrn = (QBrnCtmp) * QCnow; # #(v2.1)
     QGutLiv = QGut + QLiv; # 
- 	QRap = QCnow - QFat - QGut - QLiv - QSlw - QKid; #(v1.2)
-	QBod = QCnow - QGutLiv;
+ 	QRap = QCnow - QFat - QGut - QLiv - QSlw - QKid - QBrn; #(v2.1)
+	QBod = QCnow - QGutLiv - QKid - QBrn; #(v2.1)
 	
   QFatSC = QFat/QCnow; # (vrisk3) #Scaled fat blood flow
   QBrnSC = QBrn/QCnow; #(v2.1)
@@ -1523,13 +1532,15 @@ Dynamics{
 
 
 	CVBrnTCOH = ABrnTCOH / VBrn / PBrnTCOH; #(v2.1)
+	CVKidTCOH = AKidTCOH / VKid / PKidTCOH; #(v2.1)
 	CVBodTCOH = ABodTCOH / VBodTCOH / PBodTCOH;
 	CVLivTCOH = ALivTCOH / VLiv / PLivTCOH;
-	CTCOH = (QBrn * CVBrnTCOH + QBod * CVBodTCOH + QGutLiv * CVLivTCOH + kIVTCOH)/QCnow; #(v2.1)
+	CTCOH = (QBrn * CVBrnTCOH + QBod * CVBodTCOH + QKid * CVKidTCOH + QGutLiv * CVLivTCOH + kIVTCOH)/QCnow; #(v2.1)
 
 # Amount of TCOH
     dt(ABodTCOH) = QBod * (CTCOH - CVBodTCOH);
     dt(ABrnTCOH) = QBrn * (CTCOH - CVBrnTCOH); #(v2.1)
+    dt(AKidTCOH) = QKid * (CTCOH - CVKidTCOH); #(v2.1)
 
 #**** Liver *******************************************************************
 # Rate of oxidation of TCOH to TCA (mg/hr)
@@ -1750,8 +1761,10 @@ CalcOutputs{
 	zAExhpost = ((AExh - AExhExp) < 1.0e-15 ? 1.0e-15 : AExh - AExhExp); 
 # TCOH
 	CTCOH = (CTCOH < 1.0e-15 ? 1.0e-15 : CTCOH);
-	CBrnTCOH = (ABrnTCOH < 1.0e-15 ? 1.0e-15 : ABrnTCOH/VBrn); #(v2.1)
-	CLivTCOH = (ALivTCOH < 1.0e-15 ? 1.0e-15 : ALivTCOH/VLiv);
+	CBrnTCOHmol = (ABrnTCOH < 1.0e-15 ? 1.0e-15 : ABrnTCOH/VBrn*MWTCOH/1000); #(v2.1)
+	CLivTCOH = (ALivTCOH < 1.0e-15 ? 1.0e-15 : ALivTCOH/VLiv); 
+	CLivTCOHmol = (ALivTCOH < 1.0e-15 ? 1.0e-15 : ALivTCOH/VLiv*MWTCOH/1000); #(v2.1) 
+	CKidTCOHmol = (AKidTCOH < 1.0e-15 ? 1.0e-15 : AKidTCOH/VKid*MWTCOH/1000); #(v2.1)
 # TCA
 	CPlasTCA = (CPlasTCA < 1.0e-15 ? 1.0e-15 : CPlasTCA);
 	CBldTCA = CPlasTCA*TCAPlas;
