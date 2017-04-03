@@ -1,0 +1,614 @@
+# USEPA TCE Model version TCE.2.0.gamma.IS
+#
+#Data from Chiu et al. (2009):
+#Kept only Male B6C3F1 sex/strain
+#Kept only inhalation, IV, and oil gavage TCE dosing
+#Kept all TCA dosing
+#Added Kim individual data in B6C3F1
+#Added Branford individual data in other strains
+#TCA and DCA have background subtracted
+##gawk '(NR == 1 || NR%12==1) {if (NR!=1) {for (j=1;j<=500;j++) {print}} else {print}}' TCE.2.0.gamma.IS.Mouse.M.Kim.multistrain.pop.xx.6.out | head -50001 > TCE.2.0.gamma.IS.Mouse.M.Kim.multistrain.pop.xx.6.500x100.out
+
+Integrate(Lsodes, 1e-5, 0.3e-8 , 1)
+SetPoints ("TCE.2.0.forAbhi-BW.out",
+"TCE.2.0.gamma.IS.Mouse.M.Kim.multistrain.pop.xx.6.500x100.out", 
+# This is 500 individuals (variability), replicated 100 times (uncertainty)
+0,
+Ve_CInhPPM
+Ve_CVen
+Ve_CBldMix
+Ve_CFat
+Ve_CKid
+Ve_CLiv
+Ve_zAExhpost
+Ve_CTCOH
+Ve_CLivTCOH
+Ve_CPlasTCA
+Ve_CBldTCA
+Ve_CLivTCA
+Ve_zAUrnTCA
+Ve_CTCOGTCOH
+Ve_CLivTCOGTCOH
+Ve_AUrnTCOGTCOH
+Ve_CDCVGmol
+Ve_CDCVCmol
+Ve_CDCAmol
+Ve_TotCTCOH
+M_lnQCC
+M_lnVPRC
+M_lnDRespC
+M_lnPRBCPlasTCAC
+M_lnkDissocC
+M_lnBMaxkDC
+M_lnkTSD
+M_lnkAS
+M_lnkAD
+M_lnkASTCA
+M_lnkASTCOH
+M_lnVMaxC
+M_lnKMC
+M_lnFracOtherC
+M_lnFracTCAC
+M_lnVMaxDCVGC
+M_lnClDCVGC
+M_lnVMaxLungLivC
+M_lnKMClara
+M_lnFracLungSysC
+M_lnVMaxTCOHC
+M_lnKMTCOH
+M_lnVMaxGlucC
+M_lnKMGluc
+M_lnkMetTCOHC
+M_lnkUrnTCAC
+M_lnkMetTCAC
+M_lnkBileC
+M_lnkEHRC
+M_lnkUrnTCOGC
+M_lnPeffDCVG
+M_lnPeffDCVC
+M_lnPeffDCA
+M_lnkDCVGC
+M_lnkElimDCVCC
+M_lnkClearDCAC
+M_lnkDCAcen_perC
+M_lnkDCAper_cenC
+M_lnISOx
+M_lnISTCA
+M_lnISDCA
+M_lnISConj
+M_lnISkTCA
+M_lnISkDCVG
+M_lnISkDCVC
+V_lnQCC
+V_lnVPRC
+V_lnDRespC
+V_lnPRBCPlasTCAC
+V_lnkDissocC
+V_lnBMaxkDC
+V_lnkTSD
+V_lnkAS
+V_lnkAD
+V_lnkASTCA
+V_lnkASTCOH
+V_lnVMaxC
+V_lnKMC
+V_lnFracOtherC
+V_lnFracTCAC
+V_lnVMaxDCVGC
+V_lnClDCVGC
+V_lnVMaxLungLivC
+V_lnKMClara
+V_lnFracLungSysC
+V_lnVMaxTCOHC
+V_lnKMTCOH
+V_lnVMaxGlucC
+V_lnKMGluc
+V_lnkMetTCOHC
+V_lnkUrnTCAC
+V_lnkMetTCAC
+V_lnkBileC
+V_lnkEHRC
+V_lnkUrnTCOGC
+V_lnPeffDCVG
+V_lnPeffDCVC
+V_lnPeffDCA
+V_lnkDCVGC
+V_lnkElimDCVCC
+V_lnkClearDCAC
+V_lnkDCAcen_perC
+V_lnkDCAper_cenC
+V_lnISOx
+V_lnISTCA
+V_lnISDCA
+V_lnISConj
+V_lnISkTCA
+V_lnISkDCVG
+V_lnISkDCVC
+);
+
+# Fix following parameters at baseline values
+# All physiological parameters except QCC and VPR (DResp is not physiological)
+# All distribution parameters except TCA blood-plasma, TCA protein binding,
+#     and DCA, DCVG, and DCVC volumes of distribution 
+# Included multistrain data
+# Remove kidney GSH conjugation (not identifiable)
+# Shifted prior distribution for GSH conjugation
+# Non-B6C3F1 strain data in their own group
+
+lnFracKidDCVCC = 10; # All kidney GSH conjugation is locally processed
+lnVMaxKidDCVGC = -30; # Remove kidney GSH conjugation (not identifiable)
+lnClKidDCVGC = -30; # Remove kidney GSH conjugation (not identifiable)
+
+Distrib(	lnQCC	TruncNormal_v	M_lnQCC	V_lnQCC	-0.8	0.8	);
+							
+Distrib(	lnVPRC	TruncNormal_v	M_lnVPRC	V_lnVPRC	-0.8	0.8	);
+							
+#fixed#Distrib(	QFatC	TruncNormal_v	M_QFatC	V_QFatC	0.08	1.92	);
+#fixed#Distrib(	QGutC	TruncNormal_v	M_QGutC	V_QGutC	0.66	1.34	);
+#fixed#Distrib(	QLivC	TruncNormal_v	M_QLivC	V_QLivC	0.66	1.34	);
+#fixed#Distrib(	QSlwC	TruncNormal_v	M_QSlwC	V_QSlwC	0.42	1.58	);
+Distrib(	lnDRespC	TruncNormal_v	M_lnDRespC	V_lnDRespC	-6.909	2.303	);
+#fixed#Distrib(	QKidC	TruncNormal_v	M_QKidC	V_QKidC	0.36	1.64	);
+#fixed#Distrib(	FracPlasC	TruncNormal_v	M_FracPlasC	V_FracPlasC	0.4	1.6	);
+							
+							
+#fixed#Distrib(	VFatC	TruncNormal_v	M_VFatC	V_VFatC	0.1	1.9	);
+#fixed#Distrib(	VGutC	TruncNormal_v	M_VGutC	V_VGutC	0.74	1.26	);
+#fixed#Distrib(	VLivC	TruncNormal_v	M_VLivC	V_VLivC	0.52	1.48	);
+#fixed#Distrib(	VRapC	TruncNormal_v	M_VRapC	V_VRapC	0.8	1.2	);
+#fixed#Distrib(	VRespLumC	TruncNormal_v	M_VRespLumC	V_VRespLumC	0.78	1.22	);
+#fixed#Distrib(	VRespEffC	TruncNormal_v	M_VRespEffC	V_VRespEffC	0.78	1.22	);
+#fixed#Distrib(	VKidC	TruncNormal_v	M_VKidC	V_VKidC	0.8	1.2	);
+#fixed#Distrib(	VBldC	TruncNormal_v	M_VBldC	V_VBldC	0.76	1.24	);
+							
+							
+							
+							
+
+#fixed#Distrib(	lnPBC	TruncNormal_v	M_lnPBC	V_lnPBC	-0.75	0.75	);
+#fixed#Distrib(	lnPFatC	TruncNormal_v	M_lnPFatC	V_lnPFatC	-0.9	0.9	);
+#fixed#Distrib(	lnPGutC	TruncNormal_v	M_lnPGutC	V_lnPGutC	-1.2	1.2	);
+#fixed#Distrib(	lnPLivC	TruncNormal_v	M_lnPLivC	V_lnPLivC	-1.2	1.2	);
+#fixed#Distrib(	lnPRapC	TruncNormal_v	M_lnPRapC	V_lnPRapC	-1.2	1.2	);
+#fixed#Distrib(	lnPRespC	TruncNormal_v	M_lnPRespC	V_lnPRespC	-1.2	1.2	);
+#fixed#Distrib(	lnPKidC	TruncNormal_v	M_lnPKidC	V_lnPKidC	-1.2	1.2	);
+#fixed#Distrib(	lnPSlwC	TruncNormal_v	M_lnPSlwC	V_lnPSlwC	-1.2	1.2	);
+							
+							
+Distrib(	lnPRBCPlasTCAC	TruncNormal_v	M_lnPRBCPlasTCAC	V_lnPRBCPlasTCAC	-4.605	4.605	);
+#fixed#Distrib(	lnPBodTCAC	TruncNormal_v	M_lnPBodTCAC	V_lnPBodTCAC	-1.008	1.008	);
+#fixed#Distrib(	lnPLivTCAC	TruncNormal_v	M_lnPLivTCAC	V_lnPLivTCAC	-1.008	1.008	);
+							
+							
+Distrib(	lnkDissocC	TruncNormal_v	M_lnkDissocC	V_lnkDissocC	-3.573	3.573	);
+Distrib(	lnBMaxkDC	TruncNormal_v	M_lnBMaxkDC	V_lnBMaxkDC	-1.485	1.485	);
+							
+							
+#fixed#Distrib(	lnPBodTCOHC	TruncNormal_v	M_lnPBodTCOHC	V_lnPBodTCOHC	-1.008	1.008	);
+#fixed#Distrib(	lnPLivTCOHC	TruncNormal_v	M_lnPLivTCOHC	V_lnPLivTCOHC	-1.008	1.008	);
+#fixed#Distrib(	lnPBodTCOGC	TruncNormal_v	M_lnPBodTCOGC	V_lnPBodTCOGC	-4.605	4.605	);
+#fixed#Distrib(	lnPLivTCOGC	TruncNormal_v	M_lnPLivTCOGC	V_lnPLivTCOGC	-4.605	4.605	);
+							
+							
+Distrib(	lnkTSD	TruncNormal_v	M_lnkTSD	V_lnkTSD	-4.269	4.942	);
+Distrib(	lnkAS	TruncNormal_v	M_lnkAS	V_lnkAS	-6.571	7.244	);
+#fixed#Distrib(	lnkTD	TruncNormal_v	M_lnkTD	V_lnkTD	-4.605	0	);
+Distrib(	lnkAD	TruncNormal_v	M_lnkAD	V_lnkAD	-7.195	6.62	);
+Distrib(	lnkASTCA	TruncNormal_v	M_lnkASTCA	V_lnkASTCA	-7.195	6.62	);
+Distrib(	lnkASTCOH	TruncNormal_v	M_lnkASTCOH	V_lnkASTCOH	-7.195	6.62	);
+							
+							
+Distrib(	lnVMaxC	TruncNormal_v	M_lnVMaxC	V_lnVMaxC	-2.079	2.079	);
+Distrib(	lnKMC	TruncNormal_v	M_lnKMC	V_lnKMC	-4.158	2.079	);
+#Distrib(	lnClC	TruncNormal_v	M_lnClC	V_lnClC	0	1	);
+Distrib(	lnFracOtherC	TruncNormal_v	M_lnFracOtherC	V_lnFracOtherC	-6.908	6.908	);
+Distrib(	lnFracTCAC	TruncNormal_v	M_lnFracTCAC	V_lnFracTCAC	-3.489	3.489	);
+Distrib(	lnVMaxDCVGC	TruncNormal_v	M_lnVMaxDCVGC	V_lnVMaxDCVGC	-6.908	6.908	);
+Distrib(	lnClDCVGC	TruncNormal_v	M_lnClDCVGC	V_lnClDCVGC	-6.908	6.908	);
+#Distrib(	lnKMDCVGC	TruncNormal_v	M_lnKMDCVGC	V_lnKMDCVGC	0	1	);
+#Distrib(	lnVMaxKidDCVGC	TruncNormal_v	M_lnVMaxKidDCVGC	V_lnVMaxKidDCVGC	-4.605	9.21	);
+#Distrib(	lnClKidDCVGC	TruncNormal_v	M_lnClKidDCVGC	V_lnClKidDCVGC	-4.605	9.21	);
+#Distrib(	lnKMKidDCVGC	TruncNormal_v	M_lnKMKidDCVGC	V_lnKMKidDCVGC	0	1	);
+Distrib(	lnVMaxLungLivC	TruncNormal_v	M_lnVMaxLungLivC	V_lnVMaxLungLivC	-3.297	3.297	);
+Distrib(	lnKMClara	TruncNormal_v	M_lnKMClara	V_lnKMClara	-6.908	6.908	);
+Distrib(	lnFracLungSysC	TruncNormal_v	M_lnFracLungSysC	V_lnFracLungSysC	-6.908	6.908	);
+							
+							
+Distrib(	lnVMaxTCOHC	TruncNormal_v	M_lnVMaxTCOHC	V_lnVMaxTCOHC	-9.21	9.21	);
+#Distrib(	lnClTCOHC	TruncNormal_v	M_lnClTCOHC	V_lnClTCOHC	0	1	);
+Distrib(	lnKMTCOH	TruncNormal_v	M_lnKMTCOH	V_lnKMTCOH	-9.21	9.21	);
+Distrib(	lnVMaxGlucC	TruncNormal_v	M_lnVMaxGlucC	V_lnVMaxGlucC	-9.21	9.21	);
+#Distrib(	lnClGlucC	TruncNormal_v	M_lnClGlucC	V_lnClGlucC	0	1	);
+Distrib(	lnKMGluc	TruncNormal_v	M_lnKMGluc	V_lnKMGluc	-6.908	6.908	);
+Distrib(	lnkMetTCOHC	TruncNormal_v	M_lnkMetTCOHC	V_lnkMetTCOHC	-11.513	6.908	);
+							
+							
+Distrib(	lnkUrnTCAC	TruncNormal_v	M_lnkUrnTCAC	V_lnkUrnTCAC	-4.605	4.605	);
+Distrib(	lnkMetTCAC	TruncNormal_v	M_lnkMetTCAC	V_lnkMetTCAC	-9.21	4.605	);
+							
+							
+Distrib(	lnkBileC	TruncNormal_v	M_lnkBileC	V_lnkBileC	-9.21	4.605	);
+Distrib(	lnkEHRC	TruncNormal_v	M_lnkEHRC	V_lnkEHRC	-9.21	4.605	);
+Distrib(	lnkUrnTCOGC	TruncNormal_v	M_lnkUrnTCOGC	V_lnkUrnTCOGC	-6.908	6.908	);
+							
+							
+##Distrib(	lnFracKidDCVCC	TruncNormal_v	M_lnFracKidDCVCC	V_lnFracKidDCVCC	-6.908	6.908	);
+							
+Distrib(	lnPeffDCVG	TruncNormal_v	M_lnPeffDCVG	V_lnPeffDCVG	-6.908	6.908	);
+Distrib(	lnPeffDCVC	TruncNormal_v	M_lnPeffDCVC	V_lnPeffDCVC	-6.908	6.908	);
+Distrib(	lnPeffDCA	TruncNormal_v	M_lnPeffDCA	V_lnPeffDCA	-6.908	6.908	);
+Distrib(	lnkDCVGC	TruncNormal_v	M_lnkDCVGC	V_lnkDCVGC	-9.21	4.605	);
+Distrib(	lnkElimDCVCC	TruncNormal_v	M_lnkElimDCVCC	V_lnkElimDCVCC	-9.21	4.605	);
+Distrib(	lnkClearDCAC	TruncNormal_v	M_lnkClearDCAC	V_lnkClearDCAC	-9.21	4.605	);
+Distrib(	lnkDCAcen_perC	TruncNormal_v	M_lnkDCAcen_perC	V_lnkDCAcen_perC	-9.21	4.605	);
+Distrib(	lnkDCAper_cenC	TruncNormal_v	M_lnkDCAper_cenC	V_lnkDCAper_cenC	-9.21	4.605	);
+
+
+Distrib(       lnISOx	   TruncNormal_v	M_lnISOx	V_lnISOx	-4.605	4.605);
+Distrib(       lnISTCA	   TruncNormal_v	M_lnISTCA	V_lnISTCA	-4.605	4.605);
+Distrib(       lnISDCA	   TruncNormal_v	M_lnISDCA	V_lnISDCA	-4.605	4.605);
+Distrib(       lnISConj	   TruncNormal_v	M_lnISConj	V_lnISConj	-4.605	4.605);
+Distrib(       lnISkTCA	   TruncNormal_v	M_lnISkTCA	V_lnISkTCA	-4.605	4.605);
+####Distrib(       lnISkDCA	   TruncNormal_v	M_lnISkDCA	V_lnISkDCA	-4.605	4.605);
+Distrib(       lnISkDCVG	   TruncNormal_v	M_lnISkDCVG	V_lnISkDCVG	-4.605	4.605);
+Distrib(       lnISkDCVC	   TruncNormal_v	M_lnISkDCVC	V_lnISkDCVC	-4.605	4.605);
+							
+# Variability Predictions at 24 hr from doses up to 1000 mg/kg
+# 12, 24, 48, 80, 160, 240, 480, 640, 800, 1000
+
+Distrib(		BWmeas		Normal	0.0240	0.0046);
+							
+Experiment { # Random Strain - 12 mg/kg
+Species = 3 ;
+Male = 1 ;
+
+# Measured Covariates (if any)
+
+# Exposure/Dosing 
+PDose = NDoses(2, 12 0 , 0 0.05 ) ;
+TChng = 0.05 ;
+
+# Parameters
+Print(	  CPlasTCA	,24);
+Data(	  CPlasTCA	,-1);
+Print(	  CLivTCA	,24);
+Data(	  CLivTCA	,-1);
+Print(	  CKidTCA	,24);
+Data(	  CKidTCA	,-1);
+
+} # End Experiment Random Strain
+
+Experiment { # Random Strain - 24 mg/kg
+Species = 3 ;
+Male = 1 ;
+
+# Measured Covariates (if any)
+
+# Exposure/Dosing 
+PDose = NDoses(2, 24 0 , 0 0.05 ) ;
+TChng = 0.05 ;
+
+# Parameters
+Print(	  CPlasTCA	,24);
+Data(	  CPlasTCA	,-1);
+Print(	  CLivTCA	,24);
+Data(	  CLivTCA	,-1);
+Print(	  CKidTCA	,24);
+Data(	  CKidTCA	,-1);
+
+} # End Experiment Random Strain
+
+Experiment { # Random Strain - 48 mg/kg
+Species = 3 ;
+Male = 1 ;
+
+# Measured Covariates (if any)
+
+# Exposure/Dosing 
+PDose = NDoses(2, 48 0 , 0 0.05 ) ;
+TChng = 0.05 ;
+
+# Parameters
+Print(	  CPlasTCA	,24);
+Data(	  CPlasTCA	,-1);
+Print(	  CLivTCA	,24);
+Data(	  CLivTCA	,-1);
+Print(	  CKidTCA	,24);
+Data(	  CKidTCA	,-1);
+
+} # End Experiment Random Strain
+
+Experiment { # Random Strain - 80 mg/kg
+Species = 3 ;
+Male = 1 ;
+
+# Measured Covariates (if any)
+
+# Exposure/Dosing 
+PDose = NDoses(2, 80 0 , 0 0.05 ) ;
+TChng = 0.05 ;
+
+# Parameters
+Print(	  CPlasTCA	,24);
+Data(	  CPlasTCA	,-1);
+Print(	  CLivTCA	,24);
+Data(	  CLivTCA	,-1);
+Print(	  CKidTCA	,24);
+Data(	  CKidTCA	,-1);
+
+} # End Experiment Random Strain
+
+Experiment { # Random Strain - 160 mg/kg
+Species = 3 ;
+Male = 1 ;
+
+# Measured Covariates (if any)
+
+# Exposure/Dosing 
+PDose = NDoses(2, 160 0 , 0 0.05 ) ;
+TChng = 0.05 ;
+
+# Parameters
+Print(	  CPlasTCA	,24);
+Data(	  CPlasTCA	,-1);
+Print(	  CLivTCA	,24);
+Data(	  CLivTCA	,-1);
+Print(	  CKidTCA	,24);
+Data(	  CKidTCA	,-1);
+
+} # End Experiment Random Strain
+
+Experiment { # Random Strain - 240 mg/kg
+Species = 3 ;
+Male = 1 ;
+
+# Measured Covariates (if any)
+
+# Exposure/Dosing 
+PDose = NDoses(2, 240 0 , 0 0.05 ) ;
+TChng = 0.05 ;
+
+# Parameters
+Print(	  CPlasTCA	,24);
+Data(	  CPlasTCA	,-1);
+Print(	  CLivTCA	,24);
+Data(	  CLivTCA	,-1);
+Print(	  CKidTCA	,24);
+Data(	  CKidTCA	,-1);
+
+} # End Experiment Random Strain
+
+Experiment { # Random Strain - 480 mg/kg
+Species = 3 ;
+Male = 1 ;
+
+# Measured Covariates (if any)
+
+# Exposure/Dosing 
+PDose = NDoses(2, 480 0 , 0 0.05 ) ;
+TChng = 0.05 ;
+
+# Parameters
+Print(	  CPlasTCA	,24);
+Data(	  CPlasTCA	,-1);
+Print(	  CLivTCA	,24);
+Data(	  CLivTCA	,-1);
+Print(	  CKidTCA	,24);
+Data(	  CKidTCA	,-1);
+
+} # End Experiment Random Strain
+
+Experiment { # Random Strain - 640 mg/kg
+Species = 3 ;
+Male = 1 ;
+
+# Measured Covariates (if any)
+
+# Exposure/Dosing 
+PDose = NDoses(2, 640 0 , 0 0.05 ) ;
+TChng = 0.05 ;
+
+# Parameters
+Print(	  CPlasTCA	,24);
+Data(	  CPlasTCA	,-1);
+Print(	  CLivTCA	,24);
+Data(	  CLivTCA	,-1);
+Print(	  CKidTCA	,24);
+Data(	  CKidTCA	,-1);
+
+} # End Experiment Random Strain
+
+Experiment { # Random Strain - 800 mg/kg
+Species = 3 ;
+Male = 1 ;
+
+# Measured Covariates (if any)
+
+# Exposure/Dosing 
+PDose = NDoses(2, 800 0 , 0 0.05 ) ;
+TChng = 0.05 ;
+
+# Parameters
+Print(	  CPlasTCA	,24);
+Data(	  CPlasTCA	,-1);
+Print(	  CLivTCA	,24);
+Data(	  CLivTCA	,-1);
+Print(	  CKidTCA	,24);
+Data(	  CKidTCA	,-1);
+
+} # End Experiment Random Strain
+
+Experiment { # Random Strain - 1000 mg/kg
+Species = 3 ;
+Male = 1 ;
+
+# Measured Covariates (if any)
+
+# Exposure/Dosing 
+PDose = NDoses(2, 1000 0 , 0 0.05 ) ;
+TChng = 0.05 ;
+
+# Parameters
+Print(	  CPlasTCA	,24);
+Data(	  CPlasTCA	,-1);
+Print(	  CLivTCA	,24);
+Data(	  CLivTCA	,-1);
+Print(	  CKidTCA	,24);
+Data(	  CKidTCA	,-1);
+
+} # End Experiment Random Strain
+
+End.
+
+Print(	  QCnow	,0);
+Data(	  QCnow	,-1);
+Print(	  QP	,0);
+Data(	  QP	,-1);
+Print(	  QFatSC	,0);
+Data(	  QFatSC	,-1);
+Print(	  QGutSC	,0);
+Data(	  QGutSC	,-1);
+Print(	  QLivSC	,0);
+Data(	  QLivSC	,-1);
+Print(	  QSlwSC	,0);
+Data(	  QSlwSC	,-1);
+Print(	  QRapSC	,0);
+Data(	  QRapSC	,-1);
+Print(	  QKidSC	,0);
+Data(	  QKidSC	,-1);
+Print(	  DResp	,0);
+Data(	  DResp	,-1);
+Print(	  VFatSC	,0);
+Data(	  VFatSC	,-1);
+Print(	  VGutSC	,0);
+Data(	  VGutSC	,-1);
+Print(	  VLivSC	,0);
+Data(	  VLivSC	,-1);
+Print(	  VRapSC	,0);
+Data(	  VRapSC	,-1);
+Print(	  VRespLumSC	,0);
+Data(	  VRespLumSC	,-1);
+Print(	  VRespEffSC	,0);
+Data(	  VRespEffSC	,-1);
+Print(	  VKidSC	,0);
+Data(	  VKidSC	,-1);
+Print(	  VBldSC	,0);
+Data(	  VBldSC	,-1);
+Print(	  VSlwSC	,0);
+Data(	  VSlwSC	,-1);
+Print(	  VPlasSC	,0);
+Data(	  VPlasSC	,-1);
+Print(	  VBodSC	,0);
+Data(	  VBodSC	,-1);
+Print(	  VBodTCOHSC	,0);
+Data(	  VBodTCOHSC	,-1);
+Print(	  PB	,0);
+Data(	  PB	,-1);
+Print(	  PFat	,0);
+Data(	  PFat	,-1);
+Print(	  PGut	,0);
+Data(	  PGut	,-1);
+Print(	  PLiv	,0);
+Data(	  PLiv	,-1);
+Print(	  PRap	,0);
+Data(	  PRap	,-1);
+Print(	  PResp	,0);
+Data(	  PResp	,-1);
+Print(	  PKid	,0);
+Data(	  PKid	,-1);
+Print(	  PSlw	,0);
+Data(	  PSlw	,-1);
+Print(	  TCAPlas	,0);
+Data(	  TCAPlas	,-1);
+Print(	  PBodTCA	,0);
+Data(	  PBodTCA	,-1);
+Print(	  PLivTCA	,0);
+Data(	  PLivTCA	,-1);
+Print(	  kDissoc	,0);
+Data(	  kDissoc	,-1);
+Print(	  BMax	,0);
+Data(	  BMax	,-1);
+Print(	  PBodTCOH	,0);
+Data(	  PBodTCOH	,-1);
+Print(	  PLivTCOH	,0);
+Data(	  PLivTCOH	,-1);
+Print(	  PBodTCOG	,0);
+Data(	  PBodTCOG	,-1);
+Print(	  PLivTCOG	,0);
+Data(	  PLivTCOG	,-1);
+Print(	  VDCVG	,0);
+Data(	  VDCVG	,-1);
+Print(	  VDCVC	,0);
+Data(	  VDCVC	,-1);
+Print(	  VDCA	,0);
+Data(	  VDCA	,-1);
+Print(	  kAS	,0);
+Data(	  kAS	,-1);
+Print(	  kTSD	,0);
+Data(	  kTSD	,-1);
+Print(	  kAD	,0);
+Data(	  kAD	,-1);
+Print(	  kTD	,0);
+Data(	  kTD	,-1);
+Print(	  kASTCA	,0);
+Data(	  kASTCA	,-1);
+Print(	  kASTCOH	,0);
+Data(	  kASTCOH	,-1);
+Print(	  VMax	,0);
+Data(	  VMax	,-1);
+Print(	  KM	,0);
+Data(	  KM	,-1);
+Print(	  FracOther	,0);
+Data(	  FracOther	,-1);
+Print(	  FracTCA	,0);
+Data(	  FracTCA	,-1);
+Print(	  VMaxDCVG	,0);
+Data(	  VMaxDCVG	,-1);
+Print(	  KMDCVG	,0);
+Data(	  KMDCVG	,-1);
+Print(	  ClDCVG	,0);
+Data(	  ClDCVG	,-1);
+Print(	  VMaxKidDCVG	,0);
+Data(	  VMaxKidDCVG	,-1);
+Print(	  KMKidDCVG	,0);
+Data(	  KMKidDCVG	,-1);
+Print(	  FracKidDCVC	,0);
+Data(	  FracKidDCVC	,-1);
+Print(	  VMaxClara	,0);
+Data(	  VMaxClara	,-1);
+Print(	  KMClara	,0);
+Data(	  KMClara	,-1);
+Print(	  FracLungSys	,0);
+Data(	  FracLungSys	,-1);
+Print(	  kClearDCA	,0);
+Data(	  kClearDCA	,-1);
+Print(	  kDCAcen_per	,0);
+Data(	  kDCAcen_per	,-1);
+Print(	  kDCAper_cen	,0);
+Data(	  kDCAper_cen	,-1);
+Print(	  VMaxTCOH	,0);
+Data(	  VMaxTCOH	,-1);
+Print(	  KMTCOH	,0);
+Data(	  KMTCOH	,-1);
+Print(	  VMaxGluc	,0);
+Data(	  VMaxGluc	,-1);
+Print(	  KMGluc	,0);
+Data(	  KMGluc	,-1);
+Print(	  kMetTCOH	,0);
+Data(	  kMetTCOH	,-1);
+Print(	  kUrnTCA	,0);
+Data(	  kUrnTCA	,-1);
+Print(	  kMetTCA	,0);
+Data(	  kMetTCA	,-1);
+Print(	  kBile	,0);
+Data(	  kBile	,-1);
+Print(	  kEHR	,0);
+Data(	  kEHR	,-1);
+Print(	  kUrnTCOG	,0);
+Data(	  kUrnTCOG	,-1);
+Print(	  kDCVG	,0);
+Data(	  kDCVG	,-1);
+Print(	  kElimDCVC	,0);
+Data(	  kElimDCVC	,-1);
+Print(	  AExh	,72);
+Data(	  AExh	,-1);
