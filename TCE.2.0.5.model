@@ -1727,11 +1727,11 @@ Dynamics{
 	CLivTCA = ALivTCA/VLiv;
 # Total concentration in venous plasma (free+bound)
 	CVBrnTCAFree = (CBrnTCA / PBrnTCA);	#(v2.1)
-	#CVBrnTCA = CPlasTCABnd + CVBrnTCAFree; #(v2.1)
+	CVBrnTCA = CPlasTCABnd + CVBrnTCAFree; #(v2.1)
 	CVKidTCAFree = (CKidTCA / PKidTCA);	#(v2.1)
-	#CVKidTCA = CPlasTCABnd + CVKidTCAFree; #(v2.1)
+	CVKidTCA = CPlasTCABnd + CVKidTCAFree; #(v2.1)
 	CVBodTCAFree = (CBodTCA / PBodTCA);	
-	#CVBodTCA = CPlasTCABnd + CVBodTCAFree; 
+	CVBodTCA = CPlasTCABnd + CVBodTCAFree; 
 	CVLivTCAFree = (CLivTCA / PLivTCA);
 	CVLivTCA = CPlasTCABnd + CVLivTCAFree;	# free in equilibrium
 #	CVLivTCA = (BMax+kDissoc + CVLivTCAFree)*CVLivTCAFree / #(v1g)
@@ -1739,8 +1739,8 @@ Dynamics{
 # Rate of urinary excretion of TCA
 	RUrnTCA = kUrnTCA * APlasTCAFree;
 # Dynamics for amount of total (free+bound) TCA in plasma (mg)
-    #dt(APlasTCA) = kIVTCA  + QBodPlas*CVBodTCA + QBrnPlas*CVBrnTCA +  QKidPlas*CVKidTCA + QGutLivPlas*CVLivTCA  - QCPlas * CPlasTCA - RUrnTCA; #(v2.1) 
-    dt(APlasTCA) = kIVTCA + QGutLivPlas*CVLivTCA - QCPlas * CPlasTCA; #(v2.1)
+    dt(APlasTCA) = kIVTCA  + QBodPlas*CVBodTCA + QBrnPlas*CVBrnTCA +  QKidPlas*CVKidTCA + QGutLivPlas*CVLivTCA  - QCPlas * CPlasTCA; #(v2.1) 
+    #dt(APlasTCA) = kIVTCA + QGutLivPlas*CVLivTCA - QCPlas * CPlasTCA; #(v2.1)
 #
     dt(ABrnTCA) = QBrnPlas * (CPlasTCAFree - CVBrnTCAFree); #(v2.1)
     dt(AKidTCA) = QKidPlas * (CPlasTCAFree - CVKidTCAFree) - RUrnTCA; #(v2.1)
@@ -1809,9 +1809,6 @@ Dynamics{
 # Rate of metabolism of DCVG to DCVC
     RAMetDCVGmol = kDCVG * ADCVGmol;
 
-# Dynamics for DCVG in blood
-    dt(ADCVGmol) = (RAMetLiv2 + RAMetKid*(1-FracKidDCVC)) / MWTCE 
-		- RAMetDCVGmol;		
 # Concentration of DCVG in blood (in mmoles/l)
 	CDCVGmol = ADCVGmol/VDCVG;
 	
@@ -1820,10 +1817,14 @@ Dynamics{
 	CVKidDCVGmol = AKidDCVGmol / VKid / PKidDCVG; #(v2.1)
 	CVLivDCVGmol = ALivDCVGmol / VLiv / PLivDCVG; #(v2.1)
 
-# Dynamics for DCVG in tissues	
-    dt(ALivDCVGmol) = QLiv * (CDCVGmol - CVLivDCVGmol);	#(v2.1)
+# Dynamics for DCVG in tissues
+
+	dt(ADCVGmol) = QKid*CVKidDCVGmol  - (QCnow * CDCVGmol); #(v2.1)
+    dt(ALivDCVGmol) = QLiv * (CDCVGmol - CVLivDCVGmol) 
+    	+ RAMetLiv2/MWTCE;	#(v2.1)
 	dt(ABrnDCVGmol) = QBrn * (CDCVGmol - CVBrnDCVGmol); #(v2.1)
-	dt(AKidDCVGmol) = QKid * (CDCVGmol - CVKidDCVGmol); #(v2.1)
+	dt(AKidDCVGmol) = QKid * (CDCVGmol - CVKidDCVGmol) 
+		+ RAMetKid*(1-FracKidDCVC)/MWTCE - RAMetDCVGmol; #(v2.1)
 
 #******************************************************************************
 #***                       DCVC Sub-model                                   ***
@@ -1833,43 +1834,49 @@ Dynamics{
 # Rate of metabolism of DCVC to NaDCVC
     RAMetDCVC = kDCVC * ADCVC;  #(v2.1)
 
-# Amount of DCVC in blood
-    dt(ADCVC) = RAMetDCVGmol * MWDCVC + RAMetKid * FracKidDCVC * StochDCVCTCE
-		- kElimDCVC * ADCVC - RAMetDCVC; #(v2.1)
-# Concentration of DCVC in blood (in mmoles/l))
-	CDCVC = ADCVC / VDCVC; #(v2.1)
-	CDCVCmol = CDCVC / MWDCVC; #(v2.1)
-
 # Venous Concentrations
     CVLivDCVC = ALivDCVC / VLiv / PLivDCVC; #(v2.1)
 	CVBrnDCVC = ABrnDCVC / VBrn / PBrnDCVC; #(v2.1)
 	CVKidDCVC = AKidDCVC / VKid / PKidDCVC; #(v2.1)
 
+# Concentration of DCVC in blood (in mmoles/l))
+	CDCVC = ADCVC / VDCVC; #(v2.1)
+	CDCVCmol = CDCVC / MWDCVC; #(v2.1)
+
+# Amount of DCVC in blood
+    dt(ADCVC) =  QKid*CVKidDCVC  - (QCnow * CDCVC); #(v2.1)
 # Dynamics for DCVC in tissues	
 	dt(ALivDCVC) = QLiv * (CDCVC - CVLivDCVC); #(v2.1)
 	dt(ABrnDCVC) = QBrn * (CDCVC - CVBrnDCVC); #(v2.1)
-	dt(AKidDCVC) = QKid * (CDCVC - CVKidDCVC); #(v2.1)	
-		
+	dt(AKidDCVC) = QKid * (CDCVC - CVKidDCVC) 
+		+ RAMetDCVGmol * MWDCVC
+		+ RAMetKid * FracKidDCVC * StochDCVCTCE 
+		- kElimDCVC * ADCVC - RAMetDCVC; #(v2.1)	
 	
 #******************************************************************************
 #***                       NADCVC Sub-model                                 ***
 #******************************************************************************
 
 #*****************************************************************************
-# Amount of NaDCVC in blood
-    dt(ANADCVCmol) = RAMetDCVC/MWDCVC - kElimNADCVC * ANADCVCmol;#(v2.1)
-# Concentration of DCVC in blood (in mmoles/l)
-	CNADCVCmol = ANADCVCmol / VNADCVC; #(v2.1)
+	RUrnNADCVCmol = kElimNADCVC * ANADCVCmol; #(v2.1)
 
-# Concentration of DCVC in brain and kidney
+# Venous Concentrations
 	CVLivNADCVCmol = ALivNADCVCmol / VLiv / PLivNADCVC; #(v2.1)
 	CVKidNADCVCmol = AKidNADCVCmol / VKid / PKidNADCVC; #(v2.1)
 	CVBrnNADCVCmol = ABrnNADCVCmol / VBrn / PBrnNADCVC; #(v2.1)
 
-# Dynamics for NADCVC in tissues	
+# Dynamics for NADCVC in blood and tissues
+	dt(ANADCVCmol) = QKid*CVKidNADCVCmol + QBrn * CVBrnNADCVCmol + QLiv * CVLivNADCVCmol - (QCnow * CNADCVCmol); #(v2.1)
 	dt(ALivNADCVCmol) = QLiv * (CNADCVCmol - CVLivNADCVCmol); #(v2.1)
-	dt(AKidNADCVCmol) = QKid * (CNADCVCmol - CVKidNADCVCmol); #(v2.1)
+	dt(AKidNADCVCmol) = QKid * (CNADCVCmol - CVKidNADCVCmol) 
+		+ (RAMetDCVC*StochN/MWNADCVC) - RUrnNADCVCmol; #(v2.1)
 	dt(ABrnNADCVCmol) = QBrn * (CNADCVCmol - CVBrnNADCVCmol); #(v2.1)
+	
+# Concentration of DCVC (in mmoles/l)
+	CNADCVCmol = ANADCVCmol / VNADCVC; #(v2.1)
+	CLivNADCVCmol = ALivNADCVCmol / VLiv; #(v2.1)
+	CKidNADCVCmol = AKidNADCVCmol / VKid; #(v2.1)
+	CBrnNADCVCmol = ABrnNADCVCmol / VBrn; #(v2.1)
 	
 #******************************************************************************
 #***                       Total Mass Balance                               ***
