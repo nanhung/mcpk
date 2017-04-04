@@ -1,7 +1,6 @@
-## 
+#------------------------------------------------------------------------------
 # Original TCE2.0.model
-##
-
+#------------------------------------------------------------------------------
 States = {
 	AStom,		# Amount of TCE in stomach
 	ADuod,		# oral gavage absorption -- mice and rats only

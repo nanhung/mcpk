@@ -1,3 +1,6 @@
+#------------------------------------------------------------------------------
+# TCE.2.0.5.model
+#------------------------------------------------------------------------------
 States = {
 	AStom,		# Amount of TCE in stomach
 	ADuod,		# oral gavage absorption -- mice and rats only
@@ -51,8 +54,8 @@ States = {
     AKidDCVC, #(v2.1)
     ABrnDCVC, #(v2.1)
     ANADCVCmol, #(v2.1)
-    AKidDCVCmol, #(v2.1)
-    ALivDCVCmol, #(v2.1)
+    AKidNADCVCmol, #(v2.1)
+    ALivNADCVCmol, #(v2.1)
 	ACh, 		# Amount in closed chamber -- mice and rats only
 	AExh, 		# Amount exhaled
 	AExhExp, 	# Amount exhaled during expos  [to calc. retention]
@@ -121,18 +124,22 @@ zAExhpost,	# rat - Amount exhaled post-exposure (mg)
 
 # TCOH
 CTCOH,	# mouse, rat, human - TCOH concentration in blood
+CTCOHmol, #(v2.1)
 CLivTCOH,	# mouse - TCOH concentration in liver
-CLivTCOHmol, # (v2.1)
-CBrnTCOHmol, # (v2.1)
-CKidTCOHmol, # (v2.1)
+CLivTCOHmol, #(v2.1)
+CBrnTCOHmol, #(v2.1)
+CKidTCOHmol, #(v2.1)
 
 # TCA
 CPlasTCA,	# mouse, rat, human - TCA concentration in plasma
 CBldTCA,	# mouse, rat, human - TCA concentration in blood
-CBodTCA,
-CBrnTCA,	# (v2.1)
-CKidTCA,	# mouse - TCA concentration in kidney
+CBodTCA,    #
+CBrnTCA,    # (v2.1)
+CBrnTCAmol,	# (v2.1)
+CKidTCA,    # (v2.1)
+CKidTCAmol,	# (v2.1)
 CLivTCA,	# mouse, rat - TCA concentration in liver
+CLivTCAmol, # (v2.1)
 CLungTCA,	# mouse - TCA concentration in lung
 zAUrnTCA,	# mouse, rat, human - Cumulative Urinary TCA
 zAUrnTCA_collect,	# human - TCA measurements for intermittent collection
@@ -523,7 +530,9 @@ lnPeffDCVG	= 0.0;	# Scaled to species-specific central estimates
 lnPBrnDCVCC = 0.0; #(v2.1)
 lnPKidDCVCC = 0.0; #(v2.1)
 lnPeffDCVC	= 0.0;	# Scaled to species-specific central estimates#(v2.0)
+lnPeffNADCVC	= 0.0; #(v2.1)
 lnPeffDCA	= 0.0;	# Scaled to species-specific central estimates#(v2.0)
+
 
 lnPLivNADCVCC = 0.0; #(v2.1)
 lnPKidNADCVCC = 0.0; #(v2.1)
@@ -695,8 +704,8 @@ V_lnPBrnDCVGC	= 1.0; #(v2.1)
 V_lnPKidDCVGC	= 1.0; #(v2.1)
 V_lnPLivDCVGC	= 1.0; #(v2.1)
 V_lnPeffDCVG	= 1.0; V_lnPeffDCVC	= 1.0;
-V_lnPBrnDCVCC = 1; #(v2.1)
-V_lnPKidDCVCC = 1; #(v2.1)
+V_lnPBrnDCVCC = 1.0; #(v2.1)
+V_lnPKidDCVCC = 1.0; #(v2.1)
 V_lnPeffDCA	= 1.0; 
 V_lnPLivNADCVCC = 1.0; #(v2.1)
 V_lnPKidNADCVCC = 1.0; #(v2.1)
@@ -769,11 +778,13 @@ Ve_CLungTCOH	= 1;
 	
 	
 Ve_CPlasTCA	= 1;
+Ve_CPlasTCAMole	= 1; #(v2.1)
 Ve_CBldTCA	= 1;
-Ve_CBrnTCA	= 1; #(v2.1)
+Ve_CBrnTCAmol   = 1; #(v2.1)
 Ve_CBodTCA  = 1;
-Ve_CKidTCA	= 1;
+Ve_CKidTCAmol	= 1; #(v2.1)
 Ve_CLivTCA	= 1;
+Ve_CLivTCAmol	= 1; #(v2.1)
 Ve_CLungTCA	= 1;
 Ve_zAUrnTCA	= 1;
 Ve_zAUrnTCA_collect	= 1;
@@ -792,18 +803,18 @@ Ve_AUrnTCOGTCOH_collect	= 1;
 Ve_AUrnTCOGTCOH_sat	= 1;
 	
 	
-Ve_CDCVGmol	= 1;#(v2.0)
+Ve_CDCVGmol	= 1;
 Ve_CLivDCVGmol = 1; #(v2.1)
 Ve_CKidDCVGmol = 1; #(v2.1)
 Ve_CBrnDCVGmol = 1; #(v2.1)
-Ve_CDCVCmol	= 1;#(v2.0)
+Ve_CDCVCmol	= 1;
 Ve_CKidDCVCmol = 1; #(v2.1)
 Ve_CBrnDCVCmol = 1; #(v2.1)
-Ve_CDCAmol	= 1;#(v2.0)
+Ve_CDCAmol	= 1;
 Ve_CNADCVCmol	= 1;#(v2.1)
 Ve_CKidNADCVCmol = 1; #(v2.1)
 Ve_CLivNADCVCmol = 1; #(v2.1)
-Ve_AUrnTCTotMole	= 1;
+Ve_AUrnTCTotMole = 1;
 Ve_TotCTCOH	= 1;
 Ve_QPsamp	= 1;
 
@@ -1089,11 +1100,11 @@ Initialize {
 	#	For rats, Normal uncertainty with GSD = 1.4
 	#	For mice and humans, diffuse prior uncertainty of 
 	#	100-fold up/down
-    PBrnTCA = TCAPlas * exp(lnPBrnTCAC) * #(v2.1)
-		(Species == 3 ? 0.07 : (Species == 2 ? 0.15 : 0.14));
-	PKidTCA = TCAPlas * exp(lnPKidTCAC) * #(v2.1)
-		(Species == 3 ? 1.96 : (Species == 2 ? 2.00 : 1.90));
-	PBodTCA = TCAPlas * exp(lnPBodTCAC) *
+    PBrnTCA = TCAPlas * exp(lnPBrnTCAC) * #(v2.1) Estimate median from Abhi's data
+		(Species == 3 ? 0.07 : (Species == 2 ? 0.07 : 0.07));
+	PKidTCA = TCAPlas * exp(lnPKidTCAC) * #(v2.1) Estimate median from Abhi's data
+		(Species == 3 ? 1.96 : (Species == 2 ? 1.96 : 1.96));
+	PBodTCA = TCAPlas * exp(lnPBodTCAC) * #(v2.0)
 		(Species == 3 ? 0.88 : (Species == 2 ? 0.88 : 0.52));
 	# Note -- these were done at 10~20 microg/ml (Abbas and Fisher 1997),
 	#	which is 1.635-3.27 mmol/ml (1.635-3.27 x 10^6 microM).  
@@ -1110,7 +1121,7 @@ Initialize {
 	#	Uncertainty in mice, humans GSD = 1.4
 	#	For rats, GSD = 2.0, based on difference between mice
 	#	and humans.
-    PLivTCA = TCAPlas * exp(lnPLivTCAC) *
+    PLivTCA = TCAPlas * exp(lnPLivTCAC) * #(v2.0)
 		(Species == 3 ? 1.18 : (Species == 2 ? 1.18 : 0.66 ));
 	# Multiplied by blood:plasma ratio to get Liver:Plasma 
 	# Rats = mice from Abbas and Fisher 1997
@@ -1139,14 +1150,14 @@ Initialize {
 	#	For rats, GSD = 2.0, based on difference between mice
 	#	and humans.
 
-	PBodTCOH = exp(lnPBodTCOHC) *
+	PBodTCOH = exp(lnPBodTCOHC) * #(v2.0)
 		(Species == 3 ? 1.11 : (Species == 2 ? 1.11 : 0.91 ));
-    PBrnTCOH = exp(lnPBrnTCOHC) * #(v2.1)
-		(Species == 3 ? 0.86 : (Species == 2 ? 0.86 : 0.77 ));
-    PKidTCOH = exp(lnPKidTCOHC) * #(v2.1)
-		(Species == 3 ? 1.11 : (Species == 2 ? 1.11 : 0.91 ));
-    PLivTCOH = exp(lnPLivTCOHC) *
+	PLivTCOH = exp(lnPLivTCOHC) * #(v2.0)
 		(Species == 3 ? 1.3 : (Species == 2 ? 1.3 : 0.59 ));
+	PKidTCOH = exp(lnPKidTCOHC) * #(v2.1) Estimate the same value as body 
+		(Species == 3 ? 1.11 : (Species == 2 ? 1.11 : 0.91 ));
+    PBrnTCOH = exp(lnPBrnTCOHC) * #(v2.1) Use median from Abhi's data
+		(Species == 3 ? 0.86 : (Species == 2 ? 0.86 : 0.86 ));
 
 # TCOG partitioning
 	# Use TCOH as a proxy, but uncertainty much greater
@@ -1829,7 +1840,7 @@ Dynamics{
 	CVKidNADCVCmol = AKidNADCVCmol / VKid / PKidNADCVC; #(v2.1)
 
 # Dynamics for NADCVC in tissues	
-	dt(ALivNADCVCmol) = QLiv * (CNADCVCmol - CVBrnNADCVCmol); #(v2.1)
+	dt(ALivNADCVCmol) = QLiv * (CNADCVCmol - CVLivNADCVCmol); #(v2.1)
 	dt(AKidNADCVCmol) = QKid * (CNADCVCmol - CVKidNADCVCmol); #(v2.1)		
 	
 #******************************************************************************
@@ -1901,18 +1912,20 @@ CalcOutputs{
 	zAExh = (AExh < 1.0e-15 ? 1.0e-15 : AExh);
 	zAExhpost = ((AExh - AExhExp) < 1.0e-15 ? 1.0e-15 : AExh - AExhExp); 
 # TCOH
-	CTCOH = (CTCOH < 1.0e-15 ? 1.0e-15 : CTCOH);
-	CBrnTCOHmol = (ABrnTCOH < 1.0e-15 ? 1.0e-15 : ABrnTCOH/VBrn*MWTCOH/1000); #(v2.1)
+	CTCOH = (CTCOH < 1.0e-15 ? 1.0e-15 : CTCOH); #(unit: mg/L)
+	CTCOHmol = (CTCOH < 1.0e-15 ? 1.0e-15 : CTCOH*MWTCOH/1000); #(v2.1) (unit: nmol/ml)
+	CBrnTCOHmol = (ABrnTCOH < 1.0e-15 ? 1.0e-15 : ABrnTCOH/VBrn/MWTCOH*1000); #(v2.1) 
 	CLivTCOH = (ALivTCOH < 1.0e-15 ? 1.0e-15 : ALivTCOH/VLiv); 
-	CLivTCOHmol = (ALivTCOH < 1.0e-15 ? 1.0e-15 : ALivTCOH/VLiv*MWTCOH/1000); #(v2.1) 
-	CKidTCOHmol = (AKidTCOH < 1.0e-15 ? 1.0e-15 : AKidTCOH/VKid*MWTCOH/1000); #(v2.1)
+	CLivTCOHmol = (ALivTCOH < 1.0e-15 ? 1.0e-15 : ALivTCOH/VLiv/MWTCOH*1000); #(v2.1) 
+	CKidTCOHmol = (AKidTCOH < 1.0e-15 ? 1.0e-15 : AKidTCOH/VKid/MWTCOH*1000); #(v2.1)
 # TCA
 	CPlasTCA = (CPlasTCA < 1.0e-15 ? 1.0e-15 : CPlasTCA);
 	CBldTCA = CPlasTCA*TCAPlas;
-	CBrnTCA = (CBrnTCA < 1.0e-15 ? 1.0e-15 : CBrnTCA); #(v2.1)
 	CBodTCA = (CBodTCA < 1.0e-15 ? 1.0e-15 : CBodTCA);
 	CLivTCA = (CLivTCA < 1.0e-15 ? 1.0e-15 : CLivTCA);
-	CKidTCA = (CKidTCA < 1.0e-15 ? 1.0e-15 : CKidTCA); #(v2.1)
+	CBrnTCAmol = (CBrnTCA < 1.0e-15 ? 1.0e-15 : CBrnTCA/MWTCA*1000); #(v2.1) (unit: nmol/ml)
+	CLivTCAmol = (CLivTCA < 1.0e-15 ? 1.0e-15 : CLivTCA/MWTCA*1000); #(v2.1)
+	CKidTCAmol = (CKidTCA < 1.0e-15 ? 1.0e-15 : CKidTCA/MWTCA*1000); #(v2.1)
 	CLungTCA = CBodTCA;
 	zAUrnTCA = (AUrnTCA < 1.0e-15 ? 1.0e-15 : AUrnTCA);
 	zAUrnTCA_sat = (AUrnTCA_sat < 1.0e-15 ? 1.0e-15 : AUrnTCA_sat);
