@@ -10,21 +10,22 @@ Level { # Population Level
 # Distrib(M_lnparam, Uniform, low, high)
 # Remove the ... and fill these in
 # ======================================
-lnTp = -2.864071;
 
-lnCYP_Km = 4.770566;
-lnCYP_VmaxC = -0.6213363;
+#lnTp = -2.864071;
 
-lnSULT_Ki = 6.161611; 
-lnSULT_Km_paps = -0.8522667;
-lnUGT_Ki = 10.85208;
-lnUGT_Km_GA = -0.7857949;
+#lnCYP_Km = 4.770566;
+#lnCYP_VmaxC = -0.6213363;
 
-lnKm_AG = 9.902103;
-lnVmax_AG = 10.63242;
-lnKm_AS = 10.02791;
-lnVmax_AS = 15.05017;
-lnkGA_syn = 11.41956;
+#lnSULT_Ki = 6.161611; 
+#lnSULT_Km_paps = -0.8522667;
+#lnUGT_Ki = 10.85208;
+#lnUGT_Km_GA = -0.7857949;
+
+#lnKm_AG = 9.902103;
+#lnVmax_AG = 10.63242;
+#lnKm_AS = 10.02791;
+#lnVmax_AS = 15.05017;
+#lnkGA_syn = 11.41956;
 
 Distrib(M_lnTg, TruncNormal, -1.4552, 0.5, -2.5, 0.);
 #Distrib(M_lnTp, TruncNormal, -3.401, 0.5, -4.5, -2.5);
@@ -100,6 +101,25 @@ Likelihood(Data(lnCU_AS_mcg), Normal_v, Prediction(lnCU_AS_mcg), Verr_lnCU_AS_mc
 
 
 Level { # Group Level
+
+# Move fixed value in the level
+lnTp = -2.864071;
+
+lnCYP_Km = 4.770566;
+lnCYP_VmaxC = -0.6213363;
+
+lnSULT_Ki = 6.161611; 
+lnSULT_Km_paps = -0.8522667;
+lnUGT_Ki = 10.85208;
+lnUGT_Km_GA = -0.7857949;
+
+lnKm_AG = 9.902103;
+lnVmax_AG = 10.63242;
+lnKm_AS = 10.02791;
+lnVmax_AS = 15.05017;
+lnkGA_syn = 11.41956;
+
+
 Distrib(lnTg, TruncNormal_v, M_lnTg, Var_lnTg, -2.5, 0.);
 #Distrib(lnTp, TruncNormal_v, M_lnTp, Var_lnTp, -4.5, -2.5);
 
@@ -567,6 +587,24 @@ Data(lnCU_AS_mcg, -1);
 
 
 Level { # Group B
+
+# Move fixed value in the level
+lnTp = -2.864071;
+
+lnCYP_Km = 4.770566;
+lnCYP_VmaxC = -0.6213363;
+
+lnSULT_Ki = 6.161611; 
+lnSULT_Km_paps = -0.8522667;
+lnUGT_Ki = 10.85208;
+lnUGT_Km_GA = -0.7857949;
+
+lnKm_AG = 9.902103;
+lnVmax_AG = 10.63242;
+lnKm_AS = 10.02791;
+lnVmax_AS = 15.05017;
+lnkGA_syn = 11.41956;
+
 Distrib(lnTg, TruncNormal_v, lnTg, Var_lnTg, -2.5, 0.);
 #Distrib(lnTp, TruncNormal_v, lnTp, Var_lnTp, -4.5, -2.5);
 
