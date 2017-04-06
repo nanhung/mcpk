@@ -1,7 +1,7 @@
 #------------------------------------------------------------
 # TCE.2.10.model
 # Revise from TCE.2.0.model
-# Revise VSlw
+# Revise VSlw and VRap
 # Revise QRap and QBod
 # Revise APlasTCA
 # Add CKidTCAmol, CLivTCAmol, CBrnTCAmol, CPlasTCAmol (mmol/l)
@@ -20,6 +20,7 @@ States = {
 	AGut,		# Amount in gut
 	ALiv,		# Amount in liver
 	AKid, 		# Amount in Kidney -- previously in Rap tissue
+	ABrn, #(v2.10)
 	ABld, 		# Amount in Blood -- previously in Rap tissue
 	AInhResp,	#(v1.2) Amount in respiratory lumen during inhalation
 	AResp,		#(v1.2) Amount in respiratory tissue
@@ -334,6 +335,7 @@ PB	= 1;	# TCE Blood/air partition coefficient
 PFat	= 1;	# TCE Fat/Blood partition coefficient
 PGut	= 1;	# TCE Gut/Blood partition coefficient
 PLiv	= 1;	# TCE Liver/Blood partition coefficient
+PBrn = 1; #(v2.10)
 PRap	= 1;	# TCE Rapidly perfused/Blood partition coefficient
 #(v1.2) PTB	= 1;	# TCE Tracheo-bronchial/Blood partition coefficient
 PResp	= 1;	#(v1.2) TCE Respiratory tissue:air partition coefficient
@@ -479,6 +481,7 @@ lnPRapC	= 0.0;	# Scaled to species-specific central estimates
 lnPRespC	= 0.0;	#(v1.2) Scaled to species-specific central estimates
 lnPKidC	= 0.0;	# Scaled to species-specific central estimates
 lnPSlwC	= 0.0;	# Scaled to species-specific central estimates
+lnPBrnC = 0.0;
 
 # Partition Coefficients for TCA
 lnPRBCPlasTCAC	= 0.0;	# Scaled to species-specific central estimates
@@ -585,6 +588,7 @@ M_VBldC	= 1.0; M_lnPBC	= 1.0;
 M_lnPFatC	= 1.0; M_lnPGutC	= 1.0;
 M_lnPLivC	= 1.0; M_lnPRapC	= 1.0;
 M_lnPRespC	= 1.0; M_lnPKidC	= 1.0;
+M_lnPBrnC	= 1.0; #(v2.10)
 M_lnPSlwC	= 1.0; M_lnPRBCPlasTCAC	= 1.0;
 M_lnPBodTCAC	= 1.0; M_lnPLivTCAC	= 1.0;
 M_lnPKidTCAC	= 1.0; #(v2.10)
@@ -694,10 +698,10 @@ Ve_CSlw	= 1;
 Ve_CHrt	= 1;
 Ve_CKid	= 1;
 Ve_CLiv	= 1;
+Ve_CBrn = 1; #(v2.1)
 Ve_CLung	= 1;
 Ve_CMus	= 1;
 Ve_CSpl	= 1;
-Ve_CBrn	= 1;
 Ve_zAExh	= 1;
 Ve_zAExhpost	= 1;
 	
@@ -867,7 +871,9 @@ Initialize {
         VLiv = VLivC * BW *
 	(Species == 3 ? 0.055 : (Species == 2 ? 0.034 : (Male == 0 ? 0.023 : 0.025) ));
         VRap = VRapC * BW * ## VRaptmp = VRapC * BW * #(v1a)#(v1b)#(v1c) -- temporary variable
-	(Species == 3 ? 0.100 : (Species == 2 ? 0.088 : (Male == 0 ? 0.093 : 0.088) ));
+    (Species == 3 ? 0.083 : (Species == 2 ? 0.088 : (Male == 0 ? 0.093 : 0.088) )); #(v2.10)
+	#(Species == 3 ? 0.100 : (Species == 2 ? 0.088 : (Male == 0 ? 0.093 : 0.088) ));
+	 
 #(v1.2)         VTB = VTBC * BW *
 #(v1.2)	(Species == 3 ? 0.0007 : (Species == 2 ? 0.0005 : 0.00018 ));
 	VRespLum = VRespLumC * BW * 
@@ -888,7 +894,7 @@ Initialize {
 #(v1.2)        VSlw = (Species == 3 ? 0.8897 : (Species == 2 ? 0.8995 : (Male == 0 ? 0.85778 : 0.856))) * BW 
 #(v1.2)		- VFat - VGut - VLiv - VRap - VTB - VKid - VBld;
         VSlw = (Species == 3 ? 0.8897 : (Species == 2 ? 0.8995 : (Male == 0 ? 0.85778 : 0.856))) * BW 
-		- VFat - VGut - VLiv - VRap - VRespEfftmp - VKid - VBld;
+		- VFat - VGut - VLiv - VRap - VRespEfftmp - VKid - VBld - VBrn; #(v2.10) 
 	#(v1.2) replaced VTB by VRespEfftmp
 			## - VFat - VGut - VLiv - VRaptmp - VTB - VKid - VBld; #(v1a)#(v1b)#(v1c)
 # Slowly perfused:
@@ -961,6 +967,9 @@ Initialize {
        PRap = exp(lnPRapC) * 		# Rapidly perfused/blood
 		       ## PRaptmp = exp(lnPRapC) * #(v1a)#(v1b)#(v1c) -- temporary
 		(Species == 3 ? 1.9 : (Species == 2 ? 1.3 : 2.6 ));
+		
+		PBrn = exp(lnPBrnC) * #(v2.10)
+		(Species == 3 ? 1.9 : (Species == 2 ? 1.3 : 2.6 )); #(v2.10)
 	# Mice: Similar to liver, kidney.  Uncertainty CV = 0.4 due to
 	#	tissue extrapolation
 	# Rats: Use brain values Sato et al. 1977.  Recent article by
@@ -1050,8 +1059,10 @@ Initialize {
 	#	Uncertainty in mice, humans GSD = 1.4
 	#	For rats, GSD = 2.0, based on difference between mice
 	#	and humans.
-PBrnTCA = TCAPlas * exp(lnPBrnTCAC) * 0.07; #(v2.10) Estimate median from Abhi's data
-PKidTCA = TCAPlas * exp(lnPKidTCAC) * 1.96; #(v2.10) Estimate median from Abhi's data
+	PBrnTCA = TCAPlas * exp(lnPBrnTCAC) * 
+		(Species == 3 ? 1.18 : (Species == 2 ? 1.18 : 0.66 ));; #(v2.10) Same as liver
+	PKidTCA = TCAPlas * exp(lnPKidTCAC) * 
+		(Species == 3 ? 1.18 : (Species == 2 ? 1.18 : 0.66 ));; #(v2.10) Same as liver
 
 # Binding Parameters for TCA
 	# GM of Lumpkin et al. 2003; Schultz et al. 1999;
@@ -1467,6 +1478,7 @@ Dynamics{
 	CGut = AGut/VGut; 
 	CLiv = ALiv/VLiv; 
 	CKid = AKid/VKid; 
+	CBrn = ABrn/VBrn; #(v2.10)
 # Venous Concentrations (mg/L)
 	CVRap = CRap / PRap;
 	CVSlw = CSlw / PSlw;
@@ -1474,10 +1486,11 @@ Dynamics{
 	CVGut = CGut / PGut;
 	CVLiv = CLiv / PLiv;
 	CVKid = CKid / PKid;
+	CVBrn = CBrn / PBrn; #(v2.10)
 # Concentration of TCE in mixed venous blood (mg/L)
 	CVen = ABld/VBld; # Comment out for #(v1a)#(v1c)
 # Dynamics for blood
-    dt(ABld) = (QFat*CVFat + QGutLiv*CVLiv + QSlw*CVSlw + # Comment out for #(v1a)#(v1c)
+    dt(ABld) = (QFat*CVFat + QGutLiv*CVLiv + QSlw*CVSlw + QBrn*CVBrn + #(v2.10) # Comment out for #(v1a)#(v1c)
 		QRap*CVRap + QKid*CVKid + kIV) - CVen * QCnow; #(v1.2)(v1b)
 
 
@@ -1511,6 +1524,8 @@ Dynamics{
     dt(ASlw) = QSlw * (CArt - CVSlw);
 # Amount of TCE in fat tissue (mg)
     dt(AFat) = QFat*(CArt - CVFat);
+# Amount of TCE in brain tissue (mg)
+    dt(ABrn) = QBrn*(CArt - CVBrn); #(v2.10)
 # Amount of TCE in gut compartment (mg)
     dt(AGut) = (QGut * (CArt - CVGut)) + RAO;
 
@@ -1580,7 +1595,7 @@ Dynamics{
 	CPlasTCAFreeMole = 0.5*c;
 # Concentration of free TCA in plasma (mg/L)
 	CPlasTCAFree = (CPlasTCAFreeMole * MWTCA) / 1000.0;
-	APlasTCAFree = CPlasTCAFree * VPlas;
+	# APlasTCAFree = CPlasTCAFree * VPlas;
 # Concentration of bound TCA in plasma (mg/L)
 	CPlasTCABnd = (CPlasTCA<CPlasTCAFree ? 0 : CPlasTCA-CPlasTCAFree);
 # Concentration in body and liver
@@ -1603,7 +1618,8 @@ Dynamics{
 #	CVLivTCA = (BMax+kDissoc + CVLivTCAFree)*CVLivTCAFree / #(v1g)
 #		(kDissoc + CVLivTCAFree);	#(v1g) total in equilibrium
 # Rate of urinary excretion of TCA
-	RUrnTCA = kUrnTCA * APlasTCAFree;
+	#RUrnTCA = kUrnTCA * APlasTCAFree;
+	RUrnTCA = kUrnTCA * VKid * CVKidTCAFree; #(v2.10)
 # Dynamics for amount of total (free+bound) TCA in plasma (mg)
     dt(APlasTCA) = kIVTCA + (QBodPlas*CVBodTCA) + (QGutLivPlas*CVLivTCA) # comment out for #(v1h)
             + (QKidPlas*CVKidTCA) + (QBrnPlas*CVBrnTCA) #(v2.10)
@@ -1750,6 +1766,7 @@ CalcOutputs{
 	CGut = (CGut < 1.0e-15 ? 1.0e-15 : CGut);
 	CRap = (CRap < 1.0e-15 ? 1.0e-15 : CRap);
 	CSlw = (CSlw < 1.0e-15 ? 1.0e-15 : CSlw);
+	CBrn = (CBrn < 1.0e-15 ? 1.0e-15 : CBrn); #(v2.10)
 #(v1.2)	CTB = (CTB < 1.0e-15 ? 1.0e-15 : CTB);
 	CHrt = CRap;
 	CKid = (CKid < 1.0e-15 ? 1.0e-15 : CKid);

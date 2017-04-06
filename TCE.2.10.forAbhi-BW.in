@@ -252,291 +252,213 @@ Distrib(       lnISkTCA	   TruncNormal_v	M_lnISkTCA	V_lnISkTCA	-4.605	4.605);
 ####Distrib(       lnISkDCA	   TruncNormal_v	M_lnISkDCA	V_lnISkDCA	-4.605	4.605);
 Distrib(       lnISkDCVG	   TruncNormal_v	M_lnISkDCVG	V_lnISkDCVG	-4.605	4.605);
 Distrib(       lnISkDCVC	   TruncNormal_v	M_lnISkDCVC	V_lnISkDCVC	-4.605	4.605);
+
+# Distrib(		BWmeas		Normal	0.0240	0.0046);
 							
-# Variability Predictions at 24 hr from doses up to 1000 mg/kg
-# 12, 24, 48, 80, 160, 240, 480, 640, 800, 1000
-
-Distrib(		BWmeas		Normal	0.0240	0.0046);
+# Variability Predictions at 1, 2, 6, 12, 24, 36 hr
+# Dosing: 800 mg/kg
 							
-Experiment { # Random Strain - 12 mg/kg
+Experiment { # AU18042M
 Species = 3 ;
 Male = 1 ;
 
 # Measured Covariates (if any)
+BWmeas =  0.0251 ;
+VLivC = 0.0629 ;
+VKidC = 0.0144 ;
+VBrnC = 0.0164 ;
 
 # Exposure/Dosing 
-PDose = NDoses(2, 12 0 , 0 0.05 ) ;
+PDose = NDoses(2, 800 0 , 0 0.05 ) ; #(v2.10)
 TChng = 0.05 ;
 
 # Parameters
-Print(	  CPlasTCA	,24);
-Data(	  CPlasTCA	,-1);
-Print(	  CLivTCA	,24);
-Data(	  CLivTCA	,-1);
-Print(	  CKidTCA	,24);
-Data(	  CKidTCA	,-1);
-Print( CKidTCAmol, 24); #(v2.10)
-Data( CKidTCAmol, -1); #(v2.10)
-Print( CLivTCAmol, 24); #(v2.10)
-Data( CLivTCAmol, -1); #(v2.10)
-Print( CBrnTCAmol, 24); #(v2.10)
-Data( CBrnTCAmol, -1); #(v2.10)
-Print( CPlasTCAmol, 24); #(v2.10)
-Data( CPlasTCAmol -1); #(v2.10)
+Print( CKidTCAmol, 1, 2, 6, 12, 24, 36); #(v2.10)
+Data( CKidTCAmol, -1, -1, -1, -1, -1, -1); #(v2.10)
+Print( CLivTCAmol, 1, 2, 6, 12, 24, 36); #(v2.10)
+Data( CLivTCAmol, -1, -1, -1, -1, -1, -1); #(v2.10)
+Print( CBrnTCAmol, 1, 2, 6, 12, 24, 36); #(v2.10)
+Data( CBrnTCAmol, -1, -1, -1, -1, -1, -1); #(v2.10)
+Print( CPlasTCAmol, 1, 2, 6, 12, 24, 36); #(v2.10)
+Data( CPlasTCAmol -1, -1, -1, -1, -1, -1); #(v2.10)
 
-} # End Experiment Random Strain
+} # End AU18042M
 
-Experiment { # Random Strain - 24 mg/kg
+Experiment { # AU18042F
+Species =  3 ;
+Male =  0 ;
+
+# Measured Covariates (if any)
+BWmeas =  0.0188 ;
+VLivC = 0.0637 ;
+VKidC = 0.0136 ;
+VBrnC = 0.0213 ;
+
+# Exposure/Dosing 
+PDose = NDoses(2, 800 0 , 0 0.05 ) ; #(v2.10)
+TChng = 0.05 ;
+
+# Parameters
+Print( CKidTCAmol, 1, 2, 6, 12, 24, 36); #(v2.10)
+Data( CKidTCAmol, -1, -1, -1, -1, -1, -1); #(v2.10)
+Print( CLivTCAmol, 1, 2, 6, 12, 24, 36); #(v2.10)
+Data( CLivTCAmol, -1, -1, -1, -1, -1, -1); #(v2.10)
+Print( CBrnTCAmol, 1, 2, 6, 12, 24, 36); #(v2.10)
+Data( CBrnTCAmol, -1, -1, -1, -1, -1, -1); #(v2.10)
+Print( CPlasTCAmol, 1, 2, 6, 12, 24, 36); #(v2.10)
+Data( CPlasTCAmol -1, -1, -1, -1, -1, -1); #(v2.10)
+
+} # End AU8005M
+
+Experiment { # AU8005M
 Species = 3 ;
 Male = 1 ;
 
 # Measured Covariates (if any)
+BWmeas =  0.02266 ;
+VLivC = 0.05125 ;
+VKidC = 0.01318 ;
+VBrnC = 0.01513 ;
 
 # Exposure/Dosing 
-PDose = NDoses(2, 24 0 , 0 0.05 ) ;
+PDose = NDoses(2, 800 0 , 0 0.05 ) ; #(v2.10)
 TChng = 0.05 ;
 
 # Parameters
-Print(	  CPlasTCA	,24);
-Data(	  CPlasTCA	,-1);
-Print(	  CLivTCA	,24);
-Data(	  CLivTCA	,-1);
-Print(	  CKidTCA	,24);
-Data(	  CKidTCA	,-1);
-Print( CKidTCAmol, 24); #(v2.10)
-Data( CKidTCAmol, -1); #(v2.10)
-Print( CLivTCAmol, 24); #(v2.10)
-Data( CLivTCAmol, -1); #(v2.10)
-Print( CBrnTCAmol, 24); #(v2.10)
-Data( CBrnTCAmol, -1); #(v2.10)
-Print( CPlasTCAmol, 24); #(v2.10)
-Data( CPlasTCAmol -1); #(v2.10)
+Print( CKidTCAmol, 1, 2, 6, 12, 24, 36); #(v2.10)
+Data( CKidTCAmol, -1, -1, -1, -1, -1, -1); #(v2.10)
+Print( CLivTCAmol, 1, 2, 6, 12, 24, 36); #(v2.10)
+Data( CLivTCAmol, -1, -1, -1, -1, -1, -1); #(v2.10)
+Print( CBrnTCAmol, 1, 2, 6, 12, 24, 36); #(v2.10)
+Data( CBrnTCAmol, -1, -1, -1, -1, -1, -1); #(v2.10)
+Print( CPlasTCAmol, 1, 2, 6, 12, 24, 36); #(v2.10)
+Data( CPlasTCAmol -1, -1, -1, -1, -1, -1); #(v2.10)
 
 } # End Experiment Random Strain
 
-Experiment { # Random Strain - 48 mg/kg
+Experiment { # AU8005F
+Species =  3 ;
+Male =  0 ;
+
+# Measured Covariates (if any)
+BWmeas =  0.0177 ;
+VLivC = 0.0555 ;
+VKidC = 0.0142 ;
+VBrnC = 0.0203 ;
+
+# Parameters
+Print( CKidTCAmol, 1, 2, 6, 12, 24, 36); #(v2.10)
+Data( CKidTCAmol, -1, -1, -1, -1, -1, -1); #(v2.10)
+Print( CLivTCAmol, 1, 2, 6, 12, 24, 36); #(v2.10)
+Data( CLivTCAmol, -1, -1, -1, -1, -1, -1); #(v2.10)
+Print( CBrnTCAmol, 1, 2, 6, 12, 24, 36); #(v2.10)
+Data( CBrnTCAmol, -1, -1, -1, -1, -1, -1); #(v2.10)
+Print( CPlasTCAmol, 1, 2, 6, 12, 24, 36); #(v2.10)
+Data( CPlasTCAmol -1, -1, -1, -1, -1, -1); #(v2.10)
+
+} # End AU8005F
+
+Experiment { # AU8034M
 Species = 3 ;
 Male = 1 ;
 
 # Measured Covariates (if any)
+BWmeas =  0.0273 ;
+VLivC = 0.0568 ;
+VKidC = 0.0142 ;
 
 # Exposure/Dosing 
-PDose = NDoses(2, 48 0 , 0 0.05 ) ;
+PDose = NDoses(2, 800 0 , 0 0.05 ) ; #(v2.10)
 TChng = 0.05 ;
 
 # Parameters
-Print(	  CPlasTCA	,24);
-Data(	  CPlasTCA	,-1);
-Print(	  CLivTCA	,24);
-Data(	  CLivTCA	,-1);
-Print(	  CKidTCA	,24);
-Data(	  CKidTCA	,-1);
-Print( CKidTCAmol, 24); #(v2.10)
-Data( CKidTCAmol, -1); #(v2.10)
-Print( CLivTCAmol, 24); #(v2.10)
-Data( CLivTCAmol, -1); #(v2.10)
-Print( CBrnTCAmol, 24); #(v2.10)
-Data( CBrnTCAmol, -1); #(v2.10)
-Print( CPlasTCAmol, 24); #(v2.10)
-Data( CPlasTCAmol -1); #(v2.10)
+Print( CKidTCAmol, 1, 2, 6, 12, 24, 36); #(v2.10)
+Data( CKidTCAmol, -1, -1, -1, -1, -1, -1); #(v2.10)
+Print( CLivTCAmol, 1, 2, 6, 12, 24, 36); #(v2.10)
+Data( CLivTCAmol, -1, -1, -1, -1, -1, -1); #(v2.10)
+Print( CBrnTCAmol, 1, 2, 6, 12, 24, 36); #(v2.10)
+Data( CBrnTCAmol, -1, -1, -1, -1, -1, -1); #(v2.10)
+Print( CPlasTCAmol, 1, 2, 6, 12, 24, 36); #(v2.10)
+Data( CPlasTCAmol -1, -1, -1, -1, -1, -1); #(v2.10)
 
-} # End Experiment Random Strain
+} # End AU8034M
 
-Experiment { # Random Strain - 80 mg/kg
+Experiment { # AU8034F
+Species =  3 ;
+Male =  0 ;
+
+# Measured Covariates (if any)
+BWmeas =  0.0195 ;
+VLivC = 0.0600 ;
+VKidC = 0.0164 ;
+VBrnC = 0.0187 ;
+
+# Exposure/Dosing 
+PDose = NDoses(2, 800 0 , 0 0.05 ) ; #(v2.10)
+TChng = 0.05 ;
+
+# Parameters
+Print( CKidTCAmol, 1, 2, 6, 12, 24, 36); #(v2.10)
+Data( CKidTCAmol, -1, -1, -1, -1, -1, -1); #(v2.10)
+Print( CLivTCAmol, 1, 2, 6, 12, 24, 36); #(v2.10)
+Data( CLivTCAmol, -1, -1, -1, -1, -1, -1); #(v2.10)
+Print( CBrnTCAmol, 1, 2, 6, 12, 24, 36); #(v2.10)
+Data( CBrnTCAmol, -1, -1, -1, -1, -1, -1); #(v2.10)
+Print( CPlasTCAmol, 1, 2, 6, 12, 24, 36); #(v2.10)
+Data( CPlasTCAmol -1, -1, -1, -1, -1, -1); #(v2.10)
+
+} # End AU8034F
+
+Experiment { # IL1688M
 Species = 3 ;
 Male = 1 ;
 
 # Measured Covariates (if any)
+BWmeas =  0.0304 ;
+VLivC = 0.0395 ;
+VKidC = 0.0095 ;
 
 # Exposure/Dosing 
-PDose = NDoses(2, 80 0 , 0 0.05 ) ;
+PDose = NDoses(2, 800 0 , 0 0.05 ) ; #(v2.10)
 TChng = 0.05 ;
 
 # Parameters
-Print(	  CPlasTCA	,24);
-Data(	  CPlasTCA	,-1);
-Print(	  CLivTCA	,24);
-Data(	  CLivTCA	,-1);
-Print(	  CKidTCA	,24);
-Data(	  CKidTCA	,-1);
-Print( CKidTCAmol, 24); #(v2.10)
-Data( CKidTCAmol, -1); #(v2.10)
-Print( CLivTCAmol, 24); #(v2.10)
-Data( CLivTCAmol, -1); #(v2.10)
-Print( CBrnTCAmol, 24); #(v2.10)
-Data( CBrnTCAmol, -1); #(v2.10)
-Print( CPlasTCAmol, 24); #(v2.10)
-Data( CPlasTCAmol -1); #(v2.10)
+Print( CKidTCAmol, 1, 2, 6, 12, 24, 36); #(v2.10)
+Data( CKidTCAmol, -1, -1, -1, -1, -1, -1); #(v2.10)
+Print( CLivTCAmol, 1, 2, 6, 12, 24, 36); #(v2.10)
+Data( CLivTCAmol, -1, -1, -1, -1, -1, -1); #(v2.10)
+Print( CBrnTCAmol, 1, 2, 6, 12, 24, 36); #(v2.10)
+Data( CBrnTCAmol, -1, -1, -1, -1, -1, -1); #(v2.10)
+Print( CPlasTCAmol, 1, 2, 6, 12, 24, 36); #(v2.10)
+Data( CPlasTCAmol -1, -1, -1, -1, -1, -1); #(v2.10)
 
-} # End Experiment Random Strain
+} # End IL1688M
 
-Experiment { # Random Strain - 160 mg/kg
-Species = 3 ;
-Male = 1 ;
+Experiment { # IL1688F
+Species =  3 ;
+Male =  0 ;
 
 # Measured Covariates (if any)
+BWmeas =  0.02523 ;
+VLivC = 0.04809 ;
+VKidC = 0.01057 ;
+VBrnC = 0.01718 ;
 
 # Exposure/Dosing 
-PDose = NDoses(2, 160 0 , 0 0.05 ) ;
+PDose = NDoses(2, 800 0 , 0 0.05 ) ; #(v2.10)
 TChng = 0.05 ;
 
 # Parameters
-Print(	  CPlasTCA	,24);
-Data(	  CPlasTCA	,-1);
-Print(	  CLivTCA	,24);
-Data(	  CLivTCA	,-1);
-Print(	  CKidTCA	,24);
-Data(	  CKidTCA	,-1);
-Print( CKidTCAmol, 24); #(v2.10)
-Data( CKidTCAmol, -1); #(v2.10)
-Print( CLivTCAmol, 24); #(v2.10)
-Data( CLivTCAmol, -1); #(v2.10)
-Print( CBrnTCAmol, 24); #(v2.10)
-Data( CBrnTCAmol, -1); #(v2.10)
-Print( CPlasTCAmol, 24); #(v2.10)
-Data( CPlasTCAmol -1); #(v2.10)
+Print( CKidTCAmol, 1, 2, 6, 12, 24, 36); #(v2.10)
+Data( CKidTCAmol, -1, -1, -1, -1, -1, -1); #(v2.10)
+Print( CLivTCAmol, 1, 2, 6, 12, 24, 36); #(v2.10)
+Data( CLivTCAmol, -1, -1, -1, -1, -1, -1); #(v2.10)
+Print( CBrnTCAmol, 1, 2, 6, 12, 24, 36); #(v2.10)
+Data( CBrnTCAmol, -1, -1, -1, -1, -1, -1); #(v2.10)
+Print( CPlasTCAmol, 1, 2, 6, 12, 24, 36); #(v2.10)
+Data( CPlasTCAmol -1, -1, -1, -1, -1, -1); #(v2.10)
 
-} # End Experiment Random Strain
-
-Experiment { # Random Strain - 240 mg/kg
-Species = 3 ;
-Male = 1 ;
-
-# Measured Covariates (if any)
-
-# Exposure/Dosing 
-PDose = NDoses(2, 240 0 , 0 0.05 ) ;
-TChng = 0.05 ;
-
-# Parameters
-Print(	  CPlasTCA	,24);
-Data(	  CPlasTCA	,-1);
-Print(	  CLivTCA	,24);
-Data(	  CLivTCA	,-1);
-Print(	  CKidTCA	,24);
-Data(	  CKidTCA	,-1);
-Print( CKidTCAmol, 24); #(v2.10)
-Data( CKidTCAmol, -1); #(v2.10)
-Print( CLivTCAmol, 24); #(v2.10)
-Data( CLivTCAmol, -1); #(v2.10)
-Print( CBrnTCAmol, 24); #(v2.10)
-Data( CBrnTCAmol, -1); #(v2.10)
-Print( CPlasTCAmol, 24); #(v2.10)
-Data( CPlasTCAmol -1); #(v2.10)
-
-} # End Experiment Random Strain
-
-Experiment { # Random Strain - 480 mg/kg
-Species = 3 ;
-Male = 1 ;
-
-# Measured Covariates (if any)
-
-# Exposure/Dosing 
-PDose = NDoses(2, 480 0 , 0 0.05 ) ;
-TChng = 0.05 ;
-
-# Parameters
-Print(	  CPlasTCA	,24);
-Data(	  CPlasTCA	,-1);
-Print(	  CLivTCA	,24);
-Data(	  CLivTCA	,-1);
-Print(	  CKidTCA	,24);
-Data(	  CKidTCA	,-1);
-Print( CKidTCAmol, 24); #(v2.10)
-Data( CKidTCAmol, -1); #(v2.10)
-Print( CLivTCAmol, 24); #(v2.10)
-Data( CLivTCAmol, -1); #(v2.10)
-Print( CBrnTCAmol, 24); #(v2.10)
-Data( CBrnTCAmol, -1); #(v2.10)
-Print( CPlasTCAmol, 24); #(v2.10)
-Data( CPlasTCAmol -1); #(v2.10)
-
-} # End Experiment Random Strain
-
-Experiment { # Random Strain - 640 mg/kg
-Species = 3 ;
-Male = 1 ;
-
-# Measured Covariates (if any)
-
-# Exposure/Dosing 
-PDose = NDoses(2, 640 0 , 0 0.05 ) ;
-TChng = 0.05 ;
-
-# Parameters
-Print(	  CPlasTCA	,24);
-Data(	  CPlasTCA	,-1);
-Print(	  CLivTCA	,24);
-Data(	  CLivTCA	,-1);
-Print(	  CKidTCA	,24);
-Data(	  CKidTCA	,-1);
-Print( CKidTCAmol, 24); #(v2.10)
-Data( CKidTCAmol, -1); #(v2.10)
-Print( CLivTCAmol, 24); #(v2.10)
-Data( CLivTCAmol, -1); #(v2.10)
-Print( CBrnTCAmol, 24); #(v2.10)
-Data( CBrnTCAmol, -1); #(v2.10)
-Print( CPlasTCAmol, 24); #(v2.10)
-Data( CPlasTCAmol -1); #(v2.10)
-
-} # End Experiment Random Strain
-
-Experiment { # Random Strain - 800 mg/kg
-Species = 3 ;
-Male = 1 ;
-
-# Measured Covariates (if any)
-
-# Exposure/Dosing 
-PDose = NDoses(2, 800 0 , 0 0.05 ) ;
-TChng = 0.05 ;
-
-# Parameters
-Print(	  CPlasTCA	,24);
-Data(	  CPlasTCA	,-1);
-Print(	  CLivTCA	,24);
-Data(	  CLivTCA	,-1);
-Print(	  CKidTCA	,24);
-Data(	  CKidTCA	,-1);
-Print( CKidTCAmol, 24); #(v2.10)
-Data( CKidTCAmol, -1); #(v2.10)
-Print( CLivTCAmol, 24); #(v2.10)
-Data( CLivTCAmol, -1); #(v2.10)
-Print( CBrnTCAmol, 24); #(v2.10)
-Data( CBrnTCAmol, -1); #(v2.10)
-Print( CPlasTCAmol, 24); #(v2.10)
-Data( CPlasTCAmol -1); #(v2.10)
-
-} # End Experiment Random Strain
-
-Experiment { # Random Strain - 1000 mg/kg
-Species = 3 ;
-Male = 1 ;
-
-# Measured Covariates (if any)
-
-# Exposure/Dosing 
-PDose = NDoses(2, 1000 0 , 0 0.05 ) ;
-TChng = 0.05 ;
-
-# Parameters
-Print(	  CPlasTCA	,24);
-Data(	  CPlasTCA	,-1);
-Print(	  CLivTCA	,24);
-Data(	  CLivTCA	,-1);
-Print(	  CKidTCA	,24);
-Data(	  CKidTCA	,-1);
-Print( CKidTCAmol, 24); #(v2.10)
-Data( CKidTCAmol, -1); #(v2.10)
-Print( CLivTCAmol, 24); #(v2.10)
-Data( CLivTCAmol, -1); #(v2.10)
-Print( CBrnTCAmol, 24); #(v2.10)
-Data( CBrnTCAmol, -1); #(v2.10)
-Print( CPlasTCAmol, 24); #(v2.10)
-Data( CPlasTCAmol -1); #(v2.10)
-
-} # End Experiment Random Strain
+} # End IL1688F
 
 End.
 
@@ -590,6 +512,8 @@ Print(	  PB	,0);
 Data(	  PB	,-1);
 Print(	  PFat	,0);
 Data(	  PFat	,-1);
+Print(	  PBrn	,0); #(v2.10)
+Data(	  PBrn	,-1); #(v2.10)
 Print(	  PGut	,0);
 Data(	  PGut	,-1);
 Print(	  PLiv	,0);
