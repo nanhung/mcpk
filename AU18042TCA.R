@@ -32,11 +32,11 @@ for (i in 1:dim(TCA.df)[1]) {
   if (i == 1) {
     plot(time, TCA.df[i,l1.1], xlab = "Time (Hr)", ylab = "",
          main = "M-Brain TCA (mmol/l)", las = 1, col = "grey", pch = 20, cex.lab = 1.2,
-         type = "b", ylim = c(0, 0.4), cex.main = 1.2)
+         type = "b", ylim = c(0, 0.15), cex.main = 1.2)
   } else {
     plot(time, TCA.df[i,l1.1], xlab = "", ylab = "", xaxt = "n", yaxt = "n",
          main = "", las = 1, col = "grey", pch = 20,
-         type = "b", ylim = c(0, 0.4)) 
+         type = "b", ylim = c(0, 0.15)) 
   }
   par(new=T)
 }
@@ -88,11 +88,11 @@ for (i in 1:dim(TCA.df)[1]) {
   if (i == 1) {
     plot(time, TCA.df[i,l1.2], xlab = "Time (Hr)", ylab = "",
          main = "F-Brain TCA (mmol/l)", las = 1, col = "grey", pch = 20, cex.lab = 1.2,
-         type = "b", ylim = c(0, 0.4), cex.main = 1.2)
+         type = "b", ylim = c(0, 0.15), cex.main = 1.2)
   } else {
     plot(time, TCA.df[i,l1.2], xlab = "", ylab = "", xaxt = "n", yaxt = "n",
          main = "", las = 1, col = "grey", pch = 20,
-         type = "b", ylim = c(0, 0.4)) 
+         type = "b", ylim = c(0, 0.15)) 
   }
   par(new=T)
 }

@@ -96,7 +96,7 @@ for (i in 1:dim(TCA.df)[1]) {
   }
   par(new=T)
 }
-points(AU18042.df[,1], AU18042.df[,8], col = "red" , pch = 20)
+points(AU8005.df[,1], AU8005.df[,8], col = "red" , pch = 20)
 
 for (i in 1:dim(TCA.df)[1]) {
   if (i == 1) {
