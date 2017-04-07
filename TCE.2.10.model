@@ -1,13 +1,15 @@
 #------------------------------------------------------------
 # TCE.2.10.model
 # Revise from TCE.2.0.model
-# Revise VSlw and VRap
-# Revise QRap and QBod
+# Revise VSlw and VRap (substract Brn)
+# Revise QRap and QBod (substract Brn)
 # Revise APlasTCA
+# Revise RUrnTCA
+# Add ABrn
 # Add CKidTCAmol, CLivTCAmol, CBrnTCAmol, CPlasTCAmol (mmol/l)
 # Add QKidPlas and QBrnPlas
 # Add VBrn and QBrn according to Brown et al. (1997)
-# PBrnTCA and PKidTCA were estimated from Abhi's data
+# Add PBrnTCA and PKidTCA and use the same value from PLivTCA 
 # PLivTCA was sourced from the previous model
 #-------------------------------------------------------------
 States = {
