@@ -273,10 +273,10 @@ PDose = NDoses(2, 800 0 , 0 0.05 ) ; #(v2.10)
 TChng = 0.05 ;
 
 # Parameters
-Print( CKidTCAmol, 1, 2, 6, 12, 24, 36); #(v2.10)
-Data( CKidTCAmol, -1, -1, -1, -1, -1, -1); #(v2.10)
 Print( CLivTCAmol, 1, 2, 6, 12, 24, 36); #(v2.10)
 Data( CLivTCAmol, -1, -1, -1, -1, -1, -1); #(v2.10)
+Print( CKidTCAmol, 1, 2, 6, 12, 24, 36); #(v2.10)
+Data( CKidTCAmol, -1, -1, -1, -1, -1, -1); #(v2.10)
 Print( CBrnTCAmol, 1, 2, 6, 12, 24, 36); #(v2.10)
 Data( CBrnTCAmol, -1, -1, -1, -1, -1, -1); #(v2.10)
 Print( CPlasTCAmol, 1, 2, 6, 12, 24, 36); #(v2.10)
@@ -299,10 +299,10 @@ PDose = NDoses(2, 800 0 , 0 0.05 ) ; #(v2.10)
 TChng = 0.05 ;
 
 # Parameters
-Print( CKidTCAmol, 1, 2, 6, 12, 24, 36); #(v2.10)
-Data( CKidTCAmol, -1, -1, -1, -1, -1, -1); #(v2.10)
 Print( CLivTCAmol, 1, 2, 6, 12, 24, 36); #(v2.10)
 Data( CLivTCAmol, -1, -1, -1, -1, -1, -1); #(v2.10)
+Print( CKidTCAmol, 1, 2, 6, 12, 24, 36); #(v2.10)
+Data( CKidTCAmol, -1, -1, -1, -1, -1, -1); #(v2.10)
 Print( CBrnTCAmol, 1, 2, 6, 12, 24, 36); #(v2.10)
 Data( CBrnTCAmol, -1, -1, -1, -1, -1, -1); #(v2.10)
 Print( CPlasTCAmol, 1, 2, 6, 12, 24, 36); #(v2.10)
@@ -325,10 +325,10 @@ PDose = NDoses(2, 800 0 , 0 0.05 ) ; #(v2.10)
 TChng = 0.05 ;
 
 # Parameters
-Print( CKidTCAmol, 1, 2, 6, 12, 24, 36); #(v2.10)
-Data( CKidTCAmol, -1, -1, -1, -1, -1, -1); #(v2.10)
 Print( CLivTCAmol, 1, 2, 6, 12, 24, 36); #(v2.10)
 Data( CLivTCAmol, -1, -1, -1, -1, -1, -1); #(v2.10)
+Print( CKidTCAmol, 1, 2, 6, 12, 24, 36); #(v2.10)
+Data( CKidTCAmol, -1, -1, -1, -1, -1, -1); #(v2.10)
 Print( CBrnTCAmol, 1, 2, 6, 12, 24, 36); #(v2.10)
 Data( CBrnTCAmol, -1, -1, -1, -1, -1, -1); #(v2.10)
 Print( CPlasTCAmol, 1, 2, 6, 12, 24, 36); #(v2.10)
@@ -352,10 +352,10 @@ TChng = 0.05 ;
 
 
 # Parameters
-Print( CKidTCAmol, 1, 2, 6, 12, 24, 36); #(v2.10)
-Data( CKidTCAmol, -1, -1, -1, -1, -1, -1); #(v2.10)
 Print( CLivTCAmol, 1, 2, 6, 12, 24, 36); #(v2.10)
 Data( CLivTCAmol, -1, -1, -1, -1, -1, -1); #(v2.10)
+Print( CKidTCAmol, 1, 2, 6, 12, 24, 36); #(v2.10)
+Data( CKidTCAmol, -1, -1, -1, -1, -1, -1); #(v2.10)
 Print( CBrnTCAmol, 1, 2, 6, 12, 24, 36); #(v2.10)
 Data( CBrnTCAmol, -1, -1, -1, -1, -1, -1); #(v2.10)
 Print( CPlasTCAmol, 1, 2, 6, 12, 24, 36); #(v2.10)
@@ -377,10 +377,10 @@ PDose = NDoses(2, 800 0 , 0 0.05 ) ; #(v2.10)
 TChng = 0.05 ;
 
 # Parameters
-Print( CKidTCAmol, 1, 2, 6, 12, 24, 36); #(v2.10)
-Data( CKidTCAmol, -1, -1, -1, -1, -1, -1); #(v2.10)
 Print( CLivTCAmol, 1, 2, 6, 12, 24, 36); #(v2.10)
 Data( CLivTCAmol, -1, -1, -1, -1, -1, -1); #(v2.10)
+Print( CKidTCAmol, 1, 2, 6, 12, 24, 36); #(v2.10)
+Data( CKidTCAmol, -1, -1, -1, -1, -1, -1); #(v2.10)
 Print( CBrnTCAmol, 1, 2, 6, 12, 24, 36); #(v2.10)
 Data( CBrnTCAmol, -1, -1, -1, -1, -1, -1); #(v2.10)
 Print( CPlasTCAmol, 1, 2, 6, 12, 24, 36); #(v2.10)
@@ -403,10 +403,10 @@ PDose = NDoses(2, 800 0 , 0 0.05 ) ; #(v2.10)
 TChng = 0.05 ;
 
 # Parameters
-Print( CKidTCAmol, 1, 2, 6, 12, 24, 36); #(v2.10)
-Data( CKidTCAmol, -1, -1, -1, -1, -1, -1); #(v2.10)
 Print( CLivTCAmol, 1, 2, 6, 12, 24, 36); #(v2.10)
 Data( CLivTCAmol, -1, -1, -1, -1, -1, -1); #(v2.10)
+Print( CKidTCAmol, 1, 2, 6, 12, 24, 36); #(v2.10)
+Data( CKidTCAmol, -1, -1, -1, -1, -1, -1); #(v2.10)
 Print( CBrnTCAmol, 1, 2, 6, 12, 24, 36); #(v2.10)
 Data( CBrnTCAmol, -1, -1, -1, -1, -1, -1); #(v2.10)
 Print( CPlasTCAmol, 1, 2, 6, 12, 24, 36); #(v2.10)
@@ -428,10 +428,10 @@ PDose = NDoses(2, 800 0 , 0 0.05 ) ; #(v2.10)
 TChng = 0.05 ;
 
 # Parameters
-Print( CKidTCAmol, 1, 2, 6, 12, 24, 36); #(v2.10)
-Data( CKidTCAmol, -1, -1, -1, -1, -1, -1); #(v2.10)
 Print( CLivTCAmol, 1, 2, 6, 12, 24, 36); #(v2.10)
 Data( CLivTCAmol, -1, -1, -1, -1, -1, -1); #(v2.10)
+Print( CKidTCAmol, 1, 2, 6, 12, 24, 36); #(v2.10)
+Data( CKidTCAmol, -1, -1, -1, -1, -1, -1); #(v2.10)
 Print( CBrnTCAmol, 1, 2, 6, 12, 24, 36); #(v2.10)
 Data( CBrnTCAmol, -1, -1, -1, -1, -1, -1); #(v2.10)
 Print( CPlasTCAmol, 1, 2, 6, 12, 24, 36); #(v2.10)
@@ -454,10 +454,10 @@ PDose = NDoses(2, 800 0 , 0 0.05 ) ; #(v2.10)
 TChng = 0.05 ;
 
 # Parameters
-Print( CKidTCAmol, 1, 2, 6, 12, 24, 36); #(v2.10)
-Data( CKidTCAmol, -1, -1, -1, -1, -1, -1); #(v2.10)
 Print( CLivTCAmol, 1, 2, 6, 12, 24, 36); #(v2.10)
 Data( CLivTCAmol, -1, -1, -1, -1, -1, -1); #(v2.10)
+Print( CKidTCAmol, 1, 2, 6, 12, 24, 36); #(v2.10)
+Data( CKidTCAmol, -1, -1, -1, -1, -1, -1); #(v2.10)
 Print( CBrnTCAmol, 1, 2, 6, 12, 24, 36); #(v2.10)
 Data( CBrnTCAmol, -1, -1, -1, -1, -1, -1); #(v2.10)
 Print( CPlasTCAmol, 1, 2, 6, 12, 24, 36); #(v2.10)
