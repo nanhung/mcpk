@@ -24,10 +24,33 @@ Kid.2.2<-c(0.692909505,0.917726186,0.207431935,0.170496301,-1,0.163029608)
 Brn.2.2<-c(0.026083658,0.04987165,0.025130688,0.002088463,-1,-1)
 Srm.2.2<-c(-1,0.466705746,0.025130688,0.082212446,0.015466652,0.079177805)
 
+Liv.3.1<-c(-1,0.225197019,0.38296809,-1,-1,-1)
+Kid.3.1<-c(-1,0.978743645,1.099106374,-1,-1,-1)
+Brn.3.1<-c(-1,-1,-1,-1,-1,-1)
+Srm.3.1<-c(-1,-1,0.36776802,-1,-1,-1)
+Liv.3.2<-c(0.113130958,0.206075854,0.254597048,0.065611086,0.034263746,-1)
+Kid.3.2<-c(1.027007041,1.325921687,0.500620102,0.304057025,0.344793609,0.253608981)
+Brn.3.2<-c(0.031822318,0.053101858,0.021853332,0.014047521,0.034621327,-1)
+Srm.3.2<-c(0.239123294,0.067425301,0.379710014,0.196506725,0.079449001,-1)
+
+Liv.4.1<-c(0.308653149,0.442219622,0.576564029,0.27807191,0.223536225,0.078017152)
+Kid.4.1<-c(1.444219855,0.762626163,0.27120351,-1,0.161617287,-1)
+Brn.4.1<-c(0.008704019,-1,-1,0.009537826,0.001097061,-1)
+Srm.4.1<-c(-1,0.254823205,0.519661415,0.614855093,0.093973491,-1)
+Liv.4.2<-c(0.149686332,0.211716415,0.331298664,0.376952167,0.04165003,0.073432872)
+Kid.4.2<-c(0.891266027,0.656255204,1.519105535,0.27757936,-1,-1)
+Brn.4.2<-c(0.024622213,0.00287851,0.012954662,0.219170025,-1,-1)
+Srm.4.2<-c(0.235523168,0.593317257,0.488445642,0.580061466,0.108920027,0.052595634)
+
 AU18042.df<-data.frame(time,Liv.1.1,Kid.1.1,Brn.1.1,Srm.1.1,
                        Liv.1.2,Kid.1.2,Brn.1.2,Srm.1.2)
 AU8005.df<-data.frame(time,Liv.2.1,Kid.2.1,Brn.2.1,Srm.2.1,
                        Liv.2.2,Kid.2.2,Brn.2.2,Srm.2.2)
+AU8034.df<-data.frame(time,Liv.3.1,Kid.3.1,Brn.3.1,Srm.3.1,
+                           Liv.3.2,Kid.3.2,Brn.3.2,Srm.3.2)
+IL1688.df<-data.frame(time,Liv.4.1,Kid.4.1,Brn.4.1,Srm.4.1,
+                      Liv.4.2,Kid.4.2,Brn.4.2,Srm.4.2)
+
 
 Liv18042M <- which(colnames(TCA.df)=="CLivTCAmol_1.1")
 Kid18042M <- which(colnames(TCA.df)=="CKidTCAmol_1.1")
@@ -67,7 +90,47 @@ k2.2 <- Kid8005F:(Kid8005F+5)
 l2.2 <- Brn8005F:(Brn8005F+5)
 m2.2 <- Srm8005F:(Srm8005F+5)
 
+Liv8034M <- which(colnames(TCA.df)=="CLivTCAmol_5.1")
+Kid8034M <- which(colnames(TCA.df)=="CKidTCAmol_5.1")
+Brn8034M <- which(colnames(TCA.df)=="CBrnTCAmol_5.1")
+Srm8034M <- which(colnames(TCA.df)=="CPlasTCAmol_5.1")
+Liv8034F <- which(colnames(TCA.df)=="CLivTCAmol_6.1")
+Kid8034F <- which(colnames(TCA.df)=="CKidTCAmol_6.1")
+Brn8034F <- which(colnames(TCA.df)=="CBrnTCAmol_6.1")
+Srm8034F <- which(colnames(TCA.df)=="CPlasTCAmol_6.1")
+
+j3.1 <- Liv8034M:(Liv8034M+5) 
+k3.1 <- Kid8034M:(Kid8034M+5)
+l3.1 <- Brn8034M:(Brn8034M+5)
+m3.1 <- Srm8034M:(Srm8034M+5)
+
+j3.2 <- Liv8034F:(Liv8034F+5) 
+k3.2 <- Kid8034F:(Kid8034F+5)
+l3.2 <- Brn8034F:(Brn8034F+5)
+m3.2 <- Srm8034F:(Srm8034F+5)
+
+Liv1688M <- which(colnames(TCA.df)=="CLivTCAmol_7.1")
+Kid1688M <- which(colnames(TCA.df)=="CKidTCAmol_7.1")
+Brn1688M <- which(colnames(TCA.df)=="CBrnTCAmol_7.1")
+Srm1688M <- which(colnames(TCA.df)=="CPlasTCAmol_7.1")
+Liv1688F <- which(colnames(TCA.df)=="CLivTCAmol_8.1")
+Kid1688F <- which(colnames(TCA.df)=="CKidTCAmol_8.1")
+Brn1688F <- which(colnames(TCA.df)=="CBrnTCAmol_8.1")
+Srm1688F <- which(colnames(TCA.df)=="CPlasTCAmol_8.1")
+
+j4.1 <- Liv1688M:(Liv1688M+5) 
+k4.1 <- Kid1688M:(Kid1688M+5)
+l4.1 <- Brn1688M:(Brn1688M+5)
+m4.1 <- Srm1688M:(Srm1688M+5)
+
+j4.2 <- Liv1688F:(Liv1688F+5) 
+k4.2 <- Kid1688F:(Kid1688F+5)
+l4.2 <- Brn1688F:(Brn1688F+5)
+m4.2 <- Srm1688F:(Srm1688F+5)
+
 #
 source("AU18042TCA.R")
 source("AU8005TCA.R")
+source("AU8034TCA.R")
+source("IL1688TCA.R")
   
