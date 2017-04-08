@@ -20,8 +20,9 @@ Launched as
 someone:~/workspace/R-3.0.3 $ R
 
 ## Git
-git checkout <brance>
-git branch -m 
+$ git checkout <brance>
+$ git branch -m 
+$ git reset --hard HEAD  # Status recover
 
 git remote add origin https://github.com/user/repo.git
 # Set a new remote
