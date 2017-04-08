@@ -6,7 +6,7 @@
 # Revise APlasTCA
 # Revise RUrnTCA
 # Add ABrn
-# Add CKidTCAmol, CLivTCAmol, CBrnTCAmol, CPlasTCAmol (mmol/l)
+# Add CKidTCAmol, CLivTCAmol, CBrnTCAmol, CPlasTCAmol, CTCOHmol (mmol/l)
 # Add QKidPlas and QBrnPlas
 # Add VBrn and QBrn according to Brown et al. (1997)
 # Add PBrnTCA and PKidTCA and use the same value from PLivTCA 
@@ -126,8 +126,10 @@ zAExhpost,	# rat - Amount exhaled post-exposure (mg)
 
 # TCOH
 CTCOH,	# mouse, rat, human - TCOH concentration in blood
+CTCOHmol, #(2.10)
 CKidTCOH,	# mouse - TCOH concentration in kidney
 CLivTCOH,	# mouse - TCOH concentration in liver
+CLivTCOHmol, #(v2.10)
 CLungTCOH,	# mouse - TCOH concentration in lung
 
 # TCA
@@ -709,8 +711,10 @@ Ve_zAExhpost	= 1;
 	
 	
 Ve_CTCOH	= 1;
+Ve_CTCOHmol = 1; #(v2.10)
 Ve_CKidTCOH	= 1;
 Ve_CLivTCOH	= 1;
+Ve_CLivTCOHmol = 1; #(v2.10)
 Ve_CLungTCOH	= 1;
 	
 	
@@ -1781,9 +1785,11 @@ CalcOutputs{
 	zAExhpost = ((AExh - AExhExp) < 1.0e-15 ? 1.0e-15 : AExh - AExhExp); 
 # TCOH
 	CTCOH = (CTCOH < 1.0e-15 ? 1.0e-15 : CTCOH);
+	CTCOHmol = (CTCOH < 1.0e-15 ? 1.0e-15 : CTCOH/MWTCOH);
 	CBodTCOH = (ABodTCOH < 1.0e-15 ? 1.0e-15 : ABodTCOH/VBodTCOH);
 	CKidTCOH = CBodTCOH;
 	CLivTCOH = (ALivTCOH < 1.0e-15 ? 1.0e-15 : ALivTCOH/VLiv);
+	CLivTCOHmol = (CLivTCOH < 1.0e-15 ? 1.0e-15 : CLivTCOH/MWTCOH);
 	CLungTCOH = CBodTCOH;
 # TCA
 	CPlasTCA = (CPlasTCA < 1.0e-15 ? 1.0e-15 : CPlasTCA);

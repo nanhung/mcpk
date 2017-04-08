@@ -1,5 +1,5 @@
 ## MCsim
-tar xf mcsim-5.6.5.tar #unzip
+tar -xzvf mcsim-5.6.5.tar.gz #unzip
 
 #install
 ./configure
