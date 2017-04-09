@@ -1,5 +1,13 @@
+##
+git rest --hard HEAD # the last commit
+
+git reset --hard f414f31
+git reset --soft HEAD@{1}
+git commit -m "Reverting to the state of the project at f414f31"
+
+
 ## MCsim
-tar -xzvf mcsim-5.6.5.tar.gz #unzip
+tar xf mcsim-5.6.5.tar #unzip
 
 #install
 ./configure
@@ -20,9 +28,8 @@ Launched as
 someone:~/workspace/R-3.0.3 $ R
 
 ## Git
-$ git checkout <brance>
-$ git branch -m 
-$ git reset --hard HEAD  # Status recover
+git checkout <brance>
+git branch -m 
 
 git remote add origin https://github.com/user/repo.git
 # Set a new remote

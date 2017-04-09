@@ -271,14 +271,7 @@ PDose = NDoses(2, 800 0 , 0 0.05 ) ; #(v2.10)
 TChng = 0.05 ;
 
 # Parameters
-Print( CLivTCAmol, 1, 2, 6, 12, 24, 36); #(v2.10)
-Print( CKidTCAmol, 1, 2, 6, 12, 24, 36); #(v2.10)
-Print( CBrnTCAmol, 1, 2, 6, 12, 24, 36); #(v2.10)
-Print( CPlasTCAmol, 1, 2, 6, 12, 24, 36); #(v2.10)
-Print( CTCOHmol, 1, 2, 6, 12, 24, 36); #(v2.10)
-Print( CLivTCOHmol, 1, 2, 6, 12, 24, 36); #(v2.10)
-Print( CDCVGmol , 1, 2, 6, 12, 24, 36); #(v2.10)
-Print( CDCVCmol , 1, 2, 6, 12, 24, 36); #(v2.10)
+Print( CPlasTCAmol, CLivTCAmol, CKidTCAmol, CBrnTCAmol,  1, 2, 6, 12, 24, 36); #(v2.10)
 
 } # End AU18042M
 
@@ -289,20 +282,12 @@ Male =  0 ;
 # Measured Covariates (if any)
 BWmeas =  0.0188 ;
 
-
 # Exposure/Dosing 
 PDose = NDoses(2, 800 0 , 0 0.05 ) ; #(v2.10)
 TChng = 0.05 ;
 
 # Parameters
-Print( CLivTCAmol, 1, 2, 6, 12, 24, 36); #(v2.10)
-Print( CKidTCAmol, 1, 2, 6, 12, 24, 36); #(v2.10)
-Print( CBrnTCAmol, 1, 2, 6, 12, 24, 36); #(v2.10)
-Print( CPlasTCAmol, 1, 2, 6, 12, 24, 36); #(v2.10)
-Print( CTCOHmol, 1, 2, 6, 12, 24, 36); #(v2.10)
-Print( CLivTCOHmol, 1, 2, 6, 12, 24, 36); #(v2.10)
-Print( CDCVGmol , 1, 2, 6, 12, 24, 36); #(v2.10)
-Print( CDCVCmol , 1, 2, 6, 12, 24, 36); #(v2.10)
+Print( CPlasTCAmol, CLivTCAmol, CKidTCAmol, CBrnTCAmol,  1, 2, 6, 12, 24, 36); #(v2.10)
 
 } # End AU8005M
 
@@ -313,20 +298,13 @@ Male = 1 ;
 # Measured Covariates (if any)
 BWmeas =  0.02266 ;
 
-
 # Exposure/Dosing 
 PDose = NDoses(2, 800 0 , 0 0.05 ) ; #(v2.10)
 TChng = 0.05 ;
 
 # Parameters
-Print( CLivTCAmol, 1, 2, 6, 12, 24, 36); #(v2.10)
-Print( CKidTCAmol, 1, 2, 6, 12, 24, 36); #(v2.10)
-Print( CBrnTCAmol, 1, 2, 6, 12, 24, 36); #(v2.10)
-Print( CPlasTCAmol, 1, 2, 6, 12, 24, 36); #(v2.10)
-Print( CTCOHmol, 1, 2, 6, 12, 24, 36); #(v2.10)
-Print( CLivTCOHmol, 1, 2, 6, 12, 24, 36); #(v2.10)
-Print( CDCVGmol , 1, 2, 6, 12, 24, 36); #(v2.10)
-Print( CDCVCmol , 1, 2, 6, 12, 24, 36); #(v2.10)
+Print( CPlasTCAmol, CLivTCAmol, CKidTCAmol, CBrnTCAmol,  1, 2, 6, 12, 24, 36); #(v2.10)
+
 } # End Experiment Random Strain
 
 Experiment { # AU8005F
@@ -336,20 +314,15 @@ Male =  0 ;
 # Measured Covariates (if any)
 BWmeas =  0.0177 ;
 
+
 # Exposure/Dosing 
 PDose = NDoses(2, 800 0 , 0 0.05 ) ; #(v2.10)
 TChng = 0.05 ;
 
 
 # Parameters
-Print( CLivTCAmol, 1, 2, 6, 12, 24, 36); #(v2.10)
-Print( CKidTCAmol, 1, 2, 6, 12, 24, 36); #(v2.10)
-Print( CBrnTCAmol, 1, 2, 6, 12, 24, 36); #(v2.10)
-Print( CPlasTCAmol, 1, 2, 6, 12, 24, 36); #(v2.10)
-Print( CTCOHmol, 1, 2, 6, 12, 24, 36); #(v2.10)
-Print( CLivTCOHmol, 1, 2, 6, 12, 24, 36); #(v2.10)
-Print( CDCVGmol , 1, 2, 6, 12, 24, 36); #(v2.10)
-Print( CDCVCmol , 1, 2, 6, 12, 24, 36); #(v2.10)
+Print( CPlasTCAmol, CLivTCAmol, CKidTCAmol, CBrnTCAmol,  1, 2, 6, 12, 24, 36); #(v2.10)
+
 } # End AU8005F
 
 Experiment { # AU8034M
@@ -365,14 +338,8 @@ PDose = NDoses(2, 800 0 , 0 0.05 ) ; #(v2.10)
 TChng = 0.05 ;
 
 # Parameters
-Print( CLivTCAmol, 1, 2, 6, 12, 24, 36); #(v2.10)
-Print( CKidTCAmol, 1, 2, 6, 12, 24, 36); #(v2.10)
-Print( CBrnTCAmol, 1, 2, 6, 12, 24, 36); #(v2.10)
-Print( CPlasTCAmol, 1, 2, 6, 12, 24, 36); #(v2.10)
-Print( CTCOHmol, 1, 2, 6, 12, 24, 36); #(v2.10)
-Print( CLivTCOHmol, 1, 2, 6, 12, 24, 36); #(v2.10)
-Print( CDCVGmol , 1, 2, 6, 12, 24, 36); #(v2.10)
-Print( CDCVCmol , 1, 2, 6, 12, 24, 36); #(v2.10)
+Print( CPlasTCAmol, CLivTCAmol, CKidTCAmol, CBrnTCAmol,  1, 2, 6, 12, 24, 36); #(v2.10)
+
 } # End AU8034M
 
 Experiment { # AU8034F
@@ -382,20 +349,13 @@ Male =  0 ;
 # Measured Covariates (if any)
 BWmeas =  0.0195 ;
 
-
 # Exposure/Dosing 
 PDose = NDoses(2, 800 0 , 0 0.05 ) ; #(v2.10)
 TChng = 0.05 ;
 
 # Parameters
-Print( CLivTCAmol, 1, 2, 6, 12, 24, 36); #(v2.10)
-Print( CKidTCAmol, 1, 2, 6, 12, 24, 36); #(v2.10)
-Print( CBrnTCAmol, 1, 2, 6, 12, 24, 36); #(v2.10)
-Print( CPlasTCAmol, 1, 2, 6, 12, 24, 36); #(v2.10)
-Print( CTCOHmol, 1, 2, 6, 12, 24, 36); #(v2.10)
-Print( CLivTCOHmol, 1, 2, 6, 12, 24, 36); #(v2.10)
-Print( CDCVGmol , 1, 2, 6, 12, 24, 36); #(v2.10)
-Print( CDCVCmol , 1, 2, 6, 12, 24, 36); #(v2.10)
+Print( CPlasTCAmol, CLivTCAmol, CKidTCAmol, CBrnTCAmol,  1, 2, 6, 12, 24, 36); #(v2.10)
+
 } # End AU8034F
 
 Experiment { # IL1688M
@@ -405,20 +365,13 @@ Male = 1 ;
 # Measured Covariates (if any)
 BWmeas =  0.0304 ;
 
-
 # Exposure/Dosing 
 PDose = NDoses(2, 800 0 , 0 0.05 ) ; #(v2.10)
 TChng = 0.05 ;
 
 # Parameters
-Print( CLivTCAmol, 1, 2, 6, 12, 24, 36); #(v2.10)
-Print( CKidTCAmol, 1, 2, 6, 12, 24, 36); #(v2.10)
-Print( CBrnTCAmol, 1, 2, 6, 12, 24, 36); #(v2.10)
-Print( CPlasTCAmol, 1, 2, 6, 12, 24, 36); #(v2.10)
-Print( CTCOHmol, 1, 2, 6, 12, 24, 36); #(v2.10)
-Print( CLivTCOHmol, 1, 2, 6, 12, 24, 36); #(v2.10)
-Print( CDCVGmol , 1, 2, 6, 12, 24, 36); #(v2.10)
-Print( CDCVCmol , 1, 2, 6, 12, 24, 36); #(v2.10)
+Print( CPlasTCAmol, CLivTCAmol, CKidTCAmol, CBrnTCAmol,  1, 2, 6, 12, 24, 36); #(v2.10)
+
 } # End IL1688M
 
 Experiment { # IL1688F
@@ -428,183 +381,13 @@ Male =  0 ;
 # Measured Covariates (if any)
 BWmeas =  0.02523 ;
 
-
 # Exposure/Dosing 
 PDose = NDoses(2, 800 0 , 0 0.05 ) ; #(v2.10)
 TChng = 0.05 ;
 
 # Parameters
-Print( CLivTCAmol, 1, 2, 6, 12, 24, 36); #(v2.10)
-Print( CKidTCAmol, 1, 2, 6, 12, 24, 36); #(v2.10)
-Print( CBrnTCAmol, 1, 2, 6, 12, 24, 36); #(v2.10)
-Print( CPlasTCAmol, 1, 2, 6, 12, 24, 36); #(v2.10)
-Print( CTCOHmol, 1, 2, 6, 12, 24, 36); #(v2.10)
-Print( CLivTCOHmol, 1, 2, 6, 12, 24, 36); #(v2.10)
-Print( CDCVGmol , 1, 2, 6, 12, 24, 36); #(v2.10)
-Print( CDCVCmol , 1, 2, 6, 12, 24, 36); #(v2.10)
+Print( CPlasTCAmol, CLivTCAmol, CKidTCAmol, CBrnTCAmol,  1, 2, 6, 12, 24, 36); #(v2.10)
+
 } # End IL1688F
 
 End.
-
-Print(	  QCnow	,0);
-Data(	  QCnow	,-1);
-Print(	  QP	,0);
-Data(	  QP	,-1);
-Print(	  QFatSC	,0);
-Data(	  QFatSC	,-1);
-Print(	  QGutSC	,0);
-Data(	  QGutSC	,-1);
-Print(	  QLivSC	,0);
-Data(	  QLivSC	,-1);
-Print(	  QSlwSC	,0);
-Data(	  QSlwSC	,-1);
-Print(	  QRapSC	,0);
-Data(	  QRapSC	,-1);
-Print(	  QKidSC	,0);
-Data(	  QKidSC	,-1);
-Print(	  QBrnSC	,0);  #(v2.10)
-Data(	  QBrnSC	,-1);  #(v2.10)
-Print(	  DResp	,0);
-Data(	  DResp	,-1);
-Print(	  VFatSC	,0);
-Data(	  VFatSC	,-1);
-Print(	  VGutSC	,0);
-Data(	  VGutSC	,-1);
-Print(	  VLivSC	,0);
-Data(	  VLivSC	,-1);
-Print(	  VRapSC	,0);
-Data(	  VRapSC	,-1);
-Print(	  VRespLumSC	,0);
-Data(	  VRespLumSC	,-1);
-Print(	  VRespEffSC	,0);
-Data(	  VRespEffSC	,-1);
-Print(	  VKidSC	,0);
-Data(	  VKidSC	,-1);
-Print(	  VBrnSC	,0);  #(v2.10)
-Data(	  VBrnSC	,-1);  #(v2.10)
-Print(	  VBldSC	,0);
-Data(	  VBldSC	,-1);
-Print(	  VSlwSC	,0);
-Data(	  VSlwSC	,-1);
-Print(	  VPlasSC	,0);
-Data(	  VPlasSC	,-1);
-Print(	  VBodSC	,0);
-Data(	  VBodSC	,-1);
-Print(	  VBodTCOHSC	,0);
-Data(	  VBodTCOHSC	,-1);
-Print(	  PB	,0);
-Data(	  PB	,-1);
-Print(	  PFat	,0);
-Data(	  PFat	,-1);
-Print(	  PBrn	,0); #(v2.10)
-Data(	  PBrn	,-1); #(v2.10)
-Print(	  PGut	,0);
-Data(	  PGut	,-1);
-Print(	  PLiv	,0);
-Data(	  PLiv	,-1);
-Print(	  PRap	,0);
-Data(	  PRap	,-1);
-Print(	  PResp	,0);
-Data(	  PResp	,-1);
-Print(	  PKid	,0);
-Data(	  PKid	,-1);
-Print(	  PSlw	,0);
-Data(	  PSlw	,-1);
-Print(	  TCAPlas	,0);
-Data(	  TCAPlas	,-1);
-Print(	  PBodTCA	,0);
-Data(	  PBodTCA	,-1);
-Print(	  PLivTCA	,0);
-Data(	  PLivTCA	,-1);
-Print(	  PKidTCA	,0); #(v2.10)
-Data(	  PKidTCA	,-1); #(v2.10)
-Print(	  PBrnTCA	,0); #(v2.10)
-Data(	  PBrnTCA	,-1); #(v2.10)
-Print(	  kDissoc	,0);
-Data(	  kDissoc	,-1);
-Print(	  BMax	,0);
-Data(	  BMax	,-1);
-Print(	  PBodTCOH	,0);
-Data(	  PBodTCOH	,-1);
-Print(	  PLivTCOH	,0);
-Data(	  PLivTCOH	,-1);
-Print(	  PBodTCOG	,0);
-Data(	  PBodTCOG	,-1);
-Print(	  PLivTCOG	,0);
-Data(	  PLivTCOG	,-1);
-Print(	  VDCVG	,0);
-Data(	  VDCVG	,-1);
-Print(	  VDCVC	,0);
-Data(	  VDCVC	,-1);
-Print(	  VDCA	,0);
-Data(	  VDCA	,-1);
-Print(	  kAS	,0);
-Data(	  kAS	,-1);
-Print(	  kTSD	,0);
-Data(	  kTSD	,-1);
-Print(	  kAD	,0);
-Data(	  kAD	,-1);
-Print(	  kTD	,0);
-Data(	  kTD	,-1);
-Print(	  kASTCA	,0);
-Data(	  kASTCA	,-1);
-Print(	  kASTCOH	,0);
-Data(	  kASTCOH	,-1);
-Print(	  VMax	,0);
-Data(	  VMax	,-1);
-Print(	  KM	,0);
-Data(	  KM	,-1);
-Print(	  FracOther	,0);
-Data(	  FracOther	,-1);
-Print(	  FracTCA	,0);
-Data(	  FracTCA	,-1);
-Print(	  VMaxDCVG	,0);
-Data(	  VMaxDCVG	,-1);
-Print(	  KMDCVG	,0);
-Data(	  KMDCVG	,-1);
-Print(	  ClDCVG	,0);
-Data(	  ClDCVG	,-1);
-Print(	  VMaxKidDCVG	,0);
-Data(	  VMaxKidDCVG	,-1);
-Print(	  KMKidDCVG	,0);
-Data(	  KMKidDCVG	,-1);
-Print(	  FracKidDCVC	,0);
-Data(	  FracKidDCVC	,-1);
-Print(	  VMaxClara	,0);
-Data(	  VMaxClara	,-1);
-Print(	  KMClara	,0);
-Data(	  KMClara	,-1);
-Print(	  FracLungSys	,0);
-Data(	  FracLungSys	,-1);
-Print(	  kClearDCA	,0);
-Data(	  kClearDCA	,-1);
-Print(	  kDCAcen_per	,0);
-Data(	  kDCAcen_per	,-1);
-Print(	  kDCAper_cen	,0);
-Data(	  kDCAper_cen	,-1);
-Print(	  VMaxTCOH	,0);
-Data(	  VMaxTCOH	,-1);
-Print(	  KMTCOH	,0);
-Data(	  KMTCOH	,-1);
-Print(	  VMaxGluc	,0);
-Data(	  VMaxGluc	,-1);
-Print(	  KMGluc	,0);
-Data(	  KMGluc	,-1);
-Print(	  kMetTCOH	,0);
-Data(	  kMetTCOH	,-1);
-Print(	  kUrnTCA	,0);
-Data(	  kUrnTCA	,-1);
-Print(	  kMetTCA	,0);
-Data(	  kMetTCA	,-1);
-Print(	  kBile	,0);
-Data(	  kBile	,-1);
-Print(	  kEHR	,0);
-Data(	  kEHR	,-1);
-Print(	  kUrnTCOG	,0);
-Data(	  kUrnTCOG	,-1);
-Print(	  kDCVG	,0);
-Data(	  kDCVG	,-1);
-Print(	  kElimDCVC	,0);
-Data(	  kElimDCVC	,-1);
-Print(	  AExh	,72);
-Data(	  AExh	,-1);
