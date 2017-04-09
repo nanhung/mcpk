@@ -271,7 +271,8 @@ PDose = NDoses(2, 800 0 , 0 0.05 ) ; #(v2.10)
 TChng = 0.05 ;
 
 # Parameters
-Print( CPlasTCAmol, CLivTCAmol, CKidTCAmol, CBrnTCAmol,  1, 2, 6, 12, 24, 36); #(v2.10)
+Print( CPlasTCAmol, CLivTCAmol, CKidTCAmol, CBrnTCAmol,
+CTCOHmol, CLivTCOHmol, CDCVGmol, CDCVCmol,  1, 2, 6, 12, 24, 36); #(v2.10)
 
 } # End AU18042M
 
@@ -287,9 +288,9 @@ PDose = NDoses(2, 800 0 , 0 0.05 ) ; #(v2.10)
 TChng = 0.05 ;
 
 # Parameters
-Print( CPlasTCAmol, CLivTCAmol, CKidTCAmol, CBrnTCAmol,  1, 2, 6, 12, 24, 36); #(v2.10)
-
-} # End AU8005M
+Print( CPlasTCAmol, CLivTCAmol, CKidTCAmol, CBrnTCAmol,
+CTCOHmol, CLivTCOHmol, CDCVGmol, CDCVCmol,  1, 2, 6, 12, 24, 36); #(v2.10)
+} # End AU18042F
 
 Experiment { # AU8005M
 Species = 3 ;
@@ -389,5 +390,21 @@ TChng = 0.05 ;
 Print( CPlasTCAmol, CLivTCAmol, CKidTCAmol, CBrnTCAmol,  1, 2, 6, 12, 24, 36); #(v2.10)
 
 } # End IL1688F
+
+Experiment { # Begin Abbas97a TCEmceB6aMorloil12e 
+Species =  3 ;
+Male =  1 ;
+
+# Measured Covariates (if any)
+BWmeas =  0.0275 ;
+
+# Exposure/Dosing
+PDose = NDoses(2, 1200 0 , 0 0.05 );
+TChng =  0.05 ;
+
+# Data
+Print( CVen, CLiv, CKid, CFat, CBldTCA, CLivTCA, CTCOH, CLivTCOH, CTCOGTCOH, CLivTCOGTCOH,  
+0.083, 0.17, 0.25, 0.5, 0.75, 1, 1.5, 2, 3, 4, 6, 8, 16, 24); #(v2.0)
+} # End Abbas97a TCEmceB6aMorloil12e 
 
 End.
