@@ -1,5 +1,5 @@
 rm(list = ls())
-#
+
 system("./mcsim.TCE.2.10 TCE.2.10.forAbhi-BW.in")
 
 df <- read.delim("TCE.2.10.forAbhi-BW.out", head = T)
@@ -125,7 +125,7 @@ LivTCOH.9.1 <-LivTCOHAbbas97a.1.1:(LivTCOHAbbas97a.1.1+nrow(Abbas97a.LivTCOH.1.1
 BldTCOGTCOH.9.1 <-BldTCOGTCOHAbbas97a.1.1:(BldTCOGTCOHAbbas97a.1.1+nrow(Abbas97a.BldTCOGTCOH.1.1)-1)
 LivTCOGTCOH.9.1 <-LivTCOGTCOHAbbas97a.1.1:(LivTCOGTCOHAbbas97a.1.1+nrow(Abbas97a.LivTCOGTCOH.1.1)-1)
 
-
+source("Abbas97a_1.R")
 
 
 # AU8005

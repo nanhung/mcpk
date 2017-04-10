@@ -1,5 +1,6 @@
 png(file="Abbas97a1.1.png",width=2400,height=2000,res=250)
 par(mfrow=c(3,4))
+
 #Ven
 for (i in 1:dim(df)[1]) {
   if (i == 1) {
