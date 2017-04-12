@@ -122,65 +122,6 @@ SrmDCVC.1.2 <- SrmDCVC18042F:(SrmDCVC18042F+5)
 
 source("AU18042.R")
 
-#
-tVen<-c(0.083, 0.17, 0.25, 0.5, 0.75, 1, 1.5, 2, 3, 4, 8, 12, 16, 24 );
-CVen<-c(165.87, 191.31, 123.52, 86.9, 70.9, 43.08, 35.17, 20.36, 8.97, 7.5, 1.64, 0.72, 0.47, 0.52 );
-tLiv<-c(0.083, 0.17, 0.25, 0.5, 0.75, 1, 1.5, 2, 4, 6, 8, 16, 24 );
-CLiv<-c(522.6, 585.3, 499.4, 408, 289.8, 228.8, 63.04, 38.97, 26.5, 15.37, 14.97, 12.86, 1.79 );
-tKid<-c(0.083, 0.17, 0.25, 0.5, 0.75, 1, 1.5, 2, 3, 6, 8, 16, 24 );
-CKid<-c(144.9, 171.3, 265.6, 282.6, 1095.6, 690.1, 303.8, 109.8, 32.4, 40.2, 17.3, 3.6, 2.2 );
-tFat<-c(0.083, 0.17, 0.25, 0.5, 0.75, 1.5, 2, 3, 4, 6, 8, 16, 24 );
-CFat<-c(61.53, 156.7, 567.2, 826, 865.3, 1199.9, 1050.5, 550.2, 485, 219.2, 293.7, 4.4, 1.446 );
-
-tBldTCA<-c(0.25, 0.5, 0.75, 1, 1.5, 2, 3, 4, 6, 8, 16, 24, 30, 40 );
-CBldTCA<-c(16.5, 23.1, 29.2, 36.1, 41.8, 59.1, 64, 70.2, 94.1, 90.8, 65.2, 43.86, 41.48, 9.15 );
-tLivTCA<-c(0.25, 0.5, 0.75, 1, 1.5, 2, 3, 4, 6, 8, 16, 24, 30, 40 );
-CLivTCA<-c(11.09, 16.95, 20.09, 26.02, 29.44, 35.65, 37.76, 42.07, 43.92, 57.83, 27.71, 18.801, 22.67, 6.34 );
-tTCOH<-c(0.25, 0.5, 0.75, 1, 1.5, 2, 3, 4, 6, 12 );
-CTCOH<-c(18.83, 27.73, 31.36, 35.42, 28.26, 41.86, 21.54, 24.64, 4.589, 4.487 );
-tLivTCOH<-c(0.25, 0.5, 0.75, 1, 1.5, 2, 3, 4, 6, 8, 16 );
-CLivTCOH<-c(65.35, 75.33, 98.28, 105.3, 88.25, 92.24, 55.03, 57.64, 35.96, 37.45, 10.12 );
-
-tTCOGTCOH<-c(0.25, 0.5, 0.75, 1, 1.5, 2, 3, 4, 6, 8, 16 );
-CTCOGTCOH<-c(62.12, 63.13, 67.59, 50.86, 64.31, 95.02, 41.5, 46.7, 51.86, 40.88, 10.11 );
-tLivTCOGTCOH<-c(0.25, 0.5, 0.75, 1, 1.5, 2, 3, 4, 6, 8 );
-CLivTCOGTCOH<-c(23.67, 23.3, 19.03, 34.89, 54.87, 62.31, 74.66, 76.92, 26.66, 55.43 );
-
-Abbas97a.Ven.1.1<-data.frame(tVen,CVen)
-Abbas97a.Liv.1.1<-data.frame(tLiv,CLiv)
-Abbas97a.Kid.1.1<-data.frame(tKid,CKid)
-Abbas97a.Fat.1.1<-data.frame(tFat,CFat)
-Abbas97a.BldTCA.1.1<-data.frame(tBldTCA,CBldTCA)
-Abbas97a.LivTCA.1.1<-data.frame(tLivTCA,CLivTCA)
-Abbas97a.BldTCOH.1.1<-data.frame(tTCOH,CTCOH)
-Abbas97a.LivTCOH.1.1<-data.frame(tLivTCOH,CLivTCOH)
-Abbas97a.BldTCOGTCOH.1.1<-data.frame(tTCOGTCOH,CTCOGTCOH)
-Abbas97a.LivTCOGTCOH.1.1<-data.frame(tLivTCOGTCOH,CLivTCOGTCOH)
-
-VenAbbas97a.1.1 <- which(colnames(df)=="CVen_9.1")
-LivAbbas97a.1.1 <- which(colnames(df)=="CLiv_9.1")
-KidAbbas97a.1.1 <- which(colnames(df)=="CKid_9.1")
-FatAbbas97a.1.1 <- which(colnames(df)=="CFat_9.1")
-BldTCAAbbas97a.1.1 <- which(colnames(df)=="CBldTCA_9.1")
-LivTCAAbbas97a.1.1 <- which(colnames(df)=="CLivTCA_9.1")
-BldTCOHAbbas97a.1.1 <- which(colnames(df)=="CTCOH_9.1")
-LivTCOHAbbas97a.1.1 <- which(colnames(df)=="CLivTCOH_9.1")
-BldTCOGTCOHAbbas97a.1.1 <- which(colnames(df)=="CTCOGTCOH_9.1")
-LivTCOGTCOHAbbas97a.1.1 <- which(colnames(df)=="CLivTCOGTCOH_9.1")
-
-Ven.9.1 <-VenAbbas97a.1.1:(VenAbbas97a.1.1+nrow(Abbas97a.Ven.1.1)-1)
-Liv.9.1 <-LivAbbas97a.1.1:(LivAbbas97a.1.1+nrow(Abbas97a.Liv.1.1)-1)
-Kid.9.1 <-KidAbbas97a.1.1:(KidAbbas97a.1.1+nrow(Abbas97a.Kid.1.1)-1)
-Fat.9.1 <-FatAbbas97a.1.1:(FatAbbas97a.1.1+nrow(Abbas97a.Fat.1.1)-1)
-BldTCA.9.1 <-BldTCAAbbas97a.1.1:(BldTCAAbbas97a.1.1+nrow(Abbas97a.BldTCA.1.1)-1)
-LivTCA.9.1 <-LivTCAAbbas97a.1.1:(LivTCAAbbas97a.1.1+nrow(Abbas97a.LivTCA.1.1)-1)
-BldTCOH.9.1 <-BldTCOHAbbas97a.1.1:(BldTCOHAbbas97a.1.1+nrow(Abbas97a.BldTCOH.1.1)-1)
-LivTCOH.9.1 <-LivTCOHAbbas97a.1.1:(LivTCOHAbbas97a.1.1+nrow(Abbas97a.LivTCOH.1.1)-1)
-BldTCOGTCOH.9.1 <-BldTCOGTCOHAbbas97a.1.1:(BldTCOGTCOHAbbas97a.1.1+nrow(Abbas97a.BldTCOGTCOH.1.1)-1)
-LivTCOGTCOH.9.1 <-LivTCOGTCOHAbbas97a.1.1:(LivTCOGTCOHAbbas97a.1.1+nrow(Abbas97a.LivTCOGTCOH.1.1)-1)
-
-source("Abbas97a_1.R")
-
 
 ## AU8005 df ----
 M.b.wt<-c(25.5,26.6,25,20.6,21,19.8,20.1)
@@ -545,4 +486,123 @@ SrmDCVG.4.2 <- SrmDCVG1688F:(SrmDCVG1688F+5)
 SrmDCVC.4.2 <- SrmDCVC1688F:(SrmDCVC1688F+5)
 
 source("IL1688.R")
+
+# Abbas97a_600 ----
+tVen<-c(0.25, 0.5, 2, 4, 8);
+CVen<-c(81.9, 71.3, 5.71, 1.94, 0.965);
+tLiv<-c(0.25, 0.5, 2, 4, 8, 24);
+CLiv<-c(213.5, 163.8, 19.43, 10.63, 0.71, 0.339);
+tKid<-c(0.25, 0.5, 2, 4, 8, 24);
+CKid<-c(83.08, 135.5, 15.98, 10.89, 5.4, 0.42);
+tFat<-c(0.25, 0.5, 2, 4, 8, 16, 24);
+CFat<-c( 278.5, 659, 468.91, 46.76, 9.48, 0.71, 0.32);
+
+tBldTCA<-c(0.25, 0.5, 2, 4, 8, 16, 24, 40);
+CBldTCA<-c(11.18, 14.26, 26.98, 31.73, 31.87, 29.48, 24.81, 21.1 );
+tLivTCA<-c(0.25, 0.5, 2, 4, 8, 16, 24, 30, 40);
+CLivTCA<-c(11.2, 22.9, 33.5, 39.9, 54.99, 39.06, 28.2, 15.2, 7.6);
+tTCOH<-c(0.25, 0.5, 2, 4, 8, 12);
+CTCOH<-c(18.8, 26.76, 24.01, 8.23, 2.16, 1.02);
+tLivTCOH<-c(0.25, 0.5, 2, 4, 8, 12);
+CLivTCOH<-c(50.25, 46.83, 36.29, 21.06, 11.24, 4.29);
+
+tTCOGTCOH<-c(0.25, 0.5, 2, 4, 8, 12);
+CTCOGTCOH<-c(10.51, 39.66, 27.01, 23.55, 14.76, 6.89);
+tLivTCOGTCOH<-c(0.25, 0.5, 2, 4, 8);
+CLivTCOGTCOH<-c(18.45, 20.07, 39.44, 19.59, 46.06);
+
+Abbas97a.Ven.1.1<-data.frame(tVen,CVen)
+Abbas97a.Liv.1.1<-data.frame(tLiv,CLiv)
+Abbas97a.Kid.1.1<-data.frame(tKid,CKid)
+Abbas97a.Fat.1.1<-data.frame(tFat,CFat)
+Abbas97a.BldTCA.1.1<-data.frame(tBldTCA,CBldTCA)
+Abbas97a.LivTCA.1.1<-data.frame(tLivTCA,CLivTCA)
+Abbas97a.BldTCOH.1.1<-data.frame(tTCOH,CTCOH)
+Abbas97a.LivTCOH.1.1<-data.frame(tLivTCOH,CLivTCOH)
+Abbas97a.BldTCOGTCOH.1.1<-data.frame(tTCOGTCOH,CTCOGTCOH)
+Abbas97a.LivTCOGTCOH.1.1<-data.frame(tLivTCOGTCOH,CLivTCOGTCOH)
+
+VenAbbas97a.1.1 <- which(colnames(df)=="CVen_9.1")
+LivAbbas97a.1.1 <- which(colnames(df)=="CLiv_9.1")
+KidAbbas97a.1.1 <- which(colnames(df)=="CKid_9.1")
+FatAbbas97a.1.1 <- which(colnames(df)=="CFat_9.1")
+BldTCAAbbas97a.1.1 <- which(colnames(df)=="CBldTCA_9.1")
+LivTCAAbbas97a.1.1 <- which(colnames(df)=="CLivTCA_9.1")
+BldTCOHAbbas97a.1.1 <- which(colnames(df)=="CTCOH_9.1")
+LivTCOHAbbas97a.1.1 <- which(colnames(df)=="CLivTCOH_9.1")
+BldTCOGTCOHAbbas97a.1.1 <- which(colnames(df)=="CTCOGTCOH_9.1")
+LivTCOGTCOHAbbas97a.1.1 <- which(colnames(df)=="CLivTCOGTCOH_9.1")
+
+Ven.9.1 <-VenAbbas97a.1.1:(VenAbbas97a.1.1+nrow(Abbas97a.Ven.1.1)-1)
+Liv.9.1 <-LivAbbas97a.1.1:(LivAbbas97a.1.1+nrow(Abbas97a.Liv.1.1)-1)
+Kid.9.1 <-KidAbbas97a.1.1:(KidAbbas97a.1.1+nrow(Abbas97a.Kid.1.1)-1)
+Fat.9.1 <-FatAbbas97a.1.1:(FatAbbas97a.1.1+nrow(Abbas97a.Fat.1.1)-1)
+BldTCA.9.1 <-BldTCAAbbas97a.1.1:(BldTCAAbbas97a.1.1+nrow(Abbas97a.BldTCA.1.1)-1)
+LivTCA.9.1 <-LivTCAAbbas97a.1.1:(LivTCAAbbas97a.1.1+nrow(Abbas97a.LivTCA.1.1)-1)
+BldTCOH.9.1 <-BldTCOHAbbas97a.1.1:(BldTCOHAbbas97a.1.1+nrow(Abbas97a.BldTCOH.1.1)-1)
+LivTCOH.9.1 <-LivTCOHAbbas97a.1.1:(LivTCOHAbbas97a.1.1+nrow(Abbas97a.LivTCOH.1.1)-1)
+BldTCOGTCOH.9.1 <-BldTCOGTCOHAbbas97a.1.1:(BldTCOGTCOHAbbas97a.1.1+nrow(Abbas97a.BldTCOGTCOH.1.1)-1)
+LivTCOGTCOH.9.1 <-LivTCOGTCOHAbbas97a.1.1:(LivTCOGTCOHAbbas97a.1.1+nrow(Abbas97a.LivTCOGTCOH.1.1)-1)
+
+source("Abbas97a_600.R")
+
+
+# Abbas97a_1200 ----
+tVen<-c(0.083, 0.17, 0.25, 0.5, 0.75, 1, 1.5, 2, 3, 4, 8, 12, 16, 24 );
+CVen<-c(165.87, 191.31, 123.52, 86.9, 70.9, 43.08, 35.17, 20.36, 8.97, 7.5, 1.64, 0.72, 0.47, 0.52 );
+tLiv<-c(0.083, 0.17, 0.25, 0.5, 0.75, 1, 1.5, 2, 4, 6, 8, 16, 24 );
+CLiv<-c(522.6, 585.3, 499.4, 408, 289.8, 228.8, 63.04, 38.97, 26.5, 15.37, 14.97, 12.86, 1.79 );
+tKid<-c(0.083, 0.17, 0.25, 0.5, 0.75, 1, 1.5, 2, 3, 6, 8, 16, 24 );
+CKid<-c(144.9, 171.3, 265.6, 282.6, 1095.6, 690.1, 303.8, 109.8, 32.4, 40.2, 17.3, 3.6, 2.2 );
+tFat<-c(0.083, 0.17, 0.25, 0.5, 0.75, 1.5, 2, 3, 4, 6, 8, 16, 24 );
+CFat<-c(61.53, 156.7, 567.2, 826, 865.3, 1199.9, 1050.5, 550.2, 485, 219.2, 293.7, 4.4, 1.446 );
+
+tBldTCA<-c(0.25, 0.5, 0.75, 1, 1.5, 2, 3, 4, 6, 8, 16, 24, 30, 40 );
+CBldTCA<-c(16.5, 23.1, 29.2, 36.1, 41.8, 59.1, 64, 70.2, 94.1, 90.8, 65.2, 43.86, 41.48, 9.15 );
+tLivTCA<-c(0.25, 0.5, 0.75, 1, 1.5, 2, 3, 4, 6, 8, 16, 24, 30, 40 );
+CLivTCA<-c(11.09, 16.95, 20.09, 26.02, 29.44, 35.65, 37.76, 42.07, 43.92, 57.83, 27.71, 18.801, 22.67, 6.34 );
+tTCOH<-c(0.25, 0.5, 0.75, 1, 1.5, 2, 3, 4, 6, 12 );
+CTCOH<-c(18.83, 27.73, 31.36, 35.42, 28.26, 41.86, 21.54, 24.64, 4.589, 4.487 );
+tLivTCOH<-c(0.25, 0.5, 0.75, 1, 1.5, 2, 3, 4, 6, 8, 16 );
+CLivTCOH<-c(65.35, 75.33, 98.28, 105.3, 88.25, 92.24, 55.03, 57.64, 35.96, 37.45, 10.12 );
+
+tTCOGTCOH<-c(0.25, 0.5, 0.75, 1, 1.5, 2, 3, 4, 6, 8, 16 );
+CTCOGTCOH<-c(62.12, 63.13, 67.59, 50.86, 64.31, 95.02, 41.5, 46.7, 51.86, 40.88, 10.11 );
+tLivTCOGTCOH<-c(0.25, 0.5, 0.75, 1, 1.5, 2, 3, 4, 6, 8 );
+CLivTCOGTCOH<-c(23.67, 23.3, 19.03, 34.89, 54.87, 62.31, 74.66, 76.92, 26.66, 55.43 );
+
+Abbas97a.Ven.1.2<-data.frame(tVen,CVen)
+Abbas97a.Liv.1.2<-data.frame(tLiv,CLiv)
+Abbas97a.Kid.1.2<-data.frame(tKid,CKid)
+Abbas97a.Fat.1.2<-data.frame(tFat,CFat)
+Abbas97a.BldTCA.1.2<-data.frame(tBldTCA,CBldTCA)
+Abbas97a.LivTCA.1.2<-data.frame(tLivTCA,CLivTCA)
+Abbas97a.BldTCOH.1.2<-data.frame(tTCOH,CTCOH)
+Abbas97a.LivTCOH.1.2<-data.frame(tLivTCOH,CLivTCOH)
+Abbas97a.BldTCOGTCOH.1.2<-data.frame(tTCOGTCOH,CTCOGTCOH)
+Abbas97a.LivTCOGTCOH.1.2<-data.frame(tLivTCOGTCOH,CLivTCOGTCOH)
+
+VenAbbas97a.1.2 <- which(colnames(df)=="CVen_10.1")
+LivAbbas97a.1.2 <- which(colnames(df)=="CLiv_10.1")
+KidAbbas97a.1.2 <- which(colnames(df)=="CKid_10.1")
+FatAbbas97a.1.2 <- which(colnames(df)=="CFat_10.1")
+BldTCAAbbas97a.1.2 <- which(colnames(df)=="CBldTCA_10.1")
+LivTCAAbbas97a.1.2 <- which(colnames(df)=="CLivTCA_10.1")
+BldTCOHAbbas97a.1.2 <- which(colnames(df)=="CTCOH_10.1")
+LivTCOHAbbas97a.1.2 <- which(colnames(df)=="CLivTCOH_10.1")
+BldTCOGTCOHAbbas97a.1.2 <- which(colnames(df)=="CTCOGTCOH_10.1")
+LivTCOGTCOHAbbas97a.1.2 <- which(colnames(df)=="CLivTCOGTCOH_10.1")
+
+Ven.10.1 <-VenAbbas97a.1.2:(VenAbbas97a.1.2+nrow(Abbas97a.Ven.1.2)-1)
+Liv.10.1 <-LivAbbas97a.1.2:(LivAbbas97a.1.2+nrow(Abbas97a.Liv.1.2)-1)
+Kid.10.1 <-KidAbbas97a.1.2:(KidAbbas97a.1.2+nrow(Abbas97a.Kid.1.2)-1)
+Fat.10.1 <-FatAbbas97a.1.2:(FatAbbas97a.1.2+nrow(Abbas97a.Fat.1.2)-1)
+BldTCA.10.1 <-BldTCAAbbas97a.1.2:(BldTCAAbbas97a.1.2+nrow(Abbas97a.BldTCA.1.2)-1)
+LivTCA.10.1 <-LivTCAAbbas97a.1.2:(LivTCAAbbas97a.1.2+nrow(Abbas97a.LivTCA.1.2)-1)
+BldTCOH.10.1 <-BldTCOHAbbas97a.1.2:(BldTCOHAbbas97a.1.2+nrow(Abbas97a.BldTCOH.1.2)-1)
+LivTCOH.10.1 <-LivTCOHAbbas97a.1.2:(LivTCOHAbbas97a.1.2+nrow(Abbas97a.LivTCOH.1.2)-1)
+BldTCOGTCOH.10.1 <-BldTCOGTCOHAbbas97a.1.2:(BldTCOGTCOHAbbas97a.1.2+nrow(Abbas97a.BldTCOGTCOH.1.2)-1)
+LivTCOGTCOH.10.1 <-LivTCOGTCOHAbbas97a.1.2:(LivTCOGTCOHAbbas97a.1.2+nrow(Abbas97a.LivTCOGTCOH.1.2)-1)
+
+source("Abbas97a_1200.R")
   
