@@ -223,11 +223,11 @@ for (i in 1:dim(df)[1]) {
   if (i == 1) {
     plot(time, df[i,LivTCOH.3.1], xlab = " ", ylab = "",
          main = "Liver TCOH (mmol/l)", las = 1, col = "grey", pch = 20, cex.lab = 1.2,
-         type = "b", log="xy", ylim=c(10^-5, 10^0), cex.main = 1.2)
+         type = "b", log="xy", ylim=c(10^-5, 10^1), cex.main = 1.2)
   } else {
     plot(time, df[i,LivTCOH.3.1], xlab = "", ylab = "", xaxt = "n", yaxt = "n",
          main = "", las = 1, col = "grey", pch = 20,
-         type = "b", log="xy", ylim=c(10^-5, 10^0)) 
+         type = "b", log="xy", ylim=c(10^-5, 10^1)) 
   }
   par(new=T)
 }
@@ -498,11 +498,11 @@ for (i in 1:dim(df)[1]) {
   if (i == 1) {
     plot(time, df[i,LivTCOH.3.2], xlab = " ", ylab = "",
          main = "Liver TCOH (mmol/l)", las = 1, col = "grey", pch = 20, cex.lab = 1.2,
-         type = "b", log="xy", ylim=c(10^-5, 10^0), cex.main = 1.2)
+         type = "b", log="xy", ylim=c(10^-5, 10^1), cex.main = 1.2)
   } else {
     plot(time, df[i,LivTCOH.3.2], xlab = "", ylab = "", xaxt = "n", yaxt = "n",
          main = "", las = 1, col = "grey", pch = 20,
-         type = "b", log="xy", ylim=c(10^-5, 10^0)) 
+         type = "b", log="xy", ylim=c(10^-5, 10^1)) 
   }
   par(new=T)
 }
