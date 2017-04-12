@@ -1,6 +1,9 @@
-png(file="Abbas97a1.1.png",width=2400,height=2000,res=250)
-par(mfrow=c(3,4))
-
+png(file="Abbas97a1.1.png",width=2800,height=2400,res=250)
+par(mar=c(2.5,3.5,1.2,1))
+layout(matrix(c(1,1,1,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17),
+              ncol=4, byrow = T),heights=c(1,3,3,3,3))
+plot.new()
+text(0.5,0.5,"Abbas and Fisher 1997 Male (B6C3F1) - 1200 mg/kg TCE",cex=2,font=2)
 #Ven
 for (i in 1:dim(df)[1]) {
   if (i == 1) {

@@ -308,13 +308,18 @@ Male = 1 ;
 
 # Measured Covariates (if any)
 BWmeas =  0.02266 ;
+VLivC = 0.9258053 ;
+VKidC = 0.7716492 ;
+VBrnC = 0.8997687 ;
 
 # Exposure/Dosing 
 PDose = NDoses(2, 800 0 , 0 0.05 ) ; #(v2.10)
 TChng = 0.05 ;
 
 # Parameters
-Print( CPlasTCAmol, CLivTCAmol, CKidTCAmol, CBrnTCAmol,  1, 2, 6, 12, 24, 36); #(v2.10)
+Print( CVen, CLiv, CKid, CFat, CBrn, CLung, CSlw, 1, 2, 6, 12, 24, 36); #(v2.10)
+Print( CPlasTCAmol, CLivTCAmol, CKidTCAmol, CBrnTCAmol, 1, 2, 6, 12, 24, 36); #(v2.10)
+Print( TotCTCOHmol, CTCOHmol, CLivTCOHmol, CDCVGmol, CDCVCmol,  1, 2, 6, 12, 24, 36); #(v2.10)
 
 } # End Experiment Random Strain
 
@@ -324,6 +329,9 @@ Male =  0 ;
 
 # Measured Covariates (if any)
 BWmeas =  0.0177 ;
+VLivC = 1.007077 ;
+VKidC = 0.836746 ;
+VBrnC = 1.199358 ;
 
 
 # Exposure/Dosing 
@@ -342,14 +350,18 @@ Male = 1 ;
 
 # Measured Covariates (if any)
 BWmeas =  0.0273 ;
-
+VLivC = 1.028918 ;
+VKidC = 0.8347687 ;
+VBrnC = 0.8595614 ;
 
 # Exposure/Dosing 
 PDose = NDoses(2, 800 0 , 0 0.05 ) ; #(v2.10)
 TChng = 0.05 ;
 
 # Parameters
-Print( CPlasTCAmol, CLivTCAmol, CKidTCAmol, CBrnTCAmol,  1, 2, 6, 12, 24, 36); #(v2.10)
+Print( CVen, CLiv, CKid, CFat, CBrn, CLung, CSlw, 1, 2, 6, 12, 24, 36); #(v2.10)
+Print( CPlasTCAmol, CLivTCAmol, CKidTCAmol, CBrnTCAmol, 1, 2, 6, 12, 24, 36); #(v2.10)
+Print( TotCTCOHmol, CTCOHmol, CLivTCOHmol, CDCVGmol, CDCVCmol,  1, 2, 6, 12, 24, 36); #(v2.10)
 
 } # End AU8034M
 
@@ -359,13 +371,18 @@ Male =  0 ;
 
 # Measured Covariates (if any)
 BWmeas =  0.0195 ;
+VLivC = 1.208016 ;
+VKidC = 1.073521 ;
+VBrnC = 1.22044 ;
 
 # Exposure/Dosing 
 PDose = NDoses(2, 800 0 , 0 0.05 ) ; #(v2.10)
 TChng = 0.05 ;
 
 # Parameters
-Print( CPlasTCAmol, CLivTCAmol, CKidTCAmol, CBrnTCAmol,  1, 2, 6, 12, 24, 36); #(v2.10)
+Print( CVen, CLiv, CKid, CFat, CBrn, CLung, CSlw, 1, 2, 6, 12, 24, 36); #(v2.10)
+Print( CPlasTCAmol, CLivTCAmol, CKidTCAmol, CBrnTCAmol, 1, 2, 6, 12, 24, 36); #(v2.10)
+Print( TotCTCOHmol, CTCOHmol, CLivTCOHmol, CDCVGmol, CDCVCmol,  1, 2, 6, 12, 24, 36); #(v2.10)
 
 } # End AU8034F
 
@@ -375,13 +392,18 @@ Male = 1 ;
 
 # Measured Covariates (if any)
 BWmeas =  0.0304 ;
+VLivC = 0.7177033 ;
+VKidC = 0.5611455 ;
+
 
 # Exposure/Dosing 
 PDose = NDoses(2, 800 0 , 0 0.05 ) ; #(v2.10)
 TChng = 0.05 ;
 
 # Parameters
-Print( CPlasTCAmol, CLivTCAmol, CKidTCAmol, CBrnTCAmol,  1, 2, 6, 12, 24, 36); #(v2.10)
+Print( CVen, CLiv, CKid, CFat, CBrn, CLung, CSlw, 1, 2, 6, 12, 24, 36); #(v2.10)
+Print( CPlasTCAmol, CLivTCAmol, CKidTCAmol, CBrnTCAmol, 1, 2, 6, 12, 24, 36); #(v2.10)
+Print( TotCTCOHmol, CTCOHmol, CLivTCOHmol, CDCVGmol, CDCVCmol,  1, 2, 6, 12, 24, 36); #(v2.10)
 
 } # End IL1688M
 
@@ -391,13 +413,18 @@ Male =  0 ;
 
 # Measured Covariates (if any)
 BWmeas =  0.02523 ;
+VLivC = 0.868922 ;
+VKidC = 0.6236789 ;
+VBrnC = 1.019732 ;
 
 # Exposure/Dosing 
 PDose = NDoses(2, 800 0 , 0 0.05 ) ; #(v2.10)
 TChng = 0.05 ;
 
 # Parameters
-Print( CPlasTCAmol, CLivTCAmol, CKidTCAmol, CBrnTCAmol,  1, 2, 6, 12, 24, 36); #(v2.10)
+Print( CVen, CLiv, CKid, CFat, CBrn, CLung, CSlw, 1, 2, 6, 12, 24, 36); #(v2.10)
+Print( CPlasTCAmol, CLivTCAmol, CKidTCAmol, CBrnTCAmol, 1, 2, 6, 12, 24, 36); #(v2.10)
+Print( TotCTCOHmol, CTCOHmol, CLivTCOHmol, CDCVGmol, CDCVCmol,  1, 2, 6, 12, 24, 36); #(v2.10)
 
 } # End IL1688F
 
