@@ -340,7 +340,9 @@ TChng = 0.05 ;
 
 
 # Parameters
-Print( CPlasTCAmol, CLivTCAmol, CKidTCAmol, CBrnTCAmol,  1, 2, 6, 12, 24, 36); #(v2.10)
+Print( CVen, CLiv, CKid, CFat, CBrn, CLung, CSlw, 1, 2, 6, 12, 24, 36); #(v2.10)
+Print( CPlasTCAmol, CLivTCAmol, CKidTCAmol, CBrnTCAmol, 1, 2, 6, 12, 24, 36); #(v2.10)
+Print( TotCTCOHmol, CTCOHmol, CLivTCOHmol, CDCVGmol, CDCVCmol,  1, 2, 6, 12, 24, 36); #(v2.10)
 
 } # End AU8005F
 

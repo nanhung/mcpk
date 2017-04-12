@@ -182,7 +182,7 @@ LivTCOGTCOH.9.1 <-LivTCOGTCOHAbbas97a.1.1:(LivTCOGTCOHAbbas97a.1.1+nrow(Abbas97a
 source("Abbas97a_1.R")
 
 
-# AU8005 df
+## AU8005 df ----
 M.b.wt<-c(25.5,26.6,25,20.6,21,19.8,20.1)
 F.b.wt<-c(20,16,20,17,17.2,16.7,16.8)
 M.Liv.wt<-c(1.32,1.46,1.43,1.08,0.88,0.98,0.98)
@@ -543,7 +543,6 @@ SrmTCOH.4.2 <- SrmTCOH1688F:(SrmTCOH1688F+5)
 LivTCOH.4.2 <- LivTCOH1688F:(LivTCOH1688F+5)
 SrmDCVG.4.2 <- SrmDCVG1688F:(SrmDCVG1688F+5)
 SrmDCVC.4.2 <- SrmDCVC1688F:(SrmDCVC1688F+5)
-
 
 source("IL1688.R")
   
