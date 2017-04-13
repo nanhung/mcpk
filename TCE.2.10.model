@@ -6,7 +6,8 @@
 # Revise APlasTCA
 # Revise RUrnTCA
 # Add ABrn
-# Add CKidTCAmol, CLivTCAmol, CBrnTCAmol, CPlasTCAmol, CTCOHmol (mmol/l)
+# Add CKidTCAmol, CLivTCAmol, CBrnTCAmol, CPlasTCAmol, 
+# Add CTCOHmol, TotCTCOHmol, TotLivTCOH (mmol/l)
 # Add QKidPlas and QBrnPlas
 # Add VBrn and QBrn according to Brown et al. (1997)
 # Add PBrnTCA and PKidTCA and use the same value from PLivTCA 
@@ -175,6 +176,7 @@ CDCA_ND,	# Non-detect of DCA (<0.01 nmol/ml= 1e-5 mmol/l )#(v2.0)
 AUrnTCTotMole,	# rat, human - Cumulative urinary TCOH+TCA in mmoles
 TotCTCOH,	# mouse, human - TCOH+TCOG Concentration (in TCOH-equiv)
 TotCTCOHmol,	# v(2.10)
+TotLivTCOHmol,	# v(2.10)
 TotCTCOHcomp,	# ONLY FOR COMPARISON WITH HACK
 ATCOG,		# ONLY FOR COMPARISON WITH HACK
 	AMetOX,		# Amount of TCE oxidized #(vrisk)
@@ -751,6 +753,7 @@ Ve_CDCAmol	= 1;#(v2.0)
 Ve_AUrnTCTotMole	= 1;
 Ve_TotCTCOH	= 1;
 Ve_TotCTCOHmol	= 1; #(2.10)
+Ve_TotLivTCOHmol	= 1; #(2.10)
 Ve_QPsamp	= 1;
 
 #******************************************************************************
@@ -1839,8 +1842,9 @@ CalcOutputs{
 	CDCA_ND = ( CDCA_NDtmp < 1.0 ? ( CDCA_NDtmp >= 1e-100 ? -log(CDCA_NDtmp) : -log(1e-100)) : 1e-100 );#(v2.0)
 	   # 
 	AUrnTCTotMole = zAUrnTCA / MWTCA + AUrnTCOGTCOH / MWTCOH;
-	TotCTCOH = CTCOH / MWTCOH + CTCOGTCOH / MWTCOHGluc; #v(2.10)
-	TotCTCOHmol = CTCOH + CTCOGTCOH;
+	TotCTCOH = CTCOH+ CTCOGTCOH;
+	TotCTCOHmol = CTCOH / MWTCOH  + CTCOGTCOH / MWTCOHGluc; #v(2.10)
+	TotLivTCOHmol = CLivTCOH / MWTCOH + CLivTCOGTCOH / MWTCOHGluc; #v(2.10)
 	TotCTCOHcomp = CTCOH + CTCOG; # ONLY FOR COMPARISON WITH HACK
 	ATCOG = ABodTCOG + ALivTCOG; # ONLY FOR COMPARISON WITH HACK
 # Misc
