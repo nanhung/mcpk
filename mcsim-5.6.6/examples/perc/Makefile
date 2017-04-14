@@ -22,7 +22,7 @@ echo
 echo Testing makemcsim on perc.model
 echo Compiling mcsim.perc...
 TEST2=0
-(gcc -o mcsim.perc -I../../sim -I../.. -I/usr/local/include -L../../sim -L/usr/local/lib model.c ../../sim/*.c -lm ) || TEST2=1
+(gcc -o mcsim.perc -I../../sim -I../.. -I/home/ubuntu/include -L../../sim -L/home/ubuntu/lib model.c ../../sim/*.c -lm ) || TEST2=1
 if test $TEST2 -eq 1;
  then echo '-FAILED-'
  else echo '-PASSED-'

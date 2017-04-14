@@ -17,7 +17,7 @@ if test -f model.c; then \
 
 	echo; \
 	echo "Compiling and linking model ..."; \
-	gcc -O3 -I/usr/local/include -L/usr/local/lib  -g -O2  model.c -lmcsim -o $target -lm  -Wall; \
+	gcc -O3 -I/home/ubuntu/include -L/home/ubuntu/lib  -g -O2  model.c -lmcsim -o $target -lm  -Wall; \
 
 fi;
 

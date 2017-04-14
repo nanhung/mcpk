@@ -17,7 +17,7 @@ if test -f model.c; then \
 
 	echo; \
 	echo "Compiling and linking standalone model ..."; \
-	gcc -O3 -I/usr/local/include  -g -O2  model.c /usr/local/share/mcsim/sim/*.c -o $target -lm  -Wall; \
+	gcc -O3 -I/home/ubuntu/include  -g -O2  model.c /home/ubuntu/share/mcsim/sim/*.c -o $target -lm  -Wall; \
 
 fi;
 

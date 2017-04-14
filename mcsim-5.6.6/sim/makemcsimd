@@ -17,7 +17,7 @@ if test -f model.c; then \
 
 	echo; \
 	echo "Compiling and linking model for debugging ..."; \
-	gcc -DDEBUG -g -I/usr/local/include model.c /usr/local/share/mcsim/sim/*.c -o $target -lm  -Wall; \
+	gcc -DDEBUG -g -I/home/ubuntu/include model.c /home/ubuntu/share/mcsim/sim/*.c -o $target -lm  -Wall; \
 
 fi;
 
