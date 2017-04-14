@@ -1375,6 +1375,13 @@ Initialize {
 	# 	1e-4 to 1e2 /hr/kg^0.25 (0.3/hr to 35/hr for human) 
         # add interstrain variability
 	kElimDCVC = exp(lnISkDCVC) * exp(lnkElimDCVCC) / BW25;#(v2.0)
+	
+	# apply interstrain scaling to both liver and kidney #(v2.10)
+    VMaxDCVG = exp(lnISConj) * VLiv*(Species == 3 ? (300.*exp(lnVMaxDCVGC)) : (Species == 2 ? (66.*exp(lnVMaxDCVGC)) : (2.9*19.*exp(lnClDCVGC+lnKMDCVGC))));
+    KMDCVG = (Species == 3 ? (VMaxDCVG/(VLiv*1.53*exp(lnClDCVGC))) : (Species == 2 ? (VMaxDCVG/(VLiv*0.25*exp(lnClDCVGC))) : 2.9*exp(lnKMDCVGC)));
+    ClDCVG = VMaxDCVG/KMDCVG;#(vrisk)
+    VMaxKidDCVG = exp(lnISConj) * VKid*(Species == 3 ? (60.*exp(lnVMaxKidDCVGC)) : (Species == 2 ? (6.0*exp(lnVMaxKidDCVGC)) : (2.7*230.*exp(lnClKidDCVGC+lnKMKidDCVGC))));
+    KMKidDCVG = (Species == 3 ? (VMaxKidDCVG/(VKid*0.34*exp(lnClKidDCVGC))) : (Species == 2 ? (VMaxKidDCVG/(VKid*0.026*exp(lnClKidDCVGC))) : 2.7*exp(lnKMKidDCVGC)));
 
 # DCA Kinetics (/hr)#(v2.0)
         # add interstrain variability
