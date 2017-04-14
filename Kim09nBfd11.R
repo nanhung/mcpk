@@ -29,10 +29,10 @@ for (i in 1:dim(df)[1]) {
   if (i == 1) {
     plot(Kim09.df[,1], df[i,CDCVGmol.11.1], xlab = "Time (hr)", ylab = "",
          main = "SrmDCVG (mmol/l)", las = 1, col = "grey", pch = 20, cex.lab = 1.2,
-         type = "b", cex.main = 1.2, log="xy", ylim=c(10^-8, 10^0), xlim=c(1,36))
+         type = "b", cex.main = 1.2, log="xy", ylim=c(10^-9, 10^-3), xlim=c(1,36))
   } else {
     plot(Kim09.df[,1], df[i,CDCVGmol.11.1], xlab = "", ylab = "", xaxt = "n", yaxt = "n",
-         main = "", las = 1, col = "grey", pch = 20, ylim=c(10^-8, 10^0), xlim=c(1,36),
+         main = "", las = 1, col = "grey", pch = 20, ylim=c(10^-9, 10^-3), xlim=c(1,36),
          type = "b", log="xy") 
   }
   par(new=T)
@@ -48,10 +48,10 @@ for (i in 1:dim(df)[1]) {
   if (i == 1) {
     plot(Kim09.df[,1], df[i,CDCVCmol.11.1], xlab = "Time (hr)", ylab = "",
          main = "SrmDCVC (mmol/l)", las = 1, col = "grey", pch = 20, cex.lab = 1.2,
-         type = "b", cex.main = 1.2, log="xy", ylim=c(10^-8, 10^0), xlim=c(1,36))
+         type = "b", cex.main = 1.2, log="xy", ylim=c(10^-9, 10^-3), xlim=c(1,36))
   } else {
     plot(Kim09.df[,1], df[i,CDCVCmol.11.1], xlab = "", ylab = "", xaxt = "n", yaxt = "n",
-         main = "", las = 1, col = "grey", pch = 20, ylim=c(10^-8, 10^0), xlim=c(1,36),
+         main = "", las = 1, col = "grey", pch = 20, ylim=c(10^-9, 10^-3), xlim=c(1,36),
          type = "b", log="xy") 
   }
   par(new=T)
@@ -108,10 +108,10 @@ for (i in 1:dim(df)[1]) {
   if (i == 1) {
     plot(S1.df[,1], df[i,CDCVGmol.12.1], xlab = "Time (hr)", ylab = "",
          main = "SrmDCVG (mmol/l)", las = 1, col = "grey", pch = 20, cex.lab = 1.2,
-         type = "b", cex.main = 1.2, log="xy", ylim=c(10^-8, 10^0), xlim=c(1,36))
+         type = "b", cex.main = 1.2, log="xy", ylim=c(10^-9, 10^-3), xlim=c(1,36))
   } else {
     plot(S1.df[,1], df[i,CDCVGmol.12.1], xlab = "", ylab = "", xaxt = "n", yaxt = "n",
-         main = "", las = 1, col = "grey", pch = 20, ylim=c(10^-8, 10^0), xlim=c(1,36),
+         main = "", las = 1, col = "grey", pch = 20, ylim=c(10^-9, 10^-3), xlim=c(1,36),
          type = "b", log="xy") 
   }
   par(new=T)
@@ -127,10 +127,10 @@ for (i in 1:dim(df)[1]) {
   if (i == 1) {
     plot(S1.df[,1], df[i,CDCVCmol.12.1], xlab = "Time (hr)", ylab = "",
          main = "SrmDCVC (mmol/l)", las = 1, col = "grey", pch = 20, cex.lab = 1.2,
-         type = "b", cex.main = 1.2, log="xy", ylim=c(10^-8, 10^0), xlim=c(1,36))
+         type = "b", cex.main = 1.2, log="xy", ylim=c(10^-9, 10^-3), xlim=c(1,36))
   } else {
     plot(S1.df[,1], df[i,CDCVCmol.12.1], xlab = "", ylab = "", xaxt = "n", yaxt = "n",
-         main = "", las = 1, col = "grey", pch = 20, ylim=c(10^-8, 10^0), xlim=c(1,36),
+         main = "", las = 1, col = "grey", pch = 20, ylim=c(10^-9, 10^-3), xlim=c(1,36),
          type = "b", log="xy") 
   }
   par(new=T)

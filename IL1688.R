@@ -240,11 +240,11 @@ for (i in 1:dim(df)[1]) {
   if (i == 1) {
     plot(time, df[i,SrmDCVG.4.1], xlab = " ", ylab = "",
          main = "Serum DCVG (mmol/l)", las = 1, col = "grey", pch = 20, cex.lab = 1.2,
-         type = "b", log="xy", ylim=c(10^-6, 10^0), cex.main = 1.2)
+         type = "b", log="xy", ylim=c(10^-9, 10^-3), cex.main = 1.2)
   } else {
     plot(time, df[i,SrmDCVG.4.1], xlab = "", ylab = "", xaxt = "n", yaxt = "n",
          main = "", las = 1, col = "grey", pch = 20,
-         type = "b", log="xy", ylim=c(10^-6, 10^0)) 
+         type = "b", log="xy", ylim=c(10^-9, 10^-3)) 
   }
   par(new=T)
 }
@@ -257,11 +257,11 @@ for (i in 1:dim(df)[1]) {
   if (i == 1) {
     plot(time, df[i,SrmDCVC.4.1], xlab = " ", ylab = "",
          main = "Serum DCVC (mmol/l)", las = 1, col = "grey", pch = 20, cex.lab = 1.2,
-         type = "b", log="xy", ylim=c(10^-6, 10^0), cex.main = 1.2)
+         type = "b", log="xy", ylim=c(10^-9, 10^-3), cex.main = 1.2)
   } else {
     plot(time, df[i,SrmDCVC.4.1], xlab = "", ylab = "", xaxt = "n", yaxt = "n",
          main = "", las = 1, col = "grey", pch = 20,
-         type = "b", log="xy", ylim=c(10^-6, 10^0)) 
+         type = "b", log="xy", ylim=c(10^-9, 10^-3)) 
   }
   par(new=T)
 }
@@ -515,11 +515,11 @@ for (i in 1:dim(df)[1]) {
   if (i == 1) {
     plot(time, df[i,SrmDCVG.4.2], xlab = " ", ylab = "",
          main = "Serum DCVG (mmol/l)", las = 1, col = "grey", pch = 20, cex.lab = 1.2,
-         type = "b", log="xy", ylim=c(10^-6, 10^0), cex.main = 1.2)
+         type = "b", log="xy", ylim=c(10^-9, 10^-3), cex.main = 1.2)
   } else {
     plot(time, df[i,SrmDCVG.4.2], xlab = "", ylab = "", xaxt = "n", yaxt = "n",
          main = "", las = 1, col = "grey", pch = 20,
-         type = "b", log="xy", ylim=c(10^-6, 10^0)) 
+         type = "b", log="xy", ylim=c(10^-9, 10^-3)) 
   }
   par(new=T)
 }
@@ -532,11 +532,11 @@ for (i in 1:dim(df)[1]) {
   if (i == 1) {
     plot(time, df[i,SrmDCVC.4.2], xlab = " ", ylab = "",
          main = "Serum DCVC (mmol/l)", las = 1, col = "grey", pch = 20, cex.lab = 1.2,
-         type = "b", log="xy", ylim=c(10^-6, 10^0), cex.main = 1.2)
+         type = "b", log="xy", ylim=c(10^-9, 10^-3), cex.main = 1.2)
   } else {
     plot(time, df[i,SrmDCVC.4.2], xlab = "", ylab = "", xaxt = "n", yaxt = "n",
          main = "", las = 1, col = "grey", pch = 20,
-         type = "b", log="xy", ylim=c(10^-6, 10^0)) 
+         type = "b", log="xy", ylim=c(10^-9, 10^-3)) 
   }
   par(new=T)
 }
