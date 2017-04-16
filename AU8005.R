@@ -190,17 +190,18 @@ for (i in 1:dim(df)[1]) {
   if (i == 1) {
     plot(time, df[i,TotTCOH.2.1], xlab = " ", ylab = "",
          main = "CTCOH+CTCOG (mmol/l)", las = 1, col = "grey", pch = 20, cex.lab = 1.2,
-         type = "b", log="xy", ylim=c(10^-4, 10^4), cex.main = 1.2)
+         type = "b", log="xy", ylim=c(10^-6, 10^0), cex.main = 1.2)
   } else {
     plot(time, df[i,TotTCOH.2.1], xlab = "", ylab = "", xaxt = "n", yaxt = "n",
          main = "", las = 1, col = "grey", pch = 20,
-         type = "b", log="xy", ylim=c(10^-4, 10^4)) 
+         type = "b", log="xy", ylim=c(10^-6, 10^0)) 
   }
   par(new=T)
 }
 lines(AU8005.df[,1], apply(df[,TotTCOH.2.1], 2, median), lwd=2)
 lines(AU8005.df[,1], apply(df[,TotTCOH.2.1], 2,  quantile, probs= c(.05)),lty=2, lwd=2)
 lines(AU8005.df[,1], apply(df[,TotTCOH.2.1], 2,  quantile, probs= c(.95)),lty=2, lwd=2 )
+points(AU8005.df[,1], AU8005.df$TotTCOH.2.1, col = "red" , pch = 20, cex=1.4)
 
 for (i in 1:dim(df)[1]) {
   if (i == 1) {
@@ -217,7 +218,7 @@ for (i in 1:dim(df)[1]) {
 lines(AU8005.df[,1], apply(df[,SrmTCOH.2.1], 2, median), lwd=2)
 lines(AU8005.df[,1], apply(df[,SrmTCOH.2.1], 2,  quantile, probs= c(.05)),lty=2, lwd=2)
 lines(AU8005.df[,1], apply(df[,SrmTCOH.2.1], 2,  quantile, probs= c(.95)),lty=2, lwd=2 )
-points(AU8005.df[,1], AU8005.df[,10], col = "red" , pch = 20, cex=1.4)
+
 
 for (i in 1:dim(df)[1]) {
   if (i == 1) {
@@ -465,17 +466,18 @@ for (i in 1:dim(df)[1]) {
   if (i == 1) {
     plot(time, df[i,TotTCOH.2.2], xlab = " ", ylab = "",
          main = "CTCOH+CTCOG (mmol/l)", las = 1, col = "grey", pch = 20, cex.lab = 1.2,
-         type = "b", log="xy", ylim=c(10^-4, 10^4), cex.main = 1.2)
+         type = "b", log="xy", ylim=c(10^-6, 10^0), cex.main = 1.2)
   } else {
     plot(time, df[i,TotTCOH.2.2], xlab = "", ylab = "", xaxt = "n", yaxt = "n",
          main = "", las = 1, col = "grey", pch = 20,
-         type = "b", log="xy", ylim=c(10^-4, 10^4)) 
+         type = "b", log="xy", ylim=c(10^-6, 10^0)) 
   }
   par(new=T)
 }
 lines(AU8005.df[,1], apply(df[,TotTCOH.2.2], 2, median), lwd=2)
 lines(AU8005.df[,1], apply(df[,TotTCOH.2.2], 2,  quantile, probs= c(.05)),lty=2, lwd=2)
 lines(AU8005.df[,1], apply(df[,TotTCOH.2.2], 2,  quantile, probs= c(.95)),lty=2, lwd=2 )
+points(AU8005.df[,1], AU8005.df$TotTCOH.2.2, col = "red" , pch = 20, cex=1.4)
 
 for (i in 1:dim(df)[1]) {
   if (i == 1) {
@@ -492,7 +494,6 @@ for (i in 1:dim(df)[1]) {
 lines(AU8005.df[,1], apply(df[,SrmTCOH.2.2], 2, median), lwd=2)
 lines(AU8005.df[,1], apply(df[,SrmTCOH.2.2], 2,  quantile, probs= c(.05)),lty=2, lwd=2)
 lines(AU8005.df[,1], apply(df[,SrmTCOH.2.2], 2,  quantile, probs= c(.95)),lty=2, lwd=2 )
-points(AU8005.df[,1], AU8005.df$SrmTCOH.2.2, col = "red" , pch = 20, cex=1.4)
 
 for (i in 1:dim(df)[1]) {
   if (i == 1) {
