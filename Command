@@ -37,7 +37,7 @@ Launched as
 someone:~/workspace/R-3.0.3 $ R
 
 ## Git
-git checkout <brance>
+git checkout <branch>
 git branch -m 
 
 git remote add origin https://github.com/user/repo.git
