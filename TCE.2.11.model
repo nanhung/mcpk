@@ -1,17 +1,7 @@
 #------------------------------------------------------------
-# TCE.2.10.model
-# Revise from TCE.2.0.model
-# Revise VSlw and VRap (substract Brn)
-# Revise QRap and QBod (substract Brn)
-# Revise APlasTCA
-# Revise RUrnTCA
-# Add ABrn
-# Add CKidTCAmol, CLivTCAmol, CBrnTCAmol, CPlasTCAmol, 
-# Add CTCOHmol, TotCTCOHmol, TotLivTCOH (mmol/l)
-# Add QKidPlas and QBrnPlas
-# Add VBrn and QBrn according to Brown et al. (1997)
-# Add PBrnTCA and PKidTCA and use the same value from PLivTCA 
-# PLivTCA was sourced from the previous model
+# TCE.2.11.model
+# Add CBrnTCOH, CKidTCOH 
+# Add PBrnTCOH and PKidTCOH and use the same value from PLivTCOH 
 #-------------------------------------------------------------
 States = {
 	AStom,		# Amount of TCE in stomach
@@ -47,6 +37,8 @@ States = {
 	AStomTCOH,	# Amount of TCOH in stomach
 	ABodTCOH, 	# Amount of TCOH in lumped body compartment
 	ALivTCOH, 	# Amount of TCOH in liver
+	AKidTCOH, #(v2.11)
+	ABrnTCOH, #(v2.11)
 ##-- TCOG in body
 	ABodTCOG, 	# Amount of TCOG in lumped body compartment
 	ALivTCOG, 	# Amount of TCOG in liver
@@ -129,8 +121,11 @@ zAExhpost,	# rat - Amount exhaled post-exposure (mg)
 CTCOH,	# mouse, rat, human - TCOH concentration in blood
 CTCOHmol, #(2.10)
 CKidTCOH,	# mouse - TCOH concentration in kidney
+CKidTCOHmol, #(2.11)
 CLivTCOH,	# mouse - TCOH concentration in liver
 CLivTCOHmol, #(v2.10)
+CBrnTCOH, #(2.11)
+CBrnTCOHmol, #(2.11)
 CLungTCOH,	# mouse - TCOH concentration in lung
 
 # TCA
@@ -357,6 +352,8 @@ kDissoc	= 1;	# Protein/TCA dissociation constant (umole/L)
 BMax	= 1;	# Protein concentration (UNITS?)
 PBodTCOH	= 1;	# TCOH body/blood partition coefficient
 PLivTCOH	= 1;	# TCOH liver/body partition coefficient
+PKidTCOH    = 1; #(v2.11)
+PBrnTCOH    = 1; #(v2.11)
 PBodTCOG	= 1;	# TCOG body/blood partition coefficient
 PLivTCOG	= 1;	# TCOG liver/body partition coefficient
 VDCVG	= 1;	# DCVG effective volume of distribution
@@ -504,6 +501,8 @@ lnBMaxkDC	= 0.0;	# Scaled to species-specific central estimates
 # Partition Coefficients for TCOH and TCOG
 lnPBodTCOHC	= 0.0;	# Scaled to species-specific central estimates
 lnPLivTCOHC	= 0.0;	# Scaled to species-specific central estimates
+lnPKidTCOHC = 0.0; #(v2.11)
+lnPBrnTCOHC = 0.0; #(v2.11)
 lnPBodTCOGC	= 0.0;	# Scaled to species-specific central estimates
 lnPLivTCOGC	= 0.0;	# Scaled to species-specific central estimates
 lnPeffDCVG	= 0.0;	# Scaled to species-specific central estimates
@@ -602,6 +601,8 @@ M_lnPKidTCAC	= 1.0; #(v2.10)
 M_lnPBrnTCAC	= 1.0; #(v2.10)
 M_lnkDissocC	= 1.0; M_lnBMaxkDC	= 1.0;
 M_lnPBodTCOHC	= 1.0; M_lnPLivTCOHC	= 1.0;
+M_lnPKidTCOHC	= 1.0; #(v2.11)
+M_lnPBrnTCOHC	= 1.0; #(v2.11)
 M_lnPBodTCOGC	= 1.0; M_lnPLivTCOGC	= 1.0;
 M_lnPeffDCVG	= 1.0; M_lnPeffDCVC	= 1.0;
 M_lnPeffDCA	= 1.0; M_lnkTSD	= 1.0;
@@ -653,6 +654,8 @@ V_lnPKidTCAC	= 1.0; #(v2.10)
 V_lnPBrnTCAC	= 1.0; #(v2.10)
 V_lnkDissocC	= 1.0; V_lnBMaxkDC	= 1.0;
 V_lnPBodTCOHC	= 1.0; V_lnPLivTCOHC	= 1.0;
+V_lnPKidTCOHC	= 1.0; #(v2.10)
+V_lnPBrnTCOHC	= 1.0; #(v2.10)
 V_lnPBodTCOGC	= 1.0; V_lnPLivTCOGC	= 1.0;
 V_lnPeffDCVG	= 1.0; V_lnPeffDCVC	= 1.0;
 V_lnPeffDCA	= 1.0; V_lnkTSD	= 1.0;
@@ -715,7 +718,8 @@ Ve_zAExhpost	= 1;
 	
 Ve_CTCOH	= 1;
 Ve_CTCOHmol = 1; #(v2.10)
-Ve_CKidTCOH	= 1;
+Ve_CKidTCOHmol = 1; #(v2.11)
+Ve_CBrnTCOHmol = 1; #(v2.11)
 Ve_CLivTCOH	= 1;
 Ve_CLivTCOHmol = 1; #(v2.10)
 Ve_CLungTCOH	= 1;
@@ -1098,6 +1102,10 @@ Initialize {
     PBodTCOH = exp(lnPBodTCOHC) *
 		(Species == 3 ? 1.11 : (Species == 2 ? 1.11 : 0.91 ));
     PLivTCOH = exp(lnPLivTCOHC) *
+		(Species == 3 ? 1.3 : (Species == 2 ? 1.3 : 0.59 ));
+    PKidTCOH = exp(lnPKidTCOHC) * #(2.11) same as PLivTCOH
+		(Species == 3 ? 1.3 : (Species == 2 ? 1.3 : 0.59 ));
+	PBrnTCOH = exp(lnPBrnTCOHC) * #(2.11) same as PLivTCOH
 		(Species == 3 ? 1.3 : (Species == 2 ? 1.3 : 0.59 ));
 
 # TCOG partitioning
@@ -1568,10 +1576,14 @@ Dynamics{
 
 	CVBodTCOH = ABodTCOH / VBodTCOH / PBodTCOH;
 	CVLivTCOH = ALivTCOH / VLiv / PLivTCOH;
-	CTCOH = (QBod * CVBodTCOH + QGutLiv * CVLivTCOH + kIVTCOH)/QCnow;
+	CVKidTCOH = AKidTCOH / VKid / PKidTCOH; #(v2.11)
+	CVBrnTCOH = ABrnTCOH / VBrn / PBrnTCOH; #(v2.11)
+	CTCOH = (QBod * CVBodTCOH + QBrn * CVBrnTCOH + QKid * CVKidTCOH + QGutLiv * CVLivTCOH + kIVTCOH)/QCnow; #(v2.11)
 
-# Amount of TCOH in body
+# Amount of TCOH in body, Kidney, and Brain
     dt(ABodTCOH) = QBod * (CTCOH - CVBodTCOH);
+	dt(AKidTCOH) = QKid * (CTCOH - CVKidTCOH); #(v2.11)
+	dt(ABrnTCOH) = QBrn * (CTCOH - CVBrnTCOH); #(v2.11)
 
 #**** Liver *******************************************************************
 # Rate of oxidation of TCOH to TCA (mg/hr)
@@ -1588,7 +1600,6 @@ Dynamics{
 		+ ((1.0 - FracOther - FracTCA) * StochTCOHTCE * 
 		(RAMetLiv1 + FracLungSys*RAMetLng)) #(v1.2)
 		+ (StochTCOHGluc * RARecircTCOG); 
-
 
 #******************************************************************************
 # Amount of DCA in central compartment (mg)
@@ -1799,7 +1810,10 @@ CalcOutputs{
 	CTCOH = (CTCOH < 1.0e-15 ? 1.0e-15 : CTCOH);
 	CTCOHmol = (CTCOH < 1.0e-15 ? 1.0e-15 : CTCOH/MWTCOH);
 	CBodTCOH = (ABodTCOH < 1.0e-15 ? 1.0e-15 : ABodTCOH/VBodTCOH);
-	CKidTCOH = CBodTCOH;
+	CKidTCOH = (AKidTCOH < 1.0e-15 ? 1.0e-15 : AKidTCOH/VKid); #(v2.11)
+	CKidTCOHmol = (CKidTCOH < 1.0e-15 ? 1.0e-15 : CKidTCOH/MWTCOH); #(v2.11)
+	CBrnTCOH = (ABrnTCOH < 1.0e-15 ? 1.0e-15 : ABrnTCOH/VBrn); #(v2.11)
+	CBrnTCOHmol = (CBrnTCOH < 1.0e-15 ? 1.0e-15 : CBrnTCOH/MWTCOH); #(v2.11)
 	CLivTCOH = (ALivTCOH < 1.0e-15 ? 1.0e-15 : ALivTCOH/VLiv);
 	CLivTCOHmol = (CLivTCOH < 1.0e-15 ? 1.0e-15 : CLivTCOH/MWTCOH);
 	CLungTCOH = CBodTCOH;
