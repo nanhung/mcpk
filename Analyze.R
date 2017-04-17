@@ -34,21 +34,21 @@ LivTCA.1.2<-c(0.060315365,0.178408603,0.180481165,0.109905788,NA,0.018137806)
 KidTCA.1.2<-c(0.892018762,0.854975385,0.177279269,0.163219933,NA,NA)
 BrnTCA.1.2<-c(0.030444173,0.011259165,0.001761082,NA,NA,NA)
 SrmTCA.1.2<-c(0.286868002,0.334293476,0.22965677,0.144968331,0.129685476,NA)
-TotTCOH.1.1<-c(390.6720823,362.6174293,55.04310472,43.10036857,NA,NA)/1000
-LivTCOH.1.1<-c(1273.811447,958.3573414,NA,NA,NA,NA)/1000
-BrnTCOH.1.1<-c(238.8855281,249.6489993,NA,NA,NA,NA)/1000
+TotCTCOH.1.1<-c(390.6720823,362.6174293,55.04310472,43.10036857,NA,NA)/1000
+TotLivTCOH.1.1<-c(1273.811447,958.3573414,NA,NA,NA,NA)/1000
+TotBrnTCOH.1.1<-c(238.8855281,249.6489993,NA,NA,NA,NA)/1000
 SrmDCVG.1.1<-c(3.550288789,2.086333375,NA,NA,NA,NA)/10^6
 SrmDCVC.1.1<-c(10.10557327,NA,NA,NA,NA,NA)/10^6
-TotTCOH.1.2<-c(145.8130908,212.5731004,47.66636534,48.68164282,NA,NA)/1000
-LivTCOH.1.2<-c(663.2963883,525.6638401,NA,NA,NA,NA)/1000
-BrnTCOH.1.2<-c(178.7402689,218.6729318,NA,NA,NA,NA)/1000
+TotCTCOH.1.2<-c(145.8130908,212.5731004,47.66636534,48.68164282,NA,NA)/1000
+TotLivTCOH.1.2<-c(663.2963883,525.6638401,NA,NA,NA,NA)/1000
+TotBrnTCOH.1.2<-c(178.7402689,218.6729318,NA,NA,NA,NA)/1000
 SrmDCVG.1.2<-c(3.629341575,2.783421779,NA,NA,NA,NA)/10^6
 SrmDCVC.1.2<-c(NA,NA,NA,NA,NA,NA)/10^6
 
 AU18042.df<-data.frame(time,SrmTCA.1.1,LivTCA.1.1,KidTCA.1.1,BrnTCA.1.1,
                        SrmTCA.1.2, LivTCA.1.2,KidTCA.1.2,BrnTCA.1.2,
-                       TotTCOH.1.1,LivTCOH.1.1,BrnTCOH.1.1,
-                       TotTCOH.1.2,LivTCOH.1.2,BrnTCOH.1.2,
+                       TotCTCOH.1.1,TotLivTCOH.1.1,TotBrnTCOH.1.1,
+                       TotCTCOH.1.2,TotLivTCOH.1.2,TotBrnTCOH.1.2,
                        SrmDCVG.1.1,SrmDCVC.1.1,SrmDCVG.1.2,SrmDCVC.1.2)
 
 # df AU18042
@@ -65,9 +65,9 @@ KidTCA18042M <- which(colnames(df)=="CKidTCAmol_1.1")
 BrnTCA18042M <- which(colnames(df)=="CBrnTCAmol_1.1")
 TotTCOH18042M <- which(colnames(df)=="TotCTCOHmol_1.1")
 #SrmTCOH18042M <- which(colnames(df)=="CTCOHmol_1.1")
-LivTCOH18042M <- which(colnames(df)=="CLivTCOHmol_1.1")
-KidTCOH18042M <- which(colnames(df)=="CKidTCOHmol_1.1") #(v2.11)
-BrnTCOH18042M <- which(colnames(df)=="CBrnTCOHmol_1.1") #(v2.11)
+LivTCOH18042M <- which(colnames(df)=="TotLivTCOHmol_1.1")
+KidTCOH18042M <- which(colnames(df)=="TotKidTCOHmol_1.1") #(v2.11)
+BrnTCOH18042M <- which(colnames(df)=="TotBrnTCOHmol_1.1") #(v2.11)
 SrmDCVG18042M <- which(colnames(df)=="CDCVGmol_1.1")
 SrmDCVC18042M <- which(colnames(df)=="CDCVCmol_1.1")
 
@@ -84,9 +84,9 @@ KidTCA18042F <- which(colnames(df)=="CKidTCAmol_2.1")
 BrnTCA18042F <- which(colnames(df)=="CBrnTCAmol_2.1")
 TotTCOH18042F <- which(colnames(df)=="TotCTCOHmol_2.1")
 #SrmTCOH18042F <- which(colnames(df)=="CTCOHmol_2.1")
-LivTCOH18042F <- which(colnames(df)=="CLivTCOHmol_2.1")
-KidTCOH18042F <- which(colnames(df)=="CKidTCOHmol_2.1") #(v2.11)
-BrnTCOH18042F <- which(colnames(df)=="CBrnTCOHmol_2.1") #(v2.11)
+LivTCOH18042F <- which(colnames(df)=="TotLivTCOHmol_2.1")
+KidTCOH18042F <- which(colnames(df)=="TotKidTCOHmol_2.1") #(v2.11)
+BrnTCOH18042F <- which(colnames(df)=="TotBrnTCOHmol_2.1") #(v2.11)
 SrmDCVG18042F <- which(colnames(df)=="CDCVGmol_2.1")
 SrmDCVC18042F <- which(colnames(df)=="CDCVCmol_2.1")
 
