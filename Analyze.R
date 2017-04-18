@@ -198,10 +198,10 @@ SrmDCVG.2.2<-c(5.38120384,3.775100342,NA,NA,NA,NA)/10^6
 SrmDCVC.2.2<-c(NA,16.06088764,12.9580701,NA,NA,NA)/10^6
 
 AU8005.df<-data.frame(time,SrmTCA.2.1,LivTCA.2.1,KidTCA.2.1,BrnTCA.2.1,
-                       SrmTCA.2.2, LivTCA.2.2,KidTCA.2.2,BrnTCA.2.2,
-                       TotCTCOH.2.1,TotLivTCOH.2.1,TotBrnTCOH.2.1,
-                       TotCTCOH.2.2,TotLivTCOH.2.2,TotBrnTCOH.2.2,
-                       SrmDCVG.2.1,SrmDCVC.2.1,SrmDCVG.2.2,SrmDCVC.2.2)
+                      SrmTCA.2.2, LivTCA.2.2,KidTCA.2.2,BrnTCA.2.2,
+                      TotCTCOH.2.1,TotLivTCOH.2.1,TotBrnTCOH.2.1,
+                      TotCTCOH.2.2,TotLivTCOH.2.2,TotBrnTCOH.2.2,
+                      SrmDCVG.2.1,SrmDCVC.2.1,SrmDCVG.2.2,SrmDCVC.2.2)
 
 #VenTCE8005M <- which(colnames(df)=="CVen_3.1")
 #LivTCE8005M <- which(colnames(df)=="CLiv_3.1")
