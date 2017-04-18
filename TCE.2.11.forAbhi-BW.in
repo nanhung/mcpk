@@ -275,6 +275,7 @@ TChng = 0.05 ;
 # Parameters
 Print( CPlasTCAmol, CLivTCAmol, CKidTCAmol, CBrnTCAmol, 1, 2, 6, 12, 24, 36); 
 Print( TotCTCOHmol, TotLivTCOHmol, TotKidTCOHmol, TotBrnTCOHmol, 1, 2, 6, 12, 24, 36); 
+Print( CTCOGTCOHmol, CLivTCOGTCOHmol, CKidTCOGTCOHmol, CBrnTCOGTCOHmol, 1, 2, 6, 12, 24, 36); 
 Print( CDCVGmol, CDCVCmol,  1, 2, 6, 12, 24, 36); 
 
 } # End AU18042M
@@ -297,6 +298,7 @@ TChng = 0.05 ;
 # Parameters
 Print( CPlasTCAmol, CLivTCAmol, CKidTCAmol, CBrnTCAmol, 1, 2, 6, 12, 24, 36); 
 Print( TotCTCOHmol, TotLivTCOHmol, TotKidTCOHmol, TotBrnTCOHmol, 1, 2, 6, 12, 24, 36); 
+Print( CTCOGTCOHmol, CLivTCOGTCOHmol, CKidTCOGTCOHmol, CBrnTCOGTCOHmol, 1, 2, 6, 12, 24, 36);  
 Print( CDCVGmol, CDCVCmol,  1, 2, 6, 12, 24, 36);  
 
     
@@ -319,6 +321,7 @@ TChng = 0.05 ;
 # Parameters
 Print( CPlasTCAmol, CLivTCAmol, CKidTCAmol, CBrnTCAmol, 1, 2, 6, 12, 24, 36); 
 Print( TotCTCOHmol, TotLivTCOHmol, TotKidTCOHmol, TotBrnTCOHmol, 1, 2, 6, 12, 24, 36); 
+Print( CTCOGTCOHmol, CLivTCOGTCOHmol, CKidTCOGTCOHmol, CBrnTCOGTCOHmol, 1, 2, 6, 12, 24, 36); 
 Print( CDCVGmol, CDCVCmol,  1, 2, 6, 12, 24, 36); 
 
 } # End Experiment Random Strain
@@ -342,6 +345,7 @@ TChng = 0.05 ;
 # Parameters
 Print( CPlasTCAmol, CLivTCAmol, CKidTCAmol, CBrnTCAmol, 1, 2, 6, 12, 24, 36); 
 Print( TotCTCOHmol, TotLivTCOHmol, TotKidTCOHmol, TotBrnTCOHmol, 1, 2, 6, 12, 24, 36); 
+Print( CTCOGTCOHmol, CLivTCOGTCOHmol, CKidTCOGTCOHmol, CBrnTCOGTCOHmol, 1, 2, 6, 12, 24, 36); 
 Print( CDCVGmol, CDCVCmol,  1, 2, 6, 12, 24, 36); 
 
 } # End AU8005F
@@ -363,6 +367,7 @@ TChng = 0.05 ;
 # Parameters
 Print( CPlasTCAmol, CLivTCAmol, CKidTCAmol, CBrnTCAmol, 1, 2, 6, 12, 24, 36); 
 Print( TotCTCOHmol, TotLivTCOHmol, TotKidTCOHmol, TotBrnTCOHmol, 1, 2, 6, 12, 24, 36); 
+Print( CTCOGTCOHmol, CLivTCOGTCOHmol, CKidTCOGTCOHmol, CBrnTCOGTCOHmol, 1, 2, 6, 12, 24, 36); 
 Print( CDCVGmol, CDCVCmol,  1, 2, 6, 12, 24, 36); 
 } # End AU8034M
 
@@ -383,6 +388,7 @@ TChng = 0.05 ;
 # Parameters
 Print( CPlasTCAmol, CLivTCAmol, CKidTCAmol, CBrnTCAmol, 1, 2, 6, 12, 24, 36); 
 Print( TotCTCOHmol, TotLivTCOHmol, TotKidTCOHmol, TotBrnTCOHmol, 1, 2, 6, 12, 24, 36); 
+Print( CTCOGTCOHmol, CLivTCOGTCOHmol, CKidTCOGTCOHmol, CBrnTCOGTCOHmol, 1, 2, 6, 12, 24, 36); 
 Print( CDCVGmol, CDCVCmol,  1, 2, 6, 12, 24, 36); 
 } # End AU8034F
 
@@ -403,6 +409,7 @@ TChng = 0.05 ;
 # Parameters
 Print( CPlasTCAmol, CLivTCAmol, CKidTCAmol, CBrnTCAmol, 1, 2, 6, 12, 24, 36); 
 Print( TotCTCOHmol, TotLivTCOHmol, TotKidTCOHmol, TotBrnTCOHmol, 1, 2, 6, 12, 24, 36); 
+Print( CTCOGTCOHmol, CLivTCOGTCOHmol, CKidTCOGTCOHmol, CBrnTCOGTCOHmol, 1, 2, 6, 12, 24, 36); 
 Print( CDCVGmol, CDCVCmol,  1, 2, 6, 12, 24, 36); 
 
 } # End IL1688M
@@ -424,6 +431,7 @@ TChng = 0.05 ;
 # Parameters
 Print( CPlasTCAmol, CLivTCAmol, CKidTCAmol, CBrnTCAmol, 1, 2, 6, 12, 24, 36); 
 Print( TotCTCOHmol, TotLivTCOHmol, TotKidTCOHmol, TotBrnTCOHmol, 1, 2, 6, 12, 24, 36); 
+Print( CTCOGTCOHmol, CLivTCOGTCOHmol, CKidTCOGTCOHmol, CBrnTCOGTCOHmol, 1, 2, 6, 12, 24, 36); 
 Print( CDCVGmol, CDCVCmol,  1, 2, 6, 12, 24, 36); 
 
 } # End IL1688F

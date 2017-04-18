@@ -152,9 +152,13 @@ zAUrnTCA_sat,	# human - Saturated TCA measurements
 zABileTCOG,	# rat - Amount of TCOG in bile (mg)
 CTCOG,	# needed for CTCOGTCOH
 CTCOGTCOH,	# mouse - TCOG concentration in blood (in TCOH-equiv)
+CTCOGTCOHmol, #(v2.11)
 CKidTCOGTCOH,	# mouse - TCOG concentration in kidney (in TCOH-equiv)
+CKidTCOGTCOHmol, #(v2.11)
 CLivTCOGTCOH,	# mouse - TCOG concentration in liver (in TCOH-equiv)
+CLivTCOGTCOHmol, #(v2.11)
 CBrnTCOGTCOH, #(v2.11)
+CBrnTCOGTCOHmol, #(v2.11)
 CLungTCOGTCOH,	# mouse - TCOG concentration in lung (in TCOH-equiv)
 AUrnTCOGTCOH,	# mouse, rat, human - Cumulative Urinary TCOG (in TCOH-equiv)
 AUrnTCOGTCOH_collect,	# human - TCOG (in TCOH-equiv) measurements for 
@@ -758,9 +762,12 @@ Ve_zAUrnTCA_sat	= 1;
 Ve_zABileTCOG	= 1;
 Ve_CTCOG	= 1;
 Ve_CTCOGTCOH	= 1;
+Ve_CTCOGTCOHmol	= 1; #(v2.11)
 Ve_CKidTCOGTCOH	= 1;
+Ve_CKidTCOGTCOHmol	= 1; #(v2.11)
 Ve_CLivTCOGTCOH	= 1;
-Ve_CBrnTCOGTCOH	= 1; #(v2.11)
+Ve_CLivTCOGTCOHmol	= 1; #(v2.11)
+Ve_CBrnTCOGTCOHmol	= 1; #(v2.11)
 Ve_CLungTCOGTCOH	= 1;
 Ve_AUrnTCOGTCOH	= 1;
 Ve_AUrnTCOGTCOH_collect	= 1;
@@ -1716,7 +1723,8 @@ dt(ABrnTCA) = QBrnPlas * (CPlasTCAFree - CVBrnTCAFree); #(v2.10)
 	CTCOG = (QBod * CVBodTCOG + QGutLiv * CVLivTCOG + QKid * CVKidTCOG + QBrn * CVBrnTCOG)/QCnow;  #(v2.11)
 #************************************************************************
 # Amount of TCOG in body, brain, and kidney
-	RUrnTCOG = kUrnTCOG * ABodTCOG;
+	# RUrnTCOG = kUrnTCOG * ABodTCOG;
+	RUrnTCOG = kUrnTCOG * AKidTCOG; #(v2.11)
     # dt(ABodTCOG) = QBod * (CTCOG - CVBodTCOG) - RUrnTCOG;
     dt(ABodTCOG) = QBod * (CTCOG - CVBodTCOG);
     dt(AKidTCOG) = QKid * (CTCOG - CVKidTCOG) - RUrnTCOG;  #(v2.11)
@@ -1734,7 +1742,8 @@ dt(ABrnTCA) = QBrnPlas * (CPlasTCAFree - CVBrnTCAFree); #(v2.10)
 
 #**** Urine *******************************************************************
 # Amount of TCOH-Gluc excreted in urine (mg)
-    dt(AUrnTCOG) = RUrnTCOG * VKid * CVKidTCOG;
+    # dt(AUrnTCOG) = RUrnTCOG; 
+	dt(AUrnTCOG) = RUrnTCOG * VKid * CVKidTCOG; #(v2.11)
     dt(AUrnTCOG_sat) = TCOGUrnSat*(1-UrnMissing)*RUrnTCOG; 
 		# Saturated, but not missing collection times 
     dt(AUrnTCOG_collect) = (1-TCOGUrnSat)*(1-UrnMissing)*RUrnTCOG;
@@ -1862,10 +1871,14 @@ CalcOutputs{
 	#  Concentrations are in TCOH-equivalents 
 	CTCOG = (CTCOG < 1.0e-15 ? 1.0e-15 : CTCOG); 
 	CTCOGTCOH = StochTCOHGluc*CTCOG; 
+	CTCOGTCOHmol = CTCOGTCOH / MWTCOHGluc; #(v2.11)
 	CBodTCOGTCOH = (ABodTCOG < 1.0e-15 ? 1.0e-15 : StochTCOHGluc*ABodTCOG/VBodTCOH); 
-	CKidTCOGTCOH = (AKidTCOG < 1.0e-15 ? 1.0e-15 : StochTCOHGluc*AKidTCOG/VKid);
+	CKidTCOGTCOH = (AKidTCOG < 1.0e-15 ? 1.0e-15 : StochTCOHGluc*AKidTCOG/VKid); #(v2.11)
+	CKidTCOGTCOHmol = CKidTCOGTCOH / MWTCOHGluc; #(v2.11)
 	CLivTCOGTCOH = (ALivTCOG < 1.0e-15 ? 1.0e-15 : StochTCOHGluc*ALivTCOG/VLiv); 
-	CBrnTCOGTCOH = (ABrnTCOG < 1.0e-15 ? 1.0e-15 : StochTCOHGluc*ABrnTCOG/VBrn); 
+	CLivTCOGTCOHmol = CLivTCOGTCOH / MWTCOHGluc; #(v2.11)
+	CBrnTCOGTCOH = (ABrnTCOG < 1.0e-15 ? 1.0e-15 : StochTCOHGluc*ABrnTCOG/VBrn); #(v2.11)
+	CBrnTCOGTCOHmol = CBrnTCOGTCOH / MWTCOHGluc; #(v2.11)
 	CLungTCOGTCOH = CBodTCOGTCOH;
 	AUrnTCOGTCOH = (AUrnTCOG < 1.0e-15 ? 1.0e-15 : StochTCOHGluc*AUrnTCOG);
 	AUrnTCOGTCOH_sat = (AUrnTCOG_sat < 1.0e-15 ? 1.0e-15 : StochTCOHGluc*AUrnTCOG_sat);
