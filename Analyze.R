@@ -186,27 +186,28 @@ SrmTCA.2.2<-c(NA,0.466705746,0.025130688,0.082212446,0.015466652,0.079177805)
 LivTCA.2.2<-c(0.136279052,0.131874042,0.380678931,0.110734929,NA,0.025712079)
 KidTCA.2.2<-c(0.692909505,0.917726186,0.207431935,0.170496301,NA,0.163029608)
 BrnTCA.2.2<-c(0.026083658,0.04987165,0.025130688,0.002088463,NA,NA)
-TotTCOH.2.1<-c(53.47633231,186.467775,332.9022111,349.0165423,NA,NA)/1000
-LivTCOH.2.1<-c(1149.443923,1184.948021,1314.689554,170.4230798,NA,NA)/1000
-BrnTCOH.2.1<-c(355.7664596,358.9886592,156.1451444,NA,NA,NA)/1000
+TotCTCOH.2.1<-c(53.47633231,186.467775,332.9022111,349.0165423,NA,NA)/1000
+TotLivTCOH.2.1<-c(1149.443923,1184.948021,1314.689554,170.4230798,NA,NA)/1000
+TotBrnTCOH.2.1<-c(355.7664596,358.9886592,156.1451444,NA,NA,NA)/1000
 SrmDCVG.2.1<-c(4.729200908,3.28157303,1.629898515,1.902690377,NA,NA)/10^6
 SrmDCVC.2.1<-c(NA,14.38197883,10.73947603,10.54803359,9.940698993,NA)/10^6
-TotTCOH.2.2<-c(NA,223.127659,104.2596051,56.98866722,NA,NA)/1000
-LivTCOH.2.2<-c(NA,401.9116267,129.4916799,NA,NA,NA)/1000
-BrnTCOH.2.2<-c(244.1705254,274.5119531,NA,NA,NA,NA)/1000
+TotCTCOH.2.2<-c(NA,223.127659,104.2596051,56.98866722,NA,NA)/1000
+TotLivTCOH.2.2<-c(NA,401.9116267,129.4916799,NA,NA,NA)/1000
+TotBrnTCOH.2.2<-c(244.1705254,274.5119531,NA,NA,NA,NA)/1000
 SrmDCVG.2.2<-c(5.38120384,3.775100342,NA,NA,NA,NA)/10^6
 SrmDCVC.2.2<-c(NA,16.06088764,12.9580701,NA,NA,NA)/10^6
 
 AU8005.df<-data.frame(time,SrmTCA.2.1,LivTCA.2.1,KidTCA.2.1,BrnTCA.2.1,
                        SrmTCA.2.2, LivTCA.2.2,KidTCA.2.2,BrnTCA.2.2,
-                       TotTCOH.2.1,LivTCOH.2.1,SrmDCVG.2.1,SrmDCVC.2.1,
-                       TotTCOH.2.2,LivTCOH.2.2,SrmDCVG.2.2,SrmDCVC.2.2)
+                       TotCTCOH.2.1,TotLivTCOH.2.1,TotBrnTCOH.2.1,
+                       TotCTCOH.2.2,TotLivTCOH.2.2,TotBrnTCOH.2.2,
+                       SrmDCVG.2.1,SrmDCVC.2.1,SrmDCVG.2.2,SrmDCVC.2.2)
 
 #VenTCE8005M <- which(colnames(df)=="CVen_3.1")
 #LivTCE8005M <- which(colnames(df)=="CLiv_3.1")
 #KidTCE8005M <- which(colnames(df)=="CKid_3.1")
 #FatTCE8005M <- which(colnames(df)=="CFat_3.1")
-#rnTCE8005M <- which(colnames(df)=="CBrn_3.1")
+#BrnTCE8005M <- which(colnames(df)=="CBrn_3.1")
 #LngTCE8005M <- which(colnames(df)=="CLung_3.1")
 #SlwTCE8005M <- which(colnames(df)=="CSlw_3.1")
 SrmTCA8005M <- which(colnames(df)=="CPlasTCAmol_3.1")
@@ -214,8 +215,16 @@ LivTCA8005M <- which(colnames(df)=="CLivTCAmol_3.1")
 KidTCA8005M <- which(colnames(df)=="CKidTCAmol_3.1")
 BrnTCA8005M <- which(colnames(df)=="CBrnTCAmol_3.1")
 TotTCOH8005M <- which(colnames(df)=="TotCTCOHmol_3.1")
-SrmTCOH8005M <- which(colnames(df)=="CTCOHmol_3.1")
-LivTCOH8005M <- which(colnames(df)=="CLivTCOHmol_3.1")
+#SrmTCOH8005M <- which(colnames(df)=="CTCOHmol_3.1")
+LivTCOH8005M <- which(colnames(df)=="TotLivTCOHmol_3.1")
+KidTCOH8005M <- which(colnames(df)=="TotKidTCOHmol_3.1") #(v2.11)
+BrnTCOH8005M <- which(colnames(df)=="TotBrnTCOHmol_3.1") #(v2.11)
+
+SrmTCOG8005M <- which(colnames(df)=="CTCOGTCOHmol_3.1") #(v2.11)
+LivTCOG8005M <- which(colnames(df)=="CLivTCOGTCOHmol_3.1") #(v2.11)
+KidTCOG8005M <- which(colnames(df)=="CKidTCOGTCOHmol_3.1") #(v2.11)
+BrnTCOG8005M <- which(colnames(df)=="CBrnTCOGTCOHmol_3.1") #(v2.11)
+
 SrmDCVG8005M <- which(colnames(df)=="CDCVGmol_3.1")
 SrmDCVC8005M <- which(colnames(df)=="CDCVCmol_3.1")
 
@@ -230,44 +239,71 @@ SrmTCA8005F <- which(colnames(df)=="CPlasTCAmol_4.1")
 LivTCA8005F <- which(colnames(df)=="CLivTCAmol_4.1")
 KidTCA8005F <- which(colnames(df)=="CKidTCAmol_4.1")
 BrnTCA8005F <- which(colnames(df)=="CBrnTCAmol_4.1")
+
 TotTCOH8005F <- which(colnames(df)=="TotCTCOHmol_4.1")
-SrmTCOH8005F <- which(colnames(df)=="CTCOHmol_4.1")
-LivTCOH8005F <- which(colnames(df)=="CLivTCOHmol_4.1")
+#SrmTCOH8005F <- which(colnames(df)=="CTCOHmol_4.1")
+LivTCOH8005F <- which(colnames(df)=="TotLivTCOHmol_4.1")
+KidTCOH8005F <- which(colnames(df)=="TotKidTCOHmol_4.1") #(v2.11)
+BrnTCOH8005F <- which(colnames(df)=="TotBrnTCOHmol_4.1") #(v2.11)
+
+SrmTCOG8005F <- which(colnames(df)=="CTCOGTCOHmol_4.1") #(v2.11)
+LivTCOG8005F <- which(colnames(df)=="CLivTCOGTCOHmol_4.1") #(v2.11)
+KidTCOG8005F <- which(colnames(df)=="CKidTCOGTCOHmol_4.1") #(v2.11)
+BrnTCOG8005F <- which(colnames(df)=="CBrnTCOGTCOHmol_4.1") #(v2.11)
+
 SrmDCVG8005F <- which(colnames(df)=="CDCVGmol_4.1")
 SrmDCVC8005F <- which(colnames(df)=="CDCVCmol_4.1")
 
 #
-VenTCE.2.1 <- VenTCE8005M:(VenTCE8005M+5) # col no. for male
-LivTCE.2.1 <- LivTCE8005M:(LivTCE8005M+5)
-KidTCE.2.1 <- KidTCE8005M:(KidTCE8005M+5)
-FatTCE.2.1 <- FatTCE8005M:(FatTCE8005M+5)
-BrnTCE.2.1 <- BrnTCE8005M:(BrnTCE8005M+5)
-LngTCE.2.1 <- LngTCE8005M:(LngTCE8005M+5)
-SlwTCE.2.1 <- SlwTCE8005M:(SlwTCE8005M+5)
+#VenTCE.2.1 <- VenTCE8005M:(VenTCE8005M+5) # col no. for male
+#LivTCE.2.1 <- LivTCE8005M:(LivTCE8005M+5)
+#KidTCE.2.1 <- KidTCE8005M:(KidTCE8005M+5)
+#FatTCE.2.1 <- FatTCE8005M:(FatTCE8005M+5)
+#BrnTCE.2.1 <- BrnTCE8005M:(BrnTCE8005M+5)
+#LngTCE.2.1 <- LngTCE8005M:(LngTCE8005M+5)
+#SlwTCE.2.1 <- SlwTCE8005M:(SlwTCE8005M+5)
 SrmTCA.2.1 <- SrmTCA8005M:(SrmTCA8005M+5)
 LivTCA.2.1 <- LivTCA8005M:(LivTCA8005M+5) 
 KidTCA.2.1 <- KidTCA8005M:(KidTCA8005M+5)
 BrnTCA.2.1 <- BrnTCA8005M:(BrnTCA8005M+5)
+
 TotTCOH.2.1 <- TotTCOH8005M:(TotTCOH8005M+5)
-SrmTCOH.2.1 <- SrmTCOH8005M:(SrmTCOH8005M+5)
+#SrmTCOH.2.1 <- SrmTCOH8005M:(SrmTCOH8005M+5)
 LivTCOH.2.1 <- LivTCOH8005M:(LivTCOH8005M+5)
+KidTCOH.2.1 <- KidTCOH8005M:(KidTCOH8005M+5) #(v2.11)
+BrnTCOH.2.1 <- BrnTCOH8005M:(BrnTCOH8005M+5) #(v2.11)
+
+SrmTCOG.2.1 <- SrmTCOG8005M:(SrmTCOG8005M+5) #(v2.11)
+LivTCOG.2.1 <- LivTCOG8005M:(LivTCOG8005M+5) #(v2.11)
+KidTCOG.2.1 <- KidTCOG8005M:(KidTCOG8005M+5) #(v2.11)
+BrnTCOG.2.1 <- BrnTCOG8005M:(BrnTCOG8005M+5) #(v2.11)
+
 SrmDCVG.2.1 <- SrmDCVG8005M:(SrmDCVG8005M+5)
 SrmDCVC.2.1 <- SrmDCVC8005M:(SrmDCVC8005M+5)
 
-VenTCE.2.2 <- VenTCE8005F:(VenTCE8005F+5) # col no. for Female
-LivTCE.2.2 <- LivTCE8005F:(LivTCE8005F+5)
-KidTCE.2.2 <- KidTCE8005F:(KidTCE8005F+5)
-FatTCE.2.2 <- FatTCE8005F:(FatTCE8005F+5)
-BrnTCE.2.2 <- BrnTCE8005F:(BrnTCE8005F+5)
-LngTCE.2.2 <- LngTCE8005F:(LngTCE8005F+5)
-SlwTCE.2.2 <- SlwTCE8005F:(SlwTCE8005F+5)
+#VenTCE.2.2 <- VenTCE8005F:(VenTCE8005F+5) # col no. for Female
+#LivTCE.2.2 <- LivTCE8005F:(LivTCE8005F+5)
+#KidTCE.2.2 <- KidTCE8005F:(KidTCE8005F+5)
+#FatTCE.2.2 <- FatTCE8005F:(FatTCE8005F+5)
+#BrnTCE.2.2 <- BrnTCE8005F:(BrnTCE8005F+5)
+#LngTCE.2.2 <- LngTCE8005F:(LngTCE8005F+5)
+#SlwTCE.2.2 <- SlwTCE8005F:(SlwTCE8005F+5)
 SrmTCA.2.2 <- SrmTCA8005F:(SrmTCA8005F+5)
 LivTCA.2.2 <- LivTCA8005F:(LivTCA8005F+5) 
 KidTCA.2.2 <- KidTCA8005F:(KidTCA8005F+5)
 BrnTCA.2.2 <- BrnTCA8005F:(BrnTCA8005F+5)
+
 TotTCOH.2.2 <- TotTCOH8005F:(TotTCOH8005F+5)
-SrmTCOH.2.2 <- SrmTCOH8005F:(SrmTCOH8005F+5)
+#SrmTCOH.2.2 <- SrmTCOH8005F:(SrmTCOH8005F+5)
 LivTCOH.2.2 <- LivTCOH8005F:(LivTCOH8005F+5)
+KidTCOH.2.2 <- KidTCOH8005F:(KidTCOH8005F+5) #(v2.11)
+BrnTCOH.2.2 <- BrnTCOH8005F:(BrnTCOH8005F+5) #(v2.11)
+
+SrmTCOG.2.2 <- SrmTCOG8005F:(SrmTCOG8005F+5) #(v2.11)
+LivTCOG.2.2 <- LivTCOG8005F:(LivTCOG8005F+5) #(v2.11)
+KidTCOG.2.2 <- KidTCOG8005F:(KidTCOG8005F+5) #(v2.11)
+BrnTCOG.2.2 <- BrnTCOG8005F:(BrnTCOG8005F+5) #(v2.11)
+
 SrmDCVG.2.2 <- SrmDCVG8005F:(SrmDCVG8005F+5)
 SrmDCVC.2.2 <- SrmDCVC8005F:(SrmDCVC8005F+5)
 
