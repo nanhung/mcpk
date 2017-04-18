@@ -4,119 +4,6 @@ layout(matrix(c(1,1,1,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17),
               ncol=4, byrow = T),heights=c(1,3,3,3,3))
 plot.new()
 text(0.5,0.5,"AU8034 Male - 800 mg/kg TCE",cex=2,font=2)
-for (i in 1:dim(df)[1]) {
-  if (i == 1) {
-    plot(time, df[i,VenTCE.3.1], xlab = " ", ylab = "",
-         main = "Venous TCE (mg/l)", las = 1, col = "grey", pch = 20, cex.lab = 1.2,
-         type = "b", log="xy", ylim=c(10^-4, 10^4), cex.main = 1.2)
-  } else {
-    plot(time, df[i,VenTCE.3.1], xlab = "", ylab = "", xaxt = "n", yaxt = "n",
-         main = "", las = 1, col = "grey", pch = 20,
-         type = "b", log="xy", ylim=c(10^-4, 10^4)) 
-  }
-  par(new=T)
-}
-lines(AU8034.df[,1], apply(df[,VenTCE.3.1], 2, median), lwd=2)
-lines(AU8034.df[,1], apply(df[,VenTCE.3.1], 2,  quantile, probs= c(.05)),lty=2, lwd=2)
-lines(AU8034.df[,1], apply(df[,VenTCE.3.1], 2,  quantile, probs= c(.95)),lty=2, lwd=2 )
-
-for (i in 1:dim(df)[1]) {
-  if (i == 1) {
-    plot(time, df[i,VenTCE.3.1], xlab = " ", ylab = "",
-         main = "Liver TCE (mg/l)", las = 1, col = "grey", pch = 20, cex.lab = 1.2,
-         type = "b", log="xy", ylim=c(10^-4, 10^4), cex.main = 1.2)
-  } else {
-    plot(time, df[i,LivTCE.3.1], xlab = "", ylab = "", xaxt = "n", yaxt = "n",
-         main = "", las = 1, col = "grey", pch = 20,
-         type = "b", log="xy", ylim=c(10^-4, 10^4)) 
-  }
-  par(new=T)
-}
-lines(AU8034.df[,1], apply(df[,LivTCE.3.1], 2, median), lwd=2)
-lines(AU8034.df[,1], apply(df[,LivTCE.3.1], 2,  quantile, probs= c(.05)),lty=2, lwd=2)
-lines(AU8034.df[,1], apply(df[,LivTCE.3.1], 2,  quantile, probs= c(.95)),lty=2, lwd=2)
-
-for (i in 1:dim(df)[1]) {
-  if (i == 1) {
-    plot(time, df[i,KidTCE.3.1], xlab = " ", ylab = "",
-         main = "Kidney TCE (mg/l)", las = 1, col = "grey", pch = 20, cex.lab = 1.2,
-         type = "b", log="xy", ylim=c(10^-4, 10^4), cex.main = 1.2)
-  } else {
-    plot(time, df[i,KidTCE.3.1], xlab = "", ylab = "", xaxt = "n", yaxt = "n",
-         main = "", las = 1, col = "grey", pch = 20,
-         type = "b", log="xy", ylim=c(10^-4, 10^4)) 
-  }
-  par(new=T)
-}
-lines(AU8034.df[,1], apply(df[,KidTCE.3.1], 2, median), lwd=2)
-lines(AU8034.df[,1], apply(df[,KidTCE.3.1], 2,  quantile, probs= c(.05)),lty=2, lwd=2)
-lines(AU8034.df[,1], apply(df[,KidTCE.3.1], 2,  quantile, probs= c(.95)),lty=2, lwd=2)
-
-for (i in 1:dim(df)[1]) {
-  if (i == 1) {
-    plot(time, df[i,FatTCE.3.1], xlab = " ", ylab = "",
-         main = "Fat TCE (mg/l)", las = 1, col = "grey", pch = 20, cex.lab = 1.2,
-         type = "b", log="xy", ylim=c(10^-4, 10^4), cex.main = 1.2)
-  } else {
-    plot(time, df[i,FatTCE.3.1], xlab = "", ylab = "", xaxt = "n", yaxt = "n",
-         main = "", las = 1, col = "grey", pch = 20,
-         type = "b", log="xy", ylim=c(10^-4, 10^4)) 
-  }
-  par(new=T)
-}
-lines(AU8034.df[,1], apply(df[,FatTCE.3.1], 2, median), lwd=2)
-lines(AU8034.df[,1], apply(df[,FatTCE.3.1], 2,  quantile, probs= c(.05)),lty=2, lwd=2)
-lines(AU8034.df[,1], apply(df[,FatTCE.3.1], 2,  quantile, probs= c(.95)),lty=2, lwd=2)
-
-for (i in 1:dim(df)[1]) {
-  if (i == 1) {
-    plot(time, df[i,BrnTCE.3.1], xlab = " ", ylab = "",
-         main = "Brain TCE (mg/l)", las = 1, col = "grey", pch = 20, cex.lab = 1.2,
-         type = "b", log="xy", ylim=c(10^-4, 10^4), cex.main = 1.2)
-  } else {
-    plot(time, df[i,BrnTCE.3.1], xlab = "", ylab = "", xaxt = "n", yaxt = "n",
-         main = "", las = 1, col = "grey", pch = 20,
-         type = "b", log="xy", ylim=c(10^-4, 10^4)) 
-  }
-  par(new=T)
-}
-lines(AU8034.df[,1], apply(df[,BrnTCE.3.1], 2, median), lwd=2)
-lines(AU8034.df[,1], apply(df[,BrnTCE.3.1], 2,  quantile, probs= c(.05)),lty=2, lwd=2)
-lines(AU8034.df[,1], apply(df[,BrnTCE.3.1], 2,  quantile, probs= c(.95)),lty=2, lwd=2)
-
-for (i in 1:dim(df)[1]) {
-  if (i == 1) {
-    plot(time, df[i,LngTCE.3.1], xlab = " ", ylab = "",
-         main = "Lung TCE (mg/l)", las = 1, col = "grey", pch = 20, cex.lab = 1.2,
-         type = "b", log="xy", ylim=c(10^-4, 10^4), cex.main = 1.2)
-  } else {
-    plot(time, df[i,LngTCE.3.1], xlab = "", ylab = "", xaxt = "n", yaxt = "n",
-         main = "", las = 1, col = "grey", pch = 20,
-         type = "b", log="xy", ylim=c(10^-4, 10^4)) 
-  }
-  par(new=T)
-}
-lines(AU8034.df[,1], apply(df[,LngTCE.3.1], 2, median), lwd=2)
-lines(AU8034.df[,1], apply(df[,LngTCE.3.1], 2,  quantile, probs= c(.05)),lty=2, lwd=2)
-lines(AU8034.df[,1], apply(df[,LngTCE.3.1], 2,  quantile, probs= c(.95)),lty=2, lwd=2)
-
-for (i in 1:dim(df)[1]) {
-  if (i == 1) {
-    plot(time, df[i,SlwTCE.3.1], xlab = " ", ylab = "",
-         main = "Slw TCE (mg/l)", las = 1, col = "grey", pch = 20, cex.lab = 1.2,
-         type = "b", log="xy", ylim=c(10^-4, 10^4), cex.main = 1.2)
-  } else {
-    plot(time, df[i,SlwTCE.3.1], xlab = "", ylab = "", xaxt = "n", yaxt = "n",
-         main = "", las = 1, col = "grey", pch = 20,
-         type = "b", log="xy", ylim=c(10^-4, 10^4)) 
-  }
-  par(new=T)
-}
-
-lines(AU8034.df[,1], apply(df[,SlwTCE.3.1], 2, median), lwd=2)
-lines(AU8034.df[,1], apply(df[,SlwTCE.3.1], 2,  quantile, probs= c(.05)),lty=2, lwd=2)
-lines(AU8034.df[,1], apply(df[,SlwTCE.3.1], 2,  quantile, probs= c(.95)),lty=2, lwd=2)
-
 
 for (i in 1:dim(df)[1]) {
   if (i == 1) {
@@ -133,7 +20,7 @@ for (i in 1:dim(df)[1]) {
 lines(AU8034.df[,1], apply(df[,SrmTCA.3.1], 2, median), lwd=2)
 lines(AU8034.df[,1], apply(df[,SrmTCA.3.1], 2,  quantile, probs= c(.05)),lty=2, lwd=2)
 lines(AU8034.df[,1], apply(df[,SrmTCA.3.1], 2,  quantile, probs= c(.95)),lty=2, lwd=2 )
-points(AU8034.df[,1], AU8034.df[,2], col = "red" , pch = 20, cex=1.4)
+points(AU8034.df[,1], AU8034.df$SrmTCA.3.1, col = "red" , pch = 20, cex=1.4)
 
 for (i in 1:dim(df)[1]) {
   if (i == 1) {
@@ -150,7 +37,7 @@ for (i in 1:dim(df)[1]) {
 lines(AU8034.df[,1], apply(df[,LivTCA.3.1], 2, median), lwd=2)
 lines(AU8034.df[,1], apply(df[,LivTCA.3.1], 2,  quantile, probs= c(.05)),lty=2, lwd=2)
 lines(AU8034.df[,1], apply(df[,LivTCA.3.1], 2,  quantile, probs= c(.95)),lty=2, lwd=2 )
-points(AU8034.df[,1], AU8034.df[,3], col = "red" , pch = 20, cex=1.4)
+points(AU8034.df[,1], AU8034.df$LivTCA.3.1, col = "red" , pch = 20, cex=1.4)
 
 for (i in 1:dim(df)[1]) {
   if (i == 1) {
@@ -167,7 +54,7 @@ for (i in 1:dim(df)[1]) {
 lines(AU8034.df[,1], apply(df[,KidTCA.3.1], 2, median), lwd=2)
 lines(AU8034.df[,1], apply(df[,KidTCA.3.1], 2,  quantile, probs= c(.05)),lty=2, lwd=2)
 lines(AU8034.df[,1], apply(df[,KidTCA.3.1], 2,  quantile, probs= c(.95)),lty=2, lwd=2 )
-points(AU8034.df[,1], AU8034.df[,4], col = "red" , pch = 20, cex=1.4)
+points(AU8034.df[,1], AU8034.df$KidTCA.3.1, col = "red" , pch = 20, cex=1.4)
 
 for (i in 1:dim(df)[1]) {
   if (i == 1) {
@@ -184,46 +71,29 @@ for (i in 1:dim(df)[1]) {
 lines(AU8034.df[,1], apply(df[,BrnTCA.3.1], 2, median), lwd=2)
 lines(AU8034.df[,1], apply(df[,BrnTCA.3.1], 2,  quantile, probs= c(.05)),lty=2, lwd=2)
 lines(AU8034.df[,1], apply(df[,BrnTCA.3.1], 2,  quantile, probs= c(.95)),lty=2, lwd=2 )
-points(AU8034.df[,1], AU8034.df[,5], col = "red" , pch = 20, cex=1.4)
+points(AU8034.df[,1], AU8034.df$BrnTCA.3.1, col = "red" , pch = 20, cex=1.4)
 
 for (i in 1:dim(df)[1]) {
   if (i == 1) {
     plot(time, df[i,TotTCOH.3.1], xlab = " ", ylab = "",
-         main = "CTCOH+CTCOG (mmol/l)", las = 1, col = "grey", pch = 20, cex.lab = 1.2,
-         type = "b", log="xy", ylim=c(10^-6, 10^0), cex.main = 1.2)
+         main = "Serum TotTCOH (mmol/l)", las = 1, col = "grey", pch = 20, cex.lab = 1.2,
+         type = "b", log="xy", ylim=c(10^-4, 10^1), cex.main = 1.2)
   } else {
     plot(time, df[i,TotTCOH.3.1], xlab = "", ylab = "", xaxt = "n", yaxt = "n",
          main = "", las = 1, col = "grey", pch = 20,
-         type = "b", log="xy", ylim=c(10^-6, 10^0)) 
+         type = "b", log="xy", ylim=c(10^-4, 10^1)) 
   }
   par(new=T)
 }
 lines(AU8034.df[,1], apply(df[,TotTCOH.3.1], 2, median), lwd=2)
 lines(AU8034.df[,1], apply(df[,TotTCOH.3.1], 2,  quantile, probs= c(.05)),lty=2, lwd=2)
 lines(AU8034.df[,1], apply(df[,TotTCOH.3.1], 2,  quantile, probs= c(.95)),lty=2, lwd=2 )
-points(AU8034.df[,1], AU8034.df$TotTCOH.3.1, col = "red" , pch = 20, cex=1.4)
-
-for (i in 1:dim(df)[1]) {
-  if (i == 1) {
-    plot(time, df[i,SrmTCOH.3.1], xlab = " ", ylab = "",
-         main = "Serum TCOH (mmol/l)", las = 1, col = "grey", pch = 20, cex.lab = 1.2,
-         type = "b", log="xy", ylim=c(10^-5, 10^0), cex.main = 1.2)
-  } else {
-    plot(time, df[i,SrmTCOH.3.1], xlab = "", ylab = "", xaxt = "n", yaxt = "n",
-         main = "", las = 1, col = "grey", pch = 20,
-         type = "b", log="xy", ylim=c(10^-5, 10^0)) 
-  }
-  par(new=T)
-}
-lines(AU8034.df[,1], apply(df[,SrmTCOH.3.1], 2, median), lwd=2)
-lines(AU8034.df[,1], apply(df[,SrmTCOH.3.1], 2,  quantile, probs= c(.05)),lty=2, lwd=2)
-lines(AU8034.df[,1], apply(df[,SrmTCOH.3.1], 2,  quantile, probs= c(.95)),lty=2, lwd=2 )
-
+points(AU8034.df[,1], AU8034.df$TotCTCOH.3.1, col = "red" , pch = 20, cex=1.4)
 
 for (i in 1:dim(df)[1]) {
   if (i == 1) {
     plot(time, df[i,LivTCOH.3.1], xlab = " ", ylab = "",
-         main = "Liver TCOH (mmol/l)", las = 1, col = "grey", pch = 20, cex.lab = 1.2,
+         main = "Liver TotTCOH (mmol/l)", las = 1, col = "grey", pch = 20, cex.lab = 1.2,
          type = "b", log="xy", ylim=c(10^-5, 10^1), cex.main = 1.2)
   } else {
     plot(time, df[i,LivTCOH.3.1], xlab = "", ylab = "", xaxt = "n", yaxt = "n",
@@ -235,41 +105,139 @@ for (i in 1:dim(df)[1]) {
 lines(AU8034.df[,1], apply(df[,LivTCOH.3.1], 2, median), lwd=2)
 lines(AU8034.df[,1], apply(df[,LivTCOH.3.1], 2,  quantile, probs= c(.05)),lty=2, lwd=2)
 lines(AU8034.df[,1], apply(df[,LivTCOH.3.1], 2,  quantile, probs= c(.95)),lty=2, lwd=2 )
-points(AU8034.df[,1], AU8034.df[,11], col = "red" , pch = 20, cex=1.4)
+points(AU8034.df[,1], AU8034.df$TotLivTCOH.3.1, col = "red" , pch = 20, cex=1.4)
+
+for (i in 1:dim(df)[1]) {
+  if (i == 1) {
+    plot(time, df[i,KidTCOH.3.1], xlab = " ", ylab = "",
+         main = "Kidney TotTCOH (mmol/l)", las = 1, col = "grey", pch = 20, cex.lab = 1.2,
+         type = "b", log="xy", ylim=c(10^-5, 10^1), cex.main = 1.2)
+  } else {
+    plot(time, df[i,KidTCOH.3.1], xlab = "", ylab = "", xaxt = "n", yaxt = "n",
+         main = "", las = 1, col = "grey", pch = 20,
+         type = "b", log="xy", ylim=c(10^-5, 10^1)) 
+  }
+  par(new=T)
+}
+lines(AU8034.df[,1], apply(df[,KidTCOH.3.1], 2, median), lwd=2)
+lines(AU8034.df[,1], apply(df[,KidTCOH.3.1], 2,  quantile, probs= c(.05)),lty=2, lwd=2)
+lines(AU8034.df[,1], apply(df[,KidTCOH.3.1], 2,  quantile, probs= c(.95)),lty=2, lwd=2)
+
+for (i in 1:dim(df)[1]) {
+  if (i == 1) {
+    plot(time, df[i,BrnTCOH.3.1], xlab = " ", ylab = "",
+         main = "Brain TotTCOH (mmol/l)", las = 1, col = "grey", pch = 20, cex.lab = 1.2,
+         type = "b", log="xy", ylim=c(10^-5, 10^1), cex.main = 1.2)
+  } else {
+    plot(time, df[i,BrnTCOH.3.1], xlab = "", ylab = "", xaxt = "n", yaxt = "n",
+         main = "", las = 1, col = "grey", pch = 20,
+         type = "b", log="xy", ylim=c(10^-5, 10^1)) 
+  }
+  par(new=T)
+}
+lines(AU8034.df[,1], apply(df[,BrnTCOH.3.1], 2, median), lwd=2)
+lines(AU8034.df[,1], apply(df[,BrnTCOH.3.1], 2,  quantile, probs= c(.05)),lty=2, lwd=2)
+lines(AU8034.df[,1], apply(df[,BrnTCOH.3.1], 2,  quantile, probs= c(.95)),lty=2, lwd=2 )
+points(AU8034.df[,1], AU8034.df$TotBrnTCOH.3.1, col = "red" , pch = 20, cex=1.4)
+
+# TCOG
+for (i in 1:dim(df)[1]) {
+  if (i == 1) {
+    plot(time, df[i,SrmTCOG.3.1], xlab = " ", ylab = "",
+         main = "Serum TCOG (mmol/l)", las = 1, col = "grey", pch = 20, cex.lab = 1.2,
+         type = "b", log="xy", ylim=c(10^-4, 10^0), cex.main = 1.2)
+  } else {
+    plot(time, df[i,SrmTCOG.3.1], xlab = "", ylab = "", xaxt = "n", yaxt = "n",
+         main = "", las = 1, col = "grey", pch = 20,
+         type = "b", log="xy", ylim=c(10^-4, 10^0)) 
+  }
+  par(new=T)
+}
+lines(AU8034.df[,1], apply(df[,SrmTCOG.3.1], 2, median), lwd=2)
+lines(AU8034.df[,1], apply(df[,SrmTCOG.3.1], 2,  quantile, probs= c(.05)),lty=2, lwd=2)
+lines(AU8034.df[,1], apply(df[,SrmTCOG.3.1], 2,  quantile, probs= c(.95)),lty=2, lwd=2)
+
+for (i in 1:dim(df)[1]) {
+  if (i == 1) {
+    plot(time, df[i,LivTCOG.3.1], xlab = " ", ylab = "",
+         main = "Liver TCOG (mmol/l)", las = 1, col = "grey", pch = 20, cex.lab = 1.2,
+         type = "b", log="xy", ylim=c(10^-4, 10^0), cex.main = 1.2)
+  } else {
+    plot(time, df[i,LivTCOG.3.1], xlab = "", ylab = "", xaxt = "n", yaxt = "n",
+         main = "", las = 1, col = "grey", pch = 20,
+         type = "b", log="xy", ylim=c(10^-4, 10^0)) 
+  }
+  par(new=T)
+}
+lines(AU8034.df[,1], apply(df[,LivTCOG.3.1], 2, median), lwd=2)
+lines(AU8034.df[,1], apply(df[,LivTCOG.3.1], 2,  quantile, probs= c(.05)),lty=2, lwd=2)
+lines(AU8034.df[,1], apply(df[,LivTCOG.3.1], 2,  quantile, probs= c(.95)),lty=2, lwd=2)
+
+for (i in 1:dim(df)[1]) {
+  if (i == 1) {
+    plot(time, df[i,KidTCOG.3.1], xlab = " ", ylab = "",
+         main = "Kidney TCOG (mmol/l)", las = 1, col = "grey", pch = 20, cex.lab = 1.2,
+         type = "b", log="xy", ylim=c(10^-4, 10^0), cex.main = 1.2)
+  } else {
+    plot(time, df[i,KidTCOG.3.1], xlab = "", ylab = "", xaxt = "n", yaxt = "n",
+         main = "", las = 1, col = "grey", pch = 20,
+         type = "b", log="xy", ylim=c(10^-4, 10^0)) 
+  }
+  par(new=T)
+}
+lines(AU8034.df[,1], apply(df[,KidTCOG.3.1], 2, median), lwd=2)
+lines(AU8034.df[,1], apply(df[,KidTCOG.3.1], 2,  quantile, probs= c(.05)),lty=2, lwd=2)
+lines(AU8034.df[,1], apply(df[,KidTCOG.3.1], 2,  quantile, probs= c(.95)),lty=2, lwd=2)
+
+for (i in 1:dim(df)[1]) {
+  if (i == 1) {
+    plot(time, df[i,BrnTCOG.3.1], xlab = " ", ylab = "",
+         main = "Brain TCOG (mmol/l)", las = 1, col = "grey", pch = 20, cex.lab = 1.2,
+         type = "b", log="xy", ylim=c(10^-4, 10^0), cex.main = 1.2)
+  } else {
+    plot(time, df[i,BrnTCOG.3.1], xlab = "", ylab = "", xaxt = "n", yaxt = "n",
+         main = "", las = 1, col = "grey", pch = 20,
+         type = "b", log="xy", ylim=c(10^-4, 10^0)) 
+  }
+  par(new=T)
+}
+lines(AU8034.df[,1], apply(df[,BrnTCOG.3.1], 2, median), lwd=2)
+lines(AU8034.df[,1], apply(df[,BrnTCOG.3.1], 2,  quantile, probs= c(.05)),lty=2, lwd=2)
+lines(AU8034.df[,1], apply(df[,BrnTCOG.3.1], 2,  quantile, probs= c(.95)),lty=2, lwd=2)
 
 for (i in 1:dim(df)[1]) {
   if (i == 1) {
     plot(time, df[i,SrmDCVG.3.1], xlab = " ", ylab = "",
          main = "Serum DCVG (mmol/l)", las = 1, col = "grey", pch = 20, cex.lab = 1.2,
-         type = "b", log="xy", ylim=c(10^-9, 10^-3), cex.main = 1.2)
+         type = "b", log="xy", ylim=c(10^-10, 10^-3), cex.main = 1.2)
   } else {
     plot(time, df[i,SrmDCVG.3.1], xlab = "", ylab = "", xaxt = "n", yaxt = "n",
          main = "", las = 1, col = "grey", pch = 20,
-         type = "b", log="xy", ylim=c(10^-9, 10^-3)) 
+         type = "b", log="xy", ylim=c(10^-10, 10^-3)) 
   }
   par(new=T)
 }
 lines(AU8034.df[,1], apply(df[,SrmDCVG.3.1], 2, median), lwd=2)
 lines(AU8034.df[,1], apply(df[,SrmDCVG.3.1], 2,  quantile, probs= c(.05)),lty=2, lwd=2)
 lines(AU8034.df[,1], apply(df[,SrmDCVG.3.1], 2,  quantile, probs= c(.95)),lty=2, lwd=2 )
-points(AU8034.df[,1], AU8034.df[,12], col = "red" , pch = 20, cex=1.4)
+points(AU8034.df[,1], AU8034.df$SrmDCVG.3.1, col = "red" , pch = 20, cex=1.4)
 
 for (i in 1:dim(df)[1]) {
   if (i == 1) {
     plot(time, df[i,SrmDCVC.3.1], xlab = " ", ylab = "",
          main = "Serum DCVC (mmol/l)", las = 1, col = "grey", pch = 20, cex.lab = 1.2,
-         type = "b", log="xy", ylim=c(10^-9, 10^-3), cex.main = 1.2)
+         type = "b", log="xy", ylim=c(10^-10, 10^-4), cex.main = 1.2)
   } else {
     plot(time, df[i,SrmDCVC.3.1], xlab = "", ylab = "", xaxt = "n", yaxt = "n",
          main = "", las = 1, col = "grey", pch = 20,
-         type = "b", log="xy", ylim=c(10^-9, 10^-3)) 
+         type = "b", log="xy", ylim=c(10^-10, 10^-4)) 
   }
   par(new=T)
 }
 lines(AU8034.df[,1], apply(df[,SrmDCVC.3.1], 2, median), lwd=2)
 lines(AU8034.df[,1], apply(df[,SrmDCVC.3.1], 2,  quantile, probs= c(.05)),lty=2, lwd=2)
 lines(AU8034.df[,1], apply(df[,SrmDCVC.3.1], 2,  quantile, probs= c(.95)),lty=2, lwd=2 )
-points(AU8034.df[,1], AU8034.df[,13], col = "red" , pch = 20, cex=1.4)
+points(AU8034.df[,1], AU8034.df$SrmDCVC.3.1, col = "red" , pch = 20, cex=1.4)
 
 dev.off()
 
@@ -281,118 +249,6 @@ layout(matrix(c(1,1,1,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17),
               ncol=4, byrow = T),heights=c(1,3,3,3,3))
 plot.new()
 text(0.5,0.5,"AU8034 Female - 800 mg/kg TCE",cex=2,font=2)
-for (i in 1:dim(df)[1]) {
-  if (i == 1) {
-    plot(time, df[i,VenTCE.3.2], xlab = " ", ylab = "",
-         main = "Venous TCE (mg/l)", las = 1, col = "grey", pch = 20, cex.lab = 1.2,
-         type = "b", log="xy", ylim=c(10^-4, 10^4), cex.main = 1.2)
-  } else {
-    plot(time, df[i,VenTCE.3.2], xlab = "", ylab = "", xaxt = "n", yaxt = "n",
-         main = "", las = 1, col = "grey", pch = 20,
-         type = "b", log="xy", ylim=c(10^-4, 10^4)) 
-  }
-  par(new=T)
-}
-lines(AU8034.df[,1], apply(df[,VenTCE.3.2], 2, median), lwd=2)
-lines(AU8034.df[,1], apply(df[,VenTCE.3.2], 2,  quantile, probs= c(.05)),lty=2, lwd=2)
-lines(AU8034.df[,1], apply(df[,VenTCE.3.2], 2,  quantile, probs= c(.95)),lty=2, lwd=2 )
-
-for (i in 1:dim(df)[1]) {
-  if (i == 1) {
-    plot(time, df[i,VenTCE.3.2], xlab = " ", ylab = "",
-         main = "Liver TCE (mg/l)", las = 1, col = "grey", pch = 20, cex.lab = 1.2,
-         type = "b", log="xy", ylim=c(10^-4, 10^4), cex.main = 1.2)
-  } else {
-    plot(time, df[i,LivTCE.3.2], xlab = "", ylab = "", xaxt = "n", yaxt = "n",
-         main = "", las = 1, col = "grey", pch = 20,
-         type = "b", log="xy", ylim=c(10^-4, 10^4)) 
-  }
-  par(new=T)
-}
-lines(AU8034.df[,1], apply(df[,LivTCE.3.2], 2, median), lwd=2)
-lines(AU8034.df[,1], apply(df[,LivTCE.3.2], 2,  quantile, probs= c(.05)),lty=2, lwd=2)
-lines(AU8034.df[,1], apply(df[,LivTCE.3.2], 2,  quantile, probs= c(.95)),lty=2, lwd=2)
-
-for (i in 1:dim(df)[1]) {
-  if (i == 1) {
-    plot(time, df[i,KidTCE.3.2], xlab = " ", ylab = "",
-         main = "Kidney TCE (mg/l)", las = 1, col = "grey", pch = 20, cex.lab = 1.2,
-         type = "b", log="xy", ylim=c(10^-4, 10^4), cex.main = 1.2)
-  } else {
-    plot(time, df[i,KidTCE.3.2], xlab = "", ylab = "", xaxt = "n", yaxt = "n",
-         main = "", las = 1, col = "grey", pch = 20,
-         type = "b", log="xy", ylim=c(10^-4, 10^4)) 
-  }
-  par(new=T)
-}
-lines(AU8034.df[,1], apply(df[,KidTCE.3.2], 2, median), lwd=2)
-lines(AU8034.df[,1], apply(df[,KidTCE.3.2], 2,  quantile, probs= c(.05)),lty=2, lwd=2)
-lines(AU8034.df[,1], apply(df[,KidTCE.3.2], 2,  quantile, probs= c(.95)),lty=2, lwd=2)
-
-for (i in 1:dim(df)[1]) {
-  if (i == 1) {
-    plot(time, df[i,FatTCE.3.2], xlab = " ", ylab = "",
-         main = "Fat TCE (mg/l)", las = 1, col = "grey", pch = 20, cex.lab = 1.2,
-         type = "b", log="xy", ylim=c(10^-4, 10^4), cex.main = 1.2)
-  } else {
-    plot(time, df[i,FatTCE.3.2], xlab = "", ylab = "", xaxt = "n", yaxt = "n",
-         main = "", las = 1, col = "grey", pch = 20,
-         type = "b", log="xy", ylim=c(10^-4, 10^4)) 
-  }
-  par(new=T)
-}
-lines(AU8034.df[,1], apply(df[,FatTCE.3.2], 2, median), lwd=2)
-lines(AU8034.df[,1], apply(df[,FatTCE.3.2], 2,  quantile, probs= c(.05)),lty=2, lwd=2)
-lines(AU8034.df[,1], apply(df[,FatTCE.3.2], 2,  quantile, probs= c(.95)),lty=2, lwd=2)
-
-for (i in 1:dim(df)[1]) {
-  if (i == 1) {
-    plot(time, df[i,BrnTCE.3.2], xlab = " ", ylab = "",
-         main = "Brain TCE (mg/l)", las = 1, col = "grey", pch = 20, cex.lab = 1.2,
-         type = "b", log="xy", ylim=c(10^-4, 10^4), cex.main = 1.2)
-  } else {
-    plot(time, df[i,BrnTCE.3.2], xlab = "", ylab = "", xaxt = "n", yaxt = "n",
-         main = "", las = 1, col = "grey", pch = 20,
-         type = "b", log="xy", ylim=c(10^-4, 10^4)) 
-  }
-  par(new=T)
-}
-lines(AU8034.df[,1], apply(df[,BrnTCE.3.2], 2, median), lwd=2)
-lines(AU8034.df[,1], apply(df[,BrnTCE.3.2], 2,  quantile, probs= c(.05)),lty=2, lwd=2)
-lines(AU8034.df[,1], apply(df[,BrnTCE.3.2], 2,  quantile, probs= c(.95)),lty=2, lwd=2)
-
-for (i in 1:dim(df)[1]) {
-  if (i == 1) {
-    plot(time, df[i,LngTCE.3.2], xlab = " ", ylab = "",
-         main = "Lung TCE (mg/l)", las = 1, col = "grey", pch = 20, cex.lab = 1.2,
-         type = "b", log="xy", ylim=c(10^-4, 10^4), cex.main = 1.2)
-  } else {
-    plot(time, df[i,LngTCE.3.2], xlab = "", ylab = "", xaxt = "n", yaxt = "n",
-         main = "", las = 1, col = "grey", pch = 20,
-         type = "b", log="xy", ylim=c(10^-4, 10^4)) 
-  }
-  par(new=T)
-}
-lines(AU8034.df[,1], apply(df[,LngTCE.3.2], 2, median), lwd=2)
-lines(AU8034.df[,1], apply(df[,LngTCE.3.2], 2,  quantile, probs= c(.05)),lty=2, lwd=2)
-lines(AU8034.df[,1], apply(df[,LngTCE.3.2], 2,  quantile, probs= c(.95)),lty=2, lwd=2)
-
-for (i in 1:dim(df)[1]) {
-  if (i == 1) {
-    plot(time, df[i,SlwTCE.3.2], xlab = " ", ylab = "",
-         main = "Slw TCE (mg/l)", las = 1, col = "grey", pch = 20, cex.lab = 1.2,
-         type = "b", log="xy", ylim=c(10^-4, 10^4), cex.main = 1.2)
-  } else {
-    plot(time, df[i,SlwTCE.3.2], xlab = "", ylab = "", xaxt = "n", yaxt = "n",
-         main = "", las = 1, col = "grey", pch = 20,
-         type = "b", log="xy", ylim=c(10^-4, 10^4)) 
-  }
-  par(new=T)
-}
-
-lines(AU8034.df[,1], apply(df[,SlwTCE.3.2], 2, median), lwd=2)
-lines(AU8034.df[,1], apply(df[,SlwTCE.3.2], 2,  quantile, probs= c(.05)),lty=2, lwd=2)
-lines(AU8034.df[,1], apply(df[,SlwTCE.3.2], 2,  quantile, probs= c(.95)),lty=2, lwd=2)
 
 for (i in 1:dim(df)[1]) {
   if (i == 1) {
@@ -465,40 +321,24 @@ points(AU8034.df[,1], AU8034.df$BrnTCA.3.2, col = "red" , pch = 20, cex=1.4)
 for (i in 1:dim(df)[1]) {
   if (i == 1) {
     plot(time, df[i,TotTCOH.3.2], xlab = " ", ylab = "",
-         main = "CTCOH+CTCOG (mmol/l)", las = 1, col = "grey", pch = 20, cex.lab = 1.2,
-         type = "b", log="xy", ylim=c(10^-6, 10^0), cex.main = 1.2)
+         main = "Serum TotTCOH (mmol/l)", las = 1, col = "grey", pch = 20, cex.lab = 1.2,
+         type = "b", log="xy", ylim=c(10^-4, 10^1), cex.main = 1.2)
   } else {
     plot(time, df[i,TotTCOH.3.2], xlab = "", ylab = "", xaxt = "n", yaxt = "n",
          main = "", las = 1, col = "grey", pch = 20,
-         type = "b", log="xy", ylim=c(10^-6, 10^0)) 
+         type = "b", log="xy", ylim=c(10^-4, 10^1)) 
   }
   par(new=T)
 }
 lines(AU8034.df[,1], apply(df[,TotTCOH.3.2], 2, median), lwd=2)
 lines(AU8034.df[,1], apply(df[,TotTCOH.3.2], 2,  quantile, probs= c(.05)),lty=2, lwd=2)
 lines(AU8034.df[,1], apply(df[,TotTCOH.3.2], 2,  quantile, probs= c(.95)),lty=2, lwd=2 )
-points(AU8034.df[,1], AU8034.df$TotTCOH.3.2, col = "red" , pch = 20, cex=1.4)
-
-for (i in 1:dim(df)[1]) {
-  if (i == 1) {
-    plot(time, df[i,SrmTCOH.3.2], xlab = " ", ylab = "",
-         main = "Serum TCOH (mmol/l)", las = 1, col = "grey", pch = 20, cex.lab = 1.2,
-         type = "b", log="xy", ylim=c(10^-5, 10^0), cex.main = 1.2)
-  } else {
-    plot(time, df[i,SrmTCOH.3.2], xlab = "", ylab = "", xaxt = "n", yaxt = "n",
-         main = "", las = 1, col = "grey", pch = 20,
-         type = "b", log="xy", ylim=c(10^-5, 10^0)) 
-  }
-  par(new=T)
-}
-lines(AU8034.df[,1], apply(df[,SrmTCOH.3.2], 2, median), lwd=2)
-lines(AU8034.df[,1], apply(df[,SrmTCOH.3.2], 2,  quantile, probs= c(.05)),lty=2, lwd=2)
-lines(AU8034.df[,1], apply(df[,SrmTCOH.3.2], 2,  quantile, probs= c(.95)),lty=2, lwd=2 )
+points(AU8034.df[,1], AU8034.df$TotCTCOH.3.2, col = "red" , pch = 20, cex=1.4)
 
 for (i in 1:dim(df)[1]) {
   if (i == 1) {
     plot(time, df[i,LivTCOH.3.2], xlab = " ", ylab = "",
-         main = "Liver TCOH (mmol/l)", las = 1, col = "grey", pch = 20, cex.lab = 1.2,
+         main = "Liver TotTCOH (mmol/l)", las = 1, col = "grey", pch = 20, cex.lab = 1.2,
          type = "b", log="xy", ylim=c(10^-5, 10^1), cex.main = 1.2)
   } else {
     plot(time, df[i,LivTCOH.3.2], xlab = "", ylab = "", xaxt = "n", yaxt = "n",
@@ -510,17 +350,115 @@ for (i in 1:dim(df)[1]) {
 lines(AU8034.df[,1], apply(df[,LivTCOH.3.2], 2, median), lwd=2)
 lines(AU8034.df[,1], apply(df[,LivTCOH.3.2], 2,  quantile, probs= c(.05)),lty=2, lwd=2)
 lines(AU8034.df[,1], apply(df[,LivTCOH.3.2], 2,  quantile, probs= c(.95)),lty=2, lwd=2 )
-points(AU8034.df[,1], AU8034.df$LivTCOH.3.2, col = "red" , pch = 20, cex=1.4)
+points(AU8034.df[,1], AU8034.df$TotLivTCOH.3.2, col = "red" , pch = 20, cex=1.4)
+
+for (i in 1:dim(df)[1]) {
+  if (i == 1) {
+    plot(time, df[i,KidTCOH.3.2], xlab = " ", ylab = "",
+         main = "Kidney TotTCOH (mmol/l)", las = 1, col = "grey", pch = 20, cex.lab = 1.2,
+         type = "b", log="xy", ylim=c(10^-5, 10^1), cex.main = 1.2)
+  } else {
+    plot(time, df[i,KidTCOH.3.2], xlab = "", ylab = "", xaxt = "n", yaxt = "n",
+         main = "", las = 1, col = "grey", pch = 20,
+         type = "b", log="xy", ylim=c(10^-5, 10^1)) 
+  }
+  par(new=T)
+}
+lines(AU8034.df[,1], apply(df[,KidTCOH.3.2], 2, median), lwd=2)
+lines(AU8034.df[,1], apply(df[,KidTCOH.3.2], 2,  quantile, probs= c(.05)),lty=2, lwd=2)
+lines(AU8034.df[,1], apply(df[,KidTCOH.3.2], 2,  quantile, probs= c(.95)),lty=2, lwd=2)
+
+for (i in 1:dim(df)[1]) {
+  if (i == 1) {
+    plot(time, df[i,BrnTCOH.3.2], xlab = " ", ylab = "",
+         main = "Brain TotTCOH (mmol/l)", las = 1, col = "grey", pch = 20, cex.lab = 1.2,
+         type = "b", log="xy", ylim=c(10^-5, 10^1), cex.main = 1.2)
+  } else {
+    plot(time, df[i,BrnTCOH.3.2], xlab = "", ylab = "", xaxt = "n", yaxt = "n",
+         main = "", las = 1, col = "grey", pch = 20,
+         type = "b", log="xy", ylim=c(10^-5, 10^1)) 
+  }
+  par(new=T)
+}
+lines(AU8034.df[,1], apply(df[,BrnTCOH.3.2], 2, median), lwd=2)
+lines(AU8034.df[,1], apply(df[,BrnTCOH.3.2], 2,  quantile, probs= c(.05)),lty=2, lwd=2)
+lines(AU8034.df[,1], apply(df[,BrnTCOH.3.2], 2,  quantile, probs= c(.95)),lty=2, lwd=2 )
+points(AU8034.df[,1], AU8034.df$TotBrnTCOH.3.2, col = "red" , pch = 20, cex=1.4)
+
+# TCOG
+for (i in 1:dim(df)[1]) {
+  if (i == 1) {
+    plot(time, df[i,SrmTCOG.3.2], xlab = " ", ylab = "",
+         main = "Serum TCOG (mmol/l)", las = 1, col = "grey", pch = 20, cex.lab = 1.2,
+         type = "b", log="xy", ylim=c(10^-4, 10^0), cex.main = 1.2)
+  } else {
+    plot(time, df[i,SrmTCOG.3.2], xlab = "", ylab = "", xaxt = "n", yaxt = "n",
+         main = "", las = 1, col = "grey", pch = 20,
+         type = "b", log="xy", ylim=c(10^-4, 10^0)) 
+  }
+  par(new=T)
+}
+lines(AU8034.df[,1], apply(df[,SrmTCOG.3.2], 2, median), lwd=2)
+lines(AU8034.df[,1], apply(df[,SrmTCOG.3.2], 2,  quantile, probs= c(.05)),lty=2, lwd=2)
+lines(AU8034.df[,1], apply(df[,SrmTCOG.3.2], 2,  quantile, probs= c(.95)),lty=2, lwd=2)
+
+for (i in 1:dim(df)[1]) {
+  if (i == 1) {
+    plot(time, df[i,LivTCOG.3.2], xlab = " ", ylab = "",
+         main = "Liver TCOG (mmol/l)", las = 1, col = "grey", pch = 20, cex.lab = 1.2,
+         type = "b", log="xy", ylim=c(10^-4, 10^0), cex.main = 1.2)
+  } else {
+    plot(time, df[i,LivTCOG.3.2], xlab = "", ylab = "", xaxt = "n", yaxt = "n",
+         main = "", las = 1, col = "grey", pch = 20,
+         type = "b", log="xy", ylim=c(10^-4, 10^0)) 
+  }
+  par(new=T)
+}
+lines(AU8034.df[,1], apply(df[,LivTCOG.3.2], 2, median), lwd=2)
+lines(AU8034.df[,1], apply(df[,LivTCOG.3.2], 2,  quantile, probs= c(.05)),lty=2, lwd=2)
+lines(AU8034.df[,1], apply(df[,LivTCOG.3.2], 2,  quantile, probs= c(.95)),lty=2, lwd=2)
+
+for (i in 1:dim(df)[1]) {
+  if (i == 1) {
+    plot(time, df[i,KidTCOG.3.2], xlab = " ", ylab = "",
+         main = "Kidney TCOG (mmol/l)", las = 1, col = "grey", pch = 20, cex.lab = 1.2,
+         type = "b", log="xy", ylim=c(10^-4, 10^0), cex.main = 1.2)
+  } else {
+    plot(time, df[i,KidTCOG.3.2], xlab = "", ylab = "", xaxt = "n", yaxt = "n",
+         main = "", las = 1, col = "grey", pch = 20,
+         type = "b", log="xy", ylim=c(10^-4, 10^0)) 
+  }
+  par(new=T)
+}
+lines(AU8034.df[,1], apply(df[,KidTCOG.3.2], 2, median), lwd=2)
+lines(AU8034.df[,1], apply(df[,KidTCOG.3.2], 2,  quantile, probs= c(.05)),lty=2, lwd=2)
+lines(AU8034.df[,1], apply(df[,KidTCOG.3.2], 2,  quantile, probs= c(.95)),lty=2, lwd=2)
+
+for (i in 1:dim(df)[1]) {
+  if (i == 1) {
+    plot(time, df[i,BrnTCOG.3.2], xlab = " ", ylab = "",
+         main = "Brain TCOG (mmol/l)", las = 1, col = "grey", pch = 20, cex.lab = 1.2,
+         type = "b", log="xy", ylim=c(10^-4, 10^0), cex.main = 1.2)
+  } else {
+    plot(time, df[i,BrnTCOG.3.2], xlab = "", ylab = "", xaxt = "n", yaxt = "n",
+         main = "", las = 1, col = "grey", pch = 20,
+         type = "b", log="xy", ylim=c(10^-4, 10^0)) 
+  }
+  par(new=T)
+}
+lines(AU8034.df[,1], apply(df[,BrnTCOG.3.2], 2, median), lwd=2)
+lines(AU8034.df[,1], apply(df[,BrnTCOG.3.2], 2,  quantile, probs= c(.05)),lty=2, lwd=2)
+lines(AU8034.df[,1], apply(df[,BrnTCOG.3.2], 2,  quantile, probs= c(.95)),lty=2, lwd=2)
 
 for (i in 1:dim(df)[1]) {
   if (i == 1) {
     plot(time, df[i,SrmDCVG.3.2], xlab = " ", ylab = "",
          main = "Serum DCVG (mmol/l)", las = 1, col = "grey", pch = 20, cex.lab = 1.2,
-         type = "b", log="xy", ylim=c(10^-9, 10^-3), cex.main = 1.2)
+         type = "b", log="xy", ylim=c(10^-10, 10^-3), cex.main = 1.2)
   } else {
     plot(time, df[i,SrmDCVG.3.2], xlab = "", ylab = "", xaxt = "n", yaxt = "n",
          main = "", las = 1, col = "grey", pch = 20,
-         type = "b", log="xy", ylim=c(10^-9, 10^-3)) 
+         type = "b", log="xy", ylim=c(10^-10, 10^-3)) 
   }
   par(new=T)
 }
@@ -533,11 +471,11 @@ for (i in 1:dim(df)[1]) {
   if (i == 1) {
     plot(time, df[i,SrmDCVC.3.2], xlab = " ", ylab = "",
          main = "Serum DCVC (mmol/l)", las = 1, col = "grey", pch = 20, cex.lab = 1.2,
-         type = "b", log="xy", ylim=c(10^-9, 10^-3), cex.main = 1.2)
+         type = "b", log="xy", ylim=c(10^-10, 10^-4), cex.main = 1.2)
   } else {
     plot(time, df[i,SrmDCVC.3.2], xlab = "", ylab = "", xaxt = "n", yaxt = "n",
          main = "", las = 1, col = "grey", pch = 20,
-         type = "b", log="xy", ylim=c(10^-9, 10^-3)) 
+         type = "b", log="xy", ylim=c(10^-10, 10^-4)) 
   }
   par(new=T)
 }
@@ -547,3 +485,4 @@ lines(AU8034.df[,1], apply(df[,SrmDCVC.3.2], 2,  quantile, probs= c(.95)),lty=2,
 points(AU8034.df[,1], AU8034.df$SrmDCVC.3.2, col = "red" , pch = 20, cex=1.4)
 
 dev.off()
+
