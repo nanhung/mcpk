@@ -238,7 +238,9 @@ Distrib(	lnPeffDCVG	TruncNormal_v	M_lnPeffDCVG	V_lnPeffDCVG	-6.908	6.908	);
 Distrib(	lnPeffDCVC	TruncNormal_v	M_lnPeffDCVC	V_lnPeffDCVC	-6.908	6.908	);
 Distrib(	lnPeffDCA	TruncNormal_v	M_lnPeffDCA	V_lnPeffDCA	-6.908	6.908	);
 Distrib(	lnkDCVGC	TruncNormal_v	M_lnkDCVGC	V_lnkDCVGC	-9.21	4.605	);
+Distrib(	lnkDCVCC	TruncNormal_v	M_lnkDCVGC	V_lnkDCVGC	-9.21	4.605	); #(v2.12) set the same value as DCVG
 Distrib(	lnkElimDCVCC	TruncNormal_v	M_lnkElimDCVCC	V_lnkElimDCVCC	-9.21	4.605	);
+Distrib(	lnkElimNDCVCC	TruncNormal_v	M_lnkElimDCVCC	V_lnkElimDCVCC	-9.21	4.605	); #(v2.12) set the same value as DCVC
 Distrib(	lnkClearDCAC	TruncNormal_v	M_lnkClearDCAC	V_lnkClearDCAC	-9.21	4.605	);
 Distrib(	lnkDCAcen_perC	TruncNormal_v	M_lnkDCAcen_perC	V_lnkDCAcen_perC	-9.21	4.605	);
 Distrib(	lnkDCAper_cenC	TruncNormal_v	M_lnkDCAper_cenC	V_lnkDCAper_cenC	-9.21	4.605	);
@@ -252,6 +254,7 @@ Distrib(       lnISkTCA	   TruncNormal_v	M_lnISkTCA	V_lnISkTCA	-4.605	4.605);
 ####Distrib(       lnISkDCA	   TruncNormal_v	M_lnISkDCA	V_lnISkDCA	-4.605	4.605);
 Distrib(       lnISkDCVG	   TruncNormal_v	M_lnISkDCVG	V_lnISkDCVG	-4.605	4.605);
 Distrib(       lnISkDCVC	   TruncNormal_v	M_lnISkDCVC	V_lnISkDCVC	-4.605	4.605);
+Distrib(       lnISkNDCVC	   TruncNormal_v	M_lnISkDCVC	V_lnISkDCVC	-4.605	4.605); #(2.12) set the same value as DCVC
 
 # Distrib(		BWmeas		Normal	0.0240	0.0046);
 							
@@ -278,6 +281,7 @@ Print( TotCTCOHmol, TotLivTCOHmol, TotKidTCOHmol, TotBrnTCOHmol, 1, 2, 6, 12, 24
 Print( CTCOGTCOHmol, CLivTCOGTCOHmol, CKidTCOGTCOHmol, CBrnTCOGTCOHmol, 1, 2, 6, 12, 24, 36); 
 Print( CDCVGmol, CLivDCVGmol, CKidDCVGmol, CBrnDCVGmol,  1, 2, 6, 12, 24, 36); 
 Print( CDCVCmol, CLivDCVCmol, CKidDCVCmol, CBrnDCVCmol,  1, 2, 6, 12, 24, 36); 
+Print( CNDCVCmol, CLivNDCVCmol, CKidNDCVCmol, CBrnNDCVCmol,  1, 2, 6, 12, 24, 36);
 
 } # End AU18042M
 
@@ -302,6 +306,7 @@ Print( TotCTCOHmol, TotLivTCOHmol, TotKidTCOHmol, TotBrnTCOHmol, 1, 2, 6, 12, 24
 Print( CTCOGTCOHmol, CLivTCOGTCOHmol, CKidTCOGTCOHmol, CBrnTCOGTCOHmol, 1, 2, 6, 12, 24, 36); 
 Print( CDCVGmol, CLivDCVGmol, CKidDCVGmol, CBrnDCVGmol,  1, 2, 6, 12, 24, 36); 
 Print( CDCVCmol, CLivDCVCmol, CKidDCVCmol, CBrnDCVCmol,  1, 2, 6, 12, 24, 36); 
+Print( CNDCVCmol, CLivNDCVCmol, CKidNDCVCmol, CBrnNDCVCmol,  1, 2, 6, 12, 24, 36);
 
     
 } # End AU18042F
@@ -326,6 +331,7 @@ Print( TotCTCOHmol, TotLivTCOHmol, TotKidTCOHmol, TotBrnTCOHmol, 1, 2, 6, 12, 24
 Print( CTCOGTCOHmol, CLivTCOGTCOHmol, CKidTCOGTCOHmol, CBrnTCOGTCOHmol, 1, 2, 6, 12, 24, 36); 
 Print( CDCVGmol, CLivDCVGmol, CKidDCVGmol, CBrnDCVGmol,  1, 2, 6, 12, 24, 36); 
 Print( CDCVCmol, CLivDCVCmol, CKidDCVCmol, CBrnDCVCmol,  1, 2, 6, 12, 24, 36); 
+Print( CNDCVCmol, CLivNDCVCmol, CKidNDCVCmol, CBrnNDCVCmol,  1, 2, 6, 12, 24, 36);
 
 } # End Experiment Random Strain
 
@@ -351,6 +357,7 @@ Print( TotCTCOHmol, TotLivTCOHmol, TotKidTCOHmol, TotBrnTCOHmol, 1, 2, 6, 12, 24
 Print( CTCOGTCOHmol, CLivTCOGTCOHmol, CKidTCOGTCOHmol, CBrnTCOGTCOHmol, 1, 2, 6, 12, 24, 36); 
 Print( CDCVGmol, CLivDCVGmol, CKidDCVGmol, CBrnDCVGmol,  1, 2, 6, 12, 24, 36); 
 Print( CDCVCmol, CLivDCVCmol, CKidDCVCmol, CBrnDCVCmol,  1, 2, 6, 12, 24, 36); 
+Print( CNDCVCmol, CLivNDCVCmol, CKidNDCVCmol, CBrnNDCVCmol,  1, 2, 6, 12, 24, 36);
 
 } # End AU8005F
 
@@ -374,6 +381,7 @@ Print( TotCTCOHmol, TotLivTCOHmol, TotKidTCOHmol, TotBrnTCOHmol, 1, 2, 6, 12, 24
 Print( CTCOGTCOHmol, CLivTCOGTCOHmol, CKidTCOGTCOHmol, CBrnTCOGTCOHmol, 1, 2, 6, 12, 24, 36); 
 Print( CDCVGmol, CLivDCVGmol, CKidDCVGmol, CBrnDCVGmol,  1, 2, 6, 12, 24, 36); 
 Print( CDCVCmol, CLivDCVCmol, CKidDCVCmol, CBrnDCVCmol,  1, 2, 6, 12, 24, 36); 
+Print( CNDCVCmol, CLivNDCVCmol, CKidNDCVCmol, CBrnNDCVCmol,  1, 2, 6, 12, 24, 36);
 } # End AU8034M
 
 Experiment { # AU8034F
@@ -396,6 +404,7 @@ Print( TotCTCOHmol, TotLivTCOHmol, TotKidTCOHmol, TotBrnTCOHmol, 1, 2, 6, 12, 24
 Print( CTCOGTCOHmol, CLivTCOGTCOHmol, CKidTCOGTCOHmol, CBrnTCOGTCOHmol, 1, 2, 6, 12, 24, 36); 
 Print( CDCVGmol, CLivDCVGmol, CKidDCVGmol, CBrnDCVGmol,  1, 2, 6, 12, 24, 36); 
 Print( CDCVCmol, CLivDCVCmol, CKidDCVCmol, CBrnDCVCmol,  1, 2, 6, 12, 24, 36); 
+Print( CNDCVCmol, CLivNDCVCmol, CKidNDCVCmol, CBrnNDCVCmol,  1, 2, 6, 12, 24, 36);
 } # End AU8034F
 
 Experiment { # IL1688M
@@ -418,6 +427,7 @@ Print( TotCTCOHmol, TotLivTCOHmol, TotKidTCOHmol, TotBrnTCOHmol, 1, 2, 6, 12, 24
 Print( CTCOGTCOHmol, CLivTCOGTCOHmol, CKidTCOGTCOHmol, CBrnTCOGTCOHmol, 1, 2, 6, 12, 24, 36); 
 Print( CDCVGmol, CLivDCVGmol, CKidDCVGmol, CBrnDCVGmol,  1, 2, 6, 12, 24, 36); 
 Print( CDCVCmol, CLivDCVCmol, CKidDCVCmol, CBrnDCVCmol,  1, 2, 6, 12, 24, 36); 
+Print( CNDCVCmol, CLivNDCVCmol, CKidNDCVCmol, CBrnNDCVCmol,  1, 2, 6, 12, 24, 36);
 
 } # End IL1688M
 
@@ -441,6 +451,7 @@ Print( TotCTCOHmol, TotLivTCOHmol, TotKidTCOHmol, TotBrnTCOHmol, 1, 2, 6, 12, 24
 Print( CTCOGTCOHmol, CLivTCOGTCOHmol, CKidTCOGTCOHmol, CBrnTCOGTCOHmol, 1, 2, 6, 12, 24, 36); 
 Print( CDCVGmol, CLivDCVGmol, CKidDCVGmol, CBrnDCVGmol,  1, 2, 6, 12, 24, 36); 
 Print( CDCVCmol, CLivDCVCmol, CKidDCVCmol, CBrnDCVCmol,  1, 2, 6, 12, 24, 36); 
+Print( CNDCVCmol, CLivNDCVCmol, CKidNDCVCmol, CBrnNDCVCmol,  1, 2, 6, 12, 24, 36);
 
 } # End IL1688F
 
