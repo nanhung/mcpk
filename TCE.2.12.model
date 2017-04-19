@@ -1,10 +1,7 @@
 #------------------------------------------------------------
 # TCE.2.12.model
-# Add TotBrnTCOHmol, TotKidTCOHmol 
-# Add BrnTCOG, KidTCOG
-# Add PBrnTCOH and PKidTCOH, and use the same value from PLivTCOH 
-# Add PKidTCOG and PBrnTCOG, and use the same value from PLivTCOG
-# Revise dt(ABodTCOG)
+# Add LivDCVGmol, KidDCVGmol, and BrnDCVGmol 
+# Add PLivDCVG, PBrnDCVG and PKidDCVG, and assume the initial value 1 
 #-------------------------------------------------------------
 States = {
 	AStom,		# Amount of TCE in stomach
@@ -1170,9 +1167,9 @@ Initialize {
 		(Species == 3 ? 1.3 : (Species == 2 ? 1.3 : 0.59 ));
 
 # DCVG partitioning
-    PLivDCVG = exp(lnPLivDCVGC) *  0.32; #(v2.12) Estimate median from Abhi's data
-    PKidDCVG = exp(lnPKidDCVGC) * 7.3; #(v2.12) Estimate median from Abhi's data
-    PBrnDCVG = exp(lnPBrnDCVGC) * 2.2; #(v2.12) Estimate median from Abhi's data
+    PLivDCVG = exp(lnPLivDCVGC) *  1; #(v2.12) Assumed
+    PKidDCVG = exp(lnPKidDCVGC) *  1; #(v2.12) Assumed
+    PBrnDCVG = exp(lnPBrnDCVGC) *  1; #(v2.12) Assumed
 
 
 
@@ -1796,12 +1793,11 @@ dt(ABrnTCA) = QBrnPlas * (CPlasTCAFree - CVBrnTCAFree); #(v2.10)
 	CVLivDCVGmol = ALivDCVGmol / VLiv / PLivDCVG; #(v2.12)
 
 # Dynamics for DCVG in blood and tissues
-	dt(ADCVGmol) = QKid*CVKidDCVGmol +  QBrn * CVBrnDCVGmol + QLiv * CVLivDCVGmol - (QCnow * CDCVGmol); #(v2.12)
-    dt(ALivDCVGmol) = QLiv * (CDCVGmol - CVLivDCVGmol) 
-    	+ RAMetLiv2/MWTCE;	#(v2.1)
+    dt(ADCVGmol) = (RAMetLiv2 + RAMetKid*(1-FracKidDCVC)) / MWTCE 
+		- RAMetDCVGmol;
+    dt(ALivDCVGmol) = QLiv * (CDCVGmol - CVLivDCVGmol);	#(v2.12)
 	dt(ABrnDCVGmol) = QBrn * (CDCVGmol - CVBrnDCVGmol); #(v2.12)
-	dt(AKidDCVGmol) = QKid * (CDCVGmol - CVKidDCVGmol) 
-		+ RAMetKid*(1-FracKidDCVC)/MWTCE - RAMetDCVGmol; #(v2.12)
+	dt(AKidDCVGmol) = QKid * (CDCVGmol - CVKidDCVGmol); #(v2.12)
 		
 #******************************************************************************
 #***                       DCVC Sub-model                                   ***
