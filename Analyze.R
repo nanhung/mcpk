@@ -1,30 +1,21 @@
 rm(list = ls())
 
-system("./mcsim.TCE.2.11 TCE.2.11.forAbhi-BW.in")
+# system("./mcsim.TCE.2.12 TCE.2.12.forAbhi-BW.in")
 
-df <- read.delim("TCE.2.11.forAbhi-BW.out", head = T)
+df <- read.delim("TCE.2.12.forAbhi-BW.out", head = T)
 
 time = c(1,2,6,12,24,36)
 
 # AU18042.df
-M.b.wt<-c(24.5,25.2,25.7,25.5,23.7,26.3,25)
-F.b.wt<-c(17.5,17.5,20.6,20.3,18.9,19.1,17.7)
-M.Liv.wt<-c(1.16,1.68,1.83,1.73,1.3,1.82,1.54)
-F.Liv.wt<-c(1.16,1.21,1.28,1.3,1.09,1.3,1.04)
-M.Kid.wt<-c(0.24,0.38,0.37,0.4,0.35,0.4,0.39)
-F.Kid.wt<-c(0.24,0.23,0.28,0.28,0.25,0.25,0.26)
-M.Lng.wt<-c(0.12,0.16,0.16,0.16,0.15,0.15,0.16)
-F.Lng.wt<-c(0.15,0.11,0.15,0.14,0.13,0.13,0.13)
-M.Brn.wt<-c(0.4,0.42,0.41,0.42,0.42,0.42,0.4)
-F.Brn.wt<-c(0.4,0.37,0.44,0.42,0.42,0.36,0.39)
+M.b.wt<-c(24.5,25.2,25.7,25.5,23.7,26.3,25);F.b.wt<-c(17.5,17.5,20.6,20.3,18.9,19.1,17.7)
+M.Liv.wt<-c(1.16,1.68,1.83,1.73,1.3,1.82,1.54);F.Liv.wt<-c(1.16,1.21,1.28,1.3,1.09,1.3,1.04)
+M.Kid.wt<-c(0.24,0.38,0.37,0.4,0.35,0.4,0.39);F.Kid.wt<-c(0.24,0.23,0.28,0.28,0.25,0.25,0.26)
+M.Lng.wt<-c(0.12,0.16,0.16,0.16,0.15,0.15,0.16);F.Lng.wt<-c(0.15,0.11,0.15,0.14,0.13,0.13,0.13)
+M.Brn.wt<-c(0.4,0.42,0.41,0.42,0.42,0.42,0.4);F.Brn.wt<-c(0.4,0.37,0.44,0.42,0.42,0.36,0.39)
 
-M.VLivC <- mean(M.Liv.wt/M.b.wt/0.055)
-M.VKidC <- mean(M.Kid.wt/M.b.wt/0.017)
-M.VBrnC <- mean(M.Brn.wt/M.b.wt/0.017)
-F.VLivC <- mean(F.Liv.wt/F.b.wt/0.055)
-F.VKidC <- mean(F.Kid.wt/F.b.wt/0.017)
-F.VBrnC <- mean(F.Brn.wt/F.b.wt/0.017)
-
+M.VLivC <- mean(M.Liv.wt/M.b.wt/0.055);M.VKidC <- mean(M.Kid.wt/M.b.wt/0.017)
+M.VBrnC <- mean(M.Brn.wt/M.b.wt/0.017);F.VLivC <- mean(F.Liv.wt/F.b.wt/0.055)
+F.VKidC <- mean(F.Kid.wt/F.b.wt/0.017);F.VBrnC <- mean(F.Brn.wt/F.b.wt/0.017)
 
 LivTCA.1.1<-c(0.21454641,0.459107744,0.365669663,0.363575634,0.097045295,0.026917249)
 KidTCA.1.1<-c(2.049377208, 1.245486193, 0.310472183, 0.211421705, NA, NA)
@@ -45,11 +36,33 @@ TotBrnTCOH.1.2<-c(178.7402689,218.6729318,NA,NA,NA,NA)/1000
 SrmDCVG.1.2<-c(3.629341575,2.783421779,NA,NA,NA,NA)/10^6
 SrmDCVC.1.2<-c(NA,NA,NA,NA,NA,NA)/10^6
 
+LivDCVG.1.1<-c(60.17749167,0.370485342,NA,NA,NA,NA)/10^6 #(v2.12)
+LivNDCVC.1.1<-c(12.25830105,5.38092622,NA,NA,NA,NA)/10^6 #(v2.12)
+KidDCVG.1.1<-c(53.11947698,17.59533296,3.829894844,NA,NA,NA)/10^6 #(v2.12)
+KidDCVC.1.1<-c(6.340500294,3.053082518,NA,NA,NA,NA)/10^6 #(v2.12)
+KidNDCVC.1.1<-c(15.95693643,8.11496146,NA,NA,NA,NA)/10^6 #(v2.12)
+BrnDCVG.1.1<-c(37.36295001,NA,4.354531238,NA,NA,NA)/10^6 #(v2.12)
+BrnDCVC.1.1<-c(5.945676361,NA,NA,NA,NA,NA)/10^6 #(v2.12)
+BrnNDCVC.1.1<-c(NA,NA,2.722466861,NA,NA,NA)/10^6 #(v2.12)
+
+LivDCVG.1.2<-c(1.125269001,0.908110232,NA,NA,NA,NA)/10^6 #(v2.12)
+LivNDCVC.1.2<-c(6.337594775,NA,NA,NA,NA,NA)/10^6 #(v2.12)
+KidDCVG.1.2<-c(NA,2.913837941,NA,NA,NA,NA)/10^6 #(v2.12)
+KidDCVC.1.2<-c(3.102960751,8.031603883,1.902284397,2.121034564,NA,NA)/10^6 #(v2.12)
+KidNDCVC.1.2<-c(6.717161152,10.97525865,NA,NA,NA,NA)/10^6 #(v2.12)
+BrnDCVG.1.2<-c(NA,NA,13.22577647,2.565931429,1.439783411,1.36419312)/10^6 #(v2.12)
+BrnDCVC.1.2<-c(NA,NA,NA,NA,NA,NA)/10^6 #(v2.12)
+BrnNDCVC.1.2<-c(NA,NA,NA,3.140487265,3.083605115,NA)/10^6 #(v2.12)
+
 AU18042.df<-data.frame(time,SrmTCA.1.1,LivTCA.1.1,KidTCA.1.1,BrnTCA.1.1,
                        SrmTCA.1.2, LivTCA.1.2,KidTCA.1.2,BrnTCA.1.2,
                        TotCTCOH.1.1,TotLivTCOH.1.1,TotBrnTCOH.1.1,
                        TotCTCOH.1.2,TotLivTCOH.1.2,TotBrnTCOH.1.2,
-                       SrmDCVG.1.1,SrmDCVC.1.1,SrmDCVG.1.2,SrmDCVC.1.2)
+                       SrmDCVG.1.1,SrmDCVC.1.1,SrmDCVG.1.2,SrmDCVC.1.2,
+                       LivDCVG.1.1,LivNDCVC.1.1,KidDCVG.1.1,KidDCVC.1.1,
+                       KidNDCVC.1.1,BrnDCVG.1.1,BrnDCVC.1.1,BrnNDCVC.1.1,
+                       LivDCVG.1.2,LivNDCVC.1.2,KidDCVG.1.2,KidDCVC.1.2,
+                       KidNDCVC.1.2,BrnDCVG.1.2,BrnDCVC.1.2,BrnNDCVC.1.2)
 
 # df AU18042
 #VenTCE18042M <- which(colnames(df)=="CVen_1.1")
@@ -77,6 +90,10 @@ BrnTCOG18042M <- which(colnames(df)=="CBrnTCOGTCOHmol_1.1") #(v2.11)
 SrmDCVG18042M <- which(colnames(df)=="CDCVGmol_1.1")
 SrmDCVC18042M <- which(colnames(df)=="CDCVCmol_1.1")
 
+LivDCVG18042M <- which(colnames(df)=="CLivDCVGmol_1.1") #(v2.12)
+KidDCVG18042M <- which(colnames(df)=="CKidDCVGmol_1.1") #(v2.12)
+BrnDCVG18042M <- which(colnames(df)=="CBrnDCVGmol_1.1") #(v2.12)
+
 #VenTCE18042F <- which(colnames(df)=="CVen_2.1")
 #LivTCE18042F <- which(colnames(df)=="CLiv_2.1")
 #KidTCE18042F <- which(colnames(df)=="CKid_2.1")
@@ -102,6 +119,11 @@ BrnTCOG18042F <- which(colnames(df)=="CBrnTCOGTCOHmol_2.1") #(v2.11)
 
 SrmDCVG18042F <- which(colnames(df)=="CDCVGmol_2.1")
 SrmDCVC18042F <- which(colnames(df)=="CDCVCmol_2.1")
+
+LivDCVG18042F <- which(colnames(df)=="CLivDCVGmol_2.1") #(v2.12)
+KidDCVG18042F <- which(colnames(df)=="CKidDCVGmol_2.1") #(v2.12)
+BrnDCVG18042F <- which(colnames(df)=="CBrnDCVGmol_2.1") #(v2.12)
+
 
 #
 #VenTCE.1.1 <- VenTCE18042M:(VenTCE18042M+5) # col no. for male
@@ -130,6 +152,10 @@ BrnTCOG.1.1 <- BrnTCOG18042M:(BrnTCOG18042M+5) #(v2.11)
 SrmDCVG.1.1 <- SrmDCVG18042M:(SrmDCVG18042M+5)
 SrmDCVC.1.1 <- SrmDCVC18042M:(SrmDCVC18042M+5)
 
+LivDCVG.1.1 <- LivDCVG18042M:(LivDCVG18042M+5) #(v2.12)
+KidDCVG.1.1 <- KidDCVG18042M:(KidDCVG18042M+5) #(v2.12)
+BrnDCVG.1.1 <- BrnDCVG18042M:(BrnDCVG18042M+5) #(v2.12)
+
 #VenTCE.1.2 <- VenTCE18042F:(VenTCE18042F+5) # col no. for Female
 #LivTCE.1.2 <- LivTCE18042F:(LivTCE18042F+5)
 #KidTCE.1.2 <- KidTCE18042F:(KidTCE18042F+5)
@@ -155,6 +181,10 @@ BrnTCOG.1.2 <- BrnTCOG18042F:(BrnTCOG18042F+5) #(v2.11)
 
 SrmDCVG.1.2 <- SrmDCVG18042F:(SrmDCVG18042F+5)
 SrmDCVC.1.2 <- SrmDCVC18042F:(SrmDCVC18042F+5)
+
+LivDCVG.1.2 <- LivDCVG18042F:(LivDCVG18042F+5) #(v2.12)
+KidDCVG.1.2 <- KidDCVG18042F:(KidDCVG18042F+5) #(v2.12)
+BrnDCVG.1.2 <- BrnDCVG18042F:(BrnDCVG18042F+5) #(v2.12)
 
 source("AU18042.R")
 
