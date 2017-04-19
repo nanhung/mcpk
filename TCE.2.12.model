@@ -1876,10 +1876,9 @@ dt(ABrnTCA) = QBrnPlas * (CPlasTCAFree - CVBrnTCAFree); #(v2.10)
 #    dt(ADCVC) = RAMetDCVGmol * MWDCVC
 #		+ RAMetKid * FracKidDCVC * StochDCVCTCE
 #		- kElimDCVC * ADCVC;#(v2.0)
-    dt(ADCVC) = RAMetDCVGmol * MWDCVC + RAMetKid * FracKidDCVC * StochDCVCTCE - kElimDCVC * ADCVC
-    + (QKid*CVKidDCVC) + (QGutLiv*CVLivDCVC) + (QBrn*CVBrnDCVC) + (QBod*CVBodDCVC) - (QCnow * CDCVC) ; #(v2.12)
+    dt(ADCVC) = (QKid*CVKidDCVC) + (QGutLiv*CVLivDCVC) + (QBrn*CVBrnDCVC) + (QBod*CVBodDCVC) - (QCnow * CDCVC) ; #(v2.12)
 	dt(ALivDCVC) = QLiv * (CDCVC - CVLivDCVC); #(v2.12)
-	dt(AKidDCVC) = QKid * (CDCVC - CVKidDCVC); #(v2.12)
+	dt(AKidDCVC) = RAMetDCVGmol * MWDCVC + RAMetKid * FracKidDCVC * StochDCVCTCE + QKid * (CDCVC - CVKidDCVC) - kElimDCVC * AKidDCVC ; #(v2.12)
 	dt(ABrnDCVC) = QBrn * (CDCVC - CVBrnDCVC); #(v2.12)
 	dt(ABodDCVC) = QBod * (CDCVC - CVBodDCVC); #(v2.12)
 		
