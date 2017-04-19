@@ -1,7 +1,7 @@
 #------------------------------------------------------------
 # TCE.2.12.model
-# Add LivDCVGmol, KidDCVGmol, and BrnDCVGmol 
-# Add PLivDCVG, PBrnDCVG and PKidDCVG, and assume the initial value 1 
+# Add LivDCVGmol, KidDCVGmol, BrnDCVGmol, and BodDCVG 
+# Add PLivDCVG, PKidDCVG, PBrnDCVG, PBodDCVG; assume the initial value 1 
 #-------------------------------------------------------------
 States = {
 	AStom,		# Amount of TCE in stomach
@@ -52,9 +52,10 @@ States = {
 	AUrnTCOG_collect,# Cumulative Amount of TCA excreted in urine during
 			# collection times (for intermittent collection) 	
 	ADCVGmol,	# Amount of DCVG in body in mmoles
-	ABrnDCVGmol, #(v2.12)
-	AKidDCVGmol, #(v2.12)
 	ALivDCVGmol, #(v2.12)
+	AKidDCVGmol, #(v2.12)
+	ABrnDCVGmol, #(v2.12)
+	ABodDCVGmol, #(v2.12)
     ADCVC,		# Amount of DCVC in body
 	ACh, 		# Amount in closed chamber -- mice and rats only
 	AExh, 		# Amount exhaled
@@ -170,6 +171,7 @@ CDCVGmol,		# concentration of DCVG (mmol/l)
 CLivDCVGmol, #(v2.12)
 CKidDCVGmol, #(v2.12)
 CBrnDCVGmol, #(v2.12)
+CBodDCVGmol, #(v2.12)
 CDCVGmol0,	# Dummy variable without likelihood (for plotting)
 CDCVG_ND,	# Non-detect of DCVG (<0.001 nmol/ml= 1e-6 mmol/l )#(v2.0)
 		# Output -ln(likelihood)
@@ -376,6 +378,7 @@ PBrnTCOG = 1; #(v2.11)
 PLivDCVG = 1; #(v2.12)
 PKidDCVG = 1; #(v2.12)
 PBrnDCVG = 1; #(v2.12)
+PBodDCVG = 1; #(v2.12)
 VDCVG	= 1;	# DCVG effective volume of distribution
 VDCVC	= 1;	# DCVC effective volume of distribution#(v2.0)
 VDCA	= 1;	# DCA effective volume of distribution (central compartment)#(v2.0)
@@ -535,6 +538,7 @@ lnPeffDCA	= 0.0;	# Scaled to species-specific central estimates#(v2.0)
 lnPLivDCVGC	= 0.0; #(v2.12)
 lnPKidDCVGC	= 0.0; #(v2.12)
 lnPBrnDCVGC	= 0.0; #(v2.12)
+lnPBodDCVGC	= 0.0; #(v2.12)
 
 # Oral Absorption rates
 lnkTSD	= 0.336;
@@ -636,6 +640,7 @@ M_lnPBrnTCOGC	= 1.0; #(v2.11)
 M_lnPLivDCVGC	= 1.0; #(v2.12)
 M_lnPKidDCVGC	= 1.0; #(v2.12)
 M_lnPBrnDCVGC	= 1.0; #(v2.12)
+M_lnPBodDCVGC	= 1.0; #(v2.12)
 M_lnPeffDCVG	= 1.0; 
 M_lnPeffDCVC	= 1.0;
 M_lnPeffDCA	= 1.0; M_lnkTSD	= 1.0;
@@ -695,6 +700,7 @@ V_lnPBrnTCOGC	= 1.0; #(v2.11)
 V_lnPLivDCVGC	= 1.0; #(v2.12)
 V_lnPKidDCVGC	= 1.0; #(v2.12)
 V_lnPBrnDCVGC	= 1.0; #(v2.12)
+V_lnPBodDCVGC	= 1.0; #(v2.12)
 V_lnPeffDCVG	= 1.0; 
 V_lnPeffDCVC	= 1.0;
 V_lnPeffDCA	= 1.0; V_lnkTSD	= 1.0;
@@ -798,6 +804,7 @@ Ve_CDCVGmol	= 1;#(v2.0)
 Ve_CLivDCVGmol = 1; #(v2.12)
 Ve_CKidDCVGmol = 1; #(v2.12)
 Ve_CBrnDCVGmol = 1; #(v2.12)
+Ve_CBodDCVGmol = 1; #(v2.12)
 Ve_CDCVCmol	= 1;#(v2.0)
 Ve_CDCAmol	= 1;#(v2.0)
 Ve_AUrnTCTotMole	= 1;
@@ -1173,7 +1180,8 @@ Initialize {
     (Species == 3 ? 1 : (Species == 2 ? 1 : 1 ));
     PBrnDCVG = exp(lnPBrnDCVGC) *  #(v2.12) Assumed
     (Species == 3 ? 1 : (Species == 2 ? 1 : 1 ));
-
+    PBodDCVG = exp(lnPBodDCVGC) *  #(v2.12) Assumed
+    (Species == 3 ? 1 : (Species == 2 ? 1 : 1 ));
 
 
 # DCVG distribution volume
@@ -1785,22 +1793,25 @@ dt(ABrnTCA) = QBrnPlas * (CPlasTCAFree - CVBrnTCAFree); #(v2.10)
 #***                       DCVG Sub-model                                   ***
 #******************************************************************************
 # Rate of metabolism of DCVG to DCVC
-    RAMetDCVGmol = kDCVG * ADCVGmol;
-
+    #RAMetDCVGmol = kDCVG * ADCVGmol;
+	RAMetDCVGmol = kDCVG * AKidDCVGmol; #(v2.12)
+	
 # Concentration of DCVG in blood (in mmoles/l)
 	CDCVGmol = ADCVGmol/VDCVG;
 	
 # Venous Concentrations
-	CVBrnDCVGmol = ABrnDCVGmol / VBrn / PBrnDCVG; #(v2.12)
-	CVKidDCVGmol = AKidDCVGmol / VKid / PKidDCVG; #(v2.12)
 	CVLivDCVGmol = ALivDCVGmol / VLiv / PLivDCVG; #(v2.12)
+	CVKidDCVGmol = AKidDCVGmol / VKid / PKidDCVG; #(v2.12)
+	CVBrnDCVGmol = ABrnDCVGmol / VBrn / PBrnDCVG; #(v2.12)
+	CVBodDCVGmol = ABodDCVGmol / VBod / PBodDCVG; #(v2.12)
 
 # Dynamics for DCVG in blood and tissues
-    dt(ADCVGmol) = (RAMetLiv2 + RAMetKid*(1-FracKidDCVC)) / MWTCE + (QKid*CVKidDCVGmol) + (QGutLiv*CVLivDCVGmol) + (QBrn*CVBrnDCVGmol) 
-            - (QCnow * CDCVGmol) - RAMetDCVGmol; #(v2.12)
-    dt(ALivDCVGmol) = QGutLiv * (CDCVGmol - CVLivDCVGmol);	#(v2.12)
+    dt(ADCVGmol) = (QKid*CVKidDCVGmol) + (QGutLiv*CVLivDCVGmol) + (QBrn*CVBrnDCVGmol) 
+        			 - (QCnow * CDCVGmol) ; #(v2.12)
+    dt(ALivDCVGmol) = RAMetLiv2 /MWTCE + QGutLiv * (CDCVGmol - CVLivDCVGmol);	#(v2.12)
+	dt(AKidDCVGmol) = RAMetKid*(1-FracKidDCVC) / MWTCE + QKid * (CDCVGmol - CVKidDCVGmol) - RAMetDCVGmol; #(v2.12)
 	dt(ABrnDCVGmol) = QBrn * (CDCVGmol - CVBrnDCVGmol); #(v2.12)
-	dt(AKidDCVGmol) = QKid * (CDCVGmol - CVKidDCVGmol); #(v2.12)
+	dt(ABodDCVGmol) = QBod * (CDCVGmol - CVBodDCVGmol); #(v2.12)
 		
 #******************************************************************************
 #***                       DCVC Sub-model                                   ***
@@ -1929,6 +1940,7 @@ CalcOutputs{
 	CLivDCVGmol = (ALivDCVGmol < 1.0e-15 ? 1.0e-15 : ALivDCVGmol/VLiv); #(v2.12)
 	CKidDCVGmol = (AKidDCVGmol < 1.0e-15 ? 1.0e-15 : AKidDCVGmol/VKid); #(v2.12)
 	CBrnDCVGmol = (ABrnDCVGmol < 1.0e-15 ? 1.0e-15 : ABrnDCVGmol/VBrn); #(v2.12)
+	CBodDCVGmol = (ABodDCVGmol < 1.0e-15 ? 1.0e-15 : ABodDCVGmol/VBod); #(v2.12)
 	CDCVGmol0 = CDCVGmol;
 	CDCVG_NDtmp = CDFNormal(3*(1-CDCVGmol/CDCVGmolLD)); 
 		# Assuming LD = 3*sigma_blank, Normally distributed
