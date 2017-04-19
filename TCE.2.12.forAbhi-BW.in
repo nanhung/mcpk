@@ -277,7 +277,7 @@ Print( CPlasTCAmol, CLivTCAmol, CKidTCAmol, CBrnTCAmol, 1, 2, 6, 12, 24, 36);
 Print( TotCTCOHmol, TotLivTCOHmol, TotKidTCOHmol, TotBrnTCOHmol, 1, 2, 6, 12, 24, 36); 
 Print( CTCOGTCOHmol, CLivTCOGTCOHmol, CKidTCOGTCOHmol, CBrnTCOGTCOHmol, 1, 2, 6, 12, 24, 36); 
 Print( CDCVGmol, CLivDCVGmol, CKidDCVGmol, CBrnDCVGmol,  1, 2, 6, 12, 24, 36); 
-Print( CDCVCmol,  1, 2, 6, 12, 24, 36); 
+Print( CDCVCmol, CLivDCVCmol, CKidDCVCmol, CBrnDCVCmol,  1, 2, 6, 12, 24, 36); 
 
 } # End AU18042M
 
@@ -301,7 +301,7 @@ Print( CPlasTCAmol, CLivTCAmol, CKidTCAmol, CBrnTCAmol, 1, 2, 6, 12, 24, 36);
 Print( TotCTCOHmol, TotLivTCOHmol, TotKidTCOHmol, TotBrnTCOHmol, 1, 2, 6, 12, 24, 36); 
 Print( CTCOGTCOHmol, CLivTCOGTCOHmol, CKidTCOGTCOHmol, CBrnTCOGTCOHmol, 1, 2, 6, 12, 24, 36); 
 Print( CDCVGmol, CLivDCVGmol, CKidDCVGmol, CBrnDCVGmol,  1, 2, 6, 12, 24, 36); 
-Print( CDCVCmol,  1, 2, 6, 12, 24, 36); 
+Print( CDCVCmol, CLivDCVCmol, CKidDCVCmol, CBrnDCVCmol,  1, 2, 6, 12, 24, 36); 
 
     
 } # End AU18042F
@@ -325,7 +325,7 @@ Print( CPlasTCAmol, CLivTCAmol, CKidTCAmol, CBrnTCAmol, 1, 2, 6, 12, 24, 36);
 Print( TotCTCOHmol, TotLivTCOHmol, TotKidTCOHmol, TotBrnTCOHmol, 1, 2, 6, 12, 24, 36); 
 Print( CTCOGTCOHmol, CLivTCOGTCOHmol, CKidTCOGTCOHmol, CBrnTCOGTCOHmol, 1, 2, 6, 12, 24, 36); 
 Print( CDCVGmol, CLivDCVGmol, CKidDCVGmol, CBrnDCVGmol,  1, 2, 6, 12, 24, 36); 
-Print( CDCVCmol,  1, 2, 6, 12, 24, 36); 
+Print( CDCVCmol, CLivDCVCmol, CKidDCVCmol, CBrnDCVCmol,  1, 2, 6, 12, 24, 36); 
 
 } # End Experiment Random Strain
 
@@ -350,7 +350,7 @@ Print( CPlasTCAmol, CLivTCAmol, CKidTCAmol, CBrnTCAmol, 1, 2, 6, 12, 24, 36);
 Print( TotCTCOHmol, TotLivTCOHmol, TotKidTCOHmol, TotBrnTCOHmol, 1, 2, 6, 12, 24, 36); 
 Print( CTCOGTCOHmol, CLivTCOGTCOHmol, CKidTCOGTCOHmol, CBrnTCOGTCOHmol, 1, 2, 6, 12, 24, 36); 
 Print( CDCVGmol, CLivDCVGmol, CKidDCVGmol, CBrnDCVGmol,  1, 2, 6, 12, 24, 36); 
-Print( CDCVCmol,  1, 2, 6, 12, 24, 36); 
+Print( CDCVCmol, CLivDCVCmol, CKidDCVCmol, CBrnDCVCmol,  1, 2, 6, 12, 24, 36); 
 
 } # End AU8005F
 
@@ -373,7 +373,7 @@ Print( CPlasTCAmol, CLivTCAmol, CKidTCAmol, CBrnTCAmol, 1, 2, 6, 12, 24, 36);
 Print( TotCTCOHmol, TotLivTCOHmol, TotKidTCOHmol, TotBrnTCOHmol, 1, 2, 6, 12, 24, 36); 
 Print( CTCOGTCOHmol, CLivTCOGTCOHmol, CKidTCOGTCOHmol, CBrnTCOGTCOHmol, 1, 2, 6, 12, 24, 36); 
 Print( CDCVGmol, CLivDCVGmol, CKidDCVGmol, CBrnDCVGmol,  1, 2, 6, 12, 24, 36); 
-Print( CDCVCmol,  1, 2, 6, 12, 24, 36);  
+Print( CDCVCmol, CLivDCVCmol, CKidDCVCmol, CBrnDCVCmol,  1, 2, 6, 12, 24, 36); 
 } # End AU8034M
 
 Experiment { # AU8034F
@@ -395,7 +395,7 @@ Print( CPlasTCAmol, CLivTCAmol, CKidTCAmol, CBrnTCAmol, 1, 2, 6, 12, 24, 36);
 Print( TotCTCOHmol, TotLivTCOHmol, TotKidTCOHmol, TotBrnTCOHmol, 1, 2, 6, 12, 24, 36); 
 Print( CTCOGTCOHmol, CLivTCOGTCOHmol, CKidTCOGTCOHmol, CBrnTCOGTCOHmol, 1, 2, 6, 12, 24, 36); 
 Print( CDCVGmol, CLivDCVGmol, CKidDCVGmol, CBrnDCVGmol,  1, 2, 6, 12, 24, 36); 
-Print( CDCVCmol,  1, 2, 6, 12, 24, 36); 
+Print( CDCVCmol, CLivDCVCmol, CKidDCVCmol, CBrnDCVCmol,  1, 2, 6, 12, 24, 36); 
 } # End AU8034F
 
 Experiment { # IL1688M
@@ -417,7 +417,7 @@ Print( CPlasTCAmol, CLivTCAmol, CKidTCAmol, CBrnTCAmol, 1, 2, 6, 12, 24, 36);
 Print( TotCTCOHmol, TotLivTCOHmol, TotKidTCOHmol, TotBrnTCOHmol, 1, 2, 6, 12, 24, 36); 
 Print( CTCOGTCOHmol, CLivTCOGTCOHmol, CKidTCOGTCOHmol, CBrnTCOGTCOHmol, 1, 2, 6, 12, 24, 36); 
 Print( CDCVGmol, CLivDCVGmol, CKidDCVGmol, CBrnDCVGmol,  1, 2, 6, 12, 24, 36); 
-Print( CDCVCmol,  1, 2, 6, 12, 24, 36); 
+Print( CDCVCmol, CLivDCVCmol, CKidDCVCmol, CBrnDCVCmol,  1, 2, 6, 12, 24, 36); 
 
 } # End IL1688M
 
@@ -440,7 +440,7 @@ Print( CPlasTCAmol, CLivTCAmol, CKidTCAmol, CBrnTCAmol, 1, 2, 6, 12, 24, 36);
 Print( TotCTCOHmol, TotLivTCOHmol, TotKidTCOHmol, TotBrnTCOHmol, 1, 2, 6, 12, 24, 36); 
 Print( CTCOGTCOHmol, CLivTCOGTCOHmol, CKidTCOGTCOHmol, CBrnTCOGTCOHmol, 1, 2, 6, 12, 24, 36); 
 Print( CDCVGmol, CLivDCVGmol, CKidDCVGmol, CBrnDCVGmol,  1, 2, 6, 12, 24, 36); 
-Print( CDCVCmol,  1, 2, 6, 12, 24, 36); 
+Print( CDCVCmol, CLivDCVCmol, CKidDCVCmol, CBrnDCVCmol,  1, 2, 6, 12, 24, 36); 
 
 } # End IL1688F
 

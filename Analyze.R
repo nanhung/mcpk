@@ -93,6 +93,9 @@ SrmDCVC18042M <- which(colnames(df)=="CDCVCmol_1.1")
 LivDCVG18042M <- which(colnames(df)=="CLivDCVGmol_1.1") #(v2.12)
 KidDCVG18042M <- which(colnames(df)=="CKidDCVGmol_1.1") #(v2.12)
 BrnDCVG18042M <- which(colnames(df)=="CBrnDCVGmol_1.1") #(v2.12)
+LivDCVC18042M <- which(colnames(df)=="CLivDCVCmol_1.1") #(v2.12)
+KidDCVC18042M <- which(colnames(df)=="CKidDCVCmol_1.1") #(v2.12)
+BrnDCVC18042M <- which(colnames(df)=="CBrnDCVCmol_1.1") #(v2.12)
 
 #VenTCE18042F <- which(colnames(df)=="CVen_2.1")
 #LivTCE18042F <- which(colnames(df)=="CLiv_2.1")
@@ -123,7 +126,9 @@ SrmDCVC18042F <- which(colnames(df)=="CDCVCmol_2.1")
 LivDCVG18042F <- which(colnames(df)=="CLivDCVGmol_2.1") #(v2.12)
 KidDCVG18042F <- which(colnames(df)=="CKidDCVGmol_2.1") #(v2.12)
 BrnDCVG18042F <- which(colnames(df)=="CBrnDCVGmol_2.1") #(v2.12)
-
+LivDCVC18042F <- which(colnames(df)=="CLivDCVCmol_2.1") #(v2.12)
+KidDCVC18042F <- which(colnames(df)=="CKidDCVCmol_2.1") #(v2.12)
+BrnDCVC18042F <- which(colnames(df)=="CBrnDCVCmol_2.1") #(v2.12)
 
 #
 #VenTCE.1.1 <- VenTCE18042M:(VenTCE18042M+5) # col no. for male
@@ -155,6 +160,9 @@ SrmDCVC.1.1 <- SrmDCVC18042M:(SrmDCVC18042M+5)
 LivDCVG.1.1 <- LivDCVG18042M:(LivDCVG18042M+5) #(v2.12)
 KidDCVG.1.1 <- KidDCVG18042M:(KidDCVG18042M+5) #(v2.12)
 BrnDCVG.1.1 <- BrnDCVG18042M:(BrnDCVG18042M+5) #(v2.12)
+LivDCVC.1.1 <- LivDCVC18042M:(LivDCVC18042M+5) #(v2.12)
+KidDCVC.1.1 <- KidDCVC18042M:(KidDCVC18042M+5) #(v2.12)
+BrnDCVC.1.1 <- BrnDCVC18042M:(BrnDCVC18042M+5) #(v2.12)
 
 #VenTCE.1.2 <- VenTCE18042F:(VenTCE18042F+5) # col no. for Female
 #LivTCE.1.2 <- LivTCE18042F:(LivTCE18042F+5)
@@ -185,6 +193,9 @@ SrmDCVC.1.2 <- SrmDCVC18042F:(SrmDCVC18042F+5)
 LivDCVG.1.2 <- LivDCVG18042F:(LivDCVG18042F+5) #(v2.12)
 KidDCVG.1.2 <- KidDCVG18042F:(KidDCVG18042F+5) #(v2.12)
 BrnDCVG.1.2 <- BrnDCVG18042F:(BrnDCVG18042F+5) #(v2.12)
+LivDCVC.1.2 <- LivDCVC18042F:(LivDCVC18042F+5) #(v2.12)
+KidDCVC.1.2 <- KidDCVC18042F:(KidDCVC18042F+5) #(v2.12)
+BrnDCVC.1.2 <- BrnDCVC18042F:(BrnDCVC18042F+5) #(v2.12)
 
 source("AU18042.R")
 
