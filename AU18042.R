@@ -1,7 +1,7 @@
-png(file="AU18042M.png",width=2800,height=2400,res=250)
+png(file="AU18042M.png",width=2800,height=2800,res=250)
 par(mar=c(2.5,3.5,1.2,1))
-layout(matrix(c(1,1,1,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17),
-              ncol=4, byrow = T),heights=c(1,3,3,3,3))
+layout(matrix(c(1,1,1,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21),
+              ncol=4, byrow = T),heights=c(1,3,3,3,3,3))
 plot.new()
 text(0.5,0.5,"AU18042 Male - 800 mg/kg TCE",cex=2,font=2)
 
@@ -239,6 +239,40 @@ lines(AU18042.df[,1], apply(df[,LivDCVG.1.1], 2,  quantile, probs= c(.05)),lty=2
 lines(AU18042.df[,1], apply(df[,LivDCVG.1.1], 2,  quantile, probs= c(.95)),lty=2, lwd=2 )
 points(AU18042.df[,1], AU18042.df$LivDCVG.1.1, col = "red" , pch = 20, cex=1.4)
 
+for (i in 1:dim(df)[1]) {
+  if (i == 1) {
+    plot(time, df[i,KidDCVG.1.1], xlab = " ", ylab = "",
+         main = "Kidney DCVG (mmol/l)", las = 1, col = "grey", pch = 20, cex.lab = 1.2,
+         type = "b", log="xy", ylim=c(10^-10, 10^-3), cex.main = 1.2)
+  } else {
+    plot(time, df[i,KidDCVG.1.1], xlab = "", ylab = "", xaxt = "n", yaxt = "n",
+         main = "", las = 1, col = "grey", pch = 20,
+         type = "b", log="xy", ylim=c(10^-10, 10^-3)) 
+  }
+  par(new=T)
+}
+lines(AU18042.df[,1], apply(df[,KidDCVG.1.1], 2, median), lwd=2)
+lines(AU18042.df[,1], apply(df[,KidDCVG.1.1], 2,  quantile, probs= c(.05)),lty=2, lwd=2)
+lines(AU18042.df[,1], apply(df[,KidDCVG.1.1], 2,  quantile, probs= c(.95)),lty=2, lwd=2 )
+points(AU18042.df[,1], AU18042.df$KidDCVG.1.1, col = "red" , pch = 20, cex=1.4)
+
+for (i in 1:dim(df)[1]) {
+  if (i == 1) {
+    plot(time, df[i,BrnDCVG.1.1], xlab = " ", ylab = "",
+         main = "Brain DCVG (mmol/l)", las = 1, col = "grey", pch = 20, cex.lab = 1.2,
+         type = "b", log="xy", ylim=c(10^-10, 10^-3), cex.main = 1.2)
+  } else {
+    plot(time, df[i,BrnDCVG.1.1], xlab = "", ylab = "", xaxt = "n", yaxt = "n",
+         main = "", las = 1, col = "grey", pch = 20,
+         type = "b", log="xy", ylim=c(10^-10, 10^-3)) 
+  }
+  par(new=T)
+}
+lines(AU18042.df[,1], apply(df[,BrnDCVG.1.1], 2, median), lwd=2)
+lines(AU18042.df[,1], apply(df[,BrnDCVG.1.1], 2,  quantile, probs= c(.05)),lty=2, lwd=2)
+lines(AU18042.df[,1], apply(df[,BrnDCVG.1.1], 2,  quantile, probs= c(.95)),lty=2, lwd=2 )
+points(AU18042.df[,1], AU18042.df$BrnDCVG.1.1, col = "red" , pch = 20, cex=1.4)
+
 
 for (i in 1:dim(df)[1]) {
   if (i == 1) {
@@ -261,10 +295,10 @@ dev.off()
 
 
 ## Female ------
-png(file="AU18042F.png",width=2800,height=2400,res=250)
+png(file="AU18042F.png",width=2800,height=2800,res=250)
 par(mar=c(2.5,3.5,1.2,1))
-layout(matrix(c(1,1,1,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17),
-              ncol=4, byrow = T),heights=c(1,3,3,3,3))
+layout(matrix(c(1,1,1,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21),
+              ncol=4, byrow = T),heights=c(1,3,3,3,3,3))
 plot.new()
 text(0.5,0.5,"AU18042 Female - 800 mg/kg TCE",cex=2,font=2)
 
@@ -484,6 +518,57 @@ lines(AU18042.df[,1], apply(df[,SrmDCVG.1.2], 2, median), lwd=2)
 lines(AU18042.df[,1], apply(df[,SrmDCVG.1.2], 2,  quantile, probs= c(.05)),lty=2, lwd=2)
 lines(AU18042.df[,1], apply(df[,SrmDCVG.1.2], 2,  quantile, probs= c(.95)),lty=2, lwd=2 )
 points(AU18042.df[,1], AU18042.df$SrmDCVG.1.2, col = "red" , pch = 20, cex=1.4)
+
+for (i in 1:dim(df)[1]) {
+  if (i == 1) {
+    plot(time, df[i,LivDCVG.1.2], xlab = " ", ylab = "",
+         main = "Liver DCVG (mmol/l)", las = 1, col = "grey", pch = 20, cex.lab = 1.2,
+         type = "b", log="xy", ylim=c(10^-10, 10^-3), cex.main = 1.2)
+  } else {
+    plot(time, df[i,LivDCVG.1.2], xlab = "", ylab = "", xaxt = "n", yaxt = "n",
+         main = "", las = 1, col = "grey", pch = 20,
+         type = "b", log="xy", ylim=c(10^-10, 10^-3)) 
+  }
+  par(new=T)
+}
+lines(AU18042.df[,1], apply(df[,LivDCVG.1.2], 2, median), lwd=2)
+lines(AU18042.df[,1], apply(df[,LivDCVG.1.2], 2,  quantile, probs= c(.05)),lty=2, lwd=2)
+lines(AU18042.df[,1], apply(df[,LivDCVG.1.2], 2,  quantile, probs= c(.95)),lty=2, lwd=2 )
+points(AU18042.df[,1], AU18042.df$LivDCVG.1.2, col = "red" , pch = 20, cex=1.4)
+
+for (i in 1:dim(df)[1]) {
+  if (i == 1) {
+    plot(time, df[i,KidDCVG.1.2], xlab = " ", ylab = "",
+         main = "Kidney DCVG (mmol/l)", las = 1, col = "grey", pch = 20, cex.lab = 1.2,
+         type = "b", log="xy", ylim=c(10^-10, 10^-3), cex.main = 1.2)
+  } else {
+    plot(time, df[i,KidDCVG.1.2], xlab = "", ylab = "", xaxt = "n", yaxt = "n",
+         main = "", las = 1, col = "grey", pch = 20,
+         type = "b", log="xy", ylim=c(10^-10, 10^-3)) 
+  }
+  par(new=T)
+}
+lines(AU18042.df[,1], apply(df[,KidDCVG.1.2], 2, median), lwd=2)
+lines(AU18042.df[,1], apply(df[,KidDCVG.1.2], 2,  quantile, probs= c(.05)),lty=2, lwd=2)
+lines(AU18042.df[,1], apply(df[,KidDCVG.1.2], 2,  quantile, probs= c(.95)),lty=2, lwd=2 )
+points(AU18042.df[,1], AU18042.df$KidDCVG.1.2, col = "red" , pch = 20, cex=1.4)
+
+for (i in 1:dim(df)[1]) {
+  if (i == 1) {
+    plot(time, df[i,BrnDCVG.1.2], xlab = " ", ylab = "",
+         main = "Brain DCVG (mmol/l)", las = 1, col = "grey", pch = 20, cex.lab = 1.2,
+         type = "b", log="xy", ylim=c(10^-10, 10^-3), cex.main = 1.2)
+  } else {
+    plot(time, df[i,BrnDCVG.1.2], xlab = "", ylab = "", xaxt = "n", yaxt = "n",
+         main = "", las = 1, col = "grey", pch = 20,
+         type = "b", log="xy", ylim=c(10^-10, 10^-3)) 
+  }
+  par(new=T)
+}
+lines(AU18042.df[,1], apply(df[,BrnDCVG.1.2], 2, median), lwd=2)
+lines(AU18042.df[,1], apply(df[,BrnDCVG.1.2], 2,  quantile, probs= c(.05)),lty=2, lwd=2)
+lines(AU18042.df[,1], apply(df[,BrnDCVG.1.2], 2,  quantile, probs= c(.95)),lty=2, lwd=2 )
+points(AU18042.df[,1], AU18042.df$BrnDCVG.1.2, col = "red" , pch = 20, cex=1.4)
 
 for (i in 1:dim(df)[1]) {
   if (i == 1) {
