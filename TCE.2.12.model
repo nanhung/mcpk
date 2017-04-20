@@ -6,9 +6,13 @@
 # Add PLivDCVG, PKidDCVG, PBrnDCVG, PBodDCVG; assumed the initial value of 1 
 # Add PLivDCVC, PKidDCVC, PBrnDCVC, PBodDCVC; assumed the initial value of 1 
 # Add PLivNDCVC, PKidNDCVC, PBrnNDCVC, PBodNDCVC; assumed the initial value of 1 
+# Add kDCVC (DCVC to NADCVC), kElimNDCVC (NAcDCVC Elimination), ISkNDCVC (for NAcDCVC clearance)
+# New parameters are used the same value from DCVC or DCVG in the setpoint
+# Add detection limits for NAcDCVC
+# kElimDCVC is used for all tissues to correspond with previous situation (The equations will revise in the future)
 # Revise  dt(ADCVG)
 # Revise  dt(ADCVC)
-# Add kDCVC, kElimNDCVC, ISkNDCVC
+# Doesn't consider the conjugates generated in Kidney
 #------------------------------------------------------------------------
 States = {
 	AStom,		# Amount of TCE in stomach
@@ -203,6 +207,7 @@ CBodNDCVCmol, #(v2.12)
 CDCVCmol0,	# Dummy variable without likelihood (for plotting)#(v2.0)
 CDCVC_ND,	# Non-detect of DCVC (<0.001 nmol/ml= 1e-6 mmol/l )#(v2.0)
 		# Output -ln(likelihood)#(v2.0)
+CNDCVC_ND, #(v2.12)		
 CDCAmol,		# concentration of DCA (mmol/l) #(v2.0)
 CDCAmol0,	# Dummy variable without likelihood (for plotting)#(v2.0)
 CDCA_ND,	# Non-detect of DCA (<0.01 nmol/ml= 1e-5 mmol/l )#(v2.0)
@@ -497,6 +502,7 @@ PBmeas	= 0.0;	# Measured blood-air partition coefficient
 Hematocritmeas = 0.0; # Measured hematocrit -- used for FracPlas = 1 - HCt
 CDCVGmolLD = 1e-6; # Detection limit of CDCVGmol (in mmol/L)#(v2.0)
 CDCVCmolLD = 1e-6; # Detection limit of CDCVCmol (in mmol/L)#(v2.0)
+CNDCVCmolLD = 1e-6; #(v2.12)
 CDCAmolLD = 1e-5; # Detection limit of CDCAmol (in mmol/L)#(v2.0)
 
 # Closed chamber parameters
@@ -2101,6 +2107,8 @@ CalcOutputs{
 	CKidNDCVCmol = (AKidNDCVCmol < 1.0e-15 ? 1.0e-15 : AKidNDCVCmol/VKid); #(v2.12)
 	CBrnNDCVCmol = (ABrnNDCVCmol < 1.0e-15 ? 1.0e-15 : ABrnNDCVCmol/VBrn); #(v2.12)
 	CBodNDCVCmol = (ABodNDCVCmol < 1.0e-15 ? 1.0e-15 : ABodNDCVCmol/VBod); #(v2.12)
+	CNDCVC_NDtmp = CDFNormal(3*(1-CNDCVCmol/CNDCVCmolLD)); #(v2.12)
+	CNDCVC_ND = ( CNDCVC_NDtmp < 1.0 ? ( CNDCVC_NDtmp >= 1e-100 ? -log(CNDCVC_NDtmp) : -log(1e-100)) : 1e-100 );#(v2.12)
 	
 # DCA#(v2.0)
 	CDCAmol = (CDCAmol < 1.0e-15 ? 1.0e-15 : CDCAmol);#(v2.0)

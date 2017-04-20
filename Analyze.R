@@ -45,7 +45,7 @@ KidNDCVC.1.1<-c(15.95693643,8.11496146,NA,NA,NA,NA)/10^6 #(v2.12)
 BrnDCVG.1.1<-c(37.36295001,NA,4.354531238,NA,NA,NA)/10^6 #(v2.12)
 BrnDCVC.1.1<-c(5.945676361,NA,NA,NA,NA,NA)/10^6 #(v2.12)
 BrnNDCVC.1.1<-c(NA,NA,2.722466861,NA,NA,NA)/10^6 #(v2.12)
-SrmNDCVC.1.2 <- C(6.627417636,NA,NA,NA,NA,NA)/10^6 #(v2.12)
+SrmNDCVC.1.2 <- c(6.627417636,NA,NA,NA,NA,NA)/10^6 #(v2.12)
 LivDCVG.1.2<-c(1.125269001,0.908110232,NA,NA,NA,NA)/10^6 #(v2.12)
 LivNDCVC.1.2<-c(6.337594775,NA,NA,NA,NA,NA)/10^6 #(v2.12)
 KidDCVG.1.2<-c(NA,2.913837941,NA,NA,NA,NA)/10^6 #(v2.12)
@@ -215,7 +215,7 @@ LivNDCVC.1.2 <- LivNDCVC18042F:(LivNDCVC18042F+5) #(v2.12)
 KidNDCVC.1.2 <- KidNDCVC18042F:(KidNDCVC18042F+5) #(v2.12)
 BrnNDCVC.1.2 <- BrnNDCVC18042F:(BrnNDCVC18042F+5) #(v2.12)
 
-source("AU18042.R")
+# source("AU18042.R")
 
 ## AU8005 df ----
 M.b.wt<-c(25.5,26.6,25,20.6,21,19.8,20.1)
@@ -264,8 +264,8 @@ KidNDCVC.2.1<-c(40.81614825,19.72180449,5.192737781,NA,NA,NA)/10^6 #(v2.12)
 BrnDCVG.2.1<-c(NA,NA,30.30606951,NA,2.638858469,NA)/10^6 #(v2.12)
 BrnDCVC.2.1<-c(NA,NA,NA,2.993349409,NA,NA)/10^6 #(v2.12)
 BrnNDCVC.2.1<-c(NA,NA,4.931035034,NA,3.17950098,NA)/10^6 #(v2.12)
-SrmNDCVC.2.2 <- C(NA,NA,NA,NA,NA,NA)/10^6 #(v2.12)
-LivDCVG.2.2<-c(0.267246768,NA,1.607799256,NA,NA)/10^6 #(v2.12)
+SrmNDCVC.2.2 <- c(NA,NA,NA,NA,NA,NA)/10^6 #(v2.12)
+LivDCVG.2.2<-c(NA,0.267246768,NA,1.607799256,NA,NA)/10^6 #(v2.12)
 LivNDCVC.2.2<-c(NA,NA,NA,NA,NA,NA)/10^6 #(v2.12)
 KidDCVG.2.2<-c(9.052048903,NA,NA,NA,NA,NA)/10^6 #(v2.12)
 KidDCVC.2.2<-c(8.695919011,3.377797886,2.662948239,NA,NA,NA)/10^6 #(v2.12)
@@ -347,16 +347,16 @@ BrnTCOG8005F <- which(colnames(df)=="CBrnTCOGTCOHmol_4.1") #(v2.11)
 SrmDCVG8005F <- which(colnames(df)=="CDCVGmol_4.1")
 SrmDCVC8005F <- which(colnames(df)=="CDCVCmol_4.1")
 
-LivDCVG8005M <- which(colnames(df)=="CLivDCVGmol_4.1") #(v2.12)
-KidDCVG8005M <- which(colnames(df)=="CKidDCVGmol_4.1") #(v2.12)
-BrnDCVG8005M <- which(colnames(df)=="CBrnDCVGmol_4.1") #(v2.12)
-LivDCVC8005M <- which(colnames(df)=="CLivDCVCmol_4.1") #(v2.12)
-KidDCVC8005M <- which(colnames(df)=="CKidDCVCmol_4.1") #(v2.12)
-BrnDCVC8005M <- which(colnames(df)=="CBrnDCVCmol_4.1") #(v2.12)
-SrmNDCVC8005M <- which(colnames(df)=="CNDCVCmol_4.1") #(v2.12)
-LivNDCVC8005M <- which(colnames(df)=="CLivNDCVCmol_4.1") #(v2.12)
-KidNDCVC8005M <- which(colnames(df)=="CKidNDCVCmol_4.1") #(v2.12)
-BrnNDCVC8005M <- which(colnames(df)=="CBrnNDCVCmol_4.1") #(v2.12)
+LivDCVG8005F <- which(colnames(df)=="CLivDCVGmol_4.1") #(v2.12)
+KidDCVG8005F <- which(colnames(df)=="CKidDCVGmol_4.1") #(v2.12)
+BrnDCVG8005F <- which(colnames(df)=="CBrnDCVGmol_4.1") #(v2.12)
+LivDCVC8005F <- which(colnames(df)=="CLivDCVCmol_4.1") #(v2.12)
+KidDCVC8005F <- which(colnames(df)=="CKidDCVCmol_4.1") #(v2.12)
+BrnDCVC8005F <- which(colnames(df)=="CBrnDCVCmol_4.1") #(v2.12)
+SrmNDCVC8005F <- which(colnames(df)=="CNDCVCmol_4.1") #(v2.12)
+LivNDCVC8005F <- which(colnames(df)=="CLivNDCVCmol_4.1") #(v2.12)
+KidNDCVC8005F <- which(colnames(df)=="CKidNDCVCmol_4.1") #(v2.12)
+BrnNDCVC8005F <- which(colnames(df)=="CBrnNDCVCmol_4.1") #(v2.12)
 
 #
 #VenTCE.2.1 <- VenTCE8005M:(VenTCE8005M+5) # col no. for male
@@ -435,7 +435,7 @@ BrnNDCVC.2.2 <- BrnNDCVC8005F:(BrnNDCVC8005F+5) #(v2.12)
 
 
 #
-source("AU8005.R")
+#source("AU8005.R")
 
 
 # AU8034 df
@@ -485,7 +485,7 @@ KidNDCVC.3.1<-c(NA,NA,NA,NA,NA,NA)/10^6 #(v2.12)
 BrnDCVG.3.1<-c(NA,18.73996469,NA,NA,NA,NA)/10^6 #(v2.12)
 BrnDCVC.3.1<-c(NA,4.043330195,NA,NA,NA,NA)/10^6 #(v2.12)
 BrnNDCVC.3.1<-c(NA,4.12250436,NA,NA,NA,NA)/10^6 #(v2.12)
-SrmNDCVC.3.2 <- C(NA,NA,NA,NA,NA,NA)/10^6 #(v2.12)
+SrmNDCVC.3.2 <- c(NA,NA,NA,NA,NA,NA)/10^6 #(v2.12)
 LivDCVG.3.2<-c(58.76022145,0.160212564,0.164984157,NA,NA,NA)/10^6 #(v2.12)
 LivNDCVC.3.2<-c(10.77067904,NA,NA,NA,NA,NA)/10^6 #(v2.12)
 KidDCVG.3.2<-c(2.25498496,NA,NA,NA,NA,NA)/10^6 #(v2.12)
@@ -569,16 +569,16 @@ BrnTCOG8034F <- which(colnames(df)=="CBrnTCOGTCOHmol_6.1") #(v2.11)
 SrmDCVG8034F <- which(colnames(df)=="CDCVGmol_6.1")
 SrmDCVC8034F <- which(colnames(df)=="CDCVCmol_6.1")
 
-LivDCVG8034M <- which(colnames(df)=="CLivDCVGmol_6.1") #(v2.12)
-KidDCVG8034M <- which(colnames(df)=="CKidDCVGmol_6.1") #(v2.12)
-BrnDCVG8034M <- which(colnames(df)=="CBrnDCVGmol_6.1") #(v2.12)
-LivDCVC8034M <- which(colnames(df)=="CLivDCVCmol_6.1") #(v2.12)
-KidDCVC8034M <- which(colnames(df)=="CKidDCVCmol_6.1") #(v2.12)
-BrnDCVC8034M <- which(colnames(df)=="CBrnDCVCmol_6.1") #(v2.12)
-SrmNDCVC8034M <- which(colnames(df)=="CNDCVCmol_6.1") #(v2.12)
-LivNDCVC8034M <- which(colnames(df)=="CLivNDCVCmol_6.1") #(v2.12)
-KidNDCVC8034M <- which(colnames(df)=="CKidNDCVCmol_6.1") #(v2.12)
-BrnNDCVC8034M <- which(colnames(df)=="CBrnNDCVCmol_6.1") #(v2.12)
+LivDCVG8034F <- which(colnames(df)=="CLivDCVGmol_6.1") #(v2.12)
+KidDCVG8034F <- which(colnames(df)=="CKidDCVGmol_6.1") #(v2.12)
+BrnDCVG8034F <- which(colnames(df)=="CBrnDCVGmol_6.1") #(v2.12)
+LivDCVC8034F <- which(colnames(df)=="CLivDCVCmol_6.1") #(v2.12)
+KidDCVC8034F <- which(colnames(df)=="CKidDCVCmol_6.1") #(v2.12)
+BrnDCVC8034F <- which(colnames(df)=="CBrnDCVCmol_6.1") #(v2.12)
+SrmNDCVC8034F <- which(colnames(df)=="CNDCVCmol_6.1") #(v2.12)
+LivNDCVC8034F <- which(colnames(df)=="CLivNDCVCmol_6.1") #(v2.12)
+KidNDCVC8034F <- which(colnames(df)=="CKidNDCVCmol_6.1") #(v2.12)
+BrnNDCVC8034F <- which(colnames(df)=="CBrnNDCVCmol_6.1") #(v2.12)
 
 
 #
@@ -657,8 +657,7 @@ LivNDCVC.3.2 <- LivNDCVC8034F:(LivNDCVC8034F+5) #(v2.12)
 KidNDCVC.3.2 <- KidNDCVC8034F:(KidNDCVC8034F+5) #(v2.12)
 BrnNDCVC.3.2 <- BrnNDCVC8034F:(BrnNDCVC8034F+5) #(v2.12)
 
-
-source("AU8034.R")
+#source("AU8034.R")
 
 
 # IL1688 df
@@ -708,14 +707,14 @@ KidNDCVC.4.1<-c(10.97870884,NA,NA,NA,NA,NA)/10^6 #(v2.12)
 BrnDCVG.4.1<-c(NA,28.92685631,NA,NA,1.486564276,NA)/10^6 #(v2.12)
 BrnDCVC.4.1<-c(4.362548835,NA,NA,NA,NA,NA)/10^6 #(v2.12)
 BrnNDCVC.4.1<-c(NA,NA,NA,NA,NA,NA)/10^6 #(v2.12)
-SrmNDCVC.4.2 <- C(NA,NA,NA,NA,NA,NA)/10^6 #(v2.12)
+SrmNDCVC.4.2 <- c(NA,NA,NA,NA,NA,NA)/10^6 #(v2.12)
 LivDCVG.4.2<-c(15.32157952,0.040241821,NA,NA,NA,NA)/10^6 #(v2.12)
 LivNDCVC.4.2<-c(5.060740639,NA,NA,NA,NA,NA)/10^6 #(v2.12)
 KidDCVG.4.2<-c(NA,NA,NA,NA,NA,NA)/10^6 #(v2.12)
 KidDCVC.4.2<-c(6.058003717,1.741590932,1.912048029,2.1923321,NA,NA)/10^6 #(v2.12)
 KidNDCVC.4.2<-c(7.038863828,NA,NA,NA,NA,NA)/10^6 #(v2.12)
 BrnDCVG.4.2<-c(NA,NA,3.214565737,1.349854638,NA,NA)/10^6 #(v2.12)
-BrnDCVC.4.2<-c(NA,NA,3.214565737,NA,NA,NA,)/10^6 #(v2.12)
+BrnDCVC.4.2<-c(NA,NA,3.214565737,NA,NA,NA)/10^6 #(v2.12)
 BrnNDCVC.4.2<-c(NA,NA,6.416973743,NA,NA,NA)/10^6 #(v2.12)
 
 IL1688.df<-data.frame(time,SrmTCA.4.1,LivTCA.4.1,KidTCA.4.1,BrnTCA.4.1,
@@ -793,16 +792,16 @@ BrnTCOG1688F <- which(colnames(df)=="CBrnTCOGTCOHmol_8.1") #(v2.11)
 SrmDCVG1688F <- which(colnames(df)=="CDCVGmol_8.1")
 SrmDCVC1688F <- which(colnames(df)=="CDCVCmol_8.1")
 
-LivDCVG1688M <- which(colnames(df)=="CLivDCVGmol_8.1") #(v2.12)
-KidDCVG1688M <- which(colnames(df)=="CKidDCVGmol_8.1") #(v2.12)
-BrnDCVG1688M <- which(colnames(df)=="CBrnDCVGmol_8.1") #(v2.12)
-LivDCVC1688M <- which(colnames(df)=="CLivDCVCmol_8.1") #(v2.12)
-KidDCVC1688M <- which(colnames(df)=="CKidDCVCmol_8.1") #(v2.12)
-BrnDCVC1688M <- which(colnames(df)=="CBrnDCVCmol_8.1") #(v2.12)
-SrmNDCVC1688M <- which(colnames(df)=="CNDCVCmol_8.1") #(v2.12)
-LivNDCVC1688M <- which(colnames(df)=="CLivNDCVCmol_8.1") #(v2.12)
-KidNDCVC1688M <- which(colnames(df)=="CKidNDCVCmol_8.1") #(v2.12)
-BrnNDCVC1688M <- which(colnames(df)=="CBrnNDCVCmol_8.1") #(v2.12)
+LivDCVG1688F <- which(colnames(df)=="CLivDCVGmol_8.1") #(v2.12)
+KidDCVG1688F <- which(colnames(df)=="CKidDCVGmol_8.1") #(v2.12)
+BrnDCVG1688F <- which(colnames(df)=="CBrnDCVGmol_8.1") #(v2.12)
+LivDCVC1688F <- which(colnames(df)=="CLivDCVCmol_8.1") #(v2.12)
+KidDCVC1688F <- which(colnames(df)=="CKidDCVCmol_8.1") #(v2.12)
+BrnDCVC1688F <- which(colnames(df)=="CBrnDCVCmol_8.1") #(v2.12)
+SrmNDCVC1688F <- which(colnames(df)=="CNDCVCmol_8.1") #(v2.12)
+LivNDCVC1688F <- which(colnames(df)=="CLivNDCVCmol_8.1") #(v2.12)
+KidNDCVC1688F <- which(colnames(df)=="CKidNDCVCmol_8.1") #(v2.12)
+BrnNDCVC1688F <- which(colnames(df)=="CBrnNDCVCmol_8.1") #(v2.12)
 
 
 #
@@ -882,7 +881,8 @@ KidNDCVC.4.2 <- KidNDCVC1688F:(KidNDCVC1688F+5) #(v2.12)
 BrnNDCVC.4.2 <- BrnNDCVC1688F:(BrnNDCVC1688F+5) #(v2.12)
 
 
-source("IL1688.R")
+# source("IL1688.R")
+source("TotAbhi.R")
 
 # Abbas97a_600 ----
 tVen<-c(0.25, 0.5, 2, 4, 8);
@@ -941,8 +941,8 @@ LivTCOH.9.1 <-LivTCOHAbbas97a.1.1:(LivTCOHAbbas97a.1.1+nrow(Abbas97a.LivTCOH.1.1
 BldTCOGTCOH.9.1 <-BldTCOGTCOHAbbas97a.1.1:(BldTCOGTCOHAbbas97a.1.1+nrow(Abbas97a.BldTCOGTCOH.1.1)-1)
 LivTCOGTCOH.9.1 <-LivTCOGTCOHAbbas97a.1.1:(LivTCOGTCOHAbbas97a.1.1+nrow(Abbas97a.LivTCOGTCOH.1.1)-1)
 
-source("Abbas97a_600.R")
-
+#source("Abbas97a_600.R")
+#
 
 # Abbas97a_1200 ----
 tVen<-c(0.083, 0.17, 0.25, 0.5, 0.75, 1, 1.5, 2, 3, 4, 8, 12, 16, 24 );
@@ -1001,7 +1001,7 @@ LivTCOH.10.1 <-LivTCOHAbbas97a.1.2:(LivTCOHAbbas97a.1.2+nrow(Abbas97a.LivTCOH.1.
 BldTCOGTCOH.10.1 <-BldTCOGTCOHAbbas97a.1.2:(BldTCOGTCOHAbbas97a.1.2+nrow(Abbas97a.BldTCOGTCOH.1.2)-1)
 LivTCOGTCOH.10.1 <-LivTCOGTCOHAbbas97a.1.2:(LivTCOGTCOHAbbas97a.1.2+nrow(Abbas97a.LivTCOGTCOH.1.2)-1)
 
-source("Abbas97a_1200.R")
+#source("Abbas97a_1200.R")
 
 # Kim
 t<-c(0.1, 0.5, 0.501, 0.502, 1, 1.001, 1.002, 1.5, 2, 2.001, 2.002, 2.5, 3.5, 4.5, 5.5, 6, 6.001, 6.002, 6.5, 7.5, 8, 8.001, 8.002, 8.5, 9.5, 10.5, 11.5, 12, 12.001, 12.002, 12.5, 13.5, 14.5, 15.5, 16.5, 17.5, 18.5, 19.5, 20.5, 21.5, 22.5, 23.5, 24, 24.001, 24.002)
@@ -1038,4 +1038,4 @@ CDCVGmol.12.1 <-CDCVGmol.Bfd11:(CDCVGmol.Bfd11+nrow(S1.df)-1)
 CDCVCmol.12.1 <-CDCVCmol.Bfd11:(CDCVCmol.Bfd11+nrow(S1.df)-1)
 CDCAmol.12.1 <-CDCAmol.Bfd11:(CDCAmol.Bfd11+nrow(S1.df)-1)
 
-source("Kim09nBfd11.R")
+#source("Kim09nBfd11.R")
