@@ -55,7 +55,7 @@ Distrib(Var_lnkSG_Vm, InvGamma, 2.25, 0.3125);
 Distrib(Var_lnkSG_Km, InvGamma, 2.25, 0.3125);
 
 Distrib(Var_lnTg, InvGamma, 2.25, 0.3125);
-#Distrib(Var_lnTp, InvGamma, 2.25, 0.3125);
+Distrib(Var_lnTp, InvGamma, 2.25, 0.3125);
 Distrib(Var_lnCLC_APAP, InvGamma, 2.25, 0.3125);
 Distrib(Var_lnCLC_AS, InvGamma, 2.25, 0.3125);
 Distrib(Var_lnCLC_AG, InvGamma, 2.25, 0.3125);
