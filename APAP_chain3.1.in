@@ -160,7 +160,7 @@ Level { # Group A
 #--------------
 
 Distrib(lnTg, TruncNormal_v, lnTg, Var_lnTg, -2.5, 0.);
-#Distrib(lnTp, TruncNormal_v, lnTp, Var_lnTp, -4.5, -2.5);
+Distrib(lnTp, TruncNormal_v, lnTp, Var_lnTp, -4.5, -2.5);
 
 # Vague Priors
 #Distrib(lnSULT_Km_paps, TruncNormal_v, lnSULT_Km_paps, Var_lnSULT_Km_paps, -3., 0.);
