@@ -1,5 +1,18 @@
 rm(list = ls())
 
+# 0503 MCMC
+# Read posterior result
+source("TCE_post.R")
+
+chain.1<-TCE.2.12_v1[402:501,]
+chain.2<-TCE.2.12_v1[502:601,]
+chain.3<-TCE.2.12_v2[402:501,]
+chain.4<-TCE.2.12_v2[502:601,]
+
+library(boa)
+boa.menu()
+
+# Fix the value to run MCMC
 # system("./mcsim.TCE.2.12 TCE.2.12.forAbhi-BW.in")
 
 df <- read.delim("TCE.2.12.forAbhi-BW.out", head = T)

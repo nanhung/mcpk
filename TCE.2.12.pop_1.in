@@ -9,9 +9,9 @@
 #TCA and DCA have background subtracted
 
 Integrate(Lsodes, 1e-5, 0.3e-8 , 1)
-MCMC ("TCE.2.12.pop_1.out",
+MCMC ("TCE.2.12.pop_1.csv",
 "","",
-30000, 0, 50, 30000, 12345);
+50000, 0, 50, 50000, 12345);
 
 
 # Fix following parameters at baseline values
@@ -102,59 +102,59 @@ Level { #Population level
 
 ###### POPULATION MEANS
 
-lnQCC = 0.15478150;
-lnVPRC = -0.34098750;
-lnDRespC = 0.83882850;
-lnPRBCPlasTCAC = 0.85392650;
-lnkDissocC = 0.57022100;
+#lnQCC = 0.15478150;
+#lnVPRC = -0.34098750;
+#lnDRespC = 0.83882850;
+#lnPRBCPlasTCAC = 0.85392650;
+#lnkDissocC = 0.57022100;
                                   
-lnBMaxkDC = 0.38300450;        
-lnkTSD = 1.41018500;        
-lnkAS = -0.04431945;        
-lnkAD = -1.52663000;     
-lnkASTCA = 1.63724500;
+#lnBMaxkDC = 0.38300450;        
+#lnkTSD = 1.41018500;        
+#lnkAS = -0.04431945;        
+#lnkAD = -1.52663000;     
+#lnkASTCA = 1.63724500;
                                  
-lnkASTCOH =  -0.22202500;      
-lnVMaxC =  -0.65325800;         
-lnKMC = -2.50242500;  
-lnFracOtherC = -4.11558500;    
-lnFracTCAC = -1.45118000;
+#lnkASTCOH =  -0.22202500;      
+#lnVMaxC =  -0.65325800;         
+#lnKMC = -2.50242500;  
+#lnFracOtherC = -4.11558500;    
+#lnFracTCAC = -1.45118000;
                              
-lnVMaxDCVGC = -4.81398500;     
-lnClDCVGC = -3.65848000;
-lnVMaxLungLivC = 2.37370500;    
-lnKMClara = -5.07073000;
-lnFracLungSysC = 2.68453500;
+#lnVMaxDCVGC = -4.81398500;     
+#lnClDCVGC = -3.65848000;
+#lnVMaxLungLivC = 2.37370500;    
+#lnKMClara = -5.07073000;
+#lnFracLungSysC = 2.68453500;
                                 
-lnVMaxTCOHC = 1.10599000;    
-lnKMTCOH = -0.01832790;  
-lnVMaxGlucC = 4.62109000;     
-lnKMGluc = 3.40312500;  
-lnkMetTCOHC = 2.02155000;
+#lnVMaxTCOHC = 1.10599000;    
+#lnKMTCOH = -0.01832790;  
+#lnVMaxGlucC = 4.62109000;     
+#lnKMGluc = 3.40312500;  
+#lnkMetTCOHC = 2.02155000;
                                   
-lnkUrnTCAC = -2.11709500;     
-lnkMetTCAC = -0.72942400;            
-lnkBileC = 0.95506850;            
-lnkEHRC = -3.26930000;         
-lnkUrnTCOGC =  2.39823500;
+#lnkUrnTCAC = -2.11709500;     
+#lnkMetTCAC = -0.72942400;            
+#lnkBileC = 0.95506850;            
+#lnkEHRC = -3.26930000;         
+#lnkUrnTCOGC =  2.39823500;
       
-lnPeffDCVG = 0.01485080;        
-lnPeffDCVC = 5.96086500;     
-lnPeffDCA = 3.70356500;                   
-#M_lnkDCVGC = 2.21368500;      
-#M_lnkElimDCVCC = -1.04505500; 
+#lnPeffDCVG = 0.01485080;        
+#lnPeffDCVC = 5.96086500;     
+#lnPeffDCA = 3.70356500;                   
+#lnkDCVGC = 2.21368500;      
+#lnkElimDCVCC = -1.04505500; 
       
-lnkClearDCAC = -2.30745500;       
-lnkDCAcen_perC = 1.70597000;      
-lnkDCAper_cenC = -2.13590500;           
-lnISOx = -0.18020850;           
-lnISTCA = -1.75947500;   
+#lnkClearDCAC = -2.30745500;       
+#lnkDCAcen_perC = 1.70597000;      
+#lnkDCAper_cenC = -2.13590500;           
+#lnISOx = -0.18020850;           
+#lnISTCA = -1.75947500;   
      
-lnISDCA = -0.67223400;           
-lnISConj = -1.32204500;          
-lnISkTCA = -0.18054400;       
-#M_lnISkDCVG = 1.26876000;      
-#M_lnISkDCVC = -0.70827050; 
+#lnISDCA = -0.67223400;           
+#lnISConj = -1.32204500;          
+#lnISkTCA = -0.18054400;       
+#lnISkDCVG = 1.26876000;      
+#lnISkDCVC = -0.70827050; 
 
 #Distrib(	M_lnQCC	TruncNormal	0.0	0.2	-0.8	0.8	);
 							
