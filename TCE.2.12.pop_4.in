@@ -9,9 +9,9 @@
 #TCA and DCA have background subtracted
 
 Integrate(Lsodes, 1e-5, 0.3e-8 , 1)
-MCMC ("TCE.2.12.pop_2.csv",
+MCMC ("TCE.2.12.pop_4.csv",
 "","",
-100000, 0, 50, 100000, 23456);
+100000, 0, 50, 100000, 45678);
 
 
 # Fix following parameters at baseline values
