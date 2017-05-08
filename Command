@@ -4,45 +4,16 @@ git reset --hard origin/master
 
 git reset --hard f414f31
 git reset --soft HEAD@{1}
-git commit -m "Reverting to the state of the project at f414f31"
 
 git show --summary
 
 git checkout <branch>
 git branch -m 
 
-git remote add origin https://github.com/user/repo.git
-# Set a new remote
-
+git config -list
 git remote -v
-# Verify new remote
-
-git push origin master
-
-git commit TCE.2.1.pop.model.c
-git status
-git push origin master
-
-git add .
-git commit
-git push
-
-## MCsim
-$ tar -xzvf mcsim-5.6.5.tar #unzip
-$ cd  mcism-5.6.6
-$ pwd
-$ ./configure --prefix=home/ubuntu
-$ make
-$ make check
-$ make install
-
-$ makemcsims <model>.model
-$ ./mcsim.<model> <infile>.in
-
-#install
-./configure
-make
-make check
+git remote set-url origin ssh://git@github.com/nanhung/mcpk.git
+git remote add origin https://github.com/user/repo.git
 
 ##Install R
 Downloaded with
