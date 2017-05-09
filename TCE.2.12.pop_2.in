@@ -553,46 +553,6 @@ Data( CBrnNDCVCmol -1 -1 2.722467e-06 -1 -1 -1);
 
 } # End AU18042M
 
-Experiment { # AU18042F
-Male =  0 ;
-
-# Measured Covariates (if any)
-BWmeas =  0.0188 ;
-VLivC = 1.158 ;
-VKidC = 0.800 ;
-VBrnC = 1.253 ;
-
-
-# Exposure/Dosing 
-PDose = NDoses(2, 800 0 , 0 0.05 ) ; #(v2.10)
-TChng = 0.05 ;
-
-# Parameters
-Print( CDCVGmol  1 2 6 12 24 36); 
-Data( CDCVGmol 3.629342e-06 2.783422e-06 -1 -1 -1 -1);
-Print( CLivDCVGmol  1 2 6 12 24 36); 
-Data( CLivDCVGmol 1.125269e-06 9.081102e-07 -1 -1 -1 -1);
-Print( CKidDCVGmol 1 2 6 12 24 36); 
-Data( CKidDCVGmol  -1 2.913838e-06 -1 -1 -1 -1);
-Print( CBrnDCVGmol 1 2 6 12 24 36); 
-Data( CBrnDCVGmol  -1 -1 1.322578e-05 2.565931e-06 1.439783e-06 1.364193e-06);
-Print( CDCVCmol  1 2 6 12 24 36); 
-Data( CDCVCmol -1 -1 -1 -1 -1 -1);
-Print( CKidDCVCmol 1 2 6 12 24 36); 
-Data( CKidDCVCmol 3.102961e-06 8.031604e-06 1.902284e-06 2.121035e-06 -1 -1);
-Print( CBrnDCVCmol  1 2 6 12 24 36); 
-Data( CBrnDCVCmol -1 -1 -1 -1 -1 -1);
-Print( CNDCVCmol 1 2 6 12 24 36);  
-Data( CNDCVCmol 6.627418e-06 -1 -1 -1 -1 -1);
-Print( CLivNDCVCmol 1 2 6 12 24 36); 
-Data( CLivNDCVCmol 6.337595e-06 -1 -1 -1 -1 -1);
-Print( CKidNDCVCmol 1 2 6 12 24 36); 
-Data( CKidNDCVCmol 6.717161e-06 1.097526e-05 -1 -1 -1 -1);
-Print( CBrnNDCVCmol 1 2 6 12 24 36); 
-Data( CBrnNDCVCmol -1 -1 -1 3.140487e-06 3.083605e-06 -1);
-
-} # End AU18042F
-
 ######## END GROUP A
 }
 
@@ -637,46 +597,6 @@ Data( CBrnNDCVCmol -1           -1 4.931035e-06           -1 3.179501e-06       
 
 } # End Experiment Random Strain
 
-Experiment { # AU8005F
-Male =  0 ;
-
-# Measured Covariates (if any)
-BWmeas =  0.0177 ;
-VLivC = 1.007077 ;
-VKidC = 0.836746 ;
-VBrnC = 1.199358 ;
-
-
-# Exposure/Dosing 
-PDose = NDoses(2, 800 0 , 0 0.05 ) ; #(v2.10)
-TChng = 0.05 ;
-
-# Parameters
-Print( CDCVGmol  1 2 6 12 24 36); 
-Data( CDCVGmol 5.381204e-06 3.775100e-06           -1           -1           -1           -1);
-Print( CDCVCmol  1 2 6 12 24 36); 
-Data( CDCVCmol -1 1.606089e-05 1.295807e-05           -1           -1           -1);
-Print( CNDCVCmol 1 2 6 12 24 36);  
-Data( CNDCVCmol -1 -1 -1 -1 -1 -1);
-Print( CLivDCVGmol  1 2 6 12 24 36); 
-Data( CLivDCVGmol -1 2.672468e-07           -1 1.607799e-06           -1           -1);
-Print( CLivNDCVCmol 1 2 6 12 24 36); 
-Data( CLivNDCVCmol -1 -1 -1 -1 -1 -1);
-Print( CKidDCVGmol 1 2 6 12 24 36); 
-Data( CKidDCVGmol 9.052049e-06           -1           -1           -1           -1           -1);
-Print( CKidDCVCmol 1 2 6 12 24 36); 
-Data( CKidDCVCmol 8.695919e-06 3.377798e-06 2.662948e-06           -1           -1           -1);
-Print( CKidNDCVCmol 1 2 6 12 24 36); 
-Data( CKidNDCVCmol 1.371825e-05 8.304777e-06           -1           -1           -1           -1);
-Print( CBrnDCVGmol 1 2 6 12 24 36); 
-Data( CBrnDCVGmol  1.311023e-05           -1 6.450474e-06 2.156456e-06 1.264265e-06           -1);
-Print( CBrnDCVCmol  1 2 6 12 24 36); 
-Data( CBrnDCVCmol -1          -1 2.22768e-06          -1          -1          -1);
-Print( CBrnNDCVCmol 1 2 6 12 24 36); 
-Data( CBrnNDCVCmol -1 -1 -1 -1 -1 -1);
-
-} # End AU8005F
-
 ######## END GROUP B
 }
 
@@ -719,45 +639,6 @@ Data( CBrnDCVCmol -1 4.04333e-06          -1          -1          -1          -1
 Print( CBrnNDCVCmol 1 2 6 12 24 36); 
 Data( CBrnNDCVCmol -1 4.122504e-06           -1           -1           -1           -1);
 } # End AU8034M
-
-Experiment { # AU8034F
-Male =  0 ;
-
-# Measured Covariates (if any)
-BWmeas =  0.0195 ;
-VLivC = 1.208016 ;
-VKidC = 1.073521 ;
-VBrnC = 1.22044 ;
-
-# Exposure/Dosing 
-PDose = NDoses(2, 800 0 , 0 0.05 ) ; #(v2.10)
-TChng = 0.05 ;
-
-# Parameters
-Print( CDCVGmol  1 2 6 12 24 36); 
-Data( CDCVGmol 5.586348e-06 2.184190e-06           -1           -1           -1           -1);
-Print( CDCVCmol  1 2 6 12 24 36); 
-Data( CDCVCmol 1.078123e-05           -1 9.905050e-06           -1           -1           -1);
-Print( CNDCVCmol 1 2 6 12 24 36);  
-Data( CNDCVCmol -1 -1 -1 -1 -1 -1);
-Print( CLivDCVGmol  1 2 6 12 24 36); 
-Data( CLivDCVGmol 5.876022e-05 1.602126e-07 1.649842e-07           -1           -1           -1);
-Print( CLivNDCVCmol 1 2 6 12 24 36); 
-Data( CLivNDCVCmol 1.077068e-05           -1           -1           -1           -1           -1);
-Print( CKidDCVGmol 1 2 6 12 24 36); 
-Data( CKidDCVGmol 2.254985e-06           -1           -1           -1           -1           -1);
-Print( CKidDCVCmol 1 2 6 12 24 36); 
-Data( CKidDCVCmol 6.451735e-06 4.804775e-06 2.130313e-06           -1           -1           -1);
-Print( CKidNDCVCmol 1 2 6 12 24 36); 
-Data( CKidNDCVCmol 1.542246e-05           -1           -1           -1           -1           -1);
-Print( CBrnDCVGmol 1 2 6 12 24 36); 
-Data( CBrnDCVGmol  -1 2.045111e-05 1.125624e-05           -1 3.620625e-06           -1);
-Print( CBrnDCVCmol  1 2 6 12 24 36); 
-Data( CBrnDCVCmol -1           -1           -1           -1           -1 1.914959e-06);
-Print( CBrnNDCVCmol 1 2 6 12 24 36); 
-Data( CBrnNDCVCmol -1 2.976722e-06           -1           -1           -1 2.908331e-06);
-
-} # End AU8034F
 
 ######## END GROUP C
 }
@@ -802,45 +683,6 @@ Print( CBrnNDCVCmol 1 2 6 12 24 36);
 Data( CBrnNDCVCmol -1 -1 -1 -1 -1 -1);
 
 } # End IL1688M
-
-#Experiment { # IL1688F
-Male =  0 ;
-
-# Measured Covariates (if any)
-BWmeas =  0.02523 ;
-VLivC = 0.868922 ;
-VKidC = 0.6236789 ;
-VBrnC = 1.019732 ;
-
-# Exposure/Dosing 
-PDose = NDoses(2, 800 0 , 0 0.05 ) ; #(v2.10)
-TChng = 0.05 ;
-
-# Parameters
-Print( CDCVGmol  1 2 6 12 24 36); 
-Data( CDCVGmol 3.344982e-06 2.370467e-06 1.625901e-06           -1           -1           -1);
-Print( CDCVCmol  1 2 6 12 24 36); 
-Data( CDCVCmol -1 -1 -1 -1 -1 -1);
-Print( CNDCVCmol 1 2 6 12 24 36);  
-Data( CNDCVCmol  -1 -1 -1 -1 -1 -1);
-Print( CLivDCVGmol  1 2 6 12 24 36); 
-Data( CLivDCVGmol 1.532158e-05 4.024182e-08           -1           -1           -1           -1);
-Print( CLivNDCVCmol 1 2 6 12 24 36); 
-Data( CLivNDCVCmol  5.060741e-06           -1           -1           -1           -1           -1);
-Print( CKidDCVGmol 1 2 6 12 24 36); 
-Data( CKidDCVGmol -1 -1 -1 -1 -1 -1);
-Print( CKidDCVCmol 1 2 6 12 24 36); 
-Data( CKidDCVCmol  6.058004e-06 1.741591e-06 1.912048e-06 2.192332e-06           -1           -1);
-Print( CKidNDCVCmol 1 2 6 12 24 36); 
-Data( CKidNDCVCmol 7.038864e-06           -1           -1           -1           -1           -1);
-Print( CBrnDCVGmol 1 2 6 12 24 36); 
-Data( CBrnDCVGmol  -1           -1 3.214566e-06 1.349855e-06           -1           -1);
-Print( CBrnDCVCmol  1 2 6 12 24 36); 
-Data( CBrnDCVCmol  -1           -1 3.214566e-06           -1           -1           -1);
-Print( CBrnNDCVCmol 1 2 6 12 24 36); 
-Data( CBrnNDCVCmol -1           -1 6.416974e-06           -1           -1           -1);
-
-} # End IL1688F
 
 ######## END GROUP D
 }
