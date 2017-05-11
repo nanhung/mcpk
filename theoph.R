@@ -1,3 +1,4 @@
+# 0511 Mitenko et al. 1972. Pharmacokinetics of intravenous theophyline
 library("fitdistrplus")
 
 alpha<-c(5.152,2.595,4.744,5.727,13.519,2.170,8.017,
