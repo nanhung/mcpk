@@ -1,5 +1,23 @@
 rm(list = ls())
 
+# 0511
+
+df <- read.table("TCE.2.12.pop_2.1.out", head = T)
+
+png(file="Validation.png",width=3000,height=2000,res=300)
+par(mfrow = c(1,1), mar = c(5,5,1,1))
+plot(df$Prediction ~ df$Data, xlim=c(1e-8, 1e-3), ylim=c(1e-8, 1e-3),
+    xlab = "Data", ylab= "Prediction",
+     col = df$Simulation, log="xy", pch=20, cex=0.5)
+text(df$Data, df$Prediction*1.2, labels= df$Output_Var, cex = 0.6, col = df$Simulation)
+
+legend("bottomright", legend = c("AU18042","AU8034","AU8005","IL1688"), col=c(1:4) , cex=0.8,  pch=20)
+abline(0,1, col="maroon", lwd=2)
+dev.off()
+
+
+
+
 # 0503 MCMC
 # Read posterior result
 source("TCE_post.R")
