@@ -16,6 +16,35 @@ abline(0,1, col="maroon", lwd=2)
 dev.off()
 
 
+df <- read.table("TCE.2.12.pop_2.out", head = T)
+
+png(file="1.png",width=3000,height=2000,res=300)
+par(mfrow = c(3,2))
+plot(df$iter, df$lnkDCVCC.1.1., type = "l", col="red", main = "AU18042")
+plot(df$iter, df$lnkDCVCC.1.2., type = "l", col="darkorange", main = "AU8034")
+plot(df$iter, df$lnkDCVCC.1.3., type = "l", col="darkgreen", main = "AU8005")
+plot(df$iter, df$lnkDCVCC.1.4., type = "l", col="blue", main = "IL1688")
+plot(df$iter, df$M_lnkDCVCC.1., type = "l", cex= 1.5, main = "Population")
+dev.off()
+
+png(file="2.png",width=3000,height=2000,res=300)
+par(mfrow = c(3,2))
+plot(df$iter, df$lnISkNDCVC.1.1., type = "l", col="red", main = "AU18042")
+plot(df$iter, df$lnISkNDCVC.1.2., type = "l", col="darkorange", main = "AU8034")
+plot(df$iter, df$lnISkNDCVC.1.3., type = "l", col="darkgreen", main = "AU8005")
+plot(df$iter, df$lnISkNDCVC.1.4., type = "l", col="blue", main = "IL1688")
+plot(df$iter, df$M_lnISkNDCVC.1., type = "l", cex= 1.5, main = "Population")
+dev.off()
+
+png(file="3.png",width=3000,height=2000,res=300)
+par(mfrow = c(3,2))
+plot(df$iter, df$lnkElimNDCVCC.1.1., type = "l", col="red", main = "AU18042")
+plot(df$iter, df$lnkElimNDCVCC.1.2., type = "l", col="darkorange", main = "AU8034")
+plot(df$iter, df$lnkElimNDCVCC.1.3., type = "l", col="darkgreen", main = "AU8005")
+plot(df$iter, df$lnkElimNDCVCC.1.4., type = "l", col="blue", main = "IL1688")
+plot(df$iter, df$M_lnkElimNDCVCC.1., type = "l", cex= 1.5, main = "Population")
+dev.off()
+
 
 
 # 0503 MCMC
