@@ -1,0 +1,183 @@
+Integrate(Lsodes, 1e-5, 0.3e-8 , 1)
+SetPoints ("TCE.2.13.setpoint.csv",
+"TCE.2.13.setpoint.dat", 
+# This is 4 male strains (variability), replicated 100 times (uncertainty)
+0,
+Ve_CDCVGmol
+Ve_CLivDCVGmol
+Ve_CKidDCVGmol
+Ve_CBrnDCVGmol
+Ve_CDCVCmol
+Ve_CKidDCVCmol
+Ve_CBrnDCVCmol 
+Ve_CNDCVCmol
+Ve_CLivNDCVCmol
+Ve_CKidNDCVCmol
+Ve_CBrnNDCVCmol
+M_lnkDCVCC
+M_lnkElimNDCVCC
+M_lnISkNDCVC
+V_lnkDCVCC
+V_lnkElimNDCVCC
+V_lnISkNDCVC
+);
+
+lnFracKidDCVCC = 10; # All kidney GSH conjugation is locally processed
+lnVMaxKidDCVGC = -30; # Remove kidney GSH conjugation (not identifiable)
+lnClKidDCVGC = -30; # Remove kidney GSH conjugation (not identifiable)
+
+# Fixed parameters
+lnQCC = 0.15478150;
+lnVPRC = -0.34098750;
+lnDRespC = 0.83882850;
+lnPRBCPlasTCAC = 0.85392650;
+lnkDissocC = 0.57022100;
+                                  
+lnBMaxkDC = 0.38300450;        
+lnkTSD = 1.41018500;        
+lnkAS = -0.04431945;        
+lnkAD = -1.52663000;     
+lnkASTCA = 1.63724500;
+                                 
+lnkASTCOH =  -0.22202500;      
+lnVMaxC =  -0.65325800;         
+lnKMC = -2.50242500;  
+lnFracOtherC = -4.11558500;    
+lnFracTCAC = -1.45118000;
+                             
+lnVMaxDCVGC = -4.81398500;     
+lnClDCVGC = -3.65848000;
+lnVMaxLungLivC = 2.37370500;    
+lnKMClara = -5.07073000;
+lnFracLungSysC = 2.68453500;
+                                
+lnVMaxTCOHC = 1.10599000;    
+lnKMTCOH = -0.01832790;  
+lnVMaxGlucC = 4.62109000;     
+lnKMGluc = 3.40312500;  
+lnkMetTCOHC = 2.02155000;
+                                  
+lnkUrnTCAC = -2.11709500;     
+lnkMetTCAC = -0.72942400;            
+lnkBileC = 0.95506850;            
+lnkEHRC = -3.26930000;         
+lnkUrnTCOGC =  2.39823500;
+      
+lnPeffDCVG = 0.01485080;        
+lnPeffDCVC = 5.96086500;     
+lnPeffDCA = 3.70356500;                   
+lnkDCVGC = 2.21368500;      
+lnkElimDCVCC = -1.04505500; 
+      
+lnkClearDCAC = -2.30745500;       
+lnkDCAcen_perC = 1.70597000;      
+lnkDCAper_cenC = -2.13590500;           
+lnISOx = -0.18020850;           
+lnISTCA = -1.75947500;   
+     
+lnISDCA = -0.67223400;           
+lnISConj = -1.32204500;          
+lnISkTCA = -0.18054400;       
+lnISkDCVG = 1.26876000;      
+lnISkDCVC = -0.70827050; 
+
+#Distrib(	lnkDCVCC	TruncNormal_v	M_lnkDCVCC	V_lnkDCVCC	-9.21	4.605	);
+#Distrib(	lnkElimNDCVCC	TruncNormal_v	M_lnkElimNDCVCC	V_lnkElimNDCVCC	-9.21	4.605	);
+#Distrib(    lnISkNDCVC	 TruncNormal_v	M_lnISkNDCVC	V_lnISkNDCVC	-4.605	4.605);
+
+Experiment { # AU18042M
+Species = 3 ;
+Male = 1 ;
+
+# Measured Covariates (if any)
+BWmeas =  0.0251 ;
+VLivC = 1.139 ;
+VKidC = 0.844 ;
+VBrnC = 0.967 ;
+
+# Exposure/Dosing 
+PDose = NDoses(2, 800 0 , 0 0.05 ) ; #(v2.10)
+TChng = 0.05 ;
+
+# Variables
+#Print( CPlasTCAmol, CLivTCAmol, CKidTCAmol, CBrnTCAmol, 1, 2, 6, 12, 24, 36); 
+#Print( TotCTCOHmol, TotLivTCOHmol, TotKidTCOHmol, TotBrnTCOHmol, 1, 2, 6, 12, 24, 36); 
+#Print( CTCOGTCOHmol, CLivTCOGTCOHmol, CKidTCOGTCOHmol, CBrnTCOGTCOHmol, 1, 2, 6, 12, 24, 36); 
+Print( CDCVGmol, CLivDCVGmol, CKidDCVGmol, CBrnDCVGmol,  1, 2, 6, 12, 24, 36); 
+Print( CDCVCmol, CLivDCVCmol, CKidDCVCmol, CBrnDCVCmol,  1, 2, 6, 12, 24, 36); 
+Print( CNDCVCmol, CLivNDCVCmol, CKidNDCVCmol, CBrnNDCVCmol,  1, 2, 6, 12, 24, 36);
+
+} # End AU18042M
+
+Experiment { # AU8005M
+Species = 3 ;
+Male = 1 ;
+
+# Measured Covariates (if any)
+BWmeas =  0.02266 ;
+VLivC = 0.9258053 ;
+VKidC = 0.7716492 ;
+VBrnC = 0.8997687 ;
+
+# Exposure/Dosing 
+PDose = NDoses(2, 800 0 , 0 0.05 ) ; #(v2.10)
+TChng = 0.05 ;
+
+# Variables
+#Print( CPlasTCAmol, CLivTCAmol, CKidTCAmol, CBrnTCAmol, 1, 2, 6, 12, 24, 36); 
+#Print( TotCTCOHmol, TotLivTCOHmol, TotKidTCOHmol, TotBrnTCOHmol, 1, 2, 6, 12, 24, 36); 
+#Print( CTCOGTCOHmol, CLivTCOGTCOHmol, CKidTCOGTCOHmol, CBrnTCOGTCOHmol, 1, 2, 6, 12, 24, 36); 
+Print( CDCVGmol, CLivDCVGmol, CKidDCVGmol, CBrnDCVGmol,  1, 2, 6, 12, 24, 36); 
+Print( CDCVCmol, CLivDCVCmol, CKidDCVCmol, CBrnDCVCmol,  1, 2, 6, 12, 24, 36); 
+Print( CNDCVCmol, CLivNDCVCmol, CKidNDCVCmol, CBrnNDCVCmol,  1, 2, 6, 12, 24, 36);
+
+} # End AU8005m
+
+Experiment { # AU8034M
+Species = 3 ;
+Male = 1 ;
+
+# Measured Covariates (if any)
+BWmeas =  0.0273 ;
+VLivC = 1.028918 ;
+VKidC = 0.8347687 ;
+VBrnC = 0.8595614 ;
+
+# Exposure/Dosing 
+PDose = NDoses(2, 800 0 , 0 0.05 ) ; #(v2.10)
+TChng = 0.05 ;
+
+# Variables
+#Print( CPlasTCAmol, CLivTCAmol, CKidTCAmol, CBrnTCAmol, 1, 2, 6, 12, 24, 36); 
+#Print( TotCTCOHmol, TotLivTCOHmol, TotKidTCOHmol, TotBrnTCOHmol, 1, 2, 6, 12, 24, 36); 
+#Print( CTCOGTCOHmol, CLivTCOGTCOHmol, CKidTCOGTCOHmol, CBrnTCOGTCOHmol, 1, 2, 6, 12, 24, 36); 
+Print( CDCVGmol, CLivDCVGmol, CKidDCVGmol, CBrnDCVGmol,  1, 2, 6, 12, 24, 36); 
+Print( CDCVCmol, CLivDCVCmol, CKidDCVCmol, CBrnDCVCmol,  1, 2, 6, 12, 24, 36); 
+Print( CNDCVCmol, CLivNDCVCmol, CKidNDCVCmol, CBrnNDCVCmol,  1, 2, 6, 12, 24, 36);
+} # End AU8034M
+
+Experiment { # IL1688M
+Species = 3 ;
+Male = 1 ;
+
+# Measured Covariates (if any)
+BWmeas =  0.0304 ;
+VLivC = 0.7177033 ;
+VKidC = 0.5611455 ;
+
+
+# Exposure/Dosing 
+PDose = NDoses(2, 800 0 , 0 0.05 ) ; #(v2.10)
+TChng = 0.05 ;
+
+# Variables
+#Print( CPlasTCAmol, CLivTCAmol, CKidTCAmol, CBrnTCAmol, 1, 2, 6, 12, 24, 36); 
+#Print( TotCTCOHmol, TotLivTCOHmol, TotKidTCOHmol, TotBrnTCOHmol, 1, 2, 6, 12, 24, 36); 
+#Print( CTCOGTCOHmol, CLivTCOGTCOHmol, CKidTCOGTCOHmol, CBrnTCOGTCOHmol, 1, 2, 6, 12, 24, 36); 
+Print( CDCVGmol, CLivDCVGmol, CKidDCVGmol, CBrnDCVGmol,  1, 2, 6, 12, 24, 36); 
+Print( CDCVCmol, CLivDCVCmol, CKidDCVCmol, CBrnDCVCmol,  1, 2, 6, 12, 24, 36); 
+Print( CNDCVCmol, CLivNDCVCmol, CKidNDCVCmol, CBrnNDCVCmol,  1, 2, 6, 12, 24, 36);
+
+} # End IL1688M
+
+End.

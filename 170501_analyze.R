@@ -30,6 +30,7 @@ plot(TCE.2.13_v1$iter, TCE.2.13_v1$`lnkElimNDCVCC(1.4)`, type = "l", col="blue",
 plot(TCE.2.13_v1$iter, TCE.2.13_v1$`M_lnkElimNDCVCC(1)`, type = "l", cex= 1.5, main = "Population")
 dev.off()
 
+# Parameter distribution check
 pop<-TCE.2.13_v1[702:1001, c(13,14,15)]
 strain.1<-TCE.2.13_v1[702:1001, c(19,20,21)]
 strain.2<-TCE.2.13_v1[702:1001, c(22,23,24)]
@@ -52,8 +53,26 @@ legend(x=-30, y=-0.05, legend=c("Population", "AU18042", "AU8005", "AU8034", "IL
        col=c("black", "red", "darkorange", "darkgreen", "blue"), lty = c(1,2,2,2,2), lwd = 1, cex = 1,bg="transparent",  bty = "n")
 dev.off()
 
+# Validation test
+df <- read.table("TCE.2.13.pop_2.1.out", head = T)
 
+png(file="Validation.png",width=3000,height=2000,res=300)
+par(mfrow = c(1,1), mar = c(5,5,1,1))
+plot(df$Prediction ~ df$Data, xlim=c(1e-8, 1e-3), ylim=c(1e-8, 1e-3),
+     xlab = "Data", ylab= "Prediction",
+     col = df$Simulation, log="xy", pch=20, cex=0.5)
+text(df$Data, df$Prediction*1.2, labels= df$Output_Var, cex = 0.6, col = df$Simulation)
 
+legend("bottomright", legend = c("AU18042","AU8034","AU8005","IL1688"), col=c(1:4) , cex=0.8,  pch=20)
+abline(0,1, col="maroon", lwd=2)
+dev.off()
+
+# Setpoint test
+TCE.setpoint.v1<-TCE.2.13_v1[802:1001,2:18]
+write.table(TCE.setpoint.v1, file = "TCE.2.13.setpoint.dat", row.names = F, sep="\t")
+system("./mcsim.TCE.2.13 TCE.2.13.setpoint.in")
+
+df<-read.csv("TCE.2.13.setpoint.csv", header = T, sep="")
 
 
 # 0511
