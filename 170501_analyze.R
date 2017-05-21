@@ -1,20 +1,62 @@
 rm(list = ls())
 
-# 0511
+# 0521
+source("TCE_post.R")
 
-df <- read.table("TCE.2.12.pop_2.1.out", head = T)
-
-png(file="Validation.png",width=3000,height=2000,res=300)
-par(mfrow = c(1,1), mar = c(5,5,1,1))
-plot(df$Prediction ~ df$Data, xlim=c(1e-8, 1e-3), ylim=c(1e-8, 1e-3),
-    xlab = "Data", ylab= "Prediction",
-     col = df$Simulation, log="xy", pch=20, cex=0.5)
-text(df$Data, df$Prediction*1.2, labels= df$Output_Var, cex = 0.6, col = df$Simulation)
-
-legend("bottomright", legend = c("AU18042","AU8034","AU8005","IL1688"), col=c(1:4) , cex=0.8,  pch=20)
-abline(0,1, col="maroon", lwd=2)
+png(file="1.1.png",width=3000,height=2000,res=300)
+par(mfrow = c(3,2))
+plot(TCE.2.13_v1$iter, TCE.2.13_v1$`lnkDCVCC(1.1)`, type = "l", col="red", main = "AU18042")
+plot(TCE.2.13_v1$iter, TCE.2.13_v1$`lnkDCVCC(1.2)`, type = "l", col="darkorange", main = "AU8034")
+plot(TCE.2.13_v1$iter, TCE.2.13_v1$`lnkDCVCC(1.3)`, type = "l", col="darkgreen", main = "AU8005")
+plot(TCE.2.13_v1$iter, TCE.2.13_v1$`lnkDCVCC(1.4)`, type = "l", col="blue", main = "IL1688")
+plot(TCE.2.13_v1$iter, TCE.2.13_v1$`M_lnkDCVCC(1)`, type = "l", cex= 1.5, main = "Population")
 dev.off()
 
+png(file="1.2.png",width=3000,height=2000,res=300)
+par(mfrow = c(3,2))
+plot(TCE.2.13_v1$iter, TCE.2.13_v1$`lnISkNDCVC(1.1)`, type = "l", col="red", main = "AU18042")
+plot(TCE.2.13_v1$iter, TCE.2.13_v1$`lnISkNDCVC(1.2)`, type = "l", col="darkorange", main = "AU8034")
+plot(TCE.2.13_v1$iter, TCE.2.13_v1$`lnISkNDCVC(1.3)`, type = "l", col="darkgreen", main = "AU8005")
+plot(TCE.2.13_v1$iter, TCE.2.13_v1$`lnISkNDCVC(1.4)`, type = "l", col="blue", main = "IL1688")
+plot(TCE.2.13_v1$iter, TCE.2.13_v1$`M_lnISkNDCVC(1)`, type = "l", cex= 1.5, main = "Population")
+dev.off()
+
+png(file="1.3.png",width=3000,height=2000,res=300)
+par(mfrow = c(3,2))
+plot(TCE.2.13_v1$iter, TCE.2.13_v1$`lnkElimNDCVCC(1.1)`, type = "l", col="red", main = "AU18042")
+plot(TCE.2.13_v1$iter, TCE.2.13_v1$`lnkElimNDCVCC(1.2)`, type = "l", col="darkorange", main = "AU8034")
+plot(TCE.2.13_v1$iter, TCE.2.13_v1$`lnkElimNDCVCC(1.3)`, type = "l", col="darkgreen", main = "AU8005")
+plot(TCE.2.13_v1$iter, TCE.2.13_v1$`lnkElimNDCVCC(1.4)`, type = "l", col="blue", main = "IL1688")
+plot(TCE.2.13_v1$iter, TCE.2.13_v1$`M_lnkElimNDCVCC(1)`, type = "l", cex= 1.5, main = "Population")
+dev.off()
+
+pop<-TCE.2.13_v1[702:1001, c(13,14,15)]
+strain.1<-TCE.2.13_v1[702:1001, c(19,20,21)]
+strain.2<-TCE.2.13_v1[702:1001, c(22,23,24)]
+strain.3<-TCE.2.13_v1[702:1001, c(25,26,27)]
+strain.4<-TCE.2.13_v1[702:1001, c(28,29,30)]
+
+colnames(pop)<-c("lnkDCVCC", "lnkElimNDCVCC", "lnISkNDCVC")
+
+png(file="2.1.png",width=3000,height=1000,res=250)
+par(mfrow=c(1,3), oma=c(0.5,0,0,0))
+for (i in 1:3) {
+  plot(density(pop[,i]),col="maroon", main=names(pop)[i], xlab = " ", lwd = 1.5, type = "l")
+  lines(density(strain.1[,i]),col="red", las = 1, lwd = 1.5, lty=2)
+  lines(density(strain.2[,i]),col="green", las = 1, lwd = 1.5, lty=2)
+  lines(density(strain.3[,i]),col="blue", las = 1, lwd = 1.5, lty=2)
+  lines(density(strain.4[,i]),col="purple", las = 1, lwd = 1.5, lty=2)
+}
+par(xpd=NA)
+legend(x=-30, y=-0.05, legend=c("Population", "AU18042", "AU8005", "AU8034", "IL1688"), ncol=5,
+       col=c("black", "red", "darkorange", "darkgreen", "blue"), lty = c(1,2,2,2,2), lwd = 1, cex = 1,bg="transparent",  bty = "n")
+dev.off()
+
+
+
+
+
+# 0511
 
 df <- read.table("TCE.2.12.pop_2.out", head = T)
 
@@ -43,6 +85,19 @@ plot(df$iter, df$lnkElimNDCVCC.1.2., type = "l", col="darkorange", main = "AU803
 plot(df$iter, df$lnkElimNDCVCC.1.3., type = "l", col="darkgreen", main = "AU8005")
 plot(df$iter, df$lnkElimNDCVCC.1.4., type = "l", col="blue", main = "IL1688")
 plot(df$iter, df$M_lnkElimNDCVCC.1., type = "l", cex= 1.5, main = "Population")
+dev.off()
+
+df <- read.table("TCE.2.12.pop_2.1.out", head = T)
+
+png(file="Validation.png",width=3000,height=2000,res=300)
+par(mfrow = c(1,1), mar = c(5,5,1,1))
+plot(df$Prediction ~ df$Data, xlim=c(1e-8, 1e-3), ylim=c(1e-8, 1e-3),
+     xlab = "Data", ylab= "Prediction",
+     col = df$Simulation, log="xy", pch=20, cex=0.5)
+text(df$Data, df$Prediction*1.2, labels= df$Output_Var, cex = 0.6, col = df$Simulation)
+
+legend("bottomright", legend = c("AU18042","AU8034","AU8005","IL1688"), col=c(1:4) , cex=0.8,  pch=20)
+abline(0,1, col="maroon", lwd=2)
 dev.off()
 
 
