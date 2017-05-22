@@ -31,15 +31,15 @@ plot(TCE.2.13_v1$iter, TCE.2.13_v1$`M_lnkElimNDCVCC(1)`, type = "l", cex= 1.5, m
 dev.off()
 
 # Parameter distribution check
-pop<-TCE.2.13_v1[702:1001, c(13,14,15)]
-strain.1<-TCE.2.13_v1[702:1001, c(19,20,21)]
-strain.2<-TCE.2.13_v1[702:1001, c(22,23,24)]
-strain.3<-TCE.2.13_v1[702:1001, c(25,26,27)]
-strain.4<-TCE.2.13_v1[702:1001, c(28,29,30)]
+pop<-as.data.frame(TCE.2.13_v1[702:1001, c(13,14,15)])
+strain.1<-as.data.frame(TCE.2.13_v1[702:1001, c(19,20,21)])
+strain.2<-as.data.frame(TCE.2.13_v1[702:1001, c(22,23,24)])
+strain.3<-as.data.frame(TCE.2.13_v1[702:1001, c(25,26,27)])
+strain.4<-as.data.frame(TCE.2.13_v1[702:1001, c(28,29,30)])
 
 colnames(pop)<-c("lnkDCVCC", "lnkElimNDCVCC", "lnISkNDCVC")
 
-png(file="2.1.png",width=3000,height=1000,res=250)
+png(file="2.1.png",width=3000,height=1500,res=300)
 par(mfrow=c(1,3), oma=c(0.5,0,0,0))
 for (i in 1:3) {
   plot(density(pop[,i]),col="maroon", main=names(pop)[i], xlab = " ", lwd = 1.5, type = "l")
@@ -49,7 +49,7 @@ for (i in 1:3) {
   lines(density(strain.4[,i]),col="purple", las = 1, lwd = 1.5, lty=2)
 }
 par(xpd=NA)
-legend(x=-30, y=-0.05, legend=c("Population", "AU18042", "AU8005", "AU8034", "IL1688"), ncol=5,
+legend(x=-30, y=-0.03, legend=c("Population", "AU18042", "AU8005", "AU8034", "IL1688"), ncol=5,
        col=c("black", "red", "darkorange", "darkgreen", "blue"), lty = c(1,2,2,2,2), lwd = 1, cex = 1,bg="transparent",  bty = "n")
 dev.off()
 
@@ -67,12 +67,93 @@ legend("bottomright", legend = c("AU18042","AU8034","AU8005","IL1688"), col=c(1:
 abline(0,1, col="maroon", lwd=2)
 dev.off()
 
+# Strain 1 PK
+
+df$main<-c("","","","","","Serum DCVG",
+        "","","","","","Liver DCVG",
+        "","","","","","Kidney DCVG",
+        "","","","","","Brain DCVG",
+        "","","","","","Serum DCVC",
+        "","","","","","kidney DCVC",
+        "","","","","","Brain DCVC",
+        "","","","","","Serum NaDCVC",
+        "","","","","","Liver NaDCVC",
+        "","","","","","kidney NaDCVC",
+        "","","","","","Brain NaDCVC")
+
+png(file="s1v.png",width=3000,height=1800,res=300)
+par(mar=c(2,3,0.8,1))
+layout(matrix(c(1,1,1,1,2,3,4,5,6,7,8,9,10,11,12,13),
+              ncol=4, byrow = T),heights=c(1,3,3,3))
+plot.new()
+text(0.5,0.5,"AU18042 Male - 800 mg/kg TCE",cex=2,font=2)
+for (i in 0:10){
+  plot(df[1:6,4], df[i*6+c(1:6), 6],
+       main = df[i*6+c(1:6), 7], las = 1,
+       ylim=c(1e-9,1e-3), log="xy", type="l")
+  points(df[1:6,4], df[i*6+c(1:6), 5], col = "red" , pch = 20, cex=1.4)
+}
+dev.off()
+
+# Strain 2 PK
+
+png(file="s2v.png",width=3000,height=1800,res=300)
+par(mar=c(2,3,0.8,1))
+layout(matrix(c(1,1,1,1,2,3,4,5,6,7,8,9,10,11,12,13),
+              ncol=4, byrow = T),heights=c(1,3,3,3))
+plot.new()
+text(0.5,0.5,"AU8005 Male - 800 mg/kg TCE",cex=2,font=2)
+
+for (i in 11:21){
+  plot(df[1:6,4], df[i*6+c(1:6), 6],
+       main = df[i*6+c(1:6), 7], las = 1,
+       ylim=c(1e-9,1e-3), log="xy", type="l")
+  points(df[1:6,4], df[i*6+c(1:6), 5], col = "red" , pch = 20, cex=1.4)
+}
+dev.off()
+
+# Strain 3 PK
+
+png(file="s3v.png",width=3000,height=1800,res=300)
+par(mar=c(2,3,0.8,1))
+layout(matrix(c(1,1,1,1,2,3,4,5,6,7,8,9,10,11,12,13),
+              ncol=4, byrow = T),heights=c(1,3,3,3))
+plot.new()
+text(0.5,0.5,"AU8034 Male - 800 mg/kg TCE",cex=2,font=2)
+
+for (i in 22:32){
+  plot(df[1:6,4], df[i*6+c(1:6), 6],
+       main = df[i*6+c(1:6), 7], las = 1,
+       ylim=c(1e-9,1e-3), log="xy", type="l")
+  points(df[1:6,4], df[i*6+c(1:6), 5], col = "red" , pch = 20, cex=1.4)
+}
+dev.off()
+
+# Strain 4 PK
+
+png(file="s4v.png",width=3000,height=1800,res=300)
+par(mar=c(2,3,0.8,1))
+layout(matrix(c(1,1,1,1,2,3,4,5,6,7,8,9,10,11,12,13),
+              ncol=4, byrow = T),heights=c(1,3,3,3))
+plot.new()
+text(0.5,0.5,"IL1688 Male - 800 mg/kg TCE",cex=2,font=2)
+
+for (i in 33:43){
+  plot(df[1:6,4], df[i*6+c(1:6), 6],
+       main = df[i*6+c(1:6), 7], las = 1,
+       ylim=c(1e-9,1e-3), log="xy", type="l")
+  points(df[1:6,4], df[i*6+c(1:6), 5], col = "red" , pch = 20, cex=1.4)
+}
+dev.off()
+
 # Setpoint test
 TCE.setpoint.v1<-TCE.2.13_v1[802:1001,2:18]
 write.table(TCE.setpoint.v1, file = "TCE.2.13.setpoint.dat", row.names = F, sep="\t")
 system("./mcsim.TCE.2.13 TCE.2.13.setpoint.in")
 
 df<-read.csv("TCE.2.13.setpoint.csv", header = T, sep="")
+
+
 
 
 # 0511
