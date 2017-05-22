@@ -74,12 +74,24 @@ df$main<-c("","","","","","Serum DCVG",
         "","","","","","Kidney DCVG",
         "","","","","","Brain DCVG",
         "","","","","","Serum DCVC",
-        "","","","","","kidney DCVC",
+        "","","","","","Kidney DCVC",
         "","","","","","Brain DCVC",
         "","","","","","Serum NaDCVC",
         "","","","","","Liver NaDCVC",
         "","","","","","kidney NaDCVC",
         "","","","","","Brain NaDCVC")
+
+df$main2<-c("","","","","","Serum DCVG",
+           "","","","","","Serum DCVC",
+           "","","","","","Serum NDCVC",
+           "","","","","","Liver DCVG",
+           "","","","","","Liver NDCVC",
+           "","","","","","Kidney DCVG",
+           "","","","","","kidney DCVC",
+           "","","","","","kidney NaDCVC",
+           "","","","","","Brain DCVG",
+           "","","","","","Brain DCVC",
+           "","","","","","Brain NaDCVC")
 
 png(file="s1v.png",width=3000,height=1800,res=300)
 par(mar=c(2,3,0.8,1))
