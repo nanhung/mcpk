@@ -118,7 +118,7 @@ text(0.5,0.5,"AU8005 Male - 800 mg/kg TCE",cex=2,font=2)
 
 for (i in 11:21){
   plot(df[1:6,4], df[i*6+c(1:6), 6],
-       main = df[i*6+c(1:6), 7], las = 1,
+       main = df[i*6+c(1:6), 8], las = 1,
        ylim=c(1e-9,1e-3), log="xy", type="l")
   points(df[1:6,4], df[i*6+c(1:6), 5], col = "red" , pch = 20, cex=1.4)
 }
@@ -135,7 +135,7 @@ text(0.5,0.5,"AU8034 Male - 800 mg/kg TCE",cex=2,font=2)
 
 for (i in 22:32){
   plot(df[1:6,4], df[i*6+c(1:6), 6],
-       main = df[i*6+c(1:6), 7], las = 1,
+       main = df[i*6+c(1:6), 8], las = 1,
        ylim=c(1e-9,1e-3), log="xy", type="l")
   points(df[1:6,4], df[i*6+c(1:6), 5], col = "red" , pch = 20, cex=1.4)
 }
@@ -152,7 +152,7 @@ text(0.5,0.5,"IL1688 Male - 800 mg/kg TCE",cex=2,font=2)
 
 for (i in 33:43){
   plot(df[1:6,4], df[i*6+c(1:6), 6],
-       main = df[i*6+c(1:6), 7], las = 1,
+       main = df[i*6+c(1:6), 8], las = 1,
        ylim=c(1e-9,1e-3), log="xy", type="l")
   points(df[1:6,4], df[i*6+c(1:6), 5], col = "red" , pch = 20, cex=1.4)
 }
