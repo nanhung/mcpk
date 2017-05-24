@@ -538,7 +538,7 @@ lnPRapC	= 0.0;	# Scaled to species-specific central estimates
 lnPRespC	= 0.0;	#(v1.2) Scaled to species-specific central estimates
 lnPKidC	= 0.0;	# Scaled to species-specific central estimates
 lnPSlwC	= 0.0;	# Scaled to species-specific central estimates
-lnPBrnC = 0.0;
+lnPBrnC = 0.0;  #(v2.10)
 
 # Partition Coefficients for TCA
 lnPRBCPlasTCAC	= 0.0;	# Scaled to species-specific central estimates
