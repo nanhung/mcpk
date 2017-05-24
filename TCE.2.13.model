@@ -1,6 +1,7 @@
 #-----------------------------------------------------------------------
 # TCE.2.13.model
 # Minnor revise to check mcmc
+# Update some missing parameters
 #------------------------------------------------------------------------
 States = {
 	AStom,		# Amount of TCE in stomach
@@ -739,7 +740,9 @@ V_VBldC	= 1.0; V_lnPBC	= 1.0;
 V_lnPFatC	= 1.0; V_lnPGutC	= 1.0;
 V_lnPLivC	= 1.0; V_lnPRapC	= 1.0;
 V_lnPRespC	= 1.0; V_lnPKidC	= 1.0;
-V_lnPSlwC	= 1.0; V_lnPRBCPlasTCAC	= 1.0;
+V_lnPSlwC	= 1.0; 
+V_lnPBrnC	= 1.0; #(v2.13)
+V_lnPRBCPlasTCAC	= 1.0;
 V_lnPBodTCAC	= 1.0; V_lnPLivTCAC	= 1.0;
 V_lnPKidTCAC	= 1.0; #(v2.10)
 V_lnPBrnTCAC	= 1.0; #(v2.10)
@@ -838,6 +841,7 @@ Ve_CPlasTCA	= 1;
 Ve_CBldTCA	= 1;
 Ve_CBodTCA	= 1;
 Ve_CKidTCA	= 1;
+Ve_CPlasTCAmol = 1; #(v2.13)
 Ve_CKidTCAmol  = 1; #(v2.10)
 Ve_CLivTCA	= 1;
 Ve_CLivTCAmol  = 1; #(v2.10)
@@ -883,7 +887,9 @@ Ve_CDCAmol	= 1;#(v2.0)
 Ve_AUrnTCTotMole	= 1;
 Ve_TotCTCOH	= 1;
 Ve_TotCTCOHmol	= 1; #(2.10)
-Ve_TotLivTCOHmol	= 1; #(2.10)
+Ve_TotLivTCOHmol = 1; #(2.10)
+Ve_TotKidTCOHmol = 1; #(2.13)
+Ve_TotBrnTCOHmol = 1; #(2.13)
 Ve_QPsamp	= 1;
 
 #******************************************************************************

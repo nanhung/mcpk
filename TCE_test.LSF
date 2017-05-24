@@ -7,5 +7,5 @@
 #BSUB -M 500				## sets to 500MB as the per process enforceable memory limit.
 #BSUB -o stdout_1.%J		## directs the job's standard output (%J is jobid)
 
-./mcsim.TCE.2.13 TCE.2.13.pop_1.in & ./mcsim.TCE.2.13 TCE.2.13.pop_2.in & ./mcsim.TCE.2.13 TCE.2.13.pop_3.in
+./mcsim.TCE.2.13 TCE.2.13.pop_2.1.in & ./mcsim.TCE.2.13 TCE.2.13.pop_2.2.in & ./mcsim.TCE.2.13 TCE.2.13.pop_2.3.in & ./mcsim.TCE.2.13 TCE.2.13.pop_2.4.in
 wait
