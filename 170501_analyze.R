@@ -3,32 +3,36 @@ rm(list = ls())
 # 0521
 source("TCE_post.R")
 
-png(file="1.1.png",width=3000,height=2000,res=300)
+library(boa)
+boa.menu()
+
+# trace
+#png(file="1.1.png",width=3000,height=2000,res=300)
 par(mfrow = c(3,2))
 plot(TCE.2.13_v1$iter, TCE.2.13_v1$`lnkDCVCC(1.1)`, type = "l", col="red", main = "AU18042")
 plot(TCE.2.13_v1$iter, TCE.2.13_v1$`lnkDCVCC(1.2)`, type = "l", col="darkorange", main = "AU8034")
 plot(TCE.2.13_v1$iter, TCE.2.13_v1$`lnkDCVCC(1.3)`, type = "l", col="darkgreen", main = "AU8005")
 plot(TCE.2.13_v1$iter, TCE.2.13_v1$`lnkDCVCC(1.4)`, type = "l", col="blue", main = "IL1688")
 plot(TCE.2.13_v1$iter, TCE.2.13_v1$`M_lnkDCVCC(1)`, type = "l", cex= 1.5, main = "Population")
-dev.off()
+#dev.off()
 
-png(file="1.2.png",width=3000,height=2000,res=300)
+#png(file="1.2.png",width=3000,height=2000,res=300)
 par(mfrow = c(3,2))
 plot(TCE.2.13_v1$iter, TCE.2.13_v1$`lnISkNDCVC(1.1)`, type = "l", col="red", main = "AU18042")
 plot(TCE.2.13_v1$iter, TCE.2.13_v1$`lnISkNDCVC(1.2)`, type = "l", col="darkorange", main = "AU8034")
 plot(TCE.2.13_v1$iter, TCE.2.13_v1$`lnISkNDCVC(1.3)`, type = "l", col="darkgreen", main = "AU8005")
 plot(TCE.2.13_v1$iter, TCE.2.13_v1$`lnISkNDCVC(1.4)`, type = "l", col="blue", main = "IL1688")
 plot(TCE.2.13_v1$iter, TCE.2.13_v1$`M_lnISkNDCVC(1)`, type = "l", cex= 1.5, main = "Population")
-dev.off()
+#dev.off()
 
-png(file="1.3.png",width=3000,height=2000,res=300)
+#png(file="1.3.png",width=3000,height=2000,res=300)
 par(mfrow = c(3,2))
 plot(TCE.2.13_v1$iter, TCE.2.13_v1$`lnkElimNDCVCC(1.1)`, type = "l", col="red", main = "AU18042")
 plot(TCE.2.13_v1$iter, TCE.2.13_v1$`lnkElimNDCVCC(1.2)`, type = "l", col="darkorange", main = "AU8034")
 plot(TCE.2.13_v1$iter, TCE.2.13_v1$`lnkElimNDCVCC(1.3)`, type = "l", col="darkgreen", main = "AU8005")
 plot(TCE.2.13_v1$iter, TCE.2.13_v1$`lnkElimNDCVCC(1.4)`, type = "l", col="blue", main = "IL1688")
 plot(TCE.2.13_v1$iter, TCE.2.13_v1$`M_lnkElimNDCVCC(1)`, type = "l", cex= 1.5, main = "Population")
-dev.off()
+#dev.off()
 
 # Parameter distribution check
 pop<-as.data.frame(TCE.2.13_v1[702:1001, c(13,14,15)])
@@ -164,8 +168,6 @@ write.table(TCE.setpoint.v1, file = "TCE.2.13.setpoint.dat", row.names = F, sep=
 system("./mcsim.TCE.2.13 TCE.2.13.setpoint.in")
 
 df<-read.csv("TCE.2.13.setpoint.csv", header = T, sep="")
-
-
 
 
 # 0511
