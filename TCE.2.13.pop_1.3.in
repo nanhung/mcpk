@@ -9,9 +9,9 @@
 #TCA and DCA have background subtracted
 
 Integrate(Lsodes, 1e-5, 0.3e-8 , 1)
-MCMC ("TCE.2.13.pop_1.3.out",
+MCMC ("TCE.2.13.pop_1.5.out", 
 "","",
-100000, 0, 100, 100000, 34567);
+100000, 0, 100, 100000, 12345);
 
 
 # Fix following parameters at baseline values
@@ -56,7 +56,9 @@ Level { #Population level
 #	Distrib( Ve_CKidTCOH , LogUniform , 0.01 , 3.3 );
 #	Distrib( Ve_CLivTCOH , LogUniform , 0.01 , 3.3 );
 #	Distrib( Ve_CLungTCOH , LogUniform , 0.01 , 3.3 );
-#	
+	Distrib( Ve_TotCTCOHmol, LogUniform , 0.01 , 3.3 ); #(v2.13)
+	Distrib( Ve_TotLivTCOHmol, LogUniform , 0.01 , 3.3 ); #(v2.13)
+	Distrib( Ve_TotBrnTCOHmol, LogUniform , 0.01 , 3.3 ); #(v2.13)		
 #	
 #	Distrib( Ve_CPlasTCA , LogUniform , 0.01 , 3.3 );
 #	Distrib( Ve_CBldTCA , LogUniform , 0.01 , 3.3 );
@@ -67,7 +69,10 @@ Level { #Population level
 #	Distrib( Ve_zAUrnTCA , LogUniform , 0.01 , 3.3 );
 #	Distrib( Ve_zAUrnTCA_collect , LogUniform , 0.01 , 3.3 );
 #	Distrib( Ve_zAUrnTCA_sat , LogUniform , 0.01 , 3.3 );
-#	
+	Distrib( Ve_CPlasTCAmol, LogUniform , 0.01 , 3.3 ); #(v2.13)
+	Distrib( Ve_CLivTCAmol, LogUniform , 0.01 , 3.3 ); #(v2.13)
+	Distrib( Ve_CKidTCAmol, LogUniform , 0.01 , 3.3 ); #(v2.13)
+	Distrib( Ve_CBrnTCAmol, LogUniform , 0.01 , 3.3 ); #(v2.13)
 #	
 #	Distrib( Ve_zABileTCOG , LogUniform , 0.01 , 3.3 );
 #	Distrib( Ve_CTCOG , LogUniform , 0.01 , 3.3 );
@@ -359,7 +364,9 @@ Distrib(	V_lnISkNDCVC	InvGamma	2.25	5.0000	); #(2.12)
 #	Likelihood( CKidTCOH , LogNormal_v , Prediction( CKidTCOH ) , Ve_CKidTCOH );
 #	Likelihood( CLivTCOH , LogNormal_v , Prediction( CLivTCOH ) , Ve_CLivTCOH );
 #	Likelihood( CLungTCOH , LogNormal_v , Prediction( CLungTCOH ) , Ve_CLungTCOH );
-#	
+	Likelihood( TotCTCOHmol, LogNormal_v , Prediction( TotCTCOHmol ) , Ve_TotCTCOHmol ); #(v2.13)
+	Likelihood( TotLivTCOHmol, LogNormal_v , Prediction( TotLivTCOHmol ) , Ve_TotLivTCOHmol ); #(v2.13)
+	Likelihood( TotBrnTCOHmol, LogNormal_v , Prediction( TotBrnTCOHmol ) , Ve_TotBrnTCOHmol ); #(v2.13)
 #	
 #	Likelihood( CPlasTCA , LogNormal_v , Prediction( CPlasTCA ) , Ve_CPlasTCA );
 #	Likelihood( CBldTCA , LogNormal_v , Prediction( CBldTCA ) , Ve_CBldTCA );
@@ -370,6 +377,10 @@ Distrib(	V_lnISkNDCVC	InvGamma	2.25	5.0000	); #(2.12)
 #	Likelihood( zAUrnTCA , LogNormal_v , Prediction( zAUrnTCA ) , Ve_zAUrnTCA );
 #	Likelihood( zAUrnTCA_collect , LogNormal_v , Prediction( zAUrnTCA_collect ) , Ve_zAUrnTCA_collect );
 #	Likelihood( zAUrnTCA_sat , LogNormal_v , Prediction( zAUrnTCA_sat ) , Ve_zAUrnTCA_sat );
+	Likelihood( CPlasTCAmol, LogNormal_v , Prediction( CPlasTCAmol ) , Ve_CPlasTCAmol ); #(v2.13)
+	Likelihood( CLivTCAmol, LogNormal_v , Prediction( CLivTCAmol ) , Ve_CLivTCAmol ); #(v2.13)
+	Likelihood( CKidTCAmol, LogNormal_v , Prediction( CKidTCAmol ) , Ve_CKidTCAmol ); #(v2.13)
+	Likelihood( CBrnTCAmol, LogNormal_v , Prediction( CBrnTCAmol ) , Ve_CBrnTCAmol ); #(v2.13)
 #	
 #	
 #	Likelihood( zABileTCOG , LogNormal_v , Prediction( zABileTCOG ) , Ve_zABileTCOG );
@@ -582,29 +593,45 @@ VBrnC = 0.967 ;
 PDose = NDoses(2, 800 0 , 0 0.05 ) ; #(v2.10)
 TChng = 0.05 ;
 
-# Parameters
-Print( CDCVGmol  1 2 6 12 24 36); 
-Data( CDCVGmol 3.550289e-06 2.086333e-06 -1 -1 -1 -1);
-Print( CLivDCVGmol  1 2 6 12 24 36); 
-Data( CLivDCVGmol 6.017749e-05 3.704853e-07 -1 -1 -1 -1);
-Print( CKidDCVGmol 1 2 6 12 24 36); 
-Data( CKidDCVGmol 5.311948e-05 1.759533e-05 3.829895e-06 -1 -1 -1);
-Print( CBrnDCVGmol 1 2 6 12 24 36); 
-Data( CBrnDCVGmol 3.736295e-05 -1 4.354531e-06 -1 -1 -1 );
-Print( CDCVCmol  1 2 6 12 24 36); 
-Data( CDCVCmol 1.010557e-05 -1 -1 -1 -1 -1);
-Print( CKidDCVCmol 1 2 6 12 24 36); 
-Data( CKidDCVCmol 6.340500e-06 3.053083e-06 -1 -1 -1 -1);
-Print( CBrnDCVCmol  1 2 6 12 24 36); 
-Data( CBrnDCVCmol 5.945676e-06 -1 -1 -1 -1 -1);
-Print( CNDCVCmol 1 2 6 12 24 36);  
-Data( CNDCVCmol 6.472704e-06 5.737682e-06 -1 -1 -1 -1);
-Print( CLivNDCVCmol 1 2 6 12 24 36); 
-Data( CLivNDCVCmol 1.225830e-05 5.380926e-06 -1 -1 -1 -1);
-Print( CKidNDCVCmol 1 2 6 12 24 36); 
-Data( CKidNDCVCmol 1.595694e-05 8.114961e-06 -1 -1 -1 -1);
-Print( CBrnNDCVCmol 1 2 6 12 24 36); 
-Data( CBrnNDCVCmol -1 -1 2.722467e-06 -1 -1 -1);
+# Variables
+Print( CPlasTCAmol 1 2 6 12 24 36);
+Data(CPlasTCAmol 0.018260375 0.554985219 0.234580911 0.15642455 0.013634181 0.015822992);
+Print( CLivTCAmol 1 2 6 12 24 36);
+Data( CLivTCAmol 0.21454641 0.459107744 0.365669663 0.363575634 0.097045295 0.026917249);
+Print( CKidTCAmol 1 2 6 12);
+Data( CKidTCAmol 2.049377208 1.245486193 0.310472183 0.211421705);
+Print( CBrnTCAmol 2 6 12);
+Data( CBrnTCAmol 0.005436334 0.125089663 0.019941764);
+Print( TotCTCOHmol 1 2 6 12);
+Data( TotCTCOHmol 0.39067208 0.36261743 0.05504310 0.04310037);
+Print( TotLivTCOHmol 1 2);
+Data( TotLivTCOHmol 1.2738114 0.9583573);
+Print( TotBrnTCOHmol 1 2);
+Data( TotBrnTCOHmol 0.2388855 0.2496490);
+Print( CDCVGmol  1 2); 
+Data( CDCVGmol 3.550289e-06 2.086333e-06);
+Print( CLivDCVGmol  1 2); 
+Data( CLivDCVGmol 6.017749e-05 3.704853e-07);
+Print( CKidDCVGmol 1 2 6); 
+Data( CKidDCVGmol 5.311948e-05 1.759533e-05 3.829895e-06);
+Print( CBrnDCVGmol 1 6); 
+Data( CBrnDCVGmol 3.736295e-05 4.354531e-06);
+Print( CDCVCmol  1); 
+Data( CDCVCmol 1.010557e-05);
+#Print( CLivDCVCmol  0.0); 
+#Data( CLivDCVCmol  -1);
+Print( CKidDCVCmol 1 2); 
+Data( CKidDCVCmol 6.340500e-06 3.053083e-06);
+Print( CBrnDCVCmol  1); 
+Data( CBrnDCVCmol 5.945676e-06);
+Print( CNDCVCmol 1 2);  
+Data( CNDCVCmol 6.472704e-06 5.737682e-06);
+Print( CLivNDCVCmol 1 2); 
+Data( CLivNDCVCmol 1.225830e-05 5.380926e-06);
+Print( CKidNDCVCmol 1 2); 
+Data( CKidNDCVCmol 1.595694e-05 8.114961e-06);
+Print( CBrnNDCVCmol 6); 
+Data( CBrnNDCVCmol 2.722467e-06);
 
 } # End AU18042M
 
@@ -626,31 +653,47 @@ VBrnC = 0.8997687 ;
 PDose = NDoses(2, 800 0 , 0 0.05 ) ; #(v2.10)
 TChng = 0.05 ;
 
-# Parameters
-Print( CDCVGmol  1 2 6 12 24 36); 
-Data( CDCVGmol 4.729201e-06 3.281573e-06 1.629899e-06 1.902690e-06           -1           -1);
-Print( CDCVCmol  1 2 6 12 24 36); 
-Data( CDCVCmol -1 1.438198e-05 1.073948e-05 1.054803e-05 9.940699e-06           -1);
-Print( CNDCVCmol 1 2 6 12 24 36);  
-Data( CNDCVCmol 1.153821e-05 8.173462e-06           -1           -1           -1           -1);
-Print( CLivDCVGmol  1 2 6 12 24 36); 
-Data( CLivDCVGmol 4.487355e-05 3.225746e-06 1.805669e-06 8.914835e-08           -1           -1);
-Print( CLivNDCVCmol 1 2 6 12 24 36); 
-Data( CLivNDCVCmol 1.901849e-05 1.445857e-05           -1           -1           -1           -1);
-Print( CKidDCVGmol 1 2 6 12 24 36); 
-Data( CKidDCVGmol 1.522278e-04 1.025392e-04 1.352837e-05 4.843566e-06           -1           -1);
-Print( CKidDCVCmol 1 2 6 12 24 36); 
-Data( CKidDCVCmol 1.811843e-05 1.232787e-05 2.788699e-06 1.955004e-06           -1           -1);
-Print( CKidNDCVCmol 1 2 6 12 24 36); 
-Data( CKidNDCVCmol 4.081615e-05 1.972180e-05 5.192738e-06           -1           -1           -1);
-Print( CBrnDCVGmol 1 2 6 12 24 36); 
-Data( CBrnDCVGmol  -1           -1 3.030607e-05           -1 2.638858e-06           -1);
-Print( CBrnDCVCmol  1 2 6 12 24 36); 
-Data( CBrnDCVCmol -1           -1           -1 2.993349e-06           -1           -1);
-Print( CBrnNDCVCmol 1 2 6 12 24 36); 
-Data( CBrnNDCVCmol -1           -1 4.931035e-06           -1 3.179501e-06           -1);
+# Variables
+Print( CPlasTCAmol 1 2 6 24);
+Data( CPlasTCAmol 0.3147169 0.3756647 1.1203406 0.5446894);
+Print( CLivTCAmol 1 2 6 12 24 36);
+Data( CLivTCAmol 0.1304354 0.1810584 0.6616026 0.8576456 0.2243082 0.1029852);
+Print( CKidTCAmol 1 2 6 12);
+Data( CKidTCAmol 0.4662656 1.0924031 0.9486942 0.8794615);
+Print( CBrnTCAmol 1 2 6);
+Data( CBrnTCAmol 0.01355499 0.06193970 0.35484048);
+Print( TotCTCOHmol 1 2 6 12);
+Data( TotCTCOHmol 0.05347633 0.18646778 0.33290221 0.34901654);
+Print( TotLivTCOHmol 1 2 6 12);
+Data( TotLivTCOHmol 1.1494439 1.1849480 1.3146896 0.1704231);
+Print( TotBrnTCOHmol 1 2 6);
+Data( TotBrnTCOHmol 0.3557665 0.3589887 0.1561451);
+Print( CDCVGmol  1 2 6 12);
+Data( CDCVGmol 4.729201e-06 3.281573e-06 1.629899e-06 1.902690e-06);
+Print( CLivDCVGmol  1 2 6 12); 
+Data( CLivDCVGmol 4.487355e-05 3.225746e-06 1.805669e-06 8.914835e-08);
+Print( CKidDCVGmol 1 2 6 12); 
+Data( CKidDCVGmol 1.522278e-04 1.025392e-04 1.352837e-05 4.843566e-06);
+Print( CBrnDCVGmol 6 24); 
+Data( CBrnDCVGmol  3.030607e-05 2.638858e-06);
+Print( CDCVCmol  2 6 12 24); 
+Data( CDCVCmol 1.438198e-05 1.073948e-05 1.054803e-05 9.940699e-06);
+#Print( CLivDCVCmol  0.0); 
+#Data( CLivDCVCmol  -1);
+Print( CKidDCVCmol 1 2 6 12); 
+Data( CKidDCVCmol 1.811843e-05 1.232787e-05 2.788699e-06 1.955004e-06);
+Print( CBrnDCVCmol 12); 
+Data( CBrnDCVCmol 2.993349e-06);
+Print( CNDCVCmol 1 2);  
+Data( CNDCVCmol 1.153821e-05 8.173462e-06);
+Print( CLivNDCVCmol 1 2); 
+Data( CLivNDCVCmol 1.901849e-05 1.445857e-05);
+Print( CKidNDCVCmol 1 2 6); 
+Data( CKidNDCVCmol 4.081615e-05 1.972180e-05 5.192738e-06);
+Print( CBrnNDCVCmol 6 24); 
+Data( CBrnNDCVCmol 4.931035e-06 3.179501e-06);
 
-} # End Experiment Random Strain
+} # End AU8005M
 
 ######## END GROUP B
 }
@@ -670,29 +713,45 @@ VBrnC = 0.8595614 ;
 PDose = NDoses(2, 800 0 , 0 0.05 ) ; #(v2.10)
 TChng = 0.05 ;
 
-# Parameters
-Print( CDCVGmol  1 2 6 12 24 36); 
-Data( CDCVGmol -1 2.943115e-06 2.067962e-06           -1           -1           -1);
-Print( CDCVCmol  1 2 6 12 24 36); 
-Data( CDCVCmol -1 1.082937e-05 7.965179e-06           -1           -1           -1);
-Print( CNDCVCmol 1 2 6 12 24 36);  
-Data( CNDCVCmol -1 -1 -1 -1 -1 -1);
-Print( CLivDCVGmol  1 2 6 12 24 36); 
-Data( CLivDCVGmol 6.067440e-05 7.277831e-06           -1           -1           -1           -1);
-Print( CLivNDCVCmol 1 2 6 12 24 36); 
-Data( CLivNDCVCmol 5.874950e-06 3.527387e-06           -1           -1           -1           -1);
-Print( CKidDCVGmol 1 2 6 12 24 36); 
-Data( CKidDCVGmol 2.158986e-05 2.630024e-05           -1           -1           -1           -1);
-Print( CKidDCVCmol 1 2 6 12 24 36); 
-Data( CKidDCVCmol 1.841795e-06           -1           -1           -1           -1           -1);
-Print( CKidNDCVCmol 1 2 6 12 24 36); 
-Data( CKidNDCVCmol -1 -1 -1 -1 -1 -1);
-Print( CBrnDCVGmol 1 2 6 12 24 36); 
-Data( CBrnDCVGmol  -1 1.873996e-05           -1           -1           -1           -1);
-Print( CBrnDCVCmol  1 2 6 12 24 36); 
-Data( CBrnDCVCmol -1 4.04333e-06          -1          -1          -1          -1);
-Print( CBrnNDCVCmol 1 2 6 12 24 36); 
-Data( CBrnNDCVCmol -1 4.122504e-06           -1           -1           -1           -1);
+# Variables
+Print( CPlasTCAmol 6);
+Data( CPlasTCAmol 0.367768);
+Print( CLivTCAmol 2 6);
+Data( CLivTCAmol 0.2251970 0.3829681);
+Print( CKidTCAmol 2 6);
+Data( CKidTCAmol  0.9787436 1.0991064);
+Print( CBrnTCAmol 0.0);
+Data( CBrnTCAmol -1);
+Print( TotCTCOHmol 2 6);
+Data( TotCTCOHmol 0.4626815 0.3582109);
+Print( TotLivTCOHmol 2 6);
+Data( TotLivTCOHmol 1.667884 0.679071);
+Print( TotBrnTCOHmol 2 6);
+Data( TotBrnTCOHmol 0.2564566 0.2566154);
+Print( CDCVGmol  2 6); 
+Data( CDCVGmol 2.943115e-06 2.067962e-06);
+Print( CLivDCVGmol  1 2); 
+Data( CLivDCVGmol 6.067440e-05 7.277831e-06);
+Data( CKidDCVGmol 2.158986e-05 2.630024e-05);
+Print( CKidDCVCmol 1); 
+Print( CBrnDCVGmol 2); 
+Data( CBrnDCVGmol 1.873996e-05);
+Print( CDCVCmol  2 6); 
+Data( CDCVCmol 1.082937e-05 7.965179e-06);
+#Print( CLivDCVCmol  0.0); 
+#Data( CLivDCVCmol  -1);
+Print( CKidDCVGmol 1 2); 
+Data( CKidDCVCmol 1.841795e-06);
+Print( CBrnDCVCmol  2); 
+Data( CBrnDCVCmol 4.04333e-06);
+Print( CNDCVCmol 0.0);  
+Data( CNDCVCmol -1);
+Print( CLivNDCVCmol 1 2); 
+Data( CLivNDCVCmol 5.874950e-06 3.527387e-06);
+Print( CKidNDCVCmol 0.0); 
+Data( CKidNDCVCmol -1);
+Print( CBrnNDCVCmol 2); 
+Data( CBrnNDCVCmol 4.122504e-06);
 } # End AU8034M
 
 ######## END GROUP C
@@ -713,35 +772,50 @@ VKidC = 0.5611455 ;
 PDose = NDoses(2, 800 0 , 0 0.05 ) ; #(v2.10)
 TChng = 0.05 ;
 
-# Parameters
-Print( CDCVGmol  1 2 6 12 24 36); 
-Data( CDCVGmol 2.871741e-06 2.121203e-06           -1           -1           -1 2.275912e-06);
-Print( CDCVCmol  1 2 6 12 24 36); 
-Data( CDCVCmol  -1           -1           -1           -1 9.775076e-06           -1);
-Print( CNDCVCmol 1 2 6 12 24 36);  
-Data( CNDCVCmol -1 -1 -1 -1 -1 -1);
-Print( CLivDCVGmol  1 2 6 12 24 36); 
-Data( CLivDCVGmol 5.815355e-07 5.082377e-07 2.157073e-06           -1           -1 4.758889e-07);
-Print( CLivNDCVCmol 1 2 6 12 24 36); 
-Data( CLivNDCVCmol 7.917538e-06           -1           -1           -1           -1           -1);
-Print( CKidDCVGmol 1 2 6 12 24 36); 
-Data( CKidDCVGmol 2.046989e-05 7.190310e-06           -1           -1           -1           -1);
-Print( CKidDCVCmol 1 2 6 12 24 36); 
-Data( CKidDCVCmol 7.229516e-06 2.513316e-06           -1           -1           -1           -1);
-Print( CKidNDCVCmol 1 2 6 12 24 36); 
-Data( CKidNDCVCmol 1.097871e-05           -1           -1           -1           -1           -1);
-Print( CBrnDCVGmol 1 2 6 12 24 36); 
-Data( CBrnDCVGmol  -1 2.892686e-05           -1           -1 1.486564e-06           -1);
-Print( CBrnDCVCmol  1 2 6 12 24 36); 
-Data( CBrnDCVCmol 4.362549e-06           -1           -1           -1           -1           -1);
-Print( CBrnNDCVCmol 1 2 6 12 24 36); 
-Data( CBrnNDCVCmol -1 -1 -1 -1 -1 -1);
+# Variables
+Print( CPlasTCAmol 2 6 12 24);
+Data( CPlasTCAmol 0.25482320 0.51966141 0.61485509 0.09397349);
+Print( CLivTCAmol 1 2 6 12 24 36);
+Data( CLivTCAmol 0.30865315 0.44221962 0.57656403 0.27807191 0.22353623 0.07801715);
+Print( CKidTCAmol 1 2 6 24);
+Data( CKidTCAmol 1.4442199 0.7626262 0.2712035 0.1616173);
+Print( CBrnTCAmol 1 12 24);
+Data( CBrnTCAmol .008704019 0.009537826 0.001097061);
+Print( TotCTCOHmol 1 2 6 24);
+Data( TotCTCOHmol 0.21294521 0.27979759 0.16280635 0.04859264);
+Print( TotLivTCOHmol 1 2 6);
+Data( TotLivTCOHmol 0.5048001 0.4904475 0.1498597);
+Print( TotBrnTCOHmol 1 2 6);
+Data( TotBrnTCOHmol 0.16830132 0.12603630 0.04909015); 
+Print( CDCVGmol  1 2 36); 
+Data( CDCVGmol 2.871741e-06 2.121203e-06 2.275912e-06);
+Print( CLivDCVGmol  1 2 6 36); 
+Data( CLivDCVGmol 5.815355e-07 5.082377e-07 2.157073e-06 4.758889e-07);
+Print( CKidDCVGmol 1 2); 
+Data( CKidDCVGmol 2.046989e-05 7.190310e-06);
+Print( CBrnDCVGmol 2 24); 
+Data( CBrnDCVGmol 2.892686e-05 1.486564e-06);
+Print( CDCVCmol  24); 
+Data( CDCVCmol  9.775076e-06);
+#Print( CLivDCVCmol  0.0); 
+#Data( CLivDCVCmol  -1);
+Print( CKidDCVCmol 1 2); 
+Data( CKidDCVCmol 7.229516e-06 2.513316e-06);
+Print( CBrnDCVCmol  1); 
+Data( CBrnDCVCmol 4.362549e-06);
+Print( CNDCVCmol 0.0);  
+Data( CNDCVCmol -1);
+Print( CLivNDCVCmol 1); 
+Data( CLivNDCVCmol 7.917538e-06);
+Print( CKidNDCVCmol 1); 
+Data( CKidNDCVCmol 1.097871e-05);
+Print( CBrnNDCVCmol 0.0); 
+Data( CBrnNDCVCmol -1);
 
 } # End IL1688M
 
 ######## END GROUP D
 }
-
 
 };
 };
