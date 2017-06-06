@@ -3,7 +3,7 @@ rm(list = ls())
 # system("./mcsim.TCE.2.12 TCE.2.12.forAbhi-BW.in")
 # df <- read.delim("TCE.2.12.forAbhi-BW.out", head = T)
 
-# system("./mcsim.TCE.2.14 TCE.2.14.forAbhi-BW.in")
+system("./mcsim.TCE.2.14 TCE.2.14.forAbhi-BW.in")
 df <- read.delim("TCE.2.14.forAbhi-BW.out", head = T)
 
 time = c(1,2,6,12,24,36)
@@ -80,6 +80,10 @@ AU18042.df<-data.frame(time,
                        SrmNDCVC.1.2,LivNDCVC.1.2,KidNDCVC.1.2,BrnNDCVC.1.2)
 
 # df AU18042
+SrmTCE18042M <- which(colnames(df)=="CVenmol_1.1") #(v2.14)
+LivTCE18042M <- which(colnames(df)=="CLivmol_1.1") #(v2.14)
+KidTCE18042M <- which(colnames(df)=="CKidmol_1.1") #(v2.14)
+BrnTCE18042M <- which(colnames(df)=="CBrnmol_1.1") #(v2.14)
 #VenTCE18042M <- which(colnames(df)=="CVen_1.1")
 #LivTCE18042M <- which(colnames(df)=="CLiv_1.1")
 #KidTCE18042M <- which(colnames(df)=="CKid_1.1")
@@ -560,9 +564,8 @@ BrnDCVG.3.2<-c(NA,20.45110994,11.2562387,NA,3.620624893,NA)/10^6 #(v2.12)
 BrnDCVC.3.2<-c(NA,NA,NA,NA,NA,1.914958825)/10^6 #(v2.12)
 BrnNDCVC.3.2<-c(NA,2.976721784,NA,NA,NA,2.908331416)/10^6 #(v2.12)
 
-
-AU8034.df<-data.frame(time, SrmTCE.4.1 ,KidTCA.4.1,BrnTCA.4.1,
-                       SrmTCE.4.2, KidTCE.4.2,BrnTCE.4.2,
+AU8034.df<-data.frame(time, SrmTCE.3.1 ,KidTCE.3.1,BrnTCE.3.1,
+                       SrmTCE.3.2, KidTCE.3.2,BrnTCE.3.2,
                        SrmTCA.3.1,LivTCA.3.1,KidTCA.3.1,BrnTCA.3.1,
                        SrmTCA.3.2, LivTCA.3.2,KidTCA.3.2,BrnTCA.3.2,
                        TotCTCOH.3.1,TotLivTCOH.3.1,TotBrnTCOH.3.1,
@@ -988,7 +991,7 @@ BrnNDCVC.4.2 <- BrnNDCVC1688F:(BrnNDCVC1688F+5) #(v2.12)
 
 
 # source("IL1688.R")
-source("TotAbhi.R")
+# source("TotAbhi.R")
 
 # Abbas97a_600 ----
 tVen<-c(0.25, 0.5, 2, 4, 8);
