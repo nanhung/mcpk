@@ -20,6 +20,7 @@ M.VBrnC <- mean(M.Brn.wt/M.b.wt/0.017);F.VLivC <- mean(F.Liv.wt/F.b.wt/0.055)
 F.VKidC <- mean(F.Kid.wt/F.b.wt/0.017);F.VBrnC <- mean(F.Brn.wt/F.b.wt/0.017)
 
 SrmTCE.1.1<-c(5.912467698,19.86399326,NA,NA,NA,NA)/1000 #(v2.14)
+LivTCE.1.1<-c(327.7022,69.66582,NA,NA,NA,NA)/1000 #(v2.14)
 KidTCE.1.1<-c(338.5084596,100.6201801,NA,NA,NA,NA)/1000 #(v2.14)
 BrnTCE.1.1<-c(55.39592873,NA,NA,NA,NA,NA)/1000 #(v2.14)
 LivTCA.1.1<-c(0.21454641,0.459107744,0.365669663,0.363575634,0.097045295,0.026917249)
@@ -28,6 +29,7 @@ BrnTCA.1.1<-c(NA,0.005436334,0.125089663,0.019941764,NA,NA)
 SrmTCA.1.1<-c(0.018260375,0.554985219,0.234580911,0.15642455,0.013634181,0.015822992)
 
 SrmTCE.1.2<-c(32.05251906,NA,NA,NA,NA,NA)/1000 #(v2.14)
+LivTCE.1.2<-c(572.9526,82.19595,NA,NA,NA,NA)/1000 #(v2.14)
 KidTCE.1.2<-c(840.0914943,247.5401184,NA,NA,NA,NA)/1000 #(v2.14)
 BrnTCE.1.2<-c(250.1666716,231.1808498,NA,NA,NA,NA)/1000 #(v2.14)
 LivTCA.1.2<-c(0.060315365,0.178408603,0.180481165,0.109905788,NA,0.018137806)
@@ -66,8 +68,8 @@ BrnDCVC.1.2<-c(NA,NA,NA,NA,NA,NA)/10^6 #(v2.12)
 BrnNDCVC.1.2<-c(NA,NA,NA,3.140487265,3.083605115,NA)/10^6 #(v2.12)
 
 AU18042.df<-data.frame(time,
-                       SrmTCE.1.1,KidTCE.1.1,BrnTCE.1.1,
-                       SrmTCE.1.2,KidTCE.1.2,BrnTCE.1.2,
+                       SrmTCE.1.1, LivTCE.1.1, KidTCE.1.1,BrnTCE.1.1,
+                       SrmTCE.1.2, LivTCE.1.2, KidTCE.1.2,BrnTCE.1.2,
                        SrmTCA.1.1,LivTCA.1.1,KidTCA.1.1,BrnTCA.1.1,
                        SrmTCA.1.2, LivTCA.1.2,KidTCA.1.2,BrnTCA.1.2,
                        TotCTCOH.1.1,TotLivTCOH.1.1,TotBrnTCOH.1.1,
@@ -270,9 +272,11 @@ F.VKidC <- mean(F.Kid.wt/F.b.wt/0.017)
 F.VBrnC <- mean(F.Brn.wt/F.b.wt/0.017)
 
 SrmTCE.2.1<-c(55.83225483,27.33690926,NA,NA,NA,NA)/1000 #(v2.14)
+LivTCE.2.1<-c(86.4692,NA,NA,NA,NA,NA)/1000 #(v2.14)
 KidTCE.2.1<-c(277.7981226,1103.007465,NA,NA,NA,NA)/1000 #(v2.14)
 BrnTCE.2.1<-c(158.0007228,NA,NA,NA,NA,NA)/1000 #(v2.14)
 SrmTCE.2.2<-c(NA,NA,NA,NA,NA,NA)/1000 #(v2.14)
+LivTCE.2.2<-c(NA,46.31315,NA,NA,NA,NA)/1000 #(v2.14)
 KidTCE.2.2<-c(NA,93.24793371,NA,NA,NA,NA)/1000 #(v2.14)
 BrnTCE.2.2<-c(187.2460838,64.82179764,6.950708497,NA,NA,NA)/1000 #(v2.14)
 
@@ -315,8 +319,8 @@ BrnDCVC.2.2<-c(NA,NA,2.227680313,NA,NA,NA)/10^6 #(v2.12)
 BrnNDCVC.2.2<-c(NA,NA,NA,NA,NA,NA)/10^6 #(v2.12)
 
 AU8005.df<-data.frame(time,
-                      SrmTCE.2.1,KidTCE.2.1,BrnTCE.2.1,
-                      SrmTCE.2.2,KidTCE.2.2,BrnTCE.2.2,
+                      SrmTCE.2.1, LivTCE.2.1, KidTCE.2.1,BrnTCE.2.1,
+                      SrmTCE.2.2, LivTCE.2.1, KidTCE.2.2,BrnTCE.2.2,
                       SrmTCA.2.1,LivTCA.2.1,KidTCA.2.1,BrnTCA.2.1,
                        SrmTCA.2.2, LivTCA.2.2,KidTCA.2.2,BrnTCA.2.2,
                        TotCTCOH.2.1,TotLivTCOH.2.1,TotBrnTCOH.2.1,
@@ -520,9 +524,11 @@ F.VKidC <- mean(F.Kid.wt/F.b.wt/0.017)
 F.VBrnC <- mean(F.Brn.wt/F.b.wt/0.017)
 
 KidTCE.3.1<-c(490.0463756,91.98780742,NA,NA,NA,NA)/1000 #(2.14)
+LivTCE.3.1<-c(50.4671,NA,NA,NA,NA,NA)/1000 #(v2.14)
 BrnTCE.3.1<-c(283.9576321,36.12652412,NA,NA,NA,NA)/1000 #(2.14)
 SrmTCE.3.1<-c(8.55599829,NA,NA,NA,NA,NA)/1000 #(2.14)
 KidTCE.3.2<-c(421.8243836,NA,NA,NA,NA,NA)/1000 #(2.14)
+LivTCE.3.2<-c(160.7475,NA,NA,NA,NA,NA)/1000 #(v2.14)
 BrnTCE.3.2<-c(172.4413819,108.1319262,1.590916066,NA,NA,NA)/1000 #(2.14)
 SrmTCE.3.2<-c(31.27888844,NA,NA,NA,NA,NA)/1000 #(2.14)
 
@@ -564,8 +570,8 @@ BrnDCVG.3.2<-c(NA,20.45110994,11.2562387,NA,3.620624893,NA)/10^6 #(v2.12)
 BrnDCVC.3.2<-c(NA,NA,NA,NA,NA,1.914958825)/10^6 #(v2.12)
 BrnNDCVC.3.2<-c(NA,2.976721784,NA,NA,NA,2.908331416)/10^6 #(v2.12)
 
-AU8034.df<-data.frame(time, SrmTCE.3.1 ,KidTCE.3.1,BrnTCE.3.1,
-                       SrmTCE.3.2, KidTCE.3.2,BrnTCE.3.2,
+AU8034.df<-data.frame(time, SrmTCE.3.1, LivTCE.3.1, KidTCE.3.1, BrnTCE.3.1,
+                       SrmTCE.3.2, LivTCE.3.2, KidTCE.3.2, BrnTCE.3.2,
                        SrmTCA.3.1,LivTCA.3.1,KidTCA.3.1,BrnTCA.3.1,
                        SrmTCA.3.2, LivTCA.3.2,KidTCA.3.2,BrnTCA.3.2,
                        TotCTCOH.3.1,TotLivTCOH.3.1,TotBrnTCOH.3.1,
@@ -768,9 +774,11 @@ F.VBrnC <- mean(F.Brn.wt/F.b.wt/0.017)
 KidTCE.4.1<-c(361.7519115,381.7107853,NA,NA,NA,NA)/1000 #(2.14)
 BrnTCE.4.1<-c(307.584275,22.03957567,59.00641175,NA,NA,NA)/1000 #(2.14)
 SrmTCE.4.1<-c(1.008429686,NA,NA,NA,NA,NA)/1000 #(2.14)
+LivTCE.4.1<-c(47.37709,131.5839,NA,NA,NA,NA,NA)/1000 #(v2.14)
 KidTCE.4.2<-c(969.2204434,607.7419673,416.9010065,NA,NA,NA)/1000 #(2.14)
 BrnTCE.4.2<-c(184.7685558,82.50204795,1.144529558,NA,NA,NA)/1000 #(2.14)
 SrmTCE.4.2<-c(21.13862891,9.788987207,NA,NA,NA,NA)/1000 #(2.14)
+LivTCE.4.2<-c(119.4245,NA,NA,NA,NA,NA)/1000 #(v2.14)
 
 LivTCA.4.1<-c(0.308653149,0.442219622,0.576564029,0.27807191,0.223536225,0.078017152)
 KidTCA.4.1<-c(1.444219855,0.762626163,0.27120351,NA,0.161617287,NA)
@@ -810,9 +818,9 @@ BrnDCVG.4.2<-c(NA,NA,3.214565737,1.349854638,NA,NA)/10^6 #(v2.12)
 BrnDCVC.4.2<-c(NA,NA,3.214565737,NA,NA,NA)/10^6 #(v2.12)
 BrnNDCVC.4.2<-c(NA,NA,6.416973743,NA,NA,NA)/10^6 #(v2.12)
 
-IL1688.df<-data.frame(time,SrmTCE.4.1 ,KidTCA.4.1,BrnTCA.4.1, 
-SrmTCE.4.2, KidTCE.4.2,BrnTCE.4.2,
-                       SrmTCA.4.1 ,LivTCA.4.1,KidTCA.4.1,BrnTCA.4.1,
+IL1688.df<-data.frame(time,SrmTCE.4.1, LivTCE.4.1, KidTCA.4.1,BrnTCA.4.1, 
+SrmTCE.4.2, LivTCE.4.2, KidTCE.4.2,BrnTCE.4.2,
+                       SrmTCA.4.1, LivTCA.4.1,KidTCA.4.1,BrnTCA.4.1,
                        SrmTCA.4.2, LivTCA.4.2,KidTCA.4.2,BrnTCA.4.2,
                        TotCTCOH.4.1,TotLivTCOH.4.1,TotBrnTCOH.4.1,
                        TotCTCOH.4.2,TotLivTCOH.4.2,TotBrnTCOH.4.2,
