@@ -43,6 +43,7 @@ for (i in 1:dim(df)[1]) {
 lines(AU18042.df[,1], apply(df[,LivTCE.1.1], 2, median), lwd=2)
 lines(AU18042.df[,1], apply(df[,LivTCE.1.1], 2,  quantile, probs= c(.05)),lty=2, lwd=2)
 lines(AU18042.df[,1], apply(df[,LivTCE.1.1], 2,  quantile, probs= c(.95)),lty=2, lwd=2 )
+points(AU18042.df[,1], AU18042.df$LivTCE.1.1, col = "red" , pch = 20, cex=1.4)
 
 for (i in 1:dim(df)[1]) {
   if (i == 1) {
@@ -115,6 +116,8 @@ for (i in 1:dim(df)[1]) {
 lines(AU18042.df[,1], apply(df[,LivTCE.1.2], 2, median), lwd=2)
 lines(AU18042.df[,1], apply(df[,LivTCE.1.2], 2,  quantile, probs= c(.05)),lty=2, lwd=2)
 lines(AU18042.df[,1], apply(df[,LivTCE.1.2], 2,  quantile, probs= c(.95)),lty=2, lwd=2 )
+points(AU18042.df[,1], AU18042.df$LivTCE.1.2, col = "red" , pch = 20, cex=1.4)
+
 
 for (i in 1:dim(df)[1]) {
   if (i == 1) {
@@ -186,7 +189,9 @@ for (i in 1:dim(df)[1]) {
 }
 lines(AU8005.df[,1], apply(df[,LivTCE.2.1], 2, median), lwd=2)
 lines(AU8005.df[,1], apply(df[,LivTCE.2.1], 2,  quantile, probs= c(.05)),lty=2, lwd=2)
-lines(AU8005.df[,1], apply(df[,LivTCE.2.1], 2,  quantile, probs= c(.95)),lty=2, lwd=2 )
+lines(AU8005.df[,1], apply(df[,LivTCE.2.1], 2,  quantile, probs= c(.95)),lty=2, lwd=2)
+points(AU8005.df[,1], AU8005.df$LivTCE.2.1, col = "red" , pch = 20, cex=1.4)
+
 
 for (i in 1:dim(df)[1]) {
   if (i == 1) {
@@ -259,6 +264,7 @@ for (i in 1:dim(df)[1]) {
 lines(AU8005.df[,1], apply(df[,LivTCE.2.2], 2, median), lwd=2)
 lines(AU8005.df[,1], apply(df[,LivTCE.2.2], 2,  quantile, probs= c(.05)),lty=2, lwd=2)
 lines(AU8005.df[,1], apply(df[,LivTCE.2.2], 2,  quantile, probs= c(.95)),lty=2, lwd=2 )
+points(AU8005.df[,1], AU8005.df$LivTCE.2.2, col = "red" , pch = 20, cex=1.4)
 
 for (i in 1:dim(df)[1]) {
   if (i == 1) {
@@ -331,6 +337,7 @@ for (i in 1:dim(df)[1]) {
 lines(AU8034.df[,1], apply(df[,LivTCE.3.1], 2, median), lwd=2)
 lines(AU8034.df[,1], apply(df[,LivTCE.3.1], 2,  quantile, probs= c(.05)),lty=2, lwd=2)
 lines(AU8034.df[,1], apply(df[,LivTCE.3.1], 2,  quantile, probs= c(.95)),lty=2, lwd=2 )
+points(AU8034.df[,1], AU8034.df$LivTCE.3.1, col = "red" , pch = 20, cex=1.4)
 
 for (i in 1:dim(df)[1]) {
   if (i == 1) {
@@ -403,6 +410,7 @@ for (i in 1:dim(df)[1]) {
 lines(AU8034.df[,1], apply(df[,LivTCE.3.2], 2, median), lwd=2)
 lines(AU8034.df[,1], apply(df[,LivTCE.3.2], 2,  quantile, probs= c(.05)),lty=2, lwd=2)
 lines(AU8034.df[,1], apply(df[,LivTCE.3.2], 2,  quantile, probs= c(.95)),lty=2, lwd=2 )
+points(AU8034.df[,1], AU8034.df$LivTCE.3.2, col = "red" , pch = 20, cex=1.4)
 
 for (i in 1:dim(df)[1]) {
   if (i == 1) {
@@ -475,6 +483,7 @@ for (i in 1:dim(df)[1]) {
 lines(IL1688.df[,1], apply(df[,LivTCE.4.1], 2, median), lwd=2)
 lines(IL1688.df[,1], apply(df[,LivTCE.4.1], 2,  quantile, probs= c(.05)),lty=2, lwd=2)
 lines(IL1688.df[,1], apply(df[,LivTCE.4.1], 2,  quantile, probs= c(.95)),lty=2, lwd=2 )
+points(IL1688.df[,1], IL1688.df$LivTCE.4.1, col = "red" , pch = 20, cex=1.4)
 
 for (i in 1:dim(df)[1]) {
   if (i == 1) {
@@ -547,6 +556,7 @@ for (i in 1:dim(df)[1]) {
 lines(IL1688.df[,1], apply(df[,LivTCE.4.2], 2, median), lwd=2)
 lines(IL1688.df[,1], apply(df[,LivTCE.4.2], 2,  quantile, probs= c(.05)),lty=2, lwd=2)
 lines(IL1688.df[,1], apply(df[,LivTCE.4.2], 2,  quantile, probs= c(.95)),lty=2, lwd=2 )
+points(IL1688.df[,1], IL1688.df$LivTCE.4.2, col = "red" , pch = 20, cex=1.4)
 
 for (i in 1:dim(df)[1]) {
   if (i == 1) {
