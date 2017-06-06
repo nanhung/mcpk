@@ -1,6 +1,6 @@
 #-----------------------------------------------------------------------
 # TCE.2.14.model
-# Add CBldMixmol, CLivmol, CKidmol, CBrnmol
+# Add CVenmol, CLivmol, CKidmol, CBrnmol
 #------------------------------------------------------------------------
 States = {
 	AStom,		# Amount of TCE in stomach
@@ -113,9 +113,9 @@ CInh,	# needed for CMixExh
 CMixExh,	# rat - Mixed exhaled breath (mg/l)
 CArt,	# rat, human - Arterial blood concentration 
 CVen,	# mouse, rat, human
+CVenmol, #(2.14)
 CBldMix,	# rat - Concentration in mixed arterial+venous blood
 		# (used for cardiac puncture)
-CBldMixmol, #(2.14)
 CFat,	# mouse, rat - Concentration in fat
 CGut,	# rat
 CRap,	# needed for unlumped tissues
@@ -2022,8 +2022,8 @@ CalcOutputs{
 #(v1.2)	CMixExh = (0.7 * CAlv) + (0.3 * CInh); 
 	CArt = (CArt < 1.0e-15 ? 1.0e-15 : CArt);
 	CVen = (CVen < 1.0e-15 ? 1.0e-15 : CVen);
-	CBldMix = (CArt+CVen)/2;
-	CBldMixmol = CBldMix / MWTCE; #(v2.14)
+	CVenmol = CVen / MWTCE; #(v2.14)
+	CBldMix = (CArt+CVen)/2; 
 	CFat = (CFat < 1.0e-15 ? 1.0e-15 : CFat);
 	CGut = (CGut < 1.0e-15 ? 1.0e-15 : CGut);
 	CRap = (CRap < 1.0e-15 ? 1.0e-15 : CRap);
