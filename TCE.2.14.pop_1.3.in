@@ -9,9 +9,9 @@
 #TCA and DCA have background subtracted
 
 Integrate(Lsodes, 1e-5, 0.3e-8 , 1)
-MCMC ("TCE.2.13.pop_1.5.out", 
+MCMC ("TCE.2.14.pop_1.3.out", 
 "","",
-100000, 0, 100, 100000, 12345);
+100000, 0, 100, 100000, 3456.7);
 
 
 # Fix following parameters at baseline values
@@ -36,6 +36,10 @@ Level { #Population level
 #	Distrib( Ve_CArt , LogUniform , 0.01 , 3.3 );
 #	Distrib( Ve_CVen , LogUniform , 0.01 , 3.3 );
 #	Distrib( Ve_CBldMix , LogUniform , 0.01 , 3.3 );
+	Distrib( Ve_CVenmol , LogUniform , 0.01 , 3.3 ); #(v2.14)
+	Distrib( Ve_CLivmol , LogUniform , 0.01 , 3.3 ); #(v2.14)
+	Distrib( Ve_CKidmol , LogUniform , 0.01 , 3.3 ); #(v2.14)
+	Distrib( Ve_CBrnmol , LogUniform , 0.01 , 3.3 ); #(v2.14)
 #	
 #	Distrib( Ve_CFat , LogUniform , 0.01 , 3.3 );
 #	Distrib( Ve_CGut , LogUniform , 0.01 , 3.3 );
@@ -136,12 +140,14 @@ Level { #Population level
 #fixed#Distrib(	M_lnPRespC	TruncNormal	0.0	0.4	-1.2	1.2	);
 #fixed#Distrib(	M_lnPKidC	TruncNormal	0.0	0.4	-1.2	1.2	);
 #fixed#Distrib(	M_lnPSlwC	TruncNormal	0.0	0.4	-1.2	1.2	);
-							
-							
+Distrib(	M_lnPBrnC	TruncNormal	0.0	0.4	-1.2	1.2	);	#(v2.14)				
+
 #Distrib(	M_lnPRBCPlasTCAC	Uniform			-4.605	4.605	);
 #fixed#Distrib(	M_lnPBodTCAC	TruncNormal	0.0	0.336	-1.008	1.008	);
 #fixed#Distrib(	M_lnPLivTCAC	TruncNormal	0.0	0.336	-1.008	1.008	);
-							
+Distrib(	M_lnPKidTCAC	TruncNormal	0.0	0.336	-1.2	1.2	); #(v2.14)
+Distrib(	M_lnPBrnTCAC	TruncNormal	0.0	0.336	-1.2	1.2	); #(v2.14)
+
 							
 #Distrib(	M_lnkDissocC	TruncNormal	0.0	1.191	-3.573	3.573	);
 #Distrib(	M_lnBMaxkDC	TruncNormal	0.0	0.495	-1.485	1.485	);
@@ -151,7 +157,10 @@ Level { #Population level
 #fixed#Distrib(	M_lnPLivTCOHC	TruncNormal	0.0	0.336	-1.008	1.008	);
 #fixed#Distrib(	M_lnPBodTCOGC	Uniform			-4.605	4.605	);
 #fixed#Distrib(	M_lnPLivTCOGC	Uniform			-4.605	4.605	);
-							
+Distrib(	M_lnPKidTCOHC	TruncNormal	0.0	0.336	-1.2	1.2	); #(v2.14)
+Distrib(	M_lnPBrnTCOHC	TruncNormal	0.0	0.336	-1.2	1.2	); #(v2.14)	
+Distrib(	M_lnPKidTCOGC	Uniform			-4.605	4.605); #(v2.14)
+Distrib(	M_lnPBrnTCOGC	Uniform			-4.605	4.605	); #(v2.14)
 							
 #Distrib(	M_lnkTSD	Uniform			-4.269	4.942	);
 #Distrib(	M_lnkAS	Uniform			-6.571	7.244	);
@@ -241,6 +250,7 @@ Distrib(       M_lnISkNDCVC	   Uniform	-4.605	4.605); #(2.12)
 #fixed#Distrib(	V_VRespEffC	InvGamma	6	0.0605	);
 #fixed#Distrib(	V_VKidC	InvGamma	6	0.0500	);
 #fixed#Distrib(	V_VBldC	InvGamma	6	0.0720	);
+
 					
 #fixed#Distrib(	V_lnPBC	InvGamma	2.25	0.0781	);
 #fixed#Distrib(	V_lnPFatC	InvGamma	2.25	0.1125	);
@@ -250,12 +260,13 @@ Distrib(       M_lnISkNDCVC	   Uniform	-4.605	4.605); #(2.12)
 #fixed#Distrib(	V_lnPRespC	InvGamma	2.25	0.2000	);
 #fixed#Distrib(	V_lnPKidC	InvGamma	2.25	0.2000	);
 #fixed#Distrib(	V_lnPSlwC	InvGamma	2.25	0.2000	);
-					
+Distrib(	V_lnPBrnC	InvGamma	2.25	0.2000	);	#(v2.14)				
 					
 #Distrib(	V_lnPRBCPlasTCAC	InvGamma	2.25	0.1411	);
 #fixed#Distrib(	V_lnPBodTCAC	InvGamma	2.25	0.1411	);
 #fixed#Distrib(	V_lnPLivTCAC	InvGamma	2.25	0.1411	);
-					
+Distrib(	V_lnPKidTCAC	InvGamma	2.25	0.1411	); #(v2.14)
+Distrib(	V_lnPBrnTCAC	InvGamma	2.25	0.1411	); #(v2.14)
 					
 #Distrib(	V_lnkDissocC	InvGamma	2.25	1.7731	);
 #Distrib(	V_lnBMaxkDC	InvGamma	2.25	0.3063	);
@@ -265,7 +276,10 @@ Distrib(       M_lnISkNDCVC	   Uniform	-4.605	4.605); #(2.12)
 #fixed#Distrib(	V_lnPLivTCOHC	InvGamma	2.25	0.1411	);
 #fixed#Distrib(	V_lnPBodTCOGC	InvGamma	2.25	0.2000	);
 #fixed#Distrib(	V_lnPLivTCOGC	InvGamma	2.25	0.2000	);
-					
+Distrib(	V_lnPKidTCOHC	InvGamma	2.25	0.1411	); #(v2.14)
+Distrib(	V_lnPBrnTCOHC	InvGamma	2.25	0.1411	); #(v2.14)
+Distrib(	V_lnPKidTCOGC	InvGamma	2.25	0.2000	); #(v2.14)
+Distrib(	V_lnPBrnTCOGC	InvGamma	2.25	0.2000	); #(v2.14)			
 					
 #Distrib(	V_lnkTSD	InvGamma	2.25	5.0000	);
 #Distrib(	V_lnkAS	InvGamma	2.25	5.0000	);
@@ -345,6 +359,11 @@ Distrib(	V_lnISkNDCVC	InvGamma	2.25	5.0000	); #(2.12)
 #	Likelihood( CVen , LogNormal_v , Prediction( CVen ) , Ve_CVen );
 #	Likelihood( CBldMix , LogNormal_v , Prediction( CBldMix ) , Ve_CBldMix );
 #	
+	Likelihood( CVenmol, LogNormal_v , Prediction( CVenmol ) , Ve_CVenmol ); #(v2.14)
+	Likelihood( CLivmol, LogNormal_v , Prediction( CLivmol ) , Ve_CLivmol ); #(v2.14)
+	Likelihood( CKidmol, LogNormal_v , Prediction( CKidmol ) , Ve_CKidmol ); #(v2.14)
+	Likelihood( CBrnmol, LogNormal_v , Prediction( CBrnmol ) , Ve_CBrnmol ); #(v2.14)
+	
 #	Likelihood( CFat , LogNormal_v , Prediction( CFat ) , Ve_CFat );
 #	Likelihood( CGut , LogNormal_v , Prediction( CGut ) , Ve_CGut );
 #	Likelihood( CRap , LogNormal_v , Prediction( CRap ) , Ve_CRap );
@@ -515,12 +534,13 @@ Distrib(       lnISkNDCVC	   TruncNormal_v	M_lnISkNDCVC	V_lnISkNDCVC	-4.605	4.60
 #fixed#Distrib(	lnPRespC	TruncNormal_v	M_lnPRespC	V_lnPRespC	-1.2	1.2	);
 #fixed#Distrib(	lnPKidC	TruncNormal_v	M_lnPKidC	V_lnPKidC	-1.2	1.2	);
 #fixed#Distrib(	lnPSlwC	TruncNormal_v	M_lnPSlwC	V_lnPSlwC	-1.2	1.2	);
-							
+Distrib(	lnPBrnC	TruncNormal_v	M_lnPBrnC	V_lnPBrnC	-1.2	1.2	);	#(v2.14)					
 							
 #Distrib(	lnPRBCPlasTCAC	TruncNormal_v	M_lnPRBCPlasTCAC	V_lnPRBCPlasTCAC	-4.605	4.605	);
 #fixed#Distrib(	lnPBodTCAC	TruncNormal_v	M_lnPBodTCAC	V_lnPBodTCAC	-1.008	1.008	);
 #fixed#Distrib(	lnPLivTCAC	TruncNormal_v	M_lnPLivTCAC	V_lnPLivTCAC	-1.008	1.008	);
-							
+Distrib(	lnPKidTCAC	TruncNormal_v	M_lnPKidTCAC	V_lnPKidTCAC	-1.008	1.008	); #(v2.14)
+Distrib(	lnPBrnTCAC	TruncNormal_v	M_lnPBrnTCAC	V_lnPBrnTCAC	-1.008	1.008	); #(v2.14)
 							
 #Distrib(	lnkDissocC	TruncNormal_v	M_lnkDissocC	V_lnkDissocC	-3.573	3.573	);
 #Distrib(	lnBMaxkDC	TruncNormal_v	M_lnBMaxkDC	V_lnBMaxkDC	-1.485	1.485	);
@@ -530,8 +550,11 @@ Distrib(       lnISkNDCVC	   TruncNormal_v	M_lnISkNDCVC	V_lnISkNDCVC	-4.605	4.60
 #fixed#Distrib(	lnPLivTCOHC	TruncNormal_v	M_lnPLivTCOHC	V_lnPLivTCOHC	-1.008	1.008	);
 #fixed#Distrib(	lnPBodTCOGC	TruncNormal_v	M_lnPBodTCOGC	V_lnPBodTCOGC	-4.605	4.605	);
 #fixed#Distrib(	lnPLivTCOGC	TruncNormal_v	M_lnPLivTCOGC	V_lnPLivTCOGC	-4.605	4.605	);
-							
-							
+Distrib(	lnPKidTCOHC	TruncNormal_v	M_lnPKidTCOHC	V_lnPKidTCOHC	-1.008	1.008	); #(v2.14)
+Distrib(	lnPBrnTCOHC	TruncNormal_v	M_lnPBrnTCOHC	V_lnPBrnTCOHC	-1.008	1.008	); #(v2.14)
+Distrib(	lnPKidTCOGC	TruncNormal_v	M_lnPKidTCOGC	V_lnPKidTCOGC	-4.605	4.605	); #(v2.14)
+Distrib(	lnPBrnTCOGC	TruncNormal_v	M_lnPBrnTCOGC	V_lnPBrnTCOGC	-4.605	4.605	); #(v2.14)
+
 #Distrib(	lnkTSD	TruncNormal_v	M_lnkTSD	V_lnkTSD	-4.269	4.942	);
 #Distrib(	lnkAS	TruncNormal_v	M_lnkAS	V_lnkAS	-6.571	7.244	);
 #fixed#Distrib(	lnkTD	TruncNormal_v	M_lnkTD	V_lnkTD	-4.605	0	);
@@ -594,6 +617,14 @@ PDose = NDoses(2, 800 0 , 0 0.05 ) ; #(v2.10)
 TChng = 0.05 ;
 
 # Variables
+Print( CVenmol, 1 2); #(v2.14)
+Data(CVenmol,0.005912 0.019864); #(v2.14)
+Print(CLivmol, 1 2); #(v2.14)
+Data(CLivmol,0.327702 0.069666); #(v2.14)
+Print( CKidmol, 1 2); #(v2.14)
+Data(CKidmol,0.338508 0.10062); #(v2.14)
+Print(CBrnmol, 1); #(v2.14)
+Data(CBrnmol, 0.055396); #(v2.14)
 Print( CPlasTCAmol 1 2 6 12 24 36);
 Data(CPlasTCAmol 0.018260375 0.554985219 0.234580911 0.15642455 0.013634181 0.015822992);
 Print( CLivTCAmol 1 2 6 12 24 36);
@@ -654,6 +685,14 @@ PDose = NDoses(2, 800 0 , 0 0.05 ) ; #(v2.10)
 TChng = 0.05 ;
 
 # Variables
+Print( CVenmol 1, 2); #(v2.14)
+Data(CVenmol 0.055832 0.027337); #(v2.14)
+Print(CLivmol  1); #(v2.14)
+Data(CLivmol 0.086469); #(v2.14)
+Print( CKidmol 1 2); #(v2.14)
+Data(CKidmol 0.277798 1.103007); #(v2.14)
+Print(CBrnmol 1); #(v2.14)
+Data(CBrnmol 0.158001); #(v2.14)
 Print( CPlasTCAmol 1 2 6 24);
 Data( CPlasTCAmol 0.3147169 0.3756647 1.1203406 0.5446894);
 Print( CLivTCAmol 1 2 6 12 24 36);
@@ -714,6 +753,14 @@ PDose = NDoses(2, 800 0 , 0 0.05 ) ; #(v2.10)
 TChng = 0.05 ;
 
 # Variables
+Print( CVenmol 1); #(v2.14)
+Data(CVenmol 0.008556); #(v2.14)
+Print(CLivmol 1); #(v2.14)
+Data(CLivmol 0.050467); #(v2.14)
+Print( CKidmol 1 2); #(v2.14)
+Data(CKidmol 0.490046 0.091988); #(v2.14)
+Print(CBrnmol 1 2); #(v2.14)
+Data(CBrnmol 0.283958 0.036127); #(v2.14)
 Print( CPlasTCAmol 6);
 Data( CPlasTCAmol 0.367768);
 Print( CLivTCAmol 2 6);
@@ -767,12 +814,19 @@ BWmeas =  0.0304 ;
 VLivC = 0.7177033 ;
 VKidC = 0.5611455 ;
 
-
 # Exposure/Dosing 
 PDose = NDoses(2, 800 0 , 0 0.05 ) ; #(v2.10)
 TChng = 0.05 ;
 
 # Variables
+Print( CVenmol, 1); #(v2.14)
+Data(CVenmol, 0.001008); #(v2.14)
+Print(CLivmol, 1 2); #(v2.14)
+Data(CLivmol,0.047377 0.131584); #(v2.14)
+Print( CKidmol, 1 2); #(v2.14)
+Data(CKidmol,0.361752 0.381711); #(v2.14)
+Print(CBrnmol, 1 2 6); #(v2.14)
+Data(CBrnmol,0.307584 0.02204 0.059006); #(v2.14)
 Print( CPlasTCAmol 2 6 12 24);
 Data( CPlasTCAmol 0.25482320 0.51966141 0.61485509 0.09397349);
 Print( CLivTCAmol 1 2 6 12 24 36);

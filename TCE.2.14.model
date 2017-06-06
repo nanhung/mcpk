@@ -814,7 +814,10 @@ Ve_CMixExh	= 1;
 Ve_CArt	= 1;
 Ve_CVen	= 1;
 Ve_CBldMix	= 1;
-	
+Ve_CVenmol = 1; #(v2.14)
+Ve_CLivmol = 1; #(v2.14)
+Ve_CKidmol = 1; #(v2.14)
+Ve_CBrnmol = 1; #(v2.14)
 Ve_CFat	= 1;
 Ve_CGut	= 1;
 Ve_CRap	= 1;
@@ -1250,9 +1253,9 @@ Initialize {
 		(Species == 3 ? 1.11 : (Species == 2 ? 1.11 : 0.91 ));
     PLivTCOG = exp(lnPLivTCOGC) *
 		(Species == 3 ? 1.3 : (Species == 2 ? 1.3 : 0.59 ));
-	PLivTCOG = exp(lnPLivTCOGC) * #(v2.11) same as liver
+	PKidTCOG = exp(lnPKidTCOGC) * #(v2.11) same as liver
 		(Species == 3 ? 1.3 : (Species == 2 ? 1.3 : 0.59 ));
-	PLivTCOG = exp(lnPLivTCOGC) * #(v2.11) same as liver
+	PBrnTCOG = exp(lnPBrnTCOGC) * #(v2.11) same as liver
 		(Species == 3 ? 1.3 : (Species == 2 ? 1.3 : 0.59 ));
 
 # DCVG partitioning
