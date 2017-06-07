@@ -9,9 +9,9 @@
 #TCA and DCA have background subtracted
 
 Integrate(Lsodes, 1e-5, 0.3e-8 , 1)
-MCMC ("TCE.2.13.pop_1.5.out", 
+MCMC ("TCE.2.14.pop_1.1.out", 
 "","",
-100000, 0, 100, 100000, 12345);
+100000, 0, 100, 100000, 1234.5);
 
 
 # Fix following parameters at baseline values
@@ -146,7 +146,7 @@ Distrib(	M_lnPBrnC	TruncNormal	0.0	0.4	-1.2	1.2	);	#(v2.14)
 #fixed#Distrib(	M_lnPBodTCAC	TruncNormal	0.0	0.336	-1.008	1.008	);
 #fixed#Distrib(	M_lnPLivTCAC	TruncNormal	0.0	0.336	-1.008	1.008	);
 Distrib(	M_lnPKidTCAC	TruncNormal	0.0	0.336	-1.2	1.2	); #(v2.14)
-Distrib(	M_lnPBrnTCAC	TruncNormal	0.0	0.336	-1.2	1.2	); #(v2.14)
+Distrib(	M_lnPBrnTCAC	TruncNormal	0.0	0.336	-4.605	4.605	); #(v2.14)
 
 							
 #Distrib(	M_lnkDissocC	TruncNormal	0.0	1.191	-3.573	3.573	);
@@ -540,7 +540,7 @@ Distrib(	lnPBrnC	TruncNormal_v	M_lnPBrnC	V_lnPBrnC	-1.2	1.2	);	#(v2.14)
 #fixed#Distrib(	lnPBodTCAC	TruncNormal_v	M_lnPBodTCAC	V_lnPBodTCAC	-1.008	1.008	);
 #fixed#Distrib(	lnPLivTCAC	TruncNormal_v	M_lnPLivTCAC	V_lnPLivTCAC	-1.008	1.008	);
 Distrib(	lnPKidTCAC	TruncNormal_v	M_lnPKidTCAC	V_lnPKidTCAC	-1.008	1.008	); #(v2.14)
-Distrib(	lnPBrnTCAC	TruncNormal_v	M_lnPBrnTCAC	V_lnPBrnTCAC	-1.008	1.008	); #(v2.14)
+Distrib(	lnPBrnTCAC	TruncNormal_v	M_lnPBrnTCAC	V_lnPBrnTCAC	-4.605	4.605	); #(v2.14)
 							
 #Distrib(	lnkDissocC	TruncNormal_v	M_lnkDissocC	V_lnkDissocC	-3.573	3.573	);
 #Distrib(	lnBMaxkDC	TruncNormal_v	M_lnBMaxkDC	V_lnBMaxkDC	-1.485	1.485	);
