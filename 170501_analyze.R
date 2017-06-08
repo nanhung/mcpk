@@ -6,6 +6,7 @@ source("TCE_post.R")
 library(boa)
 boa.menu()
 
+
 # trace
 #png(file="1.1.png",width=3000,height=2000,res=300)
 par(mfrow = c(3,2))
@@ -58,7 +59,7 @@ legend(x=-30, y=-0.03, legend=c("Population", "AU18042", "AU8005", "AU8034", "IL
 dev.off()
 
 # Validation test
-df <- read.table("TCE.2.13.pop_2.1.out", head = T)
+df <- read.table("TCE.2.14.pop_1.1v.out", head = T)
 
 png(file="Validation.png",width=3000,height=2000,res=300)
 par(mfrow = c(1,1), mar = c(5,5,1,1))
