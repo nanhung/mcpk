@@ -184,29 +184,29 @@ f_Abs_cecum;
 f_Abs_colon;
 
 # Effective permeability of g.i. tract epithelia
-Peff;
+Peff = 1; lnPeff = log(1.0);
 
 # Tissue / blood partition coefficients
 # PC_periph  = 1; # No use 
 # PC_central = 1; # No use
-PC_stom    = 1;
+PC_stom    = 1; lnPC_stom = log(1.0);
 PC_duod    = 1; lnPC_duod = log(1.0);
-PC_jeju    = 1;
-PC_ileum   = 1;
-PC_cecum   = 1;
-PC_colon   = 1;
+PC_jeju    = 1; lnPC_jeju = log(1.0);
+PC_ileum   = 1; lnPC_ileum = log(1.0);
+PC_cecum   = 1; lnPC_cecum = log(1.0);
+PC_colon   = 1; lnPC_colon = log(1.0);
 
 # Fraction unbound in compartments
-Fu_stom     = 1.0;
+Fu_stom     = 1.0; lnFu_stom = log(1.0);
 Fu_duod     = 1.0; lnFu_duod = log(1.0);
-Fu_jeju     = 1.0;
-Fu_ileum    = 1.0;
-Fu_cecum    = 1.0;
+Fu_jeju     = 1.0; lnFu_jeju = log(1.0);
+Fu_ileum    = 1.0; lnFu_ileum = log(1.0);
+Fu_cecum    = 1.0; lnFu_cecum = log(1.0);
 Fu_colon    = 1.0; lnFu_colon = log(1.0);
 
 # Volumes (L)
 V_central = 1.0; lnV_central = log(1.0);
-V_periph  = 1.0;
+V_periph  = 1.0; lnV_periph = log(1.0);
 
 # Gut Michaelis-Menten Vmax (micromol/min/mg microsomal proteins)
 Vmax_vitro = 1.0; lnVmax_vitro = log(1.0);
@@ -215,11 +215,11 @@ Vmax_vitro = 1.0; lnVmax_vitro = log(1.0);
 Km_vitro = 1.0; lnKm_vitro = log(1.0);
 
 # Elimination rate constant from central (1/h)
-Kmet;
+Kmet = 1.0; lnKmet = log(1.0);
 
 # Transfer rate constants between central and peripheral compartments (1/h)
 Kc2p = 1; lnKc2p = log(1.0);
-Kp2c;
+Kp2c = 1; lnKp2c = log(1.0);
 
 
 #-------------------------------------------
@@ -300,24 +300,47 @@ Km_vivo;
 #------------------------
 # Population Mean (M_...)
 #------------------------
+M_lnPeff;
+M_lnPC_stom;
 M_lnPC_duod; #(3)
+M_lnPC_jeju;
+M_lnPC_ileum;
+M_lnPC_cecum;
+M_lnPC_colon;
+M_lnFu_stom;
 M_lnFu_duod; #(1)
+M_lnFu_jeju;
+M_lnFu_ileum;
+M_lnFu_cecum;
 M_lnFu_colon; #(5)
 M_lnV_central; #(7)
+M_lnV_periph;
 M_lnVmax_vitro; #(2)
 M_lnKm_vitro; #(4)
 M_lnKc2p; #(6)
-
+M_lnKp2c;
 #----------------------------
 # Population Variance (V_...)
 #-----------------------------
+V_lnPeff;
+V_lnPC_stom;
 V_lnPC_duod; #(3)
+V_lnPC_jeju;
+V_lnPC_ileum;
+V_lnPC_cecum;
+V_lnPC_colon;
+V_lnFu_stom;
 V_lnFu_duod; #(1)
+V_lnFu_jeju;
+V_lnFu_ileum;
+V_lnFu_cecum;
 V_lnFu_colon; #(5)
 V_lnV_central; #(7)
+V_lnV_periph;
 V_lnVmax_vitro; #(2)
 V_lnKm_vitro; #(4)
 V_lnKc2p; #(6)
+V_lnKp2c;
 
 #-------------------------
 #  Data Error (Verr_...)
@@ -325,11 +348,28 @@ V_lnKc2p; #(6)
 
 Ve_lnC_central;
 
-
-
-
 Initialize {
 
+Peff = exp(lnPeff);
+PC_stom = exp(lnPC_stom);
+PC_duod = exp(lnPC_duod); #(3)
+PC_jeju = exp(lnPC_jeju);
+PC_ileum = exp(lnPC_ileum);
+PC_cecum = exp(lnPC_cecum);
+PC_colon = exp(lnPC_colon);
+Fu_stom = exp(lnFu_stom);
+Fu_duod = exp(lnFu_duod); #(1)
+Fu_jeju = exp(lnFu_jeju);
+Fu_ileum= exp(lnFu_ileum);
+Fu_cecum = exp(lnFu_cecum);
+Fu_colon = exp(lnFu_colon); #(5)
+V_central = exp(lnV_central); #(7)
+V_periph = exp(lnV_periph);
+Vmax_vitro = exp(lnVmax_vitro); #(2)
+Km_vitro = exp(lnKm_vitro); #(4)
+Kc2p = exp(lnKc2p); #(6)
+Kp2c = exp(lnKp2c);	
+		
   # Total blood flow
   F_total = sc_F_total * pow(BDM, 0.75);
 
