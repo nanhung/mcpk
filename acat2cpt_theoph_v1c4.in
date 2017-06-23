@@ -33,7 +33,7 @@ Distrib (M_lnV_periph, Uniform, -2.3,  2.3);
 Distrib (M_lnVmax_vitro, Uniform, -2.3, 2.3); #(2)
 Distrib (M_lnKm_vitro, Uniform, 4.61, 6.91); #(4)
 
-Distrib (M_lnKmet, Uniform, -3,  0);		
+Distrib (M_lnKmet, Uniform, -4,  1);		
 Distrib (M_lnKc2p, Uniform, -2.3,  2.3); #(6)
 Distrib (M_lnKp2c, Uniform, -2.3,  2.3);
 	
@@ -93,7 +93,7 @@ Distrib (lnV_periph, TruncNormal_v, M_lnV_central, V_lnV_periph, -2.3,  2.3);
 Distrib (lnVmax_vitro, TruncNormal_v, M_lnVmax_vitro, V_lnVmax_vitro, -2.3, 2.3); #(2)
 Distrib (lnKm_vitro, TruncNormal_v, M_lnKm_vitro, V_lnKm_vitro, 4.61, 6.91); #(4)
 
-Distrib (lnKmet, TruncNormal_v, M_lnKmet, V_lnKmet, -3,  0);	
+Distrib (lnKmet, TruncNormal_v, M_lnKmet, V_lnKmet, -4,  1);	
 	
 Distrib (lnKc2p, TruncNormal_v, M_lnKc2p, V_lnKc2p, -2.3,  2.3); #(6)
 Distrib (lnKp2c, TruncNormal_v, M_lnKp2c, V_lnKp2c, -2.3,  2.3);	
@@ -176,8 +176,8 @@ MM = 180.17; # theophylline
 Tlag = 0;
 
 # Absorption on(1)/off(0) switches
-f_Abs_stom  = 0;
-f_Abs_duod  = 1; # prior-test
+f_Abs_stom  = 1;
+f_Abs_duod  = 0; # prior-test
 f_Abs_jeju  = 0;
 f_Abs_ileum = 0;
 f_Abs_cecum = 0;
@@ -228,7 +228,7 @@ Distrib (lnV_central, TruncNormal_v, lnV_central, V_lnV_central, -2.3,  2.3); #(
 Distrib (lnV_periph,  TruncNormal_v, lnV_central, V_lnV_periph, -2.3,  2.3); 
 Distrib (lnVmax_vitro, TruncNormal_v, lnVmax_vitro, V_lnVmax_vitro, -2.3, 2.3); #(2)
 Distrib (lnKm_vitro,   TruncNormal_v, lnKm_vitro,   V_lnKm_vitro,   4.61, 6.91); #(4)
-Distrib (lnKmet, TruncNormal_v, lnKmet, V_lnKmet, -3,  0);	
+Distrib (lnKmet, TruncNormal_v, lnKmet, V_lnKmet, -4,  1);	
 Distrib (lnKc2p, TruncNormal_v, lnKc2p, V_lnKc2p, -2.3,  2.3); #(6)
 Distrib (lnKp2c, TruncNormal_v, lnKp2c, V_lnKp2c, -2.3,  2.3);	
 	
@@ -314,7 +314,7 @@ Distrib (lnV_central, TruncNormal_v, lnV_central, V_lnV_central, -2.3,  2.3); #(
 Distrib (lnV_periph,  TruncNormal_v, lnV_central, V_lnV_periph, -2.3,  2.3); 
 Distrib (lnVmax_vitro, TruncNormal_v, lnVmax_vitro, V_lnVmax_vitro, -2.3, 2.3); #(2)
 Distrib (lnKm_vitro,   TruncNormal_v, lnKm_vitro,   V_lnKm_vitro,   4.61, 6.91); #(4)
-Distrib (lnKmet, TruncNormal_v, lnKmet, V_lnKmet, -3,  0);	
+Distrib (lnKmet, TruncNormal_v, lnKmet, V_lnKmet, -4,  1);	
 Distrib (lnKc2p, TruncNormal_v, lnKc2p, V_lnKc2p, -2.3,  2.3); #(6)
 Distrib (lnKp2c, TruncNormal_v, lnKp2c, V_lnKp2c, -2.3,  2.3);	
 
