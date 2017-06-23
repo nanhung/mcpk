@@ -1,7 +1,9 @@
-Integrate(Lsodes, 1.0e-5, 3.09e-7, 1);
-MCMC ("acat2cpt_theoph_v1c4.out", 
+# Use to test sensitivity parameter
+
+Integrate(Lsodes, 1.0e-5, 1.0e-7, 1);
+MCMC ("acat2cpt_theoph_v1c5.out", 
 "","",
-100000, 0, 100, 100000, 4444.4);
+100000, 0, 100, 100000, 1111.1);
 
 Level { # Population Level
 
@@ -11,92 +13,112 @@ Level { # Population Level
 
 # Substance-specific parameters
 # (M_)
-Distrib (M_lnPeff, Uniform, -2.3,  2.3); # theophylline
+#Distrib (M_lnPeff, Uniform, -2.3,  2.3); # theophylline
 
-Distrib (M_lnPC_stom,  Uniform, -2.3,  2.3);
+#Distrib (M_lnPC_stom,  Uniform, -2.3,  2.3);
 Distrib (M_lnPC_duod,  Uniform, -2.3,  2.3); #(3)
-Distrib (M_lnPC_jeju,  Uniform, -2.3,  2.3);
-Distrib (M_lnPC_ileum, Uniform, -2.3,  2.3);
-Distrib (M_lnPC_cecum, Uniform, -2.3,  2.3);
-Distrib (M_lnPC_colon, Uniform, -2.3,  2.3);
+#Distrib (M_lnPC_jeju,  Uniform, -2.3,  2.3);
+#Distrib (M_lnPC_ileum, Uniform, -2.3,  2.3);
+#Distrib (M_lnPC_cecum, Uniform, -2.3,  2.3);
+#Distrib (M_lnPC_colon, Uniform, -2.3,  2.3);
 
-Distrib (M_lnFu_stom,  Uniform, -6.9,  0);
+#Distrib (M_lnFu_stom,  Uniform, -6.9,  0);
 Distrib (M_lnFu_duod,  Uniform, -6.9,  0); #(1)
-Distrib (M_lnFu_jeju,  Uniform, -6.9,  0);
-Distrib (M_lnFu_ileum, Uniform, -6.9,  0);
-Distrib (M_lnFu_cecum, Uniform, -6.9,  0);
-Distrib (M_lnFu_colon, Uniform, -6.9,  0); #(5)
+#Distrib (M_lnFu_jeju,  Uniform, -6.9,  0);
+#Distrib (M_lnFu_ileum, Uniform, -6.9,  0);
+#Distrib (M_lnFu_cecum, Uniform, -6.9,  0);
+#Distrib (M_lnFu_colon, Uniform, -6.9,  0); #(5)
 
-Distrib (M_lnV_central, Uniform, -2.3,  2.3); # httk #(7)
-Distrib (M_lnV_periph, Uniform, -2.3,  2.3);
+#Distrib (M_lnV_central, Uniform, -2.3,  2.3); # httk #(7)
+#Distrib (M_lnV_periph, Uniform, -2.3,  2.3);
 	
 Distrib (M_lnVmax_vitro, Uniform, -2.3, 2.3); #(2)
 Distrib (M_lnKm_vitro, Uniform, 4.61, 6.91); #(4)
 
-Distrib (M_lnKmet, Uniform, -3,  0);		
-Distrib (M_lnKc2p, Uniform, -2.3,  2.3); #(6)
-Distrib (M_lnKp2c, Uniform, -2.3,  2.3);
+#Distrib (M_lnKmet, Uniform, -3,  0);		
+#Distrib (M_lnKc2p, Uniform, -2.3,  2.3); #(6)
+#Distrib (M_lnKp2c, Uniform, -2.3,  2.3);
 	
 # (V_)	
-Distrib(V_lnPeff, InvGamma, 2.25, 0.3125); # theophylline
+#Distrib(V_lnPeff, InvGamma, 2.25, 0.3125); # theophylline
 
-Distrib (V_lnPC_stom,  InvGamma, 2.25, 0.3125);
+#Distrib (V_lnPC_stom,  InvGamma, 2.25, 0.3125);
 Distrib (V_lnPC_duod,  InvGamma, 2.25, 0.3125); #(3)
-Distrib (V_lnPC_jeju,  InvGamma, 2.25, 0.3125);
-Distrib (V_lnPC_ileum, InvGamma, 2.25, 0.3125);
-Distrib (V_lnPC_cecum, InvGamma, 2.25, 0.3125);
-Distrib (V_lnPC_colon, InvGamma, 2.25, 0.3125);
+#Distrib (V_lnPC_jeju,  InvGamma, 2.25, 0.3125);
+#Distrib (V_lnPC_ileum, InvGamma, 2.25, 0.3125);
+#Distrib (V_lnPC_cecum, InvGamma, 2.25, 0.3125);
+#Distrib (V_lnPC_colon, InvGamma, 2.25, 0.3125);
 	
-Distrib (V_lnFu_stom,  InvGamma, 2.25, 0.3125);
+#Distrib (V_lnFu_stom,  InvGamma, 2.25, 0.3125);
 Distrib (V_lnFu_duod,  InvGamma, 2.25, 0.3125); #(1)
-Distrib (V_lnFu_jeju,  InvGamma, 2.25, 0.3125);
-Distrib (V_lnFu_ileum, InvGamma, 2.25, 0.3125);
-Distrib (V_lnFu_cecum, InvGamma, 2.25, 0.3125);
-Distrib (V_lnFu_colon, InvGamma, 2.25, 0.3125); #(5)
+#Distrib (V_lnFu_jeju,  InvGamma, 2.25, 0.3125);
+#Distrib (V_lnFu_ileum, InvGamma, 2.25, 0.3125);
+#Distrib (V_lnFu_cecum, InvGamma, 2.25, 0.3125);
+#Distrib (V_lnFu_colon, InvGamma, 2.25, 0.3125); #(5)
 	
-Distrib(V_lnV_central, InvGamma, 2.25, 0.3125);
-Distrib(V_lnV_periph,  InvGamma, 2.25, 0.3125);
+#Distrib(V_lnV_central, InvGamma, 2.25, 0.3125);
+#Distrib(V_lnV_periph,  InvGamma, 2.25, 0.3125);
 
-Distrib(V_lnVmax_vitro, InvGamma, 2.25, 0.3125);
-Distrib(V_lnKm_vitro,   InvGamma, 2.25, 0.3125);
+Distrib(V_lnVmax_vitro, InvGamma, 2.25, 0.3125); #(2)
+Distrib(V_lnKm_vitro,   InvGamma, 2.25, 0.3125); #(4)
 
-Distrib(V_lnKmet, InvGamma, 2.25, 0.3125);	
-Distrib(V_lnKc2p, InvGamma, 2.25, 0.3125);
-Distrib(V_lnKp2c, InvGamma, 2.25, 0.3125);
+#Distrib(V_lnKmet, InvGamma, 2.25, 0.3125);	
+#Distrib(V_lnKc2p, InvGamma, 2.25, 0.3125);
+#Distrib(V_lnKp2c, InvGamma, 2.25, 0.3125);
 
 Distrib(Ve_lnC_central, LogUniform, 0.01, 0.5);
-
 Likelihood(Data(lnC_central), Normal_v, Prediction(lnC_central), Ve_lnC_central);
 
 
 Level { # Group Level
 
-Distrib (lnPeff, TruncNormal_v, M_lnPeff, V_lnPeff, -2.3, 2.3);
+lnPeff = -2.055;
+lnPC_stom = 1.676;
+#lnPC_duod = -1.99;
+lnPC_jeju = 1.853;	
+lnPC_ileum = 1.224;
+lnPC_cecum = 0.223;
+lnPC_colon = 1.183;	
+lnFu_stom = -3.021;
+#lnFu_duod = -0.744;	
+lnFu_jeju = -2.62;
+lnFu_ileum = -4.369154;	
+lnFu_cecum = -3.641;	
+lnFu_colon = -1.988;	
+lnV_central	= -2.056;
+lnV_periph = -0.120;
+#lnVmax_vitro = 0.973;
+#lnKm_vitro = 5.442;	
+lnKmet = -1.9089;
+lnKc2p = -0.3604587;
+lnKp2c = 1.331;
 	
-Distrib (lnPC_stom, TruncNormal_v, M_lnPC_stom, V_lnPC_stom, -2.3, 2.3); 
+#Distrib (lnPeff, TruncNormal_v, M_lnPeff, V_lnPeff, -2.3, 2.3);
+	
+#Distrib (lnPC_stom, TruncNormal_v, M_lnPC_stom, V_lnPC_stom, -2.3, 2.3); 
 Distrib (lnPC_duod, TruncNormal_v, M_lnPC_duod, V_lnPC_duod, -2.3, 2.3); #(3)
-Distrib (lnPC_jeju, TruncNormal_v, M_lnPC_jeju, V_lnPC_jeju, -2.3, 2.3); 
-Distrib (lnPC_ileum, TruncNormal_v, M_lnPC_ileum, V_lnPC_ileum, -2.3, 2.3); 
-Distrib (lnPC_cecum, TruncNormal_v, M_lnPC_cecum, V_lnPC_cecum, -2.3, 2.3); 
-Distrib (lnPC_colon, TruncNormal_v, M_lnPC_colon, V_lnPC_colon, -2.3, 2.3); 
+#Distrib (lnPC_jeju, TruncNormal_v, M_lnPC_jeju, V_lnPC_jeju, -2.3, 2.3); 
+#Distrib (lnPC_ileum, TruncNormal_v, M_lnPC_ileum, V_lnPC_ileum, -2.3, 2.3); 
+#Distrib (lnPC_cecum, TruncNormal_v, M_lnPC_cecum, V_lnPC_cecum, -2.3, 2.3); 
+#Distrib (lnPC_colon, TruncNormal_v, M_lnPC_colon, V_lnPC_colon, -2.3, 2.3); 
 
-Distrib (lnFu_stom,  TruncNormal_v, M_lnFu_stom, V_lnFu_stom, -6.9,  0);
+#Distrib (lnFu_stom,  TruncNormal_v, M_lnFu_stom, V_lnFu_stom, -6.9,  0);
 Distrib (lnFu_duod,  TruncNormal_v, M_lnFu_duod, V_lnFu_duod, -6.9,  0); #(1)
-Distrib (lnFu_jeju,  TruncNormal_v, M_lnFu_jeju, V_lnFu_jeju, -6.9,  0); 
-Distrib (lnFu_ileum, TruncNormal_v, M_lnFu_ileum, V_lnFu_ileum, -6.9,  0); 
-Distrib (lnFu_cecum, TruncNormal_v, M_lnFu_cecum, V_lnFu_cecum, -6.9,  0); 
-Distrib (lnFu_colon, TruncNormal_v, M_lnFu_colon, V_lnFu_colon, -6.9,  0); #(5)
+#Distrib (lnFu_jeju,  TruncNormal_v, M_lnFu_jeju, V_lnFu_jeju, -6.9,  0); 
+#Distrib (lnFu_ileum, TruncNormal_v, M_lnFu_ileum, V_lnFu_ileum, -6.9,  0); 
+#Distrib (lnFu_cecum, TruncNormal_v, M_lnFu_cecum, V_lnFu_cecum, -6.9,  0); 
+#Distrib (lnFu_colon, TruncNormal_v, M_lnFu_colon, V_lnFu_colon, -6.9,  0); #(5)
 	
-Distrib (lnV_central, TruncNormal_v, M_lnV_central, V_lnV_central, -2.3,  2.3); #(7)
-Distrib (lnV_periph, TruncNormal_v, M_lnV_central, V_lnV_periph, -2.3,  2.3); 
+#Distrib (lnV_central, TruncNormal_v, M_lnV_central, V_lnV_central, -2.3,  2.3); #(7)
+#Distrib (lnV_periph, TruncNormal_v, M_lnV_central, V_lnV_periph, -2.3,  2.3); 
 	
 Distrib (lnVmax_vitro, TruncNormal_v, M_lnVmax_vitro, V_lnVmax_vitro, -2.3, 2.3); #(2)
 Distrib (lnKm_vitro, TruncNormal_v, M_lnKm_vitro, V_lnKm_vitro, 4.61, 6.91); #(4)
 
-Distrib (lnKmet, TruncNormal_v, M_lnKmet, V_lnKmet, -3,  0);	
+#Distrib (lnKmet, TruncNormal_v, M_lnKmet, V_lnKmet, -3,  0);	
 	
-Distrib (lnKc2p, TruncNormal_v, M_lnKc2p, V_lnKc2p, -2.3,  2.3); #(6)
-Distrib (lnKp2c, TruncNormal_v, M_lnKp2c, V_lnKp2c, -2.3,  2.3);	
+#Distrib (lnKc2p, TruncNormal_v, M_lnKc2p, V_lnKc2p, -2.3,  2.3); #(6)
+#Distrib (lnKp2c, TruncNormal_v, M_lnKp2c, V_lnKp2c, -2.3,  2.3);	
 
 # ------------------------
 # Physiological parameters
@@ -211,26 +233,26 @@ f_Abs_colon = 0;
 Level { # Group A
 #--------------
 
-Distrib (lnPeff, TruncNormal_v, lnPeff, V_lnPeff, -2.3, 2.3);
-Distrib (lnPC_stom, TruncNormal_v, lnPC_stom, V_lnPC_stom, -2.3, 2.3); 
+#Distrib (lnPeff, TruncNormal_v, lnPeff, V_lnPeff, -2.3, 2.3);
+#Distrib (lnPC_stom, TruncNormal_v, lnPC_stom, V_lnPC_stom, -2.3, 2.3); 
 Distrib (lnPC_duod, TruncNormal_v, lnPC_duod, V_lnPC_duod, -2.3, 2.3); #(3)
-Distrib (lnPC_jeju, TruncNormal_v, lnPC_jeju, V_lnPC_jeju, -2.3, 2.3); 
-Distrib (lnPC_ileum, TruncNormal_v, lnPC_ileum, V_lnPC_ileum, -2.3, 2.3); 
-Distrib (lnPC_cecum, TruncNormal_v, lnPC_cecum, V_lnPC_cecum, -2.3, 2.3); 
-Distrib (lnPC_colon, TruncNormal_v, lnPC_colon, V_lnPC_colon, -2.3, 2.3); 
-Distrib (lnFu_stom,  TruncNormal_v, lnFu_stom, V_lnFu_stom, -6.9,  0);
+#Distrib (lnPC_jeju, TruncNormal_v, lnPC_jeju, V_lnPC_jeju, -2.3, 2.3); 
+#Distrib (lnPC_ileum, TruncNormal_v, lnPC_ileum, V_lnPC_ileum, -2.3, 2.3); 
+#Distrib (lnPC_cecum, TruncNormal_v, lnPC_cecum, V_lnPC_cecum, -2.3, 2.3); 
+#Distrib (lnPC_colon, TruncNormal_v, lnPC_colon, V_lnPC_colon, -2.3, 2.3); 
+#Distrib (lnFu_stom,  TruncNormal_v, lnFu_stom, V_lnFu_stom, -6.9,  0);
 Distrib (lnFu_duod,  TruncNormal_v, lnFu_duod, V_lnFu_duod, -6.9,  0); #(1)
-Distrib (lnFu_jeju,  TruncNormal_v, lnFu_jeju, V_lnFu_jeju, -6.9,  0); 
-Distrib (lnFu_ileum, TruncNormal_v, lnFu_ileum, V_lnFu_ileum, -6.9,  0); 
-Distrib (lnFu_cecum, TruncNormal_v, lnFu_cecum, V_lnFu_cecum, -6.9,  0); 
-Distrib (lnFu_colon, TruncNormal_v, lnFu_colon, V_lnFu_colon, -6.9,  0); #(5)
-Distrib (lnV_central, TruncNormal_v, lnV_central, V_lnV_central, -2.3,  2.3); #(7)
-Distrib (lnV_periph,  TruncNormal_v, lnV_central, V_lnV_periph, -2.3,  2.3); 
+#Distrib (lnFu_jeju,  TruncNormal_v, lnFu_jeju, V_lnFu_jeju, -6.9,  0); 
+#Distrib (lnFu_ileum, TruncNormal_v, lnFu_ileum, V_lnFu_ileum, -6.9,  0); 
+#Distrib (lnFu_cecum, TruncNormal_v, lnFu_cecum, V_lnFu_cecum, -6.9,  0); 
+#Distrib (lnFu_colon, TruncNormal_v, lnFu_colon, V_lnFu_colon, -6.9,  0); #(5)
+#Distrib (lnV_central, TruncNormal_v, lnV_central, V_lnV_central, -2.3,  2.3); #(7)
+#Distrib (lnV_periph,  TruncNormal_v, lnV_central, V_lnV_periph, -2.3,  2.3); 
 Distrib (lnVmax_vitro, TruncNormal_v, lnVmax_vitro, V_lnVmax_vitro, -2.3, 2.3); #(2)
 Distrib (lnKm_vitro,   TruncNormal_v, lnKm_vitro,   V_lnKm_vitro,   4.61, 6.91); #(4)
-Distrib (lnKmet, TruncNormal_v, lnKmet, V_lnKmet, -3,  0);	
-Distrib (lnKc2p, TruncNormal_v, lnKc2p, V_lnKc2p, -2.3,  2.3); #(6)
-Distrib (lnKp2c, TruncNormal_v, lnKp2c, V_lnKp2c, -2.3,  2.3);	
+#Distrib (lnKmet, TruncNormal_v, lnKmet, V_lnKmet, -3,  0);	
+#Distrib (lnKc2p, TruncNormal_v, lnKc2p, V_lnKc2p, -2.3,  2.3); #(6)
+#Distrib (lnKp2c, TruncNormal_v, lnKp2c, V_lnKp2c, -2.3,  2.3);	
 	
 
 Simulation { # 1
@@ -297,26 +319,26 @@ Data(lnC_central, -3.712296 -3.262379 -3.089767 -3.139777 -3.178998 -3.369352 -3
 Level { # Group B
 #--------------
 
-Distrib (lnPeff, TruncNormal_v, lnPeff, V_lnPeff, -2.3, 2.3);
-Distrib (lnPC_stom, TruncNormal_v, lnPC_stom, V_lnPC_stom, -2.3, 2.3); 
+#Distrib (lnPeff, TruncNormal_v, lnPeff, V_lnPeff, -2.3, 2.3);
+#Distrib (lnPC_stom, TruncNormal_v, lnPC_stom, V_lnPC_stom, -2.3, 2.3); 
 Distrib (lnPC_duod, TruncNormal_v, lnPC_duod, V_lnPC_duod, -2.3, 2.3); #(3)
-Distrib (lnPC_jeju, TruncNormal_v, lnPC_jeju, V_lnPC_jeju, -2.3, 2.3); 
-Distrib (lnPC_ileum, TruncNormal_v, lnPC_ileum, V_lnPC_ileum, -2.3, 2.3); 
-Distrib (lnPC_cecum, TruncNormal_v, lnPC_cecum, V_lnPC_cecum, -2.3, 2.3); 
-Distrib (lnPC_colon, TruncNormal_v, lnPC_colon, V_lnPC_colon, -2.3, 2.3); 
-Distrib (lnFu_stom,  TruncNormal_v, lnFu_stom, V_lnFu_stom, -6.9,  0);
+#Distrib (lnPC_jeju, TruncNormal_v, lnPC_jeju, V_lnPC_jeju, -2.3, 2.3); 
+#Distrib (lnPC_ileum, TruncNormal_v, lnPC_ileum, V_lnPC_ileum, -2.3, 2.3); 
+#Distrib (lnPC_cecum, TruncNormal_v, lnPC_cecum, V_lnPC_cecum, -2.3, 2.3); 
+#Distrib (lnPC_colon, TruncNormal_v, lnPC_colon, V_lnPC_colon, -2.3, 2.3); 
+#Distrib (lnFu_stom,  TruncNormal_v, lnFu_stom, V_lnFu_stom, -6.9,  0);
 Distrib (lnFu_duod,  TruncNormal_v, lnFu_duod, V_lnFu_duod, -6.9,  0); #(1)
-Distrib (lnFu_jeju,  TruncNormal_v, lnFu_jeju, V_lnFu_jeju, -6.9,  0); 
-Distrib (lnFu_ileum, TruncNormal_v, lnFu_ileum, V_lnFu_ileum, -6.9,  0); 
-Distrib (lnFu_cecum, TruncNormal_v, lnFu_cecum, V_lnFu_cecum, -6.9,  0); 
-Distrib (lnFu_colon, TruncNormal_v, lnFu_colon, V_lnFu_colon, -6.9,  0); #(5)
-Distrib (lnV_central, TruncNormal_v, lnV_central, V_lnV_central, -2.3,  2.3); #(7)
-Distrib (lnV_periph,  TruncNormal_v, lnV_central, V_lnV_periph, -2.3,  2.3); 
+#Distrib (lnFu_jeju,  TruncNormal_v, lnFu_jeju, V_lnFu_jeju, -6.9,  0); 
+#Distrib (lnFu_ileum, TruncNormal_v, lnFu_ileum, V_lnFu_ileum, -6.9,  0); 
+#Distrib (lnFu_cecum, TruncNormal_v, lnFu_cecum, V_lnFu_cecum, -6.9,  0); 
+#Distrib (lnFu_colon, TruncNormal_v, lnFu_colon, V_lnFu_colon, -6.9,  0); #(5)
+#Distrib (lnV_central, TruncNormal_v, lnV_central, V_lnV_central, -2.3,  2.3); #(7)
+#Distrib (lnV_periph,  TruncNormal_v, lnV_central, V_lnV_periph, -2.3,  2.3); 
 Distrib (lnVmax_vitro, TruncNormal_v, lnVmax_vitro, V_lnVmax_vitro, -2.3, 2.3); #(2)
 Distrib (lnKm_vitro,   TruncNormal_v, lnKm_vitro,   V_lnKm_vitro,   4.61, 6.91); #(4)
-Distrib (lnKmet, TruncNormal_v, lnKmet, V_lnKmet, -3,  0);	
-Distrib (lnKc2p, TruncNormal_v, lnKc2p, V_lnKc2p, -2.3,  2.3); #(6)
-Distrib (lnKp2c, TruncNormal_v, lnKp2c, V_lnKp2c, -2.3,  2.3);	
+#Distrib (lnKmet, TruncNormal_v, lnKmet, V_lnKmet, -3,  0);	
+#Distrib (lnKc2p, TruncNormal_v, lnKc2p, V_lnKc2p, -2.3,  2.3); #(6)
+#Distrib (lnKp2c, TruncNormal_v, lnKp2c, V_lnKp2c, -2.3,  2.3);	
 
 Simulation { # 7
 
