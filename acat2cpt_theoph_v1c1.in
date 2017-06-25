@@ -176,9 +176,9 @@ MM = 180.17; # theophylline
 Tlag = 0;
 
 # Absorption on(1)/off(0) switches
-f_Abs_stom  = 1;
-f_Abs_duod  = 0; # prior-test
-f_Abs_jeju  = 0;
+f_Abs_stom  = 0;
+f_Abs_duod  = 0;
+f_Abs_jeju  = 1;
 f_Abs_ileum = 0;
 f_Abs_cecum = 0;
 f_Abs_colon = 0;
