@@ -1,7 +1,7 @@
 Integrate(Lsodes, 1.0e-5, 3.09e-7, 1);
 MCMC ("acat2cpt_theoph_v1c1.out", 
 "","",
-100000, 0, 100, 100000, 1111.1);
+200000, 0, 100, 200000, 1111.1);
 
 Level { # Population Level
 
@@ -177,7 +177,7 @@ Tlag = 0;
 
 # Absorption on(1)/off(0) switches
 f_Abs_stom  = 0;
-f_Abs_duod  = 0;
+f_Abs_duod  = 0; 
 f_Abs_jeju  = 1;
 f_Abs_ileum = 0;
 f_Abs_cecum = 0;
