@@ -8,10 +8,12 @@
 #Added Branford individual data in other strains
 #TCA and DCA have background subtracted
 
+# Use to test all additional sensitivity parameters
+
 Integrate(Lsodes, 1e-5, 1e-9 , 1)
 MCMC ("TCE.2.14_v1c2.csv", 
 "","",
-100000, 0, 100, 100000, 2345.6);
+120000, 0, 100, 120000, 2345.6);
 
 
 # Fix following parameters at baseline values
@@ -95,7 +97,7 @@ Level { #Population level
 	Distrib( Ve_CKidDCVGmol , LogUniform , 0.01 , 3.3 );#(v2.12)
 	Distrib( Ve_CBrnDCVGmol , LogUniform , 0.01 , 3.3 );#(v2.12)
 	Distrib( Ve_CDCVCmol , LogUniform , 0.146 , 1.8 );
-#	Distrib( Ve_CLivDCVCmol , LogUniform , 0.01 , 3.3 );#(v2.12)
+	Distrib( Ve_CLivDCVCmol , LogUniform , 0.01 , 3.3 );#(v2.12)
 	Distrib( Ve_CKidDCVCmol , LogUniform , 0.01 , 3.3 );#(v2.12)
 	Distrib( Ve_CBrnDCVCmol , LogUniform , 0.01 , 3.3 );#(v2.12)
 	Distrib( Ve_CNDCVCmol , LogUniform , 0.01 , 3.3 ); #(v2.12)
@@ -697,8 +699,8 @@ Print( CBrnDCVGmol 1 6);
 Data( CBrnDCVGmol 3.736295e-05 4.354531e-06);
 Print( CDCVCmol  1); 
 Data( CDCVCmol 1.010557e-05);
-#Print( CLivDCVCmol  0.0); 
-#Data( CLivDCVCmol  -1);
+Print( CLivDCVCmol  0.0); 
+Data( CLivDCVCmol  -1);
 Print( CKidDCVCmol 1 2); 
 Data( CKidDCVCmol 6.340500e-06 3.053083e-06);
 Print( CBrnDCVCmol  1); 
@@ -765,8 +767,8 @@ Print( CBrnDCVGmol 6 24);
 Data( CBrnDCVGmol  3.030607e-05 2.638858e-06);
 Print( CDCVCmol  2 6 12 24); 
 Data( CDCVCmol 1.438198e-05 1.073948e-05 1.054803e-05 9.940699e-06);
-#Print( CLivDCVCmol  0.0); 
-#Data( CLivDCVCmol  -1);
+Print( CLivDCVCmol  0.0); 
+Data( CLivDCVCmol  -1);
 Print( CKidDCVCmol 1 2 6 12); 
 Data( CKidDCVCmol 1.811843e-05 1.232787e-05 2.788699e-06 1.955004e-06);
 Print( CBrnDCVCmol 12); 
@@ -833,8 +835,8 @@ Print( CBrnDCVGmol 2);
 Data( CBrnDCVGmol 1.873996e-05);
 Print( CDCVCmol  2 6); 
 Data( CDCVCmol 1.082937e-05 7.965179e-06);
-#Print( CLivDCVCmol  0.0); 
-#Data( CLivDCVCmol  -1);
+Print( CLivDCVCmol  0.0); 
+Data( CLivDCVCmol  -1);
 Print( CKidDCVGmol 1 2); 
 Data( CKidDCVCmol 1.841795e-06);
 Print( CBrnDCVCmol  2); 
@@ -858,15 +860,15 @@ Experiment { # IL1688M
 Male = 1 ;
 
 # Measured Covariates (if any)
-BWmeas =  0.0304 ;
-VLivC = 0.7177033 ;
+BWmeas =  0.029 ;
+VLivC = 0.7655136 ;
 VKidC = 0.5611455 ;
 
 # Exposure/Dosing 
-PDose = NDoses(2, 800 0 , 0 0.05 ) ; #(v2.10)
+PDose = NDoses(2, 800 0 , 0 0.05 ) ; 
 TChng = 0.05 ;
 
-# Variables
+# Compartment
 Print( CVenmol, 1); #(v2.14)
 Data(CVenmol, 0.001008); #(v2.14)
 Print(CLivmol, 1 2); #(v2.14)
@@ -899,8 +901,8 @@ Print( CBrnDCVGmol 2 24);
 Data( CBrnDCVGmol 2.892686e-05 1.486564e-06);
 Print( CDCVCmol  24); 
 Data( CDCVCmol  9.775076e-06);
-#Print( CLivDCVCmol  0.0); 
-#Data( CLivDCVCmol  -1);
+Print( CLivDCVCmol  0.0); 
+Data( CLivDCVCmol  -1);
 Print( CKidDCVCmol 1 2); 
 Data( CKidDCVCmol 7.229516e-06 2.513316e-06);
 Print( CBrnDCVCmol  1); 
@@ -919,7 +921,210 @@ Data( CBrnNDCVCmol -1);
 ######## END GROUP D
 }
 
+Level { #Group E
+
+Experiment { # C57BL/6
+Male = 1 ;
+
+# Measured Covariates (if any)
+BWmeas = 0.029;
+VLivC = 0.7655136;
+VKidC = 0.702958;
+VBrnC = 0.9050792;
+
+# Exposure/Dosing 
+PDose = NDoses(2, 800 0 , 0 0.05 ) ; 
+TChng = 0.05 ;
+
+# Compartment
+Print( CVenmol, 0.0); 
+Data(CVenmol, -1); 
+Print(CLivmol, 0.0); 
+Data(CLivmol, -1); 
+Print( CKidmol, 0.0); 
+Data(CKidmol, -1); 
+Print(CBrnmol, 0.0); 
+Data(CBrnmol, -1);
+Print( CPlasTCAmol 0.0);
+Data( CPlasTCAmol -1);
+Print( CLivTCAmol 0.1);
+Data( CLivTCAmol -1);
+Print( CKidTCAmol 0.0);
+Data( CKidTCAmol -1);
+Print( CBrnTCAmol 0.0);
+Data( CBrnTCAmol -1);
+Print( TotCTCOHmol 0.0);
+Data( TotCTCOHmol -1);
+Print( TotLivTCOHmol 0.0);
+Data( TotLivTCOHmol -1);
+Print( TotBrnTCOHmol 0.0);
+Data( TotBrnTCOHmol -1); 
+Print( CDCVGmol  1 2); 
+Data( CDCVGmol 4.870776e-06 1.246163e-06);
+Print( CLivDCVGmol  1 2 6 12); 
+Data( CLivDCVGmol 5.223434e-05 1.785188e-05 3.971072e-06 2.388978e-06);
+Print( CKidDCVGmol 1 2); 
+Data( CKidDCVGmol 7.684046e-06 4.253220e-06);
+Print( CBrnDCVGmol 1 2 6 12); 
+Data( CBrnDCVGmol 3.472114e-05 2.688351e-05 8.667645e-06 2.607625e-06);
+Print( CDCVCmol  1); 
+Data( CDCVCmol  1.448438e-06);
+Print( CLivDCVCmol  1 2); 
+Data( CLivDCVCmol  4.429927e-06 3.533407e-06);
+Print( CKidDCVCmol 1 2 6); 
+Data( CKidDCVCmol 9.924182e-06 2.148409e-05 1.243031e-05);
+Print( CBrnDCVCmol  1 2 6); 
+Data( CBrnDCVCmol 8.234225e-06 9.522803e-06 7.042150e-06);
+Print( CNDCVCmol 1 2);  
+Data( CNDCVCmol 1.031234e-05 7.081821e-07);
+Print( CLivNDCVCmol 1 2 6 12); 
+Data( CLivNDCVCmol 1.225828e-05 6.966679e-06 3.660151e-06 3.403667e-06);
+Print( CKidNDCVCmol 1 2); 
+Data( CKidNDCVCmol 8.450510e-06 6.657965e-06);
+Print( CBrnNDCVCmol 1 2); 
+Data( CBrnNDCVCmol 7.583512e-06 4.189690e-06);
+
+} # End C57BL/6
+
+######## END GROUP E
+}
+
+Level { #Group F
+
+Experiment { # B6C3F1
+Male = 1 ;
+
+# Measured Covariates (if any)
+BWmeas = 0.0288;
+VLivC = 0.8581433;
+VKidC = 0.8781228;
+VBrnC = 0.8917371;
+
+# Exposure/Dosing 
+PDose = NDoses(2, 800 0 , 0 0.05 ) ; 
+TChng = 0.05 ;
+
+# Compartment
+Print( CVenmol, 0.0); 
+Data(CVenmol, -1); 
+Print(CLivmol, 0.0); 
+Data(CLivmol, -1); 
+Print( CKidmol, 0.0); 
+Data(CKidmol, -1); 
+Print(CBrnmol, 0.0); 
+Data(CBrnmol, -1);
+Print( CPlasTCAmol 0.0);
+Data( CPlasTCAmol -1);
+Print( CLivTCAmol 0.1);
+Data( CLivTCAmol -1);
+Print( CKidTCAmol 0.0);
+Data( CKidTCAmol -1);
+Print( CBrnTCAmol 0.0);
+Data( CBrnTCAmol -1);
+Print( TotCTCOHmol 0.0);
+Data( TotCTCOHmol -1);
+Print( TotLivTCOHmol 0.0);
+Data( TotLivTCOHmol -1);
+Print( TotBrnTCOHmol 0.0);
+Data( TotBrnTCOHmol -1); 
+Print( CDCVGmol  1 2 6); 
+Data( CDCVGmol 2.339666e-06 2.281099e-07 1.290537e-07);
+Print( CLivDCVGmol  1 2 6 12); 
+Data( CLivDCVGmol 3.347188e-05 7.750781e-06 3.040018e-06 2.786674e-06);
+Print( CKidDCVGmol 1 2 6); 
+Data( CKidDCVGmol 5.694486e-06 3.741404e-06 3.751008e-06);
+Print( CBrnDCVGmol 1 2 6 12); 
+Data( CBrnDCVGmol 2.820809e-05 1.535133e-05 1.442161e-05 1.161353e-06);
+Print( CDCVCmol  0.0); 
+Data( CDCVCmol  -1);
+Print( CLivDCVCmol  1 2 6 12); 
+Data( CLivDCVCmol  3.347188e-05 7.750781e-06 3.040018e-06 2.786674e-06);
+Print( CKidDCVCmol 1 2 6 12); 
+Data( CKidDCVCmol 2.791505e-05 1.684689e-05 1.325631e-05 1.065698e-05);
+Print( CBrnDCVCmol  1 2 6); 
+Data( CBrnDCVCmol 4.592308e-06 5.224683e-06 2.920412e-06);
+Print( CNDCVCmol 1 2);  
+Data( CNDCVCmol 9.145367e-07 3.949348e-07);
+Print( CLivNDCVCmol 1 2 6 12); 
+Data( CLivNDCVCmol 8.046425e-06 5.102116e-06 4.112303e-06 3.097324e-06);
+Print( CKidNDCVCmol 1 2 6); 
+Data( CKidNDCVCmol 7.054325e-06 4.974214e-06 4.743798e-06 );
+Print( CBrnNDCVCmol 1 2 6); 
+Data( CBrnNDCVCmol 4.618229e-06 4.123503e-06 4.230791e-06);
+
+} # End B6C3F1
+
+######## END GROUP F
+}
+
+Level { #Group G
+
+Experiment { # NZW/LacJ
+Male = 1 ;
+
+# Measured Covariates (if any)
+BWmeas = 0.031;
+VLivC = 0.9747242;
+VKidC = 0.9451523;
+VBrnC = 0.8096142;
+
+# Exposure/Dosing 
+PDose = NDoses(2, 800 0 , 0 0.05 ) ; 
+TChng = 0.05 ;
+
+# Compartment
+Print( CVenmol, 0.0); 
+Data(CVenmol, -1); 
+Print(CLivmol, 0.0); 
+Data(CLivmol, -1); 
+Print( CKidmol, 0.0); 
+Data(CKidmol, -1); 
+Print(CBrnmol, 0.0); 
+Data(CBrnmol, -1);
+Print( CPlasTCAmol 0.0);
+Data( CPlasTCAmol -1);
+Print( CLivTCAmol 0.1);
+Data( CLivTCAmol -1);
+Print( CKidTCAmol 0.0);
+Data( CKidTCAmol -1);
+Print( CBrnTCAmol 0.0);
+Data( CBrnTCAmol -1);
+Print( TotCTCOHmol 0.0);
+Data( TotCTCOHmol -1);
+Print( TotLivTCOHmol 0.0);
+Data( TotLivTCOHmol -1);
+Print( TotBrnTCOHmol 0.0);
+Data( TotBrnTCOHmol -1); 
+Print( CDCVGmol  1 2); 
+Data( CDCVGmol 1.562644e-06 1.793852e-07);
+Print( CLivDCVGmol  1 2 6 12); 
+Data( CLivDCVGmol 2.533301e-05 8.747101e-06 2.772335e-06 2.400419e-06);
+Print( CKidDCVGmol 1 2); 
+Data( CKidDCVGmol  1.160605e-05 4.676184e-06);
+Print( CBrnDCVGmol 1 2 6 12); 
+Data( CBrnDCVGmol 2.369708e-05 2.609354e-05 6.184734e-06 1.177056e-06);
+Print( CDCVCmol  0.0); 
+Data( CDCVCmol  -1);
+Print( CLivDCVCmol 1 2 12); 
+Data( CLivDCVCmol  9.354736e-07 1.342918e-06 1.012577e-06);
+Print( CKidDCVCmol 1 2); 
+Data( CKidDCVCmol 4.050647e-06 5.921789e-06);
+Print( CBrnDCVCmol  1 2); 
+Data( CBrnDCVCmol 4.050647e-06 5.921789e-06);
+Print( CNDCVCmol 1 2 6);  
+Data( CNDCVCmol 1.570000e-06 7.573806e-07 2.898473e-07 );
+Print( CLivNDCVCmol 1 2 6); 
+Data( CLivNDCVCmol 8.112250e-06 4.576013e-06 3.393857e-06);
+Print( CKidNDCVCmol 1 2 6); 
+Data( CKidNDCVCmol 7.789556e-06 5.711186e-06 4.822128e-06);
+Print( CBrnNDCVCmol 1 2 6); 
+Data( CBrnNDCVCmol 4.147236e-06 5.066690e-06 3.944407e-06);
+
+} # End NZW/LacJ
+
+######## END GROUP G
+}
+
 };
 };
 End.
-
