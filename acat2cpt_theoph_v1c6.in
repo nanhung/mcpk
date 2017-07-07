@@ -1,0 +1,367 @@
+# Test sensitivity parameter
+# Move all experiments to one group
+
+Integrate(Lsodes, 1.0e-5, 3.09e-7, 1);
+MCMC ("acat2cpt_theoph_v1c6.csv", 
+"","",
+100000, 0, 100, 100000, 2222.2);
+
+Level { # Population Level
+
+# ------------------------
+# Non-fixed parameters
+# ------------------------
+
+# Substance-specific parameters
+# (M_)
+#Distrib (M_lnPeff, Uniform, -2.3,  2.3); # theophylline
+
+Distrib (M_lnPC_stom,  Uniform, -2.3,  2.3);
+#Distrib (M_lnPC_duod,  Uniform, -2.3,  2.3); #(3)
+Distrib (M_lnPC_jeju,  Uniform, -2.3,  2.3);
+#Distrib (M_lnPC_ileum, Uniform, -2.3,  2.3);
+#Distrib (M_lnPC_cecum, Uniform, -2.3,  2.3);
+Distrib (M_lnPC_colon, Uniform, -2.3,  2.3);
+
+#Distrib (M_lnFu_stom,  Uniform, -6.9,  0);
+#Distrib (M_lnFu_duod,  Uniform, -6.9,  0); #(1)
+Distrib (M_lnFu_jeju,  Uniform, -6.9,  0);
+#Distrib (M_lnFu_ileum, Uniform, -6.9,  0);
+#Distrib (M_lnFu_cecum, Uniform, -6.9,  0);
+#Distrib (M_lnFu_colon, Uniform, -6.9,  0); #(5)
+
+Distrib (M_lnV_central, Uniform, -2.3,  2.3); # httk #(7)
+#Distrib (M_lnV_periph, Uniform, -2.3,  2.3);
+	
+Distrib (M_lnVmax_vitro, Uniform, -2.3, 2.3); #(2)
+Distrib (M_lnKm_vitro, Uniform, 4.61, 6.91); #(4)
+
+Distrib (M_lnKmet, Uniform, -4,  1);		
+Distrib (M_lnKc2p, Uniform, -2.3,  2.3); #(6)
+Distrib (M_lnKp2c, Uniform, -2.3,  2.3);
+	
+# (V_)	
+#Distrib(V_lnPeff, InvGamma, 2.25, 0.3125); # theophylline
+
+Distrib (V_lnPC_stom,  InvGamma, 2.25, 0.3125);
+#Distrib (V_lnPC_duod,  InvGamma, 2.25, 0.3125); #(3)
+Distrib (V_lnPC_jeju,  InvGamma, 2.25, 0.3125);
+#Distrib (V_lnPC_ileum, InvGamma, 2.25, 0.3125);
+#Distrib (V_lnPC_cecum, InvGamma, 2.25, 0.3125);
+Distrib (V_lnPC_colon, InvGamma, 2.25, 0.3125);
+	
+#Distrib (V_lnFu_stom,  InvGamma, 2.25, 0.3125);
+#Distrib (V_lnFu_duod,  InvGamma, 2.25, 0.3125); #(1)
+Distrib (V_lnFu_jeju,  InvGamma, 2.25, 0.3125);
+#Distrib (V_lnFu_ileum, InvGamma, 2.25, 0.3125);
+#Distrib (V_lnFu_cecum, InvGamma, 2.25, 0.3125);
+#Distrib (V_lnFu_colon, InvGamma, 2.25, 0.3125); #(5)
+	
+Distrib(V_lnV_central, InvGamma, 2.25, 0.3125);
+#Distrib(V_lnV_periph,  InvGamma, 2.25, 0.3125);
+
+Distrib(V_lnVmax_vitro, InvGamma, 2.25, 0.3125);
+Distrib(V_lnKm_vitro,   InvGamma, 2.25, 0.3125);
+
+Distrib(V_lnKmet, InvGamma, 2.25, 0.3125);	
+Distrib(V_lnKc2p, InvGamma, 2.25, 0.3125);
+Distrib(V_lnKp2c, InvGamma, 2.25, 0.3125);
+
+Distrib(Ve_lnC_central, LogUniform, 0.01, 0.5);
+
+Likelihood(Data(lnC_central), Normal_v, Prediction(lnC_central), Ve_lnC_central);
+
+
+Level { # Group Level
+
+#Distrib (lnPeff, TruncNormal_v, M_lnPeff, V_lnPeff, -2.3, 2.3);
+	
+Distrib (lnPC_stom, TruncNormal_v, M_lnPC_stom, V_lnPC_stom, -2.3, 2.3); 
+#Distrib (lnPC_duod, TruncNormal_v, M_lnPC_duod, V_lnPC_duod, -2.3, 2.3); #(3)
+Distrib (lnPC_jeju, TruncNormal_v, M_lnPC_jeju, V_lnPC_jeju, -2.3, 2.3); 
+#Distrib (lnPC_ileum, TruncNormal_v, M_lnPC_ileum, V_lnPC_ileum, -2.3, 2.3); 
+#Distrib (lnPC_cecum, TruncNormal_v, M_lnPC_cecum, V_lnPC_cecum, -2.3, 2.3); 
+Distrib (lnPC_colon, TruncNormal_v, M_lnPC_colon, V_lnPC_colon, -2.3, 2.3); 
+
+#Distrib (lnFu_stom,  TruncNormal_v, M_lnFu_stom, V_lnFu_stom, -6.9,  0);
+#Distrib (lnFu_duod,  TruncNormal_v, M_lnFu_duod, V_lnFu_duod, -6.9,  0); #(1)
+Distrib (lnFu_jeju,  TruncNormal_v, M_lnFu_jeju, V_lnFu_jeju, -6.9,  0); 
+#Distrib (lnFu_ileum, TruncNormal_v, M_lnFu_ileum, V_lnFu_ileum, -6.9,  0); 
+#Distrib (lnFu_cecum, TruncNormal_v, M_lnFu_cecum, V_lnFu_cecum, -6.9,  0); 
+#Distrib (lnFu_colon, TruncNormal_v, M_lnFu_colon, V_lnFu_colon, -6.9,  0); #(5)
+	
+Distrib (lnV_central, TruncNormal_v, M_lnV_central, V_lnV_central, -2.3,  2.3); #(7)
+#Distrib (lnV_periph, TruncNormal_v, M_lnV_central, V_lnV_periph, -2.3,  2.3); 
+	
+Distrib (lnVmax_vitro, TruncNormal_v, M_lnVmax_vitro, V_lnVmax_vitro, -2.3, 2.3); #(2)
+Distrib (lnKm_vitro, TruncNormal_v, M_lnKm_vitro, V_lnKm_vitro, 4.61, 6.91); #(4)
+
+Distrib (lnKmet, TruncNormal_v, M_lnKmet, V_lnKmet, -4,  1);	
+	
+Distrib (lnKc2p, TruncNormal_v, M_lnKc2p, V_lnKc2p, -2.3,  2.3); #(6)
+Distrib (lnKp2c, TruncNormal_v, M_lnKp2c, V_lnKp2c, -2.3,  2.3);	
+
+# ------------------------
+# Physiological parameters
+# ------------------------
+# Total blood flow scaling coefficient to body mass 
+sc_F_total = 15;
+
+# Fractions of total blood flow going to tissues
+f_Flow_stom = 0.024;
+f_Flow_duod = 0.016;
+f_Flow_jeju = 0.056;
+f_Flow_ileum = 0.033;
+f_Flow_cecum = 0.006;
+f_Flow_colon = 0.038;
+
+# Tissue fractions of body mass     
+f_BDM_stom = 0.0021;
+f_BDM_duod = 0.0003;
+f_BDM_jeju = 0.0009;
+f_BDM_ileum = 0.0006;
+f_BDM_cecum = 0.0005;
+f_BDM_colon = 0.0048;
+
+# Lumina as fractions of body mass 
+f_BDM_stom_lu = 0.0036;
+f_BDM_duod_lu = 0.0003;
+f_BDM_jeju_lu = 0.0023; 
+f_BDM_ileum_lu = 0.0032; 
+f_BDM_cecum_lu = 0.0001; 
+f_BDM_colon_lu = 0.0051;
+
+# Lengths of gi tract segments (decimeters, dm)
+Length_stom = 2.5;
+Length_duod = 2.5;
+Length_jeju = 20;    
+Length_ileum = 30;    
+Length_cecum = 1.7;    
+Length_colon = 12.5;	
+
+# Radii of gi tract segments (dm)
+Radius_stom = 0.85;
+Radius_duod = 0.2;
+Radius_jeju = 0.18;    
+Radius_ileum = 0.15;    
+Radius_cecum = 0.35;    
+Radius_colon = 0.25;
+
+# Transit half-lives in lumina (hours)
+T12_stom_lu = 0.25; 
+T12_duod_lu = 0.25; 
+T12_jeju_lu = 1.02; 
+T12_ileum_lu = 2.04;
+T12_cecum_lu = 4.55;
+T12_colon_lu = 13.5;
+
+# Microsomal proteins (mg / g of tissue)
+MicroProt_central = 45;
+MicroProt_stom = 2.64; 
+MicroProt_duod = 9.45;
+MicroProt_jeju = 8.82;
+MicroProt_ileum = 1.62;
+MicroProt_cecum = 2.64; 
+MicroProt_colon = 2.64; 
+
+
+# G.i. tract epithelial volume per unit surface area (L/dm2)
+H_ep =  5.25E-4;
+
+#-------------------------------------
+# Substance-specific parameters
+#-------------------------------------
+
+# Molecular mass (g/mol)
+MM = 180.17; # theophylline
+
+# Administration lagtime, if needed
+Tlag = 0;
+
+# Absorption on(1)/off(0) switches
+f_Abs_stom  = 0;
+f_Abs_duod  = 0;
+f_Abs_jeju  = 1;
+f_Abs_ileum = 0;
+f_Abs_cecum = 0;
+f_Abs_colon = 0;
+
+# Effective permeability of g.i. tract epithelia
+lnPeff = -0.906;
+
+# Tissue / blood partition coefficients
+#PC_stom = 1;
+lnPC_duod = 0.152;	
+#lnPC_jeju = 1;
+lnPC_ileum = -0.521;
+lnPC_cecum = 0.375;
+#PC_colon = 1;
+
+# Fraction unbound in compartments
+lnFu_stom = -2.79;
+lnFu_duod = -3.79;
+#Fu_jeju = 0.8;
+lnFu_ileum = -2.09;
+lnFu_cecum = -2.6;
+lnFu_colon = -3.12;
+	
+# Volumes (L)
+lnV_periph = 0.0687;
+
+# Elimination rate constant from central (1/h)
+#Kmet = 0.05;
+
+# Transfer rate constants between central and peripheral compartments (1/h)
+#Kp2c = 0.26;
+
+Level { # Group A
+#--------------
+
+#Distrib (lnPeff, TruncNormal_v, lnPeff, V_lnPeff, -2.3, 2.3);
+Distrib (lnPC_stom, TruncNormal_v, lnPC_stom, V_lnPC_stom, -2.3, 2.3); 
+#Distrib (lnPC_duod, TruncNormal_v, lnPC_duod, V_lnPC_duod, -2.3, 2.3); #(3)
+Distrib (lnPC_jeju, TruncNormal_v, lnPC_jeju, V_lnPC_jeju, -2.3, 2.3); 
+#Distrib (lnPC_ileum, TruncNormal_v, lnPC_ileum, V_lnPC_ileum, -2.3, 2.3); 
+#Distrib (lnPC_cecum, TruncNormal_v, lnPC_cecum, V_lnPC_cecum, -2.3, 2.3); 
+Distrib (lnPC_colon, TruncNormal_v, lnPC_colon, V_lnPC_colon, -2.3, 2.3); 
+#Distrib (lnFu_stom,  TruncNormal_v, lnFu_stom, V_lnFu_stom, -6.9,  0);
+#Distrib (lnFu_duod,  TruncNormal_v, lnFu_duod, V_lnFu_duod, -6.9,  0); #(1)
+Distrib (lnFu_jeju,  TruncNormal_v, lnFu_jeju, V_lnFu_jeju, -6.9,  0); 
+#Distrib (lnFu_ileum, TruncNormal_v, lnFu_ileum, V_lnFu_ileum, -6.9,  0); 
+#Distrib (lnFu_cecum, TruncNormal_v, lnFu_cecum, V_lnFu_cecum, -6.9,  0); 
+#Distrib (lnFu_colon, TruncNormal_v, lnFu_colon, V_lnFu_colon, -6.9,  0); #(5)
+Distrib (lnV_central, TruncNormal_v, lnV_central, V_lnV_central, -2.3,  2.3); #(7)
+#Distrib (lnV_periph,  TruncNormal_v, lnV_central, V_lnV_periph, -2.3,  2.3); 
+Distrib (lnVmax_vitro, TruncNormal_v, lnVmax_vitro, V_lnVmax_vitro, -2.3, 2.3); #(2)
+Distrib (lnKm_vitro,   TruncNormal_v, lnKm_vitro,   V_lnKm_vitro,   4.61, 6.91); #(4)
+Distrib (lnKmet, TruncNormal_v, lnKmet, V_lnKmet, -4,  1);	
+Distrib (lnKc2p, TruncNormal_v, lnKc2p, V_lnKc2p, -2.3,  2.3); #(6)
+Distrib (lnKp2c, TruncNormal_v, lnKp2c, V_lnKp2c, -2.3,  2.3);	
+	
+
+Simulation { # 1
+
+BDM = 79.6;
+Oral_dose_rate = NDoses(2, 17.761 0, 0 0.1);
+
+Print(lnC_central, 0.25  0.57  1.12  2.02  3.82  5.10  7.03  9.05 12.12 24.37);
+Data(lnC_central, -4.150097 -3.311387 -2.842526 -2.925907 -3.044467 -3.070442 -3.183006 -3.263830 -3.412192 -4.006057);
+
+} # End 1
+
+Simulation { # 2
+
+BDM = 58.2;
+Oral_dose_rate = NDoses(2, 17.766 0, 0 0.1);
+
+Print(lnC_central, 0.37  0.77  1.02  2.05  3.55  5.05  7.08  9.38 12.10 23.70);
+Data(lnC_central, -4.132644 -3.541403 -3.336042 -3.135938 -2.870533 -2.976874 -3.111962 -3.228188 -3.456950 -4.310133);
+	
+} # End 2
+
+Simulation { # 3
+
+BDM = 65;
+Oral_dose_rate = NDoses(2, 17.7499 0, 0 0.1);
+
+Print(lnC_central, 0.25  0.50  0.98  1.98  3.60  5.02  7.03  9.03 12.12 24.08);
+Data(lnC_central, -3.612862 -3.214280 -3.114459 -3.275509 -3.424046 -3.541403 -3.700997 -3.907427 -4.204360 -5.344724);
+	
+} # End 3
+
+Simulation { # 4
+
+BDM = 60.5;
+Oral_dose_rate = NDoses(2, 17.797 0, 0 0.1);
+
+Print(lnC_central, 0.25  0.50  1.00  2.00  3.52  5.07  7.07  9.03 12.05 24.15);
+Data(lnC_central, -4.970757 -3.817657 -3.137216 -2.919715 -2.916634 -3.045633 -3.308348 -3.383974 -3.674388 -5.036897);
+} # End 4
+
+Simulation { # 5
+
+BDM = 72.4;
+Oral_dose_rate = NDoses(2, 17.68108 0, 0 0.1);
+
+Print(lnC_central, 0.27  0.52  1.00  1.92  3.50  5.02  7.03  9.00 12.00 24.30);
+Data(lnC_central, -4.651577 -3.125773 -3.076441 -3.074037 -3.269652 -3.388896 -3.507502 -3.678774 -4.091961 -5.299261);
+	
+} # End 5
+
+Simulation { # 6
+
+BDM = 70.5;
+Oral_dose_rate = NDoses(2, 17.72576 0, 0 0.1);
+
+Print(lnC_central, 0.27  0.58  1.02  2.02  3.62  5.08  7.07  9.00 12.15 24.17);
+Data(lnC_central, -3.712296 -3.262379 -3.089767 -3.139777 -3.178998 -3.369352 -3.526194 -3.604666 -3.885568 -5.145111);
+	
+} # End 6
+
+Simulation { # 7
+
+BDM = 72.7;
+Oral_dose_rate = NDoses(2, 17.754 0, 0 0.1);
+
+
+Print(lnC_central, 0.35  0.60  1.07  2.13  3.50  5.02  7.02  9.02 11.98 24.65);
+Data(lnC_central, -4.557324 -3.667845 -3.042139 -3.068053 -3.173679 -3.265282 -3.439497 -3.520550 -3.761200 -5.054139);
+	
+} # End 7
+
+Simulation { # 8
+
+BDM = 54.6;
+Oral_dose_rate = NDoses(2, 17.766 0, 0 0.1);
+
+Print(lnC_central, 0.30  0.52  1.00  2.02  3.50  5.02  7.02  9.10 12.00 24.35);
+Data(lnC_central, -4.490803 -3.465791 -2.760287 -2.960666 -3.025991 -3.171030 -3.235216 -3.418948 -3.719138 -4.742825);
+	
+} # End 8
+
+Simulation { # 9
+
+BDM = 80;
+Oral_dose_rate = NDoses(2, 17.761 0, 0 0.1);
+
+Print(lnC_central, 0.27  0.58  1.15  2.03  3.57  5.00  7.00  9.22 12.10 23.85);
+Data(lnC_central, -4.939259 -4.068971 -3.331372 -3.350182 -3.483713 -3.596536 -3.802619 -3.952632 -4.171450 -5.277282);
+	
+} # End 9
+
+Simulation { # 10
+
+BDM = 64.6;
+Oral_dose_rate = NDoses(2, 17.74824 0, 0 0.1);
+
+Print(lnC_central, 0.25  0.50  1.02  2.02  3.48  5.00  6.98  9.00 12.05 24.22);
+Data(lnC_central, -5.356420 -4.339486 -3.580471 -3.309866 -3.235216 -3.297781 -3.535673 -3.714572 -3.932603 -5.054139);
+	
+} # End 10
+
+Simulation { # 11
+
+BDM = 70.5;
+Oral_dose_rate = NDoses(2, 17.72576 0, 0 0.1);
+
+Print(lnC_central, 0.25  0.52  0.98  2.02  3.53  5.05  7.15  9.07 12.10 24.12);
+Data(lnC_central, -4.078759 -4.078759 -3.204658 -3.171030 -3.308348 -3.422344 -3.639976 -3.674388 -4.095289 -4.970757);
+	
+} # End 11
+
+Simulation { # 12
+
+BDM = 86.4;
+Oral_dose_rate = NDoses(2, 14.86596 0, 0 0.1);
+
+Print(lnC_central, 0.30  0.63  1.05  2.02  3.53  5.02  7.17  8.80 11.60 24.43);
+Data(lnC_central, -3.196483 -2.993348 -3.228188 -3.348601 -3.460477 -3.458712 -3.749338 -3.780478 -4.043329 -5.080572);
+	
+} # End 12
+		
+} # End Group A
+
+} # End Group Level
+
+} # End Population Level
+End.
