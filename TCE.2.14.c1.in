@@ -14,9 +14,9 @@
 # Fix original insensitive parameters (23)
 
 Integrate(Lsodes, 1e-5, 1e-9 , 1)
-MCMC ("TCE.2.14.c1.out", 
-"","",
-200000, 0, 100, 200000, 1234.56);
+MCMC ("TCE.2.14.c1h.out", 
+"TCE.2.14.c1.out","",
+200000, 2, 100, 200000, 1234.56);
 
 
 # Fix following parameters at baseline values
