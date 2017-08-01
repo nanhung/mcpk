@@ -5,11 +5,11 @@
 #BSUB -R "span[ptile=4]"    ## Request 4 core per node.
 #BSUB -R "rusage[mem=2560]" ## reserves 2560MB per process/CPU for the job 
 #BSUB -M 2560			    ## sets to 2560MB as the per process enforceable memory limit.
-#BSUB -o tce20.0727.%J		    ## directs the job's standard output (%J is jobid)
+#BSUB -o tce220.0731.%J		    ## directs the job's standard output (%J is jobid)
 #BSUB -P 082803364811       ## set account
 
-./mcsim.TCE.2.0.2 tce20.c1.in & 
-./mcsim.TCE.2.0.2 tce20.c2.in & 
-./mcsim.TCE.2.0.2 tce20.c3.in & 
-./mcsim.TCE.2.0.2 tce20.c4.in
+./mcsim.tce220 tce220.c01.in & 
+./mcsim.tce220 tce220.c02.in & 
+./mcsim.tce220 tce220.c03.in & 
+./mcsim.tce220 tce220.c04.in
 wait

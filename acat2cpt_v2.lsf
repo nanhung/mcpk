@@ -7,8 +7,8 @@
 #BSUB -M 1024			## sets to 1024MB as the per process enforceable memory limit.
 #BSUB -o acat.v2.%J		## directs the job's standard output (%J is jobid)
 
-./mcsim.acat2cpt_v2 acat2cpt.theoph.v2.c01.in &
-./mcsim.acat2cpt_v2 acat2cpt.theoph.v2.c02.in & 
-./mcsim.acat2cpt_v2 acat2cpt.theoph.v2.c03.in & 
-./mcsim.acat2cpt_v2 acat2cpt.theoph.v2.c04.in
+./mcsim.acat2cpt_v2 acat2cpt.v2.c01.in &
+./mcsim.acat2cpt_v2 acat2cpt.v2.c02.in & 
+./mcsim.acat2cpt_v2 acat2cpt.v2.c03.in & 
+./mcsim.acat2cpt_v2 acat2cpt.v2.c04.in
 wait

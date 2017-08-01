@@ -5,7 +5,7 @@
 #BSUB -R "span[ptile=4]"    ## request 4 core per node.
 #BSUB -R "rusage[mem=1024]"	## reserves 1024MB per process/CPU for the job 
 #BSUB -M 1024		        ## sets to 1024MB as the per process enforceable memory limit.
-#BSUB -o acat1.0727%J	        ## directs the job's standard output (%J is jobid)
+#BSUB -o acat1.0727.%J	        ## directs the job's standard output (%J is jobid)
 
 ./mcsim.acat2cpt_v1 acat2cpt1.c01.in &
 ./mcsim.acat2cpt_v1 acat2cpt1.c02.in &
