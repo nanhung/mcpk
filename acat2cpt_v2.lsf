@@ -6,6 +6,7 @@
 #BSUB -R "rusage[mem=1024]"	## reserves 1024MB per process/CPU for the job 
 #BSUB -M 1024			## sets to 1024MB as the per process enforceable memory limit.
 #BSUB -o acat.v2.%J		## directs the job's standard output (%J is jobid)
+#BSUB -P 082803364811           ## set account
 
 ./mcsim.acat2cpt_v2 acat2cpt.v2.c01.in &
 ./mcsim.acat2cpt_v2 acat2cpt.v2.c02.in & 

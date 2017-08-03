@@ -224,6 +224,8 @@ SFA; lnSFA = log(100); # for acids
 SFB; lnSFB = log(50);  # for bases
 
 # Precipitation rate (1/h)
+# According to "Approaches for measuring intestinal precipitation rates of oral drugs"
+# The range of preciption rate is 500s to 5000s
 K_precip; lnK_precip = log(1.0);
 
 # Excretion over absorption rate constant ratios
