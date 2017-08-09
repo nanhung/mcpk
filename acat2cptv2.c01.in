@@ -1,10 +1,7 @@
-# Revise the range of Fu
-# Fix Weibull_slope and K_precip
-
 Integrate(Lsodes, 1.0e-5, 3.09e-7, 1);
-MCMC ("acat2cpt2.c01.out", 
+MCMC ("acat2cpt2.c02.out", 
 "","",
-120000, 0, 100, 120000, 1122);
+200000, 0, 200, 200000, 3388);
 
 Level { # Population Level
 
@@ -55,7 +52,7 @@ Distrib (M_lnG_Density Uniform, 0, 0.4); #(v2)
 Distrib (M_lnSolubility Uniform 15.66554, 20.21071); #(v2)
 Distrib (M_lnSFA Uniform 0 4.6 ); #(v2)
 Distrib (M_lnSFB Uniform 0 4.6 ); #(v2)
-#Distrib (M_lnK_precip Uniform 0, 1.607); #(v2)
+Distrib (M_lnK_precip Uniform 0, 1.607); #(v2)
 Distrib (M_lnKe_over_a_epit, Uniform, -2.3, 2.3); #(v2)
 Distrib (M_lnKe_over_a_tiss, Uniform, -2.3, 2.3); #(v2)
 
@@ -66,12 +63,12 @@ Distrib (M_lnPC_jeju,  Uniform, -2.3,  2.3);
 Distrib (M_lnPC_ileum, Uniform, -2.3,  2.3);
 Distrib (M_lnPC_cecum, Uniform, -2.3,  2.3);
 Distrib (M_lnPC_colon, Uniform, -2.3,  2.3);
-Distrib (M_lnFu_stom,  Uniform, -4.,  0);
-Distrib (M_lnFu_duod,  Uniform, -4.,  0);
-Distrib (M_lnFu_jeju,  Uniform, -4.,  0);
-Distrib (M_lnFu_ileum, Uniform, -4.,  0);
-Distrib (M_lnFu_cecum, Uniform, -4.,  0);
-Distrib (M_lnFu_colon, Uniform, -4.,  0);
+Distrib (M_lnFu_stom,  Uniform, -6.9,  0);
+Distrib (M_lnFu_duod,  Uniform, -6.9,  0);
+Distrib (M_lnFu_jeju,  Uniform, -6.9,  0);
+Distrib (M_lnFu_ileum, Uniform, -6.9,  0);
+Distrib (M_lnFu_cecum, Uniform, -6.9,  0);
+Distrib (M_lnFu_colon, Uniform, -6.9,  0);
 Distrib (M_lnV_central, Uniform, -2.3,  2.3);
 Distrib (M_lnV_periph, Uniform, -2.3,  2.3);
 Distrib (M_lnVmax_vitro, Uniform, -2.3, 2.3);
@@ -90,7 +87,7 @@ Distrib (V_lnG_Density InvGamma, 2.25, 0.3125); #(v2)
 Distrib (V_lnSolubility Uniform 15.66554, 20.21071); #(v2)
 Distrib (V_lnSFA InvGamma, 2.25, 0.3125); #(v2)
 Distrib (V_lnSFB InvGamma, 2.25, 0.3125); #(v2)
-#Distrib (V_lnK_precip Uniform -2.3, 2.3); #(v2)
+Distrib (V_lnK_precip Uniform -2.3, 2.3); #(v2)
 Distrib (V_lnKe_over_a_epit, InvGamma, 2.25, 0.3125); #(v2)
 Distrib (V_lnKe_over_a_tiss, InvGamma, 2.25, 0.3125); #(v2)
 	
@@ -131,7 +128,7 @@ Distrib (lnG_Density TruncNormal_v M_lnG_Density V_lnG_Density 0, 0.4);
 Distrib (lnSolubility TruncNormal_v M_lnSolubility V_lnSolubility 15.66554, 20.21071); 
 Distrib (lnSFA TruncNormal_v M_lnSFA V_lnSFA 0 4.6 ); 
 Distrib (lnSFA TruncNormal_v M_lnSFA V_lnSFA 0 4.6 ); 
-#Distrib (lnK_precip TruncNormal_v M_lnK_precip V_lnK_precip -2.3, 2.3); 
+Distrib (lnK_precip TruncNormal_v M_lnK_precip V_lnK_precip -2.3, 2.3); 
 Distrib (lnKe_over_a_epit TruncNormal_v M_lnKe_over_a_epit V_lnKe_over_a_epit -2.3, 2.3); 
 Distrib (lnKe_over_a_tiss TruncNormal_v M_lnKe_over_a_tiss V_lnKe_over_a_tiss -2.3, 2.3); 
 
@@ -143,12 +140,12 @@ Distrib (lnPC_jeju, TruncNormal_v, M_lnPC_jeju, V_lnPC_jeju, -2.3, 2.3);
 Distrib (lnPC_ileum, TruncNormal_v, M_lnPC_ileum, V_lnPC_ileum, -2.3, 2.3); 
 Distrib (lnPC_cecum, TruncNormal_v, M_lnPC_cecum, V_lnPC_cecum, -2.3, 2.3); 
 Distrib (lnPC_colon, TruncNormal_v, M_lnPC_colon, V_lnPC_colon, -2.3, 2.3); 
-Distrib (lnFu_stom,  TruncNormal_v, M_lnFu_stom, V_lnFu_stom, -4.,  0);
-Distrib (lnFu_duod,  TruncNormal_v, M_lnFu_duod, V_lnFu_duod, -4.,  0);
-Distrib (lnFu_jeju,  TruncNormal_v, M_lnFu_jeju, V_lnFu_jeju, -4.,  0); 
-Distrib (lnFu_ileum, TruncNormal_v, M_lnFu_ileum, V_lnFu_ileum, -4.,  0); 
-Distrib (lnFu_cecum, TruncNormal_v, M_lnFu_cecum, V_lnFu_cecum, -4.,  0); 
-Distrib (lnFu_colon, TruncNormal_v, M_lnFu_colon, V_lnFu_colon, -4.,  0);
+Distrib (lnFu_stom,  TruncNormal_v, M_lnFu_stom, V_lnFu_stom, -6.9,  0);
+Distrib (lnFu_duod,  TruncNormal_v, M_lnFu_duod, V_lnFu_duod, -6.9,  0);
+Distrib (lnFu_jeju,  TruncNormal_v, M_lnFu_jeju, V_lnFu_jeju, -6.9,  0); 
+Distrib (lnFu_ileum, TruncNormal_v, M_lnFu_ileum, V_lnFu_ileum, -6.9,  0); 
+Distrib (lnFu_cecum, TruncNormal_v, M_lnFu_cecum, V_lnFu_cecum, -6.9,  0); 
+Distrib (lnFu_colon, TruncNormal_v, M_lnFu_colon, V_lnFu_colon, -6.9,  0);
 Distrib (lnV_central, TruncNormal_v, M_lnV_central, V_lnV_central, -2.3,  2.3);
 Distrib (lnV_periph, TruncNormal_v, M_lnV_central, V_lnV_periph, -2.3,  2.3); 
 Distrib (lnVmax_vitro, TruncNormal_v, M_lnVmax_vitro, V_lnVmax_vitro, -2.3, 2.3);
