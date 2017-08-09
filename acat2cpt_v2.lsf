@@ -8,8 +8,8 @@
 #BSUB -o acat2.0809.%J		## directs the job's standard output (%J is jobid)
 #BSUB -P 082803364811           ## set account
 
-time ./mcsim.acat2cpt_v2 acat2cpt.v2.c01.in &
-time ./mcsim.acat2cpt_v2 acat2cpt.v2.c02.in & 
-time ./mcsim.acat2cpt_v2 acat2cpt.v2.c03.in & 
-time ./mcsim.acat2cpt_v2 acat2cpt.v2.c04.in
+time ./mcsim.acat2cpt_v2 acat2cptv2.c01.in &
+time ./mcsim.acat2cpt_v2 acat2cptv2.c02.in & 
+time ./mcsim.acat2cpt_v2 acat2cptv2.c03.in & 
+time ./mcsim.acat2cpt_v2 acat2cptv2.c04.in
 wait
