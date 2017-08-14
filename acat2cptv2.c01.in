@@ -1,7 +1,7 @@
 Integrate(Lsodes, 1.0e-5, 3.09e-7, 1);
-MCMC ("acat2cpt2.c02.out", 
+MCMC ("acat2cpt2.c01.out", 
 "","",
-200000, 0, 200, 200000, 3388);
+100000, 0, 100, 100000, 3388);
 
 Level { # Population Level
 
