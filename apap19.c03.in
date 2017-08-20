@@ -13,6 +13,22 @@ Level { # Population Level
 # Remove the ... and fill these in
 # ======================================
 
+lnTp = -2.864071;
+
+lnCYP_Km = 4.770566;
+lnCYP_VmaxC = -0.6213363;
+
+lnSULT_Ki = 6.161611; 
+lnSULT_Km_paps = -0.8522667;
+lnUGT_Ki = 10.85208;
+lnUGT_Km_GA = -0.7857949;
+
+lnKm_AG = 9.902103;
+lnVmax_AG = 10.63242;
+lnKm_AS = 10.02791;
+lnVmax_AS = 15.05017;
+lnkGA_syn = 11.41956;
+
 
 Distrib(M_lnTg, TruncNormal, -1.4552, 0.5, -2.5, 0.);
 #Distrib(M_lnTp, TruncNormal, -3.401, 0.5, -4.5, -2.5);
@@ -125,7 +141,7 @@ Distrib(Var_lnQCC, InvGamma, 2.25, 0.3125);
 #Distrib(Var_lnVMC, InvGamma, 2.25, 0.3125);
 #Distrib(Var_lnVBLAC, InvGamma, 2.25, 0.3125);
 #Distrib(Var_lnVBLVC, InvGamma, 2.25, 0.3125);
-Distrib(Var_lnVSC, InvGamma, 2.25, 0.3125);
+#Distrib(Var_lnVSC, InvGamma, 2.25, 0.3125);
 #Distrib(Var_lnVRC, InvGamma, 2.25, 0.3125);
 #Distrib(Var_lnQFC, InvGamma, 2.25, 0.3125);
 #Distrib(Var_lnQKC, InvGamma, 2.25, 0.3125);
@@ -986,9 +1002,6 @@ Data(lnCU_AS_mcg, -1);
 
 
 }
-
-
-
 
 
 }
