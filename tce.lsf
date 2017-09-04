@@ -6,7 +6,7 @@
 #BSUB -R "rusage[mem=2560]" ## reserves 2560MB per process/CPU for the job 
 #BSUB -M 2560			    ## sets to 2560MB as the per process enforceable memory limit.
 #BSUB -o tce221.0904.%J		    ## directs the job's standard output (%J is jobid)
-#BSUB -P 082803364811       ## set account
+##BSUB -P 082803364811       ## set account
 
 ./mcsim.tce221 tce221.c01.in & 
 ./mcsim.tce221 tce221.c02.in & 
