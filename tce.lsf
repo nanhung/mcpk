@@ -2,10 +2,10 @@
 #BSUB -L /bin/bash		    ## uses the bash login shell to initialize the job's execution environment.
 #BSUB -W 96:00  	        ## sets to 4 days the job's runtime wall-clock limit.
 #BSUB -n 4			        ## assigns 4 cores for execution.
-#BSUB -R "span[ptile=4]"    ## Request 4 core per node.
+#BSUB -R "span[ptile=1]"    ## Request 4 core per node.
 #BSUB -R "rusage[mem=2560]" ## reserves 2560MB per process/CPU for the job 
 #BSUB -M 2560			    ## sets to 2560MB as the per process enforceable memory limit.
-#BSUB -o tce220.0802.%J		    ## directs the job's standard output (%J is jobid)
+#BSUB -o tce221.0904.%J		    ## directs the job's standard output (%J is jobid)
 #BSUB -P 082803364811       ## set account
 
 ./mcsim.tce221 tce221.c01.in & 
