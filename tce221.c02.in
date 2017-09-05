@@ -89,7 +89,7 @@ Distrib(	M_lnkASTCOH	Uniform			-7.195	6.62	);
 							
 							
 Distrib(	M_lnVMaxC	TruncNormal	0.0	0.693	-2.079	2.079	);
-Distrib(	M_lnKMC	TruncNormal	0.0	1.386	-4.158	2.079	);
+Distrib(	M_lnKMC	Uniform	 -0.8	0.8);  #Distrib(	M_lnKMC	TruncNormal	0.0	1.386	-4.158	2.079	);
 #Distrib(	M_lnClC	Normal			0	1	);
 Distrib(	M_lnFracOtherC	Uniform			-6.908	6.908	);
 Distrib(	M_lnFracTCAC	TruncNormal	0.0	1.163	-3.489	3.489	);
@@ -99,7 +99,7 @@ Distrib(	M_lnClDCVGC	Uniform			-6.908	6.908	);
 #Distrib(	M_lnVMaxKidDCVGC	Uniform			-4.605	9.21	);
 #Distrib(	M_lnClKidDCVGC	Uniform			-4.605	9.21	);
 #Distrib(	M_lnKMKidDCVGC	Normal			0	1	);
-Distrib(	M_lnVMaxLungLivC	TruncNormal	0.0	1.099	-3.297	3.297	);
+Distrib(	M_lnVMaxLungLivC	Uniform	 -0.8	0.8); #Distrib(	M_lnVMaxLungLivC	TruncNormal	0.0	1.099	-3.297	3.297	);
 Distrib(	M_lnKMClara	Uniform			-6.908	6.908	);
 Distrib(	M_lnFracLungSysC	Uniform			-6.908	6.908	);
 							
@@ -442,7 +442,7 @@ Distrib(	lnkASTCOH	TruncNormal_v	M_lnkASTCOH	V_lnkASTCOH	-7.195	6.62	);
 							
 							
 Distrib(	lnVMaxC	TruncNormal_v	M_lnVMaxC	V_lnVMaxC	-2.079	2.079	);
-Distrib(	lnKMC	TruncNormal_v	M_lnKMC	V_lnKMC	-4.158	2.079	);
+Distrib(	lnKMC	TruncNormal_v	M_lnKMC	V_lnKMC	-0.8 0.8	); # Distrib(	lnKMC	TruncNormal_v	M_lnKMC	V_lnKMC	-4.158	2.079	);
 #Distrib(	lnClC	TruncNormal_v	M_lnClC	V_lnClC	0	1	);
 Distrib(	lnFracOtherC	TruncNormal_v	M_lnFracOtherC	V_lnFracOtherC	-6.908	6.908	);
 Distrib(	lnFracTCAC	TruncNormal_v	M_lnFracTCAC	V_lnFracTCAC	-3.489	3.489	);
@@ -452,7 +452,7 @@ Distrib(	lnClDCVGC	TruncNormal_v	M_lnClDCVGC	V_lnClDCVGC	-6.908	6.908	);
 #Distrib(	lnVMaxKidDCVGC	TruncNormal_v	M_lnVMaxKidDCVGC	V_lnVMaxKidDCVGC	-4.605	9.21	);
 #Distrib(	lnClKidDCVGC	TruncNormal_v	M_lnClKidDCVGC	V_lnClKidDCVGC	-4.605	9.21	);
 #Distrib(	lnKMKidDCVGC	TruncNormal_v	M_lnKMKidDCVGC	V_lnKMKidDCVGC	0	1	);
-Distrib(	lnVMaxLungLivC	TruncNormal_v	M_lnVMaxLungLivC	V_lnVMaxLungLivC	-3.297	3.297	);
+Distrib(	lnVMaxLungLivC	TruncNormal_v	M_lnVMaxLungLivC	V_lnVMaxLungLivC	-0.8	0.8	); #Distrib(	lnVMaxLungLivC	TruncNormal_v	M_lnVMaxLungLivC	V_lnVMaxLungLivC	-3.297	3.297	);
 Distrib(	lnKMClara	TruncNormal_v	M_lnKMClara	V_lnKMClara	-6.908	6.908	);
 Distrib(	lnFracLungSysC	TruncNormal_v	M_lnFracLungSysC	V_lnFracLungSysC	-6.908	6.908	);
 							
