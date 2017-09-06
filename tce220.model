@@ -319,6 +319,7 @@ ATCOG,		# ONLY FOR COMPARISON WITH HACK
 ## Misc
   #RAO,
   CVenMole,
+  CBldTCAMole, # v220
   CPlasTCAMole, 
   CPlasTCAFreeMole #(v1d), #
 
@@ -2973,7 +2974,8 @@ CalcOutputs{
 	TotCTCOHcomp = CTCOH + CTCOG; # ONLY FOR COMPARISON WITH HACK
 	ATCOG = ABodTCOG + ALivTCOG; # ONLY FOR COMPARISON WITH HACK
 # Misc
-	CVenMole = CVen / MWTCE; 
+	CVenMole = CVen / MWTCE * 1000; # v220 (nmol/ml)
+	CBldTCAMole = CBldTCA / MWTCA * 1000; # v220 (nmol/ml)
 	CPlasTCAMole = (CPlasTCAMole < 1.0e-15 ? 1.0e-15 : CPlasTCAMole);
 	CPlasTCAFreeMole = (CPlasTCAFreeMole < 1.0e-15 ? 1.0e-15 : CPlasTCAFreeMole);
 
