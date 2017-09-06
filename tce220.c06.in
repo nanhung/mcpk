@@ -304,7 +304,10 @@ Distrib(	V_lnISkDCVC	InvGamma	2.25	5.0000	);
 #	Distrib( Ve_QPsamp , LogUniform , 0.01 , 3.3 );
 	
 	Distrib( Ve_CVenMole , LogUniform , 0.01 , 3.3 ); #(v220)
+	Distrib( Ve_CLivMole , LogUniform , 0.01 , 3.3 ); #(v220)
+	Distrib( Ve_CKidMole , LogUniform , 0.01 , 3.3 ); #(v220)
 	Distrib( Ve_CBldTCAMole , LogUniform , 0.01 , 3.3 ); #(v220)
+	Distrib( Ve_CLivTCAMole , LogUniform , 0.01 , 3.3 ); #(v220)
 	
 #Likelihoods
 
@@ -527,7 +530,10 @@ Data( zAUrnTCA , 2.294, 3.731, 4.579, 4.796, 4.848, 4.87 );
 Level {
 
 Likelihood( CVenMole , LogNormal_v , Prediction( CVenMole ) , Ve_CVenMole );
+Likelihood( CLivMole , LogNormal_v , Prediction( CLivMole ) , Ve_CLivMole );
+Likelihood( CKidMole , LogNormal_v , Prediction( CKidMole ) , Ve_CKidMole );
 Likelihood( CBldTCAMole , LogNormal_v , Prediction( CBldTCAMole ) , Ve_CBldTCAMole );
+Likelihood( CLivTCAMole , LogNormal_v , Prediction( CLivTCAMole ) , Ve_CLivTCAMole );
 
 Experiment { # Begin Yushuan B6C3F1
 Species =  3 ;
@@ -543,8 +549,15 @@ TChng =  0.05 ;
 # Data
 Print( CVenMole , 1.000  1.001  1.002  2.000  2.001  2.002  6.000  6.001  6.002 12.000 12.001 12.002 24.000 24.001 24.002 36.000 36.001 36.002 );
 Data( CVenMole , 32.47629,47.14523,42.16838,6.108999,-1,4.356796,-1,15.24812,1.740853,1.657451,-1,-1,-1,-1,-1,-1,-1,-1 );
+Print( CLivMole , 1.000  1.001  1.002  2.000  2.001  2.002  6.000  6.001  6.002 12.000 12.001 12.002 24.000 24.001 24.002 36.000 36.001 36.002 );
+Data( CLivMole ,  1158.215729,612.3662434,653.3843636,48.80046161,4.139005373,43.65768269,-1,185.8451041,30.92541853,8.431960158,-1,-1,-1,-1,-1,-1,-1,-1);
+Print( CKidMole , 1.000  1.001  1.002  2.000  2.001  2.002  6.000  6.001  6.002 12.000 12.001 12.002 24.000 24.001 24.002 36.000 36.001 36.002 );
+Data( CKidMole ,  55.64705,40.5266,49.39675,4.620769,-1,4.297188,-1,6.131275,2.06634,-1,-1,-1,-1,-1,-1,-1,-1,-1);
 Print( CBldTCAMole, 1.000  1.001  1.002  2.000  2.001  2.002  6.000  6.001  6.002 12.000 12.001 12.002 24.000 24.001 24.002 36.000 36.001 36.002 );
 Data( CBldTCAMole, 205.9521,140.1762,116.6588,477.0697,243.5479,274.6172,14.04001,938.8795,294.468,109.8408,343.6692,311.866,361.13,324.274,688.4111,109.6035,37.08487,-1 );
+Print( CLivTCAMole, 1.000  1.001  1.002  2.000  2.001  2.002  6.000  6.001  6.002 12.000 12.001 12.002 24.000 24.001 24.002 36.000 36.001 36.002 );
+Data( CLivTCAMole, 124.342,127.398,153.7094,218.7358,145.2347,247.0382,12.61355,558.8154,299.7211,267.8219,4.280554,230.9855,151.8828,155.0781,244.5889,57.63927,19.69355,-1 );
+
 } # End Yushuan B6C3F1
 
 ######## END GROUP 2

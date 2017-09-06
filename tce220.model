@@ -319,7 +319,10 @@ ATCOG,		# ONLY FOR COMPARISON WITH HACK
 ## Misc
   #RAO,
   CVenMole,
-  CBldTCAMole, # v220
+  CLivMole, #(v220)
+  CKidMole, #(v220)
+  CBldTCAMole, #(v220)
+  CLivTCAMole, #(v220)
   CPlasTCAMole, 
   CPlasTCAFreeMole #(v1d), #
 
@@ -920,7 +923,10 @@ Ve_TotCTCOH	= 1;
 Ve_QPsamp	= 1;
 
 Ve_CVenMole = 1; #(v220)
+Ve_CLivMole = 1; #(v220)
+Ve_CKidMole = 1; #(v220)
 Ve_CBldTCAMole = 1; #(v220)
+Ve_CLivTCAMole = 1; #(v220)
 
 #******************************************************************************
 #***                  Defaults for input parameters                         ***
@@ -2978,7 +2984,10 @@ CalcOutputs{
 	ATCOG = ABodTCOG + ALivTCOG; # ONLY FOR COMPARISON WITH HACK
 # Misc
 	CVenMole = CVen / MWTCE * 1000; # #(v220) (nmol/ml)
+	CLivMole = CLiv / MWTCE * 1000; # #(v220) 
+	CKidMole = CKid / MWTCE * 1000; # #(v220) 
 	CBldTCAMole = CBldTCA / MWTCA * 1000; #(v220) (nmol/ml)
+	CLivTCAMole = CLivTCA / MWTCA * 1000; #(v220)
 	CPlasTCAMole = (CPlasTCAMole < 1.0e-15 ? 1.0e-15 : CPlasTCAMole);
 	CPlasTCAFreeMole = (CPlasTCAFreeMole < 1.0e-15 ? 1.0e-15 : CPlasTCAFreeMole);
 
