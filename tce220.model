@@ -919,6 +919,9 @@ Ve_AUrnTCTotMole	= 1;
 Ve_TotCTCOH	= 1;
 Ve_QPsamp	= 1;
 
+Ve_CVenMole = 1; #(v220)
+Ve_CBldTCAMole = 1; #(v220)
+
 #******************************************************************************
 #***                  Defaults for input parameters                         ***
 #******************************************************************************
@@ -2974,8 +2977,8 @@ CalcOutputs{
 	TotCTCOHcomp = CTCOH + CTCOG; # ONLY FOR COMPARISON WITH HACK
 	ATCOG = ABodTCOG + ALivTCOG; # ONLY FOR COMPARISON WITH HACK
 # Misc
-	CVenMole = CVen / MWTCE * 1000; # v220 (nmol/ml)
-	CBldTCAMole = CBldTCA / MWTCA * 1000; # v220 (nmol/ml)
+	CVenMole = CVen / MWTCE * 1000; # #(v220) (nmol/ml)
+	CBldTCAMole = CBldTCA / MWTCA * 1000; #(v220) (nmol/ml)
 	CPlasTCAMole = (CPlasTCAMole < 1.0e-15 ? 1.0e-15 : CPlasTCAMole);
 	CPlasTCAFreeMole = (CPlasTCAFreeMole < 1.0e-15 ? 1.0e-15 : CPlasTCAFreeMole);
 
