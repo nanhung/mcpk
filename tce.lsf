@@ -3,8 +3,8 @@
 #BSUB -W 12:00  	            ## sets to 12 hours the job's runtime wall-clock limit.
 #BSUB -n 4			            ## assigns 4 cores for execution.
 #BSUB -R "span[ptile=1]"        ## Request 1 core per node.
-#BSUB -R "rusage[mem=32]"       ## reserves 32MB per process/CPU for the job 
-#BSUB -M 32			            ## sets to 32MB as the per process enforceable memory limit.
+#BSUB -R "rusage[mem=16]"       ## reserves 16MB per process/CPU for the job 
+#BSUB -M 16			            ## sets to 16MB as the per process enforceable memory limit.
 #BSUB -o tce0906.%J		        ## directs the job's standard output (%J is jobid)
 #BSUB -u nhsieh@cvm.tamu.edu    ## send all emails to email_address
 #BSUB -N                        ## Send email on job begin (-B) and end (-N)
