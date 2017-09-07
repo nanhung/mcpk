@@ -11,7 +11,7 @@
 Integrate(Lsodes, 1e-5, 0.3e-8 , 1)
 MCMC ("tce220.c06.out",
 "","",
-20000, 0, 20, 20000, 6666);
+40000, 0, 40, 40000, 6666);
 
 # Fix following parameters at baseline values
 # All physiological parameters except QCC and VPR (DResp is not physiological)
@@ -111,24 +111,24 @@ Distrib(	M_lnkEHRC	Uniform			-9.21	4.605	);
 Distrib(	M_lnkUrnTCOGC	Uniform			-6.908	6.908	);
 							
 ##Distrib(	M_lnFracKidDCVCC	Uniform			-6.908	6.908	);
-Distrib(	M_lnPeffDCVG	Uniform			-6.908	6.908	);
-Distrib(	M_lnPeffDCVC	Uniform			-6.908	6.908	);
-Distrib(	M_lnPeffDCA	Uniform			-6.908	6.908	);
-Distrib(	M_lnkDCVGC	Uniform			-9.21	4.605	);
-Distrib(	M_lnkElimDCVCC	Uniform			-9.21	4.605	);
-Distrib(	M_lnkClearDCAC	Uniform			-9.21	4.605	);
-Distrib(	M_lnkDCAcen_perC	Uniform			-9.21	4.605	);
-Distrib(	M_lnkDCAper_cenC	Uniform			-9.21	4.605	);
+#Distrib(	M_lnPeffDCVG	Uniform			-6.908	6.908	);
+#Distrib(	M_lnPeffDCVC	Uniform			-6.908	6.908	);
+#Distrib(	M_lnPeffDCA	Uniform			-6.908	6.908	);
+#Distrib(	M_lnkDCVGC	Uniform			-9.21	4.605	);
+#Distrib(	M_lnkElimDCVCC	Uniform			-9.21	4.605	);
+#Distrib(	M_lnkClearDCAC	Uniform			-9.21	4.605	);
+#Distrib(	M_lnkDCAcen_perC	Uniform			-9.21	4.605	);
+#Distrib(	M_lnkDCAper_cenC	Uniform			-9.21	4.605	);
 							
 ########## Interstrain variability (not used here)	
-Distrib(       M_lnISOx	   Uniform	-4.605	4.605);
-Distrib(       M_lnISTCA	   Uniform	-4.605	4.605);
-Distrib(       M_lnISDCA	   Uniform	-4.605	4.605);
-Distrib(       M_lnISConj	   Uniform	-4.605	4.605);
-Distrib(       M_lnISkTCA	   Uniform	-4.605	4.605);
+#Distrib(       M_lnISOx	   Uniform	-4.605	4.605);
+#Distrib(       M_lnISTCA	   Uniform	-4.605	4.605);
+#Distrib(       M_lnISDCA	   Uniform	-4.605	4.605);
+#Distrib(       M_lnISConj	   Uniform	-4.605	4.605);
+#Distrib(       M_lnISkTCA	   Uniform	-4.605	4.605);
 #####Distrib(       M_lnISkDCA	   Uniform	-4.605	4.605);
-Distrib(       M_lnISkDCVG	   Uniform	-4.605	4.605);
-Distrib(       M_lnISkDCVC	   Uniform	-4.605	4.605);
+#Distrib(       M_lnISkDCVG	   Uniform	-4.605	4.605);
+#Distrib(       M_lnISkDCVC	   Uniform	-4.605	4.605);
 
 ###### POPULATION VARIANCES
 
@@ -221,24 +221,24 @@ Distrib(	V_lnkUrnTCOGC	InvGamma	2.25	0.3125	);
 					
 					
 ##Distrib(	V_lnFracKidDCVCC	InvGamma	2.25	0.3125	);
-Distrib(	V_lnPeffDCVG	InvGamma	2.25	0.2000	);
-Distrib(	V_lnPeffDCVC	InvGamma	2.25	0.2000	);
-Distrib(	V_lnPeffDCA	InvGamma	2.25	0.2000	);
-Distrib(	V_lnkDCVGC	InvGamma	2.25	0.3125	);
-Distrib(	V_lnkElimDCVCC	InvGamma	2.25	0.3125	);
-Distrib(	V_lnkClearDCAC	InvGamma	2.25	0.3125	);
-Distrib(	V_lnkDCAcen_perC	InvGamma	2.25	0.3125	);
-Distrib(	V_lnkDCAper_cenC	InvGamma	2.25	0.3125	);
+#Distrib(	V_lnPeffDCVG	InvGamma	2.25	0.2000	);
+#Distrib(	V_lnPeffDCVC	InvGamma	2.25	0.2000	);
+#Distrib(	V_lnPeffDCA	InvGamma	2.25	0.2000	);
+#Distrib(	V_lnkDCVGC	InvGamma	2.25	0.3125	);
+#Distrib(	V_lnkElimDCVCC	InvGamma	2.25	0.3125	);
+#Distrib(	V_lnkClearDCAC	InvGamma	2.25	0.3125	);
+#Distrib(	V_lnkDCAcen_perC	InvGamma	2.25	0.3125	);
+#Distrib(	V_lnkDCAper_cenC	InvGamma	2.25	0.3125	);
 					
 ########## Interstrain variability (not used here)	
-Distrib(	V_lnISOx	InvGamma	2.25	5.0000	);
-Distrib(	V_lnISTCA	InvGamma	2.25	5.0000	);
-Distrib(	V_lnISDCA	InvGamma	2.25	5.0000	);
-Distrib(	V_lnISConj	InvGamma	2.25	5.0000	);
-Distrib(	V_lnISkTCA	InvGamma	2.25	5.0000	);
+#Distrib(	V_lnISOx	InvGamma	2.25	5.0000	);
+#Distrib(	V_lnISTCA	InvGamma	2.25	5.0000	);
+#Distrib(	V_lnISDCA	InvGamma	2.25	5.0000	);
+#istrib(	V_lnISConj	InvGamma	2.25	5.0000	);
+#Distrib(	V_lnISkTCA	InvGamma	2.25	5.0000	);
 ####Distrib(	V_lnISkDCA	InvGamma	2.25	5.0000	);
-Distrib(	V_lnISkDCVG	InvGamma	2.25	5.0000	);
-Distrib(	V_lnISkDCVC	InvGamma	2.25	5.0000	);
+#Distrib(	V_lnISkDCVG	InvGamma	2.25	5.0000	);
+#Distrib(	V_lnISkDCVC	InvGamma	2.25	5.0000	);
 
 #Error distributions
 
