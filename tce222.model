@@ -21,6 +21,9 @@
 #******************************************************************************
 #***                  State Variable Specifications                         ***
 #******************************************************************************
+# version 222
+# Add ABrn, AKidTCA, ABrnTCA
+# VBrn, QBrn, PBrn, PLivTCA, PKidTCA, PBrnTCA
 
 States = {
 ##-- TCE uptake
@@ -39,7 +42,7 @@ States = {
 				# comment out for #(v1b)(v1c)
 #(v1.2)	RTB,	#(v1j) Rate of metabolism in TB
 	AKid, 		# Amount in Kidney -- previously in Rap tissue
-	ABrn, #(v221)
+	ABrn, #(v222)
 	ABld, 		# Amount in Blood -- previously in Rap tissue
 				# comment out for #(v1a)(v1c)
 	AInhResp,	#(v1.2) Amount in respiratory lumen during inhalation
@@ -56,8 +59,8 @@ States = {
 	APlasTCA,	# Amount of TCA in plasma #comment out for #(v1h)
 	ABodTCA,	# Amount of TCA in lumped body compartment
    	ALivTCA,	# Amount of TCA in liver
-   	AKidTCA, #(v221)
-   	ABrnTCA, #(v221)
+   	AKidTCA, #(v222)
+   	ABrnTCA, #(v222)
 ##-- TCA metabolized
  	AUrnTCA,	# Cumulative Amount of TCA excreted in urine
 	AUrnTCA_sat,	# Amount of TCA excreted that during times that had
@@ -180,7 +183,6 @@ CSlw,	# needed for unlumped tissues
 CHrt,	# rat - Concentration in heart tissue [use CRap]
 CKid,	# mouse, rat -  Concentration in kidney
 CLiv,	# mouse, rat - Concentration in liver 
-CBrn, #(v222)
 CLung,	# mouse, rat - Concentration in lung [use CRap]
 CMus,	# rat - Concentration in muscle [use CSlw]
 CSpl, 	# rat - Concentration in spleen [use CRap]
@@ -677,7 +679,7 @@ M_QLivC	= 1.0;
 M_QSlwC	= 1.0;
 #(v1.2) M_QTBC	= 1.0;
 M_QKidC	= 1.0;
-M_QBrnC	= 1.0; #(222)
+M_QBrnC	= 1.0; #(v222)
 M_FracPlasC	= 1.0;
 M_lnDRespC = 1.0; #(v1.2)
 M_VFatC	= 1.0;
@@ -698,13 +700,13 @@ M_lnPRapC	= 1.0;
 #(v1.2) M_lnPTBC	= 1.0;
 M_lnPRespC	= 1.0; #(v1.2)
 M_lnPKidC	= 1.0;
-M_lnPBrnC	= 1.0; #(221)
+M_lnPBrnC	= 1.0; #(222)
 M_lnPSlwC	= 1.0;
 M_lnPRBCPlasTCAC	= 1.0;
 M_lnPBodTCAC	= 1.0;
-M_lnPLivTCAC	= 1.0; #(221)
-M_lnPKidTCAC	= 1.0; #(221)
-M_lnPBrnTCAC	= 1.0; #(221)
+M_lnPLivTCAC	= 1.0; 
+M_lnPKidTCAC	= 1.0; #(222)
+M_lnPBrnTCAC	= 1.0; #(222)
 M_lnkDissocC	= 1.0;
 M_lnBMaxkDC	= 1.0;
 M_lnPBodTCOHC	= 1.0;
@@ -810,12 +812,13 @@ V_lnPRapC	= 1.0;
 #(v1.2) V_lnPTBC	= 1.0;
 V_lnPRespC	= 1.0; #(v1.2)
 V_lnPKidC	= 1.0;
+V_lnPBrnC	= 1.0; #(v222)
 V_lnPSlwC	= 1.0;
 V_lnPRBCPlasTCAC	= 1.0;
 V_lnPBodTCAC	= 1.0;
 V_lnPLivTCAC	= 1.0;
-V_lnPKidTCAC	= 1.0; #(221)
-V_lnPBrnTCAC	= 1.0; #(221)
+V_lnPKidTCAC	= 1.0; #(v222)
+V_lnPBrnTCAC	= 1.0; #(v222)
 V_lnkDissocC	= 1.0;
 V_lnBMaxkDC	= 1.0;
 V_lnPBodTCOHC	= 1.0;
@@ -902,7 +905,6 @@ Ve_CSlw	= 1;
 Ve_CHrt	= 1;
 Ve_CKid	= 1;
 Ve_CLiv	= 1;
-Ve_CBrn	= 1; #(v222)
 Ve_CLung	= 1;
 Ve_CMus	= 1;
 Ve_CSpl	= 1;
@@ -922,6 +924,7 @@ Ve_CBldTCA	= 1;
 Ve_CBodTCA	= 1;
 Ve_CKidTCA	= 1;
 Ve_CLivTCA	= 1;
+Ve_CKidTCA	= 1; #(v222)
 Ve_CBrnTCA	= 1; #(v222)
 Ve_CLungTCA	= 1;
 Ve_zAUrnTCA	= 1;
@@ -1384,7 +1387,7 @@ Initialize {
 			##		+ QTBCtmp/PTB); #(v1c) -- then adjust PC for TB
        PKid = exp(lnPKidC) * 		# Slowly perfused/blood
 		(Species == 3 ? 2.1 : (Species == 2 ? 1.3 : 1.6 ));
-	   PBrn = exp(lnPBrnC) * #(221) Same as Rap
+	   PBrn = exp(lnPBrnC) * #(v222) Same as Rap
 		(Species == 3 ? 1.9 : (Species == 2 ? 1.3 : 2.6 )); #(v222)
 
 	# Mice: Abbas and Fisher 1997, single datum, so assumed uncert CV = 0.4
@@ -1847,13 +1850,12 @@ Dynamics{
         QLiv = (QLivCtmp) * QCnow; # 
         QSlw = (QSlwCtmp) * QCnow; # 
 #(v1.2)         QTB = (QTBCtmp) * QCnow; # 
-
         QKid = (QKidCtmp) * QCnow; # 
         QBrn = (QBrnCtmp) * QCnow; # (v222)
      QGutLiv = QGut + QLiv; # 
 #(v1.2)        QRap = QCnow - QFat - QGut - QLiv - QSlw - QTB - QKid; 
  	#QRap = QCnow - QFat - QGut - QLiv - QSlw - QKid; #(v1.2)
- 	QRap = QCnow - QFat - QGut - QLiv - QSlw - QKid - QBrn; #(221)
+ 	QRap = QCnow - QFat - QGut - QLiv - QSlw - QKid - QBrn; #(v222)
 
 		##		#(v1b)#(v1c) don't subtract off TB
 	#QBod = QCnow - QGutLiv;
@@ -2368,6 +2370,11 @@ Dynamics{
 # Total concentration in venous plasma (free+bound)
 	CVBodTCAFree = (CBodTCA / PBodTCA);	# free in equilibrium
 	CVBodTCA = CPlasTCABnd + CVBodTCAFree;
+	CVBrnTCAFree = (CBrnTCA / PBrnTCA);	# v(222)
+	CVBrnTCA = CPlasTCABnd + CVBrnTCAFree; #v(222)
+	CVKidTCAFree = (CKidTCA / PKidTCA);	#v(222)
+	CVKidTCA = CPlasTCABnd + CVKidTCAFree; #v(222)
+
 #	CVBodTCA = (BMax+kDissoc + CVBodTCAFree)*CVBodTCAFree / #(v1g)
 #		(kDissoc + CVBodTCAFree);	#(v1g) total in equilibrium
 	CVLivTCAFree = (CLivTCA / PLivTCA);
@@ -2379,9 +2386,9 @@ Dynamics{
 	RUrnTCA = kUrnTCA * VKid * CVKidTCAFree; #(v222)
 # Dynamics for amount of total (free+bound) TCA in plasma (mg)
     dt(APlasTCA) = kIVTCA + (QBodPlas*CVBodTCA) + (QGutLivPlas*CVLivTCA) # comment out for #(v1h)
+			+ (QKidPlas*CVKidTCA) + (QBrnPlas*CVBrnTCA) #(v222)
+            - (QCPlas * CPlasTCA); #(v222)
 			#- (QCPlas * CPlasTCA) - RUrnTCA; # comment out for #(v1h)
-                    + (QKidPlas*CVKidTCA) + (QBrnPlas*CVBrnTCA) #(v222)
-                    - (QCPlas * CPlasTCA); #(v222)
 #**** Body ********************************************************************
 # Dynamics for amount of TCA in the body (mg)
     dt(ABodTCA) = QBodPlas * (CPlasTCAFree - CVBodTCAFree);
@@ -2959,7 +2966,6 @@ TotTCAProd =  (FracTCA*StochTCATCE*(AMetLiv1 + FracLungSys*AMetLng)) + #(vrisk)
 CalcOutputs{
 
 
-
 #**** Static outputs for comparison to data ***********************************
 # TCE
 #(v1.2)	AlvRet = (InhDose > 0 ? 1 - AExhExp/InhDose : 1); #  
@@ -2979,6 +2985,7 @@ CalcOutputs{
 	CHrt = CRap;
 	CKid = (CKid < 1.0e-15 ? 1.0e-15 : CKid);
 	CLiv = (CLiv < 1.0e-15 ? 1.0e-15 : CLiv);
+	CBrn = (CBrn < 1.0e-15 ? 1.0e-15 : CBrn); #(v222)
 	CLung = CRap; #(v1.2)
 	CMus = (CSlw < 1.0e-15 ? 1.0e-15 : CSlw);
 	CSpl = CRap;
@@ -2996,7 +3003,8 @@ CalcOutputs{
 	CBldTCA = CPlasTCA*TCAPlas;
 	CBodTCA = (CBodTCA < 1.0e-15 ? 1.0e-15 : CBodTCA);
 	CLivTCA = (CLivTCA < 1.0e-15 ? 1.0e-15 : CLivTCA);
-	CKidTCA = CBodTCA;
+	CKidTCA = (CKidTCA < 1.0e-15 ? 1.0e-15 : CKidTCA); #(v222)
+    CBrnTCA = (CBrnTCA < 1.0e-15 ? 1.0e-15 : CBrnTCA); #(v222)
 	CLungTCA = CBodTCA;
 	zAUrnTCA = (AUrnTCA < 1.0e-15 ? 1.0e-15 : AUrnTCA);
 	zAUrnTCA_sat = (AUrnTCA_sat < 1.0e-15 ? 1.0e-15 : AUrnTCA_sat);
