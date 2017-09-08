@@ -11,7 +11,7 @@
 Integrate(Lsodes, 1e-5, 0.3e-8 , 1)
 MCMC ("tce220.c03.out",
 "","",
-40000, 0, 40, 40000, 3333);
+80000, 0, 80, 80000, 3333);
 
 # Fix following parameters at baseline values
 # All physiological parameters except QCC and VPR (DResp is not physiological)
@@ -25,18 +25,23 @@ MCMC ("tce220.c03.out",
 Level { #Population level
 
 # Fixed Parameters
-lnQCC = 0.104;
-lnVPRC = 0.176;
+#lnQCC = 0.104;
+#lnVPRC = 0.176;
 #lnDRespC = -3.61;
 lnPLivC = 0.587;
 lnPKidC = -0.559;
 lnPLivTCAC = -0.127;
+lnkASTCA = -0.319;
+lnkASTCOH = -0.11;
+lnkBileC = -2.3;
+lnkEHRC = -2.67;
+lnkUrnTCOGC = -1.79;
 
 ###### POPULATION MEANS
 
-#Distrib(	M_lnQCC	TruncNormal	0.0	0.2	-0.8	0.8	);
+Distrib(	M_lnQCC	TruncNormal	0.0	0.2	-0.8	0.8	);
 			
-#Distrib(	M_lnVPRC	TruncNormal	0.0	0.2	-0.8	0.8	);
+Distrib(	M_lnVPRC	TruncNormal	0.0	0.2	-0.8	0.8	);
 							
 #fixed#Distrib(	M_QFatC	TruncNormal	1.0	0.46	0.08	1.92	);
 #fixed#Distrib(	M_QGutC	TruncNormal	1.0	0.17	0.66	1.34	);
@@ -81,10 +86,9 @@ Distrib(	M_lnkTSD	Uniform			-4.269	4.942	);
 Distrib(	M_lnkAS	Uniform			-6.571	7.244	);
 #fixed#Distrib(	M_lnkTD	Uniform			-4.605	0	);
 Distrib(	M_lnkAD	Uniform			-7.195	6.62	);
-Distrib(	M_lnkASTCA	Uniform			-7.195	6.62	);
-Distrib(	M_lnkASTCOH	Uniform			-7.195	6.62	);
-							
-							
+#Distrib(	M_lnkASTCA	Uniform			-7.195	6.62	);
+#Distrib(	M_lnkASTCOH	Uniform			-7.195	6.62	);
+
 Distrib(	M_lnVMaxC	TruncNormal	0.0	0.693	-2.079	2.079	);
 Distrib(	M_lnKMC	TruncNormal	0.0	1.386	-4.158	2.079	);
 #Distrib(	M_lnClC	Normal			0	1	);
@@ -114,9 +118,9 @@ Distrib(	M_lnkUrnTCAC	Uniform			-4.605	4.605	);
 Distrib(	M_lnkMetTCAC	Uniform			-9.21	4.605	);
 							
 							
-Distrib(	M_lnkBileC	Uniform			-9.21	4.605	);
-Distrib(	M_lnkEHRC	Uniform			-9.21	4.605	);
-Distrib(	M_lnkUrnTCOGC	Uniform			-6.908	6.908	);
+#Distrib(	M_lnkBileC	Uniform			-9.21	4.605	);
+#Distrib(	M_lnkEHRC	Uniform			-9.21	4.605	);
+#Distrib(	M_lnkUrnTCOGC	Uniform			-6.908	6.908	);
 							
 ##Distrib(	M_lnFracKidDCVCC	Uniform			-6.908	6.908	);
 #Distrib(	M_lnPeffDCVG	Uniform			-6.908	6.908	);
@@ -129,20 +133,20 @@ Distrib(	M_lnkUrnTCOGC	Uniform			-6.908	6.908	);
 #Distrib(	M_lnkDCAper_cenC	Uniform			-9.21	4.605	);
 							
 ########## Interstrain variability (not used here)	
-#Distrib(       M_lnISOx	   Uniform	-4.605	4.605);
-#Distrib(       M_lnISTCA	   Uniform	-4.605	4.605);
+Distrib(       M_lnISOx	   Uniform	-4.605	4.605);
+Distrib(       M_lnISTCA	   Uniform	-4.605	4.605);
 #Distrib(       M_lnISDCA	   Uniform	-4.605	4.605);
-#Distrib(       M_lnISConj	   Uniform	-4.605	4.605);
-#Distrib(       M_lnISkTCA	   Uniform	-4.605	4.605);
+Distrib(       M_lnISConj	   Uniform	-4.605	4.605);
+Distrib(       M_lnISkTCA	   Uniform	-4.605	4.605);
 #####Distrib(       M_lnISkDCA	   Uniform	-4.605	4.605);
 #Distrib(       M_lnISkDCVG	   Uniform	-4.605	4.605);
 #Distrib(       M_lnISkDCVC	   Uniform	-4.605	4.605);
 
 ###### POPULATION VARIANCES
 
-#Distrib(	V_lnQCC	InvGamma	2.25	0.0500	);
+Distrib(	V_lnQCC	InvGamma	2.25	0.0500	);
 					
-#Distrib(	V_lnVPRC	InvGamma	2.25	0.0500	);
+Distrib(	V_lnVPRC	InvGamma	2.25	0.0500	);
 					
 #fixed#Distrib(	V_QFatC	InvGamma	6	1.0580	);
 #fixed#Distrib(	V_QGutC	InvGamma	6	0.1445	);
@@ -190,8 +194,8 @@ Distrib(	V_lnkTSD	InvGamma	2.25	5.0000	);
 Distrib(	V_lnkAS	InvGamma	2.25	5.0000	);
 #fixed#Distrib(	V_lnkTD	InvGamma	2.25	5.0000	);
 Distrib(	V_lnkAD	InvGamma	2.25	5.0000	);
-Distrib(	V_lnkASTCA	InvGamma	2.25	5.0000	);
-Distrib(	V_lnkASTCOH	InvGamma	2.25	5.0000	);
+#Distrib(	V_lnkASTCA	InvGamma	2.25	5.0000	);
+#Distrib(	V_lnkASTCOH	InvGamma	2.25	5.0000	);
 					
 					
 Distrib(	V_lnVMaxC	InvGamma	3	1.3585	);
@@ -223,9 +227,9 @@ Distrib(	V_lnkUrnTCAC	InvGamma	2.25	0.3125	);
 Distrib(	V_lnkMetTCAC	InvGamma	2.25	0.3125	);
 					
 					
-Distrib(	V_lnkBileC	InvGamma	2.25	0.3125	);
-Distrib(	V_lnkEHRC	InvGamma	2.25	0.3125	);
-Distrib(	V_lnkUrnTCOGC	InvGamma	2.25	0.3125	);
+#Distrib(	V_lnkBileC	InvGamma	2.25	0.3125	);
+#Distrib(	V_lnkEHRC	InvGamma	2.25	0.3125	);
+#Distrib(	V_lnkUrnTCOGC	InvGamma	2.25	0.3125	);
 					
 					
 ##Distrib(	V_lnFracKidDCVCC	InvGamma	2.25	0.3125	);
@@ -239,11 +243,11 @@ Distrib(	V_lnkUrnTCOGC	InvGamma	2.25	0.3125	);
 #Distrib(	V_lnkDCAper_cenC	InvGamma	2.25	0.3125	);
 					
 ########## Interstrain variability (not used here)	
-#Distrib(	V_lnISOx	InvGamma	2.25	5.0000	);
-#Distrib(	V_lnISTCA	InvGamma	2.25	5.0000	);
+Distrib(	V_lnISOx	InvGamma	2.25	5.0000	);
+Distrib(	V_lnISTCA	InvGamma	2.25	5.0000	);
 #Distrib(	V_lnISDCA	InvGamma	2.25	5.0000	);
-#Distrib(	V_lnISConj	InvGamma	2.25	5.0000	);
-#Distrib(	V_lnISkTCA	InvGamma	2.25	5.0000	);
+Distrib(	V_lnISConj	InvGamma	2.25	5.0000	);
+Distrib(	V_lnISkTCA	InvGamma	2.25	5.0000	);
 #####Distrib(	V_lnISkDCA	InvGamma	2.25	5.0000	);
 #Distrib(	V_lnISkDCVG	InvGamma	2.25	5.0000	);
 #Distrib(	V_lnISkDCVC	InvGamma	2.25	5.0000	);
@@ -379,9 +383,9 @@ lnClKidDCVGC = -30; # Remove kidney GSH conjugation (not identifiable)
 
 Level { #Subject/group level
 
-#Distrib(	lnQCC	TruncNormal_v	M_lnQCC	V_lnQCC	-0.8	0.8	);
+Distrib(	lnQCC	TruncNormal_v	M_lnQCC	V_lnQCC	-0.8	0.8	);
 							
-#Distrib(	lnVPRC	TruncNormal_v	M_lnVPRC	V_lnVPRC	-0.8	0.8	);
+Distrib(	lnVPRC	TruncNormal_v	M_lnVPRC	V_lnVPRC	-0.8	0.8	);
 							
 #fixed#Distrib(	QFatC	TruncNormal_v	M_QFatC	V_QFatC	0.08	1.92	);
 #fixed#Distrib(	QGutC	TruncNormal_v	M_QGutC	V_QGutC	0.66	1.34	);
@@ -429,8 +433,8 @@ Distrib(	lnkTSD	TruncNormal_v	M_lnkTSD	V_lnkTSD	-4.269	4.942	);
 Distrib(	lnkAS	TruncNormal_v	M_lnkAS	V_lnkAS	-6.571	7.244	);
 #fixed#Distrib(	lnkTD	TruncNormal_v	M_lnkTD	V_lnkTD	-4.605	0	);
 Distrib(	lnkAD	TruncNormal_v	M_lnkAD	V_lnkAD	-7.195	6.62	);
-Distrib(	lnkASTCA	TruncNormal_v	M_lnkASTCA	V_lnkASTCA	-7.195	6.62	);
-Distrib(	lnkASTCOH	TruncNormal_v	M_lnkASTCOH	V_lnkASTCOH	-7.195	6.62	);
+#Distrib(	lnkASTCA	TruncNormal_v	M_lnkASTCA	V_lnkASTCA	-7.195	6.62	);
+#Distrib(	lnkASTCOH	TruncNormal_v	M_lnkASTCOH	V_lnkASTCOH	-7.195	6.62	);
 							
 							
 Distrib(	lnVMaxC	TruncNormal_v	M_lnVMaxC	V_lnVMaxC	-2.079	2.079	);
@@ -462,12 +466,22 @@ Distrib(	lnkUrnTCAC	TruncNormal_v	M_lnkUrnTCAC	V_lnkUrnTCAC	-4.605	4.605	);
 Distrib(	lnkMetTCAC	TruncNormal_v	M_lnkMetTCAC	V_lnkMetTCAC	-9.21	4.605	);
 							
 							
-Distrib(	lnkBileC	TruncNormal_v	M_lnkBileC	V_lnkBileC	-9.21	4.605	);
-Distrib(	lnkEHRC	TruncNormal_v	M_lnkEHRC	V_lnkEHRC	-9.21	4.605	);
-Distrib(	lnkUrnTCOGC	TruncNormal_v	M_lnkUrnTCOGC	V_lnkUrnTCOGC	-6.908	6.908	);
+#Distrib(	lnkBileC	TruncNormal_v	M_lnkBileC	V_lnkBileC	-9.21	4.605	);
+#Distrib(	lnkEHRC	TruncNormal_v	M_lnkEHRC	V_lnkEHRC	-9.21	4.605	);
+#Distrib(	lnkUrnTCOGC	TruncNormal_v	M_lnkUrnTCOGC	V_lnkUrnTCOGC	-6.908	6.908	);
 							
 							
 ##Distrib(	lnFracKidDCVCC	TruncNormal_v	M_lnFracKidDCVCC	V_lnFracKidDCVCC	-6.908	6.908	);
+
+Distrib(       lnISOx	   TruncNormal_v	M_lnISOx	V_lnISOx	-4.605	4.605);
+Distrib(       lnISTCA	   TruncNormal_v	M_lnISTCA	V_lnISTCA	-4.605	4.605);
+#Distrib(       lnISDCA	   TruncNormal_v	M_lnISDCA	V_lnISDCA	-4.605	4.605);
+Distrib(       lnISConj	   TruncNormal_v	M_lnISConj	V_lnISConj	-4.605	4.605);
+Distrib(       lnISkTCA	   TruncNormal_v	M_lnISkTCA	V_lnISkTCA	-4.605	4.605);
+####Distrib(       lnISkDCA	   TruncNormal_v	M_lnISkDCA	V_lnISkDCA	-4.605	4.605);
+#Distrib(       lnISkDCVG	   TruncNormal_v	M_lnISkDCVG	V_lnISkDCVG	-4.605	4.605);
+#Distrib(       lnISkDCVC	   TruncNormal_v	M_lnISkDCVC	V_lnISkDCVC	-4.605	4.605);
+
 							
 Likelihood( CVenMole , LogNormal_v , Prediction( CVenMole ) , Ve_CVenMole );
 Likelihood( CLivMole , LogNormal_v , Prediction( CLivMole ) , Ve_CLivMole );
