@@ -318,7 +318,8 @@ ATCOG,		# ONLY FOR COMPARISON WITH HACK
 
 ## Misc
   #RAO,
-  CVenMole,
+  CVenMole, #(v220)
+  CVenMole_ND, #(v220)
   CLivMole, #(v220)
   CKidMole, #(v220)
   CBldTCAMole, #(v220)
@@ -2984,6 +2985,7 @@ CalcOutputs{
 	ATCOG = ABodTCOG + ALivTCOG; # ONLY FOR COMPARISON WITH HACK
 # Misc
 	CVenMole = CVen / MWTCE * 1000; # #(v220) (nmol/ml)
+	CVenMole_ND = (CVenMole < 1.0e-15 ? 1.0e-15 : CVenMole); #(v220)
 	CLivMole = CLiv / MWTCE * 1000; # #(v220) 
 	CKidMole = CKid / MWTCE * 1000; # #(v220) 
 	CBldTCAMole = CBldTCA / MWTCA * 1000; #(v220) (nmol/ml)
