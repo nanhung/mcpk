@@ -1,0 +1,18 @@
+# Check Massbalance
+OutputFile ("massbalance.out");
+
+Integrate (Lsodes, 1e-7, 1e-9, 1);
+
+Simulation { # 1:
+
+BW =  0.029 ;
+
+  IngDose = 2100;
+  Ka = 20;
+  PrintStep ( Oral_input, ATotal, 0, 2, 0.1);
+  #PrintStep (AUCsrm_tce, AUCliv_pce 0, 36, 1);
+  #PrintStep (C_cen, C_tca, C_tch, C_dcg, C_dcc, C_ndc, 0.1, 36, 0.5);
+}
+
+
+END.
