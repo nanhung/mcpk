@@ -1,17 +1,20 @@
 States = {
-    AOther,
+    AStom,
+	ADuod,
+	AOther,
 	ARap,		# Amount in rapidly perfused tissues
 	ASlw,		# Amount in slowly perfused tissues
-	ABld, 		# Amount in Blood
+	ABld, 		# Amount in blood
 	AFat,       # Amount in fat
 	AGut,		# Amount in gut
 	ALiv,		# Amount in liver
-	AKid, 		# Amount in Kidney
+	AKid, 		# Amount in kidney
 	ABrn,		# Amount in brain
-	ALng        # Amount in Lung
+	ALng        # Amount in lung
 };	
 
-Inputs  = {Oral_input}; 
+Inputs  = {	PDose,		# Oral gavage dose (mg/kg)
+}; 
 
 Outputs = {
     CRap,
@@ -23,155 +26,306 @@ Outputs = {
     CKid,
     CBrn,
     CLng,
-    ATotal
+    ATotal,
+	CBldMole,
+	CLivMole,
+	CKidMole,
+	CBrnMole,
+	CLngMole
 };
 
+# ------------------------
+# Parameters
+# ------------------------
+
 BW	= 0.0032;  # Species-specific defaults during initialization
-BW75 = 0;
 
-# Oral input modeling
+kTSD; lnkTSD = log(1.4); # TCE Stomach-duodenum transfer coefficient (/hr)
+kAS; lnkAS = log(1.4); # TCE Stomach absorption coefficient (/hr)
+kAD; lnkAD = log(0.75); # TCE Duodenum absorption coefficient (/hr)
+kTD; lnkTD = log(0.1); # TCE Duodenum-feces transfer coefficient (/hr)
+TChng 	= 0.003; # IV infusion duration (hour)
 
-AbsDose;                       # Absorbed dose (mg)
-Fgutabs = 1;                   #
-IngDose    = 1.0;              # ingested input (mg/kg)
-Period     = 48.0;             # period of the exposure/no exposure cycle (h)
-Tlag       = 0.0;              # Absorption lagtime (h)
-Ka = 1;         # Intestinal absortion rate constant (1/h)
-Oral_input = PerExp (AbsDose, Period, Tlag, Ka);
-
-QC = 1; QCC = 11.6; 
-
-# Fractional volumes (fraction of body weight).
-VGutC = 0.022; 
-VLivC = 0.053; 
-VKidC = 0.016; 
-VBrnC = 0.013; 
-VLngC = 0.0061;
-VFatC = 0.07;
-VRapC = 0.1; 
-VBldC = 0.049;
-VSlwC = 0.6709;
+# Cardiac output (L/hr)
+QCC; lnQCC = log(11.6);
 
 # Fractional blood flows (fraction of cardiac output).
 #http://www.scielo.cl/scielo.php?pid=s0716-97602007000200004&script=sci_arttext
-QGutC = 0.141;
-QLivC = 0.02;
-QKidC = 0.091;
-QBrnC = 0.030;
-QLngC = 0.312;
-QFatC = 0.07;
-QSlwC = 0.217;
-QRapC = 0.119;
+QGutC = 1.0; QGutCtmp = QGutC * 0.141;
+QLivC = 1.0; QLivCtmp = QLivC * 0.02;
+QKidC = 1.0; QKidCtmp = QKidC * 0.091; 
+QBrnC = 1.0; QBrnCtmp = QBrnC * 0.030;
+QLngC = 1.0; QLngCtmp = QLngC * 0.0312;
+QFatC = 1.0; QFatCtmp = QFatC * 0.007;
+QSlwC = 1.0; QSlwCtmp = QSlwC * 0.217;
+#QRapC = 1.0; QRapCtmp = QRapC * 0.119;
 
-QGut = 1;
-QLiv = 1;
-QKid = 1;
-QBrn = 1;
-QLng = 1;
-QFat = 1;
-QSlw = 1;
-QRap = 1;
+fWLiv = 0.053;
+fWKid = 0.016;
+fWBrn = 0.013;
+fWLng = 0.0061;
 
-PGut = 0.1;
-PLiv = 0.1;
-PKid = 0.1;
-PBrn = 0.1;
-PLng = 0.1;
-PFat = 0.1;
-PSlw = 0.1;
-PRap = 0.1;
+# Fractional volumes (fraction of body weight).
+VBldC = 1.0; VBld = VBldC * BW * 0.049;
+VGutC = 1.0; VGut = VGutC * BW * 0.022;
+VLivC = 1.0; VLiv = VLivC * BW * fWLiv;
+VKidC = 1.0; VKid = VKidC * BW * fWKid;
+VBrnC = 1.0; VBrn = VBrnC * BW * fWBrn;
+VLngC = 1.0; VLng = VLngC * BW * fWLng;
+VFatC = 1.0; VFat = VFatC * BW * 0.07;
+VRapC = 1.0; VRap = VRapC * BW * 0.1;
+VSlwC = 1.0; #VSlw = VSlwC * BW * 0.7709;
 
-VMax = 1;	# VMax for hepatic TCE oxidation (mg/hr)
-KM	= 1;	# KM for hepatic TCE oxidation (mg/L)
-VMaxDCVG	= 1;	# VMax for hepatic TCE GSH conjugation (mg/hr)
-KMDCVG	= 1;	# KM for hepatic TCE GSH conjugation (mg/L)
-VMaxKidDCVG	= 1;	# VMax for renal TCE GSH conjugation (mg/hr)
-KMKidDCVG	= 1;	# KM for renal TCE GSH conjugation (mg/L)
-VMaxClara	= 1;	# VMax for Tracheo-bronchial TCE oxidation (mg/hr)
-KMClara	= 1;	# KM for Tracheo-bronchial TCE oxidation (mg/L)
-kUrn = 1;
+# Molecular Weights
+MWTCE = 131.39; # TCE
+
+# Partition coefficients
+PGut; lnPGutC = 0.0;
+PLiv; lnPLivC = 0.0;
+PKid; lnPKidC = 0.0;
+PBrn; lnPBrnC = 0.0;
+PLng; lnPLngC = 0.0;
+PFat; lnPFatC = 0.0;
+PSlw; lnPSlwC = 0.0;
+PRap; lnPRapC = 0.0;
+
+lnISOx = 0.0; # P450 oxidative metabolism
+VMax; lnVMaxC = 0.0; # VMax for hepatic TCE oxidation (mg/hr)
+KM; lnKMC = 0.0; # KM for hepatic TCE oxidation (mg/L)
+lnISConj = 0.0;
+VMaxDCVG; lnVMaxDCVGC = 0.0;# VMax for hepatic TCE GSH conjugation (mg/hr)
+KMDCVG;	lnKMDCVGC = 0.0; # KM for hepatic TCE GSH conjugation (mg/L)
+VMaxKidDCVG; lnVMaxKidDCVGC = 0.0; # VMax for renal TCE GSH conjugation (mg/hr)
+lnClDCVGC = 0.0;
+KMKidDCVG; lnKMKidDCVGC = 0.0; # KM for renal TCE GSH conjugation (mg/L)
+lnClKidDCVGC = 0.0;
+VMaxClara; # VMax for Tracheo-bronchial TCE oxidation (mg/hr)
+lnVMaxLungLivC = 0.0; # Ratio of lung Vmax to liver Vmax
+KMClara; lnKMClara = 0.0; # KM for Tracheo-bronchial TCE oxidation (mg/L)
+kUrn; lnkUrn = log(0.1);
+
+# Population Mean (M_)
+M_lnkTSD;
+M_lnkAS; 
+M_lnkAD; 
+M_lnkTD;
+M_lnQCC;
+M_QGutC; 
+M_QLivC;
+M_QKidC;
+M_QBrnC;
+M_QLngC;
+M_QFatC;
+M_QSlwC;
+M_VBldC;
+M_VGutC;
+M_VLivC; 
+M_VKidC;
+M_VBrnC;
+M_VLngC;
+M_VFatC;
+M_VRapC;
+M_VSlwC;
+M_lnPGutC;
+M_lnPLivC;
+M_lnPKidC;
+M_lnPBrnC;
+M_lnPLngC;
+M_lnPFatC;
+M_lnPSlwC;
+M_lnPRapC;
+M_lnVMaxC;
+M_lnISOx;
+M_lnISConj;
+M_lnKMC;
+M_lnVMaxDCVGC;
+M_lnKMDCVGC;
+M_lnClDCVGC;
+M_lnVMaxKidDCVGC;
+M_lnKMKidDCVGC;
+M_lnClKidDCVGC;
+M_lnVMaxClaraC;
+M_lnVMaxLungLivC;
+M_lnKMClara;
+M_lnkUrn;
+
+# Population Variances (V_)
+V_lnkTSD;
+V_lnkAS; 
+V_lnkAD; 
+V_lnkTD;
+V_lnQCC;
+V_QGutC; 
+V_QLivC;
+V_QKidC;
+V_QBrnC;
+V_QLngC;
+V_QFatC;
+V_QSlwC;
+#V_QRapC;	
+V_VBldC;
+V_VGutC;
+V_VLivC; 
+V_VKidC;
+V_VBrnC;
+V_VLngC;
+V_VFatC;
+V_VRapC;
+V_VSlwC;
+V_lnPGutC;
+V_lnPLivC;
+V_lnPKidC;
+V_lnPBrnC;
+V_lnPLngC;
+V_lnPFatC;
+V_lnPSlwC;
+V_lnPRapC;
+V_lnISOx;
+V_lnISConj;
+V_lnVMaxC;
+V_lnKMC;
+V_lnVMaxDCVGC;
+V_lnKMDCVGC;
+V_lnClDCVGC;
+V_lnVMaxKidDCVGC;
+V_lnKMKidDCVGC;
+V_lnClKidDCVGC;
+V_lnVMaxLungLivC;
+V_lnKMClara;
+V_lnkUrn;
+
+# Measurement error variances for output (Ve_)
+Ve_CBldMole;
+Ve_CLivMole;
+Ve_CKidMole;
+Ve_CBrnMole;
+Ve_CLngMole;
 
 Initialize {
-	AbsDose = IngDose * Fgutabs * BW;
-    BW75 = pow(BW, 0.75);
-    # Cardiac Output and alveolar ventilation (L/hr) 
-	QC = QCC * BW75;
-	QGut = QGutC * QC;
-	QLiv = QLivC * QC;  
-	QKid = QKidC * QC;  
-	QBrn = QBrnC * QC; 
-	QFat = QFatC * QC;
-	QLng = QLngC * QC; 
-	QSlw = QSlwC * QC; 
-	QRap = QC - QGut - QLiv - QSlw - QKid - QBrn - QFat - QLng; #(v1.2)
+	QCC = exp(lnQCC);
+	kTSD = exp(lnkTSD); 
+	kAS = exp(lnkAS);
+	kAD = exp(lnkAD);
+	kTD = exp(lnkTD);
+	QCC = exp(lnQCC);
+	PGut = exp(lnPGutC) * 1.9;
+	PLiv = exp(lnPLivC) * 1.7;
+	PKid = exp(lnPKidC) * 2.1;
+	PBrn = exp(lnPBrnC) * 1.9; # Same as Rap
+	PLng = exp(lnPLngC) * 1.9; # Same as Rap
+	PFat = exp(lnPFatC) * 36;
+	PSlw = exp(lnPSlwC) * 2.4;
+	PRap = exp(lnPRapC) * 1.9;
+	
+	VMax = exp(lnISOx) * VLiv * exp(lnVMaxC)* 2700; # apply interstrain scaling 
+	KM = 36 * exp(lnKMC);	
+	VMaxClara = exp(lnVMaxLungLivC) * VMax * (1.03/1.87*0.7/5.5);
+	KMClara = exp(lnKMClara);
+	VMaxDCVG = exp(lnISConj) * VLiv * (300 * exp(lnVMaxDCVGC));
+	KMDCVG = VMaxDCVG / (VLiv * 1.53 * exp(lnClDCVGC));
+	VMaxKidDCVG = exp(lnISConj) * VKid * 60 *exp(lnVMaxKidDCVGC);
+    KMKidDCVG = VMaxKidDCVG / (VKid * 0.34 * exp(lnClKidDCVGC));
+	kUrn = exp(lnkUrn);
 }
 
 Dynamics {
+    BW75 = pow(BW, 0.75);
+    QC = QCC * BW75 * 11.6;
+    QGut = QGutCtmp * QC;
+	QLiv = QLivCtmp * QC;  
+	QKid = QKidCtmp * QC;  
+	QBrn = QBrnCtmp * QC; 
+	QFat = QFatCtmp * QC;
+	QLng = QLngCtmp * QC; 
+	QSlw = QSlwCtmp * QC; 
+	QRap = QC - QGut - QLiv - QSlw - QKid - QBrn - QFat - QLng; #(v1.2)
+	
+# Tissue Concentrations (mg/L)
+	VSlw = VSlwC * BW * (1 - VRapC - VFatC - VGutC - VLivC - VKidC - VBrnC - VLngC -VBldC);	
+	CRap = ARap/VRap; 
+	CSlw = ASlw/VSlw; 
+	CFat = AFat/VFat; 
+	CGut = AGut/VGut; 
+	CLiv = ALiv/VLiv; 
+	CKid = AKid/VKid; 
+    CBrn = ABrn/VBrn;
+    CLng = ALng/VLng;
+# Concentration of TCE in mixed venous blood (mg/L)
+    CBld = ABld/VBld;
 
 #****Blood (venous)************************************************************
-	AVRap = ARap / PRap;
-	AVSlw = ASlw / PSlw;
-	AVGut = AGut / PGut;
-	AVLiv = ALiv / PLiv;
-	AVKid = AKid / PKid;
-	AVBrn = ABrn / PBrn;
-	AVFat = AFat / PFat;
-    AVLng = ALng / PLng;
+	CVRap = CRap / PRap;
+	CVSlw = CSlw / PSlw;
+	CVGut = CGut / PGut;
+	CVLiv = CLiv / PLiv;
+	CVKid = CKid / PKid;
+	CVBrn = CBrn / PBrn;
+	CVFat = CFat / PFat;
+    CVLng = CLng / PLng;
+
+## Oral route
+# Amount of TCE in stomach -- for oral dosing only (mg)	
+	kStom = (PDose * BW) / TChng;# PO dose rate (into stomach) (mg/hr) (v1.2.1)
+
+#(v1.2.1)    dt(AStom) = PDose * BW - AStom * (kAS + kTSD);
+    dt(AStom) = kStom - AStom * (kAS + kTSD);
+
+# Amount of TCE in duodenum -- for oral dosing only (mg)
+    dt(ADuod) = (kTSD * AStom) - (kAD + kTD) * ADuod;
+		
+# Total rate of absorption including gavage and drinking water
+    RAO = (kAS * AStom) + (kAD * ADuod);
+	
 # Dynamics for blood
-    dt(ABld) = (QGut*AVGut + QFat*AVFat + QBrn*AVBrn + QSlw*AVSlw + QRap*AVRap +
-    			 + QLng*AVLng + QLiv*AVLiv + QKid*AVKid ) - ABld * QC;
+    dt(ABld) = (QGut*CVGut + QFat*CVFat + QBrn*CVBrn + QSlw*CVSlw + QRap*CVRap +
+    			 + QLng*CVLng + QLiv*CVLiv + QKid*CVKid ) - CBld * QC;
 		
 #**** Non-metabolizing tissues ************************************************
 # Amount of TCE in rapidly perfused tissues (mg)
-    dt(ARap) = QRap * (ABld - AVRap);
+    dt(ARap) = QRap * (CBld - CVRap);
 # Amount of TCE in slowly perfused tissues
-    dt(ASlw) = QSlw * (ABld - AVSlw);
+    dt(ASlw) = QSlw * (CBld - CVSlw);
 # Amount of TCE in brain tissue (mg)
-    dt(ABrn) = QBrn * (ABld - AVBrn);
+    dt(ABrn) = QBrn * (CBld - CVBrn);
 # Amount of TCE in fat tissue (mg)
-    dt(AFat) = QFat * (ABld - AVFat);
+    dt(AFat) = QFat * (CBld - CVFat);
 # Amount of TCE in gut compartment (mg)
-    dt(AGut) = Ka * Oral_input + (QGut * (ABld - AVGut)); # Ka need to put here!
+    dt(AGut) = RAO + (QGut * (CBld - CVGut));
 
 #**** Liver *******************************************************************
 # Rate of TCE oxidation by P450 to TCA, TCOH, and other (DCA) in liver (mg/hr)
-	RAMetLiv1 = (VMax * AVLiv) / (KM + AVLiv);
+	RAMetLiv1 = (VMax * CVLiv) / (KM + CVLiv);
 # Rate of TCE metabolized to DCVG in liver (mg)
-	RAMetLiv2 = (VMaxDCVG * AVLiv) / (KMDCVG + AVLiv);
+	RAMetLiv2 = (VMaxDCVG * CVLiv) / (KMDCVG + CVLiv);
 # Dynamics for amount of TCE in liver (mg)
-    dt(ALiv) = (QLiv * (ABld - AVLiv)) - RAMetLiv1 - RAMetLiv2;
+    dt(ALiv) = (QLiv * (CBld - CVLiv)) - RAMetLiv1 - RAMetLiv2;
 
 #**** Kidney ******************************************************************
 # Rate of TCE metabolized to DCVG in kidney (mg) # 
-	RAMetKid = (VMaxKidDCVG * AVKid) / (KMKidDCVG + AVKid);
+	RAMetKid = (VMaxKidDCVG * CVKid) / (KMKidDCVG + CVKid);
 # Rate of urinary excretion of TCE
 	RUrn = kUrn * AKid;
 # Amount of TCE in kidney compartment (mg)
-    dt(AKid) = (QKid * (ABld - AVKid)) - RAMetKid - RUrn;
+    dt(AKid) = (QKid * (CBld - CVKid)) - RAMetKid - RUrn;
 
 #**** Lung ******************************************************************
 # Rate of TCE oxidation in lung (mg) # 
-    RAMetLng = VMaxClara * AVLng/(KMClara + AVLng);
+    RAMetLng = VMaxClara * CVLng/(KMClara + CVLng);
 # Dynamics for amount of TCE in lung (mg)    
-    dt(ALng) = (QLng * (ABld - AVLng)) - RAMetLng;  
+    dt(ALng) = (QLng * (CBld - CVLng)) - RAMetLng;  
 # other    
-	dt(AOther) = RAMetLng + RAMetLiv1 + RAMetLiv2 + RAMetKid + RUrn; 
+	dt(AOther) = RAMetLng + RAMetLiv1 + RAMetLiv2 + RAMetKid + RUrn + ADuod * kTD; 
 }
 
 CalcOutputs {
-# Tissue Concentrations (mg/L)
-	CRap = ARap/VRapC/BW; 
-	CSlw = ASlw/VSlwC/BW; 
-	CFat = AFat/VFatC/BW; 
-	CGut = AGut/VGutC/BW; 
-	CLiv = ALiv/VLivC/BW; 
-	CKid = AKid/VKidC/BW; 
-    CBrn = ABrn/VBrnC/BW;
-    CLng = ALng/VLngC/BW;
-# Concentration of TCE in mixed venous blood (mg/L)
-    CBld = ABld/VBldC/BW;
-    ATotal = AGut + ABld + AFat + ABrn + ARap + ASlw + ALng + ALiv + AKid + AOther;
+    ATotal = AStom + ADuod +AGut + ABld + AFat + ABrn + ARap + ASlw + ALng + ALiv + AKid + AOther;
+	CBldMole = (CBld < 1.0e-15 ? 1.0e-15 : CBld / MWTCE * 1000);
+	CLivMole = (CLiv < 1.0e-15 ? 1.0e-15 : CLiv / MWTCE * 1000);
+	CKidMole = (CKid < 1.0e-15 ? 1.0e-15 : CKid / MWTCE * 1000);
+	CBrnMole = (CBrn < 1.0e-15 ? 1.0e-15 : CBrn / MWTCE * 1000);
+	CLngMole = (CLng < 1.0e-15 ? 1.0e-15 : CLng / MWTCE * 1000);
 }
 
 End.
+
 
