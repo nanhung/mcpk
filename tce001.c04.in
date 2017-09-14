@@ -3,22 +3,27 @@
 Integrate (Lsodes, 1e-6, 1e-9, 1);
 MCMC ("tce001.c04.out",
        "", "",                     
-       20000, 0, 20, 20000, 4444);
+       10000, 0, 10, 10000, 4444);
        
 Level { # population
-    
+
+lnQCC = -0.576;
+lnPLivC = -0.694;
+lnPKidC = 0.187;
+lnPLngC = 0.529;
+
 # (M_)
-Distrib(	M_lnkTSD Uniform -2.3, 0);
-Distrib(	M_lnkAS	Uniform	-4.6, -2.3);
-Distrib(	M_lnkTD	Uniform	-4.6, -2.3);
-Distrib(	M_lnkAD	Uniform	-4.6, -2.3);
-Distrib(	M_lnQCC	TruncNormal	0.0	0.2	-0.8	0.8	);
+Distrib(	M_lnkTSD Uniform -4.6, 0);
+Distrib(	M_lnkAS	Uniform	-6.9, -2.3);
+Distrib(	M_lnkTD	Uniform	-6.9, -2.3);
+Distrib(	M_lnkAD	Uniform	-4.6, 0);
+#Distrib(	M_lnQCC	TruncNormal	0.0	0.2	-0.8	0.8	);
 #Distrib(	M_lnPFatC	TruncNormal	0.0	0.3	-0.9	0.9	);
 #Distrib(	M_lnPGutC	TruncNormal	0.0	0.4	-1.2	1.2	);
-Distrib(	M_lnPLivC	TruncNormal	0.0	0.4	-1.2	1.2	); 
-Distrib(	M_lnPKidC	TruncNormal	0.0	0.4	-1.2	1.2	); 
+#Distrib(	M_lnPLivC	TruncNormal	0.0	0.4	-1.2	1.2	); 
+#Distrib(	M_lnPKidC	TruncNormal	0.0	0.4	-1.2	1.2	); 
 #Distrib(	M_lnPBrnC	TruncNormal	0.0	0.4	-1.2	1.2	);
-Distrib(	M_lnPLngC	TruncNormal	0.0	0.4	-1.2	1.2	);
+#Distrib(	M_lnPLngC	TruncNormal	0.0	0.4	-1.2	1.2	);
 #Distrib(	M_lnPRapC	TruncNormal	0.0	0.4	-1.2	1.2	);
 #Distrib(	M_lnPSlwC	TruncNormal	0.0	0.4	-1.2	1.2	);
 Distrib(	M_lnVMaxC	Uniform	-1	0);
@@ -42,13 +47,13 @@ Distrib(	V_lnkTSD	InvGamma	2.25	5.0000	);
 Distrib(	V_lnkAS	InvGamma	2.25	5.0000	);
 Distrib(	V_lnkAD	InvGamma	2.25	5.0000	);
 Distrib(	V_lnkTD	InvGamma	2.25	5.0000	);
-Distrib(	V_lnQCC	InvGamma	2.25	0.0500	);
+#Distrib(	V_lnQCC	InvGamma	2.25	0.0500	);
 #Distrib(	V_lnPFatC	InvGamma	2.25	0.1125	);
 #Distrib(	V_lnPGutC	InvGamma	2.25	0.2000	);
-Distrib(	V_lnPLivC	InvGamma	2.25	0.2000	); 
-Distrib(	V_lnPKidC	InvGamma	2.25	0.2000	); 
+#Distrib(	V_lnPLivC	InvGamma	2.25	0.2000	); 
+#Distrib(	V_lnPKidC	InvGamma	2.25	0.2000	); 
 #Distrib(	V_lnPBrnC	InvGamma	2.25	0.2000	); 
-Distrib(	V_lnPLngC	InvGamma	2.25	0.2000	);
+#Distrib(	V_lnPLngC	InvGamma	2.25	0.2000	);
 #Distrib(	V_lnPRapC	InvGamma	2.25	0.2000	);
 #Distrib(	V_lnPSlwC	InvGamma	2.25	0.2000	);
 Distrib(	V_lnVMaxC	InvGamma	3	1.3585	);
@@ -80,17 +85,17 @@ Distrib( Ve_CLngMole, LogUniform , 0.01 , 3.3 );
   Likelihood (Data(CLngMole), LogNormal_v, Prediction(CLngMole), Ve_CLngMole);
   
 Level { # group 
-Distrib(	lnkTSD TruncNormal_v M_lnkTSD V_lnkTSD -2.3, 0);
-Distrib(	lnkAS	TruncNormal_v M_lnkAS V_lnkAS -4.6, -2.3);
-Distrib(	lnkTD	TruncNormal_v M_lnkTD V_lnkTD -4.6, -2.3);
-Distrib(	lnkAD	TruncNormal_v M_lnkAD V_lnkAD -4.6, -2.3);
-Distrib(	lnQCC	TruncNormal_v M_lnQCC V_lnQCC -0.8	0.8	);
+Distrib(	lnkTSD TruncNormal_v M_lnkTSD V_lnkTSD -4.6, 0);
+Distrib(	lnkAS	TruncNormal_v M_lnkAS V_lnkAS -6.9, -2.3);
+Distrib(	lnkTD	TruncNormal_v M_lnkTD V_lnkTD -6.9, -2.3);
+Distrib(	lnkAD	TruncNormal_v M_lnkAD V_lnkAD -4.6, 0);
+#Distrib(	lnQCC	TruncNormal_v M_lnQCC V_lnQCC -0.8	0.8	);
 #Distrib(	lnPFatC TruncNormal_v	M_lnPFatC V_lnPFatC -0.9	0.9	);
 #Distrib(	lnPGutC TruncNormal_v M_lnPGutC V_lnPGutC -1.2	1.2	);
-Distrib(	lnPLivC TruncNormal_v M_lnPLivC V_lnPLivC -1.2	1.2	); 
-Distrib(	lnPKidC TruncNormal_v M_lnPKidC V_lnPKidC -1.2	1.2	); 
+#Distrib(	lnPLivC TruncNormal_v M_lnPLivC V_lnPLivC -1.2	1.2	); 
+#Distrib(	lnPKidC TruncNormal_v M_lnPKidC V_lnPKidC -1.2	1.2	); 
 #Distrib(	lnPBrnC TruncNormal_v M_lnPBrnC V_lnPBrnC -1.2	1.2	);
-Distrib(	lnPLngC TruncNormal_v M_lnPLngC V_lnPLngC -1.2	1.2	);
+#Distrib(	lnPLngC TruncNormal_v M_lnPLngC V_lnPLngC -1.2	1.2	);
 #Distrib(	lnPRapC TruncNormal_v M_lnPRapC V_lnPRapC -1.2	1.2	);
 #Distrib(	lnPSlwC TruncNormal_v M_lnPSlwC V_lnPSlwC -1.2	1.2	);
 Distrib(	lnVMaxC TruncNormal_v M_lnVMaxC V_lnVMaxC -1	0	);
