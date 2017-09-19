@@ -89,19 +89,19 @@ PFat; lnPFatC = 0.0;
 PSlw; lnPSlwC = 0.0;
 PRap; lnPRapC = 0.0;
 
-lnISOx = 0.0; # P450 oxidative metabolism
-VMax; lnVMaxC = 0.0; # VMax for hepatic TCE oxidation (mg/hr)
-KM; lnKMC = 0.0; # KM for hepatic TCE oxidation (mg/L)
-lnISConj = 0.0;
-VMaxDCVG; lnVMaxDCVGC = 0.0;# VMax for hepatic TCE GSH conjugation (mg/hr)
-KMDCVG;	lnKMDCVGC = 0.0; # KM for hepatic TCE GSH conjugation (mg/L)
-VMaxKidDCVG; lnVMaxKidDCVGC = 0.0; # VMax for renal TCE GSH conjugation (mg/hr)
-lnClDCVGC = 0.0;
-KMKidDCVG; lnKMKidDCVGC = 0.0; # KM for renal TCE GSH conjugation (mg/L)
-lnClKidDCVGC = 0.0;
-VMaxClara; # VMax for Tracheo-bronchial TCE oxidation (mg/hr)
-lnVMaxLungLivC = 0.0; # Ratio of lung Vmax to liver Vmax
-KMClara; lnKMClara = 0.0; # KM for Tracheo-bronchial TCE oxidation (mg/L)
+#lnISOx = 0.0; # P450 oxidative metabolism
+#lnISConj = 0.0;
+VMax; lnVMax = 1; # VMax for hepatic TCE oxidation (mg/hr)
+KM; lnKM = 1; # KM for hepatic TCE oxidation (mg/L)
+VMaxDCVG; lnVMaxDCVG = 1;# VMax for hepatic TCE GSH conjugation (mg/hr)
+KMDCVG;	lnKMDCVG = 1; # KM for hepatic TCE GSH conjugation (mg/L)
+VMaxKidDCVG; lnVMaxKidDCVG = 1; # VMax for renal TCE GSH conjugation (mg/hr)
+lnClDCVG = 1;
+KMKidDCVG; lnKMKidDCVG = 1; # KM for renal TCE GSH conjugation (mg/L)
+lnClKidDCVG = 1;
+#VMaxClara; # VMax for Tracheo-bronchial TCE oxidation (mg/hr)
+#lnVMaxLungLivC = 0.0; # Ratio of lung Vmax to liver Vmax
+#KMClara; lnKMClara = 0.0; # KM for Tracheo-bronchial TCE oxidation (mg/L)
 kUrn; lnkUrn = log(0.1);
 
 # Population Mean (M_)
@@ -134,18 +134,20 @@ M_lnPLngC;
 M_lnPFatC;
 M_lnPSlwC;
 M_lnPRapC;
-M_lnVMaxC;
-M_lnISOx;
-M_lnISConj;
-M_lnKMC;
-M_lnVMaxDCVGC;
-M_lnKMDCVGC;
-M_lnClDCVGC;
-M_lnVMaxKidDCVGC;
-M_lnKMKidDCVGC;
-M_lnClKidDCVGC;
-M_lnVMaxClaraC;
-M_lnVMaxLungLivC;
+
+#M_lnISOx;
+#M_lnISConj;
+
+M_lnVMax;
+M_lnKM;
+M_lnVMaxDCVG;
+M_lnKMDCVG;
+M_lnClDCVG;
+M_lnVMaxKidDCVG;
+M_lnKMKidDCVG;
+M_lnClKidDCVG;
+M_lnVMaxClara;
+M_lnVMaxLungLiv;
 M_lnKMClara;
 M_lnkUrn;
 
@@ -180,18 +182,20 @@ V_lnPLngC;
 V_lnPFatC;
 V_lnPSlwC;
 V_lnPRapC;
-V_lnISOx;
-V_lnISConj;
-V_lnVMaxC;
-V_lnKMC;
-V_lnVMaxDCVGC;
-V_lnKMDCVGC;
-V_lnClDCVGC;
-V_lnVMaxKidDCVGC;
-V_lnKMKidDCVGC;
-V_lnClKidDCVGC;
-V_lnVMaxLungLivC;
-V_lnKMClara;
+
+#V_lnISOx;
+#V_lnISConj;
+
+V_lnVMax;
+V_lnKM;
+V_lnVMaxDCVG;
+V_lnKMDCVG;
+V_lnClDCVG;
+V_lnVMaxKidDCVG;
+V_lnKMKidDCVG;
+V_lnClKidDCVG;
+#V_lnVMaxLungLivC;
+#V_lnKMClara;
 V_lnkUrn;
 
 # Measurement error variances for output (Ve_)
@@ -217,14 +221,14 @@ Initialize {
 	PSlw = exp(lnPSlwC) * 2.4;
 	PRap = exp(lnPRapC) * 1.9;
 	
-	VMax = exp(lnISOx) * VLiv * exp(lnVMaxC)* 2700; # apply interstrain scaling 
-	KM = 36 * exp(lnKMC);	
 	#VMaxClara = exp(lnVMaxLungLivC) * VMax * 0.07; #(1.03/1.87*0.7/5.5);
 	#KMClara = exp(lnKMClara);
-	VMaxDCVG = exp(lnISConj) * VLiv * (300 * exp(lnVMaxDCVGC));
-	KMDCVG = VMaxDCVG / (VLiv * 1.53 * exp(lnClDCVGC));
-	VMaxKidDCVG = exp(lnISConj) * VKid * 60 *exp(lnVMaxKidDCVGC);
-    KMKidDCVG = VMaxKidDCVG / (VKid * 0.34 * exp(lnClKidDCVGC));
+	VMax = exp(lnVMax);  
+	KM = exp(lnKM);	
+	VMaxDCVG = exp(lnVMaxDCVG);
+	KMDCVG = exp(lnKMDCVG);
+	VMaxKidDCVG = exp(lnVMaxKidDCVG);
+    KMKidDCVG = exp(lnKMKidDCVG);
 	kUrn = exp(lnkUrn);
 }
 
