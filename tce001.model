@@ -319,11 +319,11 @@ Dynamics {
 
 CalcOutputs {
     ATotal = AStom + ADuod +AGut + ABld + AFat + ABrn + ARap + ASlw + ALng + ALiv + AKid + AOther;
-	CBldMole = (CBld < 1.0e-15 ? 1.0e-15 : CBld / MWTCE * 1000);
-	CLivMole = (CLiv < 1.0e-15 ? 1.0e-15 : CLiv / MWTCE * 1000);
-	CKidMole = (CKid < 1.0e-15 ? 1.0e-15 : CKid / MWTCE * 1000);
-	CBrnMole = (CBrn < 1.0e-15 ? 1.0e-15 : CBrn / MWTCE * 1000);
-	CLngMole = (CLng < 1.0e-15 ? 1.0e-15 : CLng / MWTCE * 1000);
+	CBldMole = (CBld < 1.0e-10 ? 1.0e-10 : CBld / MWTCE * 1000);
+	CLivMole = (CLiv < 1.0e-10 ? 1.0e-10 : CLiv / MWTCE * 1000);
+	CKidMole = (CKid < 1.0e-10 ? 1.0e-10 : CKid / MWTCE * 1000);
+	CBrnMole = (CBrn < 1.0e-10 ? 1.0e-10 : CBrn / MWTCE * 1000);
+	CLngMole = (CLng < 1.0e-10 ? 1.0e-10 : CLng / MWTCE * 1000);
 }
 
 End.
