@@ -219,8 +219,8 @@ Initialize {
 	
 	VMax = exp(lnISOx) * VLiv * exp(lnVMaxC)* 2700; # apply interstrain scaling 
 	KM = 36 * exp(lnKMC);	
-	VMaxClara = exp(lnVMaxLungLivC) * VMax * 0.07; #(1.03/1.87*0.7/5.5);
-	KMClara = exp(lnKMClara);
+	#VMaxClara = exp(lnVMaxLungLivC) * VMax * 0.07; #(1.03/1.87*0.7/5.5);
+	#KMClara = exp(lnKMClara);
 	VMaxDCVG = exp(lnISConj) * VLiv * (300 * exp(lnVMaxDCVGC));
 	KMDCVG = VMaxDCVG / (VLiv * 1.53 * exp(lnClDCVGC));
 	VMaxKidDCVG = exp(lnISConj) * VKid * 60 *exp(lnVMaxKidDCVGC);
@@ -310,11 +310,13 @@ Dynamics {
 
 #**** Lung ******************************************************************
 # Rate of TCE oxidation in lung (mg) # 
-    RAMetLng = VMaxClara * CVLng/(KMClara + CVLng);
+#    RAMetLng = VMaxClara * CVLng/(KMClara + CVLng);
 # Dynamics for amount of TCE in lung (mg)    
-    dt(ALng) = (QLng * (CBld - CVLng)) - RAMetLng;  
+#    dt(ALng) = (QLng * (CBld - CVLng)) - RAMetLng;
+	 dt(ALng) = (QLng * (CBld - CVLng));
 # other    
-	dt(AOther) = RAMetLng + RAMetLiv1 + RAMetLiv2 + RAMetKid + RUrn + ADuod * kTD; 
+	#dt(AOther) = RAMetLng + RAMetLiv1 + RAMetLiv2 + RAMetKid + RUrn + ADuod * kTD;
+	dt(AOther) = RAMetLiv1 + RAMetLiv2 + RAMetKid + RUrn + ADuod * kTD;
 }
 
 CalcOutputs {
