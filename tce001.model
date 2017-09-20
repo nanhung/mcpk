@@ -46,19 +46,19 @@ kAD; lnkAD = log(0.75); # TCE Duodenum absorption coefficient (/hr)
 kTD; lnkTD = log(0.1); # TCE Duodenum-feces transfer coefficient (/hr)
 TChng 	= 0.003; # IV infusion duration (hour)
 
-# Cardiac output (L/hr)
-QCC; lnQCC = log(11.6);
+# Cardiac output (L/hr/kg^0.75)
+QCC = 11.6; lnQCC = log(11.6);
 
 # Fractional blood flows (fraction of cardiac output).
 #http://www.scielo.cl/scielo.php?pid=s0716-97602007000200004&script=sci_arttext
-QGutC = 1.0; QGutCtmp = QGutC * 0.141;
-QLivC = 1.0; QLivCtmp = QLivC * 0.02;
-QKidC = 1.0; QKidCtmp = QKidC * 0.091; 
-QBrnC = 1.0; QBrnCtmp = QBrnC * 0.030;
-QLngC = 1.0; QLngCtmp = QLngC * 0.0312;
-QFatC = 1.0; QFatCtmp = QFatC * 0.007;
-QSlwC = 1.0; QSlwCtmp = QSlwC * 0.217;
-#QRapC = 1.0; QRapCtmp = QRapC * 0.119;
+QGutC = 0.141; lnQGutC = log(QGutC);
+QLivC = 0.02; lnQLivC = log(QLivC);
+QKidC = 0.091; lnQKidC = log(QKidC); 
+QBrnC = 0.030; lnQBrnC = log(QBrnC);
+QLngC = 0.0312; lnQLngC = log(QLngC);
+QFatC = 0.007; lnQFatC = log(QFatC);
+QSlwC = 0.217; lnQSlwC = log(QSlwC);
+QRapC = 0.4628; lnQRapC = log(QRapC);
 
 fWLiv = 0.053;
 fWKid = 0.016;
@@ -66,15 +66,15 @@ fWBrn = 0.013;
 fWLng = 0.0061;
 
 # Fractional volumes (fraction of body weight).
-VBldC = 1.0; VBld = VBldC * BW * 0.049;
-VGutC = 1.0; VGut = VGutC * BW * 0.022;
-VLivC = 1.0; VLiv = VLivC * BW * fWLiv;
-VKidC = 1.0; VKid = VKidC * BW * fWKid;
-VBrnC = 1.0; VBrn = VBrnC * BW * fWBrn;
-VLngC = 1.0; VLng = VLngC * BW * fWLng;
-VFatC = 1.0; VFat = VFatC * BW * 0.07;
-VRapC = 1.0; VRap = VRapC * BW * 0.1;
-VSlwC = 1.0; #VSlw = VSlwC * BW * 0.7709;
+VBldC = 0.049; 
+VGutC = 0.022; 
+VLivC = 0.047; 
+VKidC = 0.015; 
+VBrnC = 0.006; 
+VLngC = 0.015; 
+VFatC = 0.070; 
+VRapC = 0.100; 
+VSlwC = 0.676; 
 
 # Molecular Weights
 MWTCE = 131.39; # TCE
@@ -146,9 +146,8 @@ M_lnClDCVG;
 M_lnVMaxKidDCVG;
 M_lnKMKidDCVG;
 M_lnClKidDCVG;
-M_lnVMaxClara;
-M_lnVMaxLungLiv;
-M_lnKMClara;
+#M_lnVMaxLungLiv;
+#M_lnKMClara;
 M_lnkUrn;
 
 # Population Variances (V_)
@@ -206,7 +205,6 @@ Ve_CBrnMole;
 Ve_CLngMole;
 
 Initialize {
-	QCC = exp(lnQCC);
 	kTSD = exp(lnkTSD); 
 	kAS = exp(lnkAS);
 	kAD = exp(lnkAD);
@@ -233,19 +231,29 @@ Initialize {
 }
 
 Dynamics {
-    BW75 = pow(BW, 0.75);
-    QC = QCC * BW75 * 11.6;
-    QGut = QGutCtmp * QC;
-	QLiv = QLivCtmp * QC;  
-	QKid = QKidCtmp * QC;  
-	QBrn = QBrnCtmp * QC; 
-	QFat = QFatCtmp * QC;
-	QLng = QLngCtmp * QC; 
-	QSlw = QSlwCtmp * QC; 
-	QRap = QC - QGut - QLiv - QSlw - QKid - QBrn - QFat - QLng; #(v1.2)
+	QC = QCC * pow(BW, 0.75); # Cardiac output (L/hr).
+    QTC = QGutC + QLivC + QKidC + QBrnC + QFatC + QLngC + QSlwC + QRapC;
+    QGut = QGutC * QC / QTC;
+	QLiv = QLivC * QC / QTC;  
+	QKid = QKidC * QC / QTC;  
+	QBrn = QBrnC * QC / QTC; 
+	QFat = QFatC * QC / QTC;
+	QLng = QLngC * QC / QTC; 
+	QSlw = QSlwC * QC / QTC; 
+	QRap = QRapC * QC / QTC;
+	
+	VTC = VBldC + VGutC + VLivC + VKidC + VBrnC + VFatC + VLngC + VSlwC + VRapC;
+	VBld = VBldC * BW / VTC;
+	VGut = VGutC * BW / VTC;
+	VLiv = VLivC * BW / VTC;
+	VKid = VKidC * BW / VTC;
+	VBrn = VBrnC * BW / VTC;
+	VLng = VLngC * BW / VTC;
+	VFat = VFatC * BW / VTC;
+	VRap = VRapC * BW / VTC;
+	VSlw = VSlwC * BW / VTC;
 	
 # Tissue Concentrations (mg/L)
-	VSlw = VSlwC * BW * (1 - VRapC - VFatC - VGutC - VLivC - VKidC - VBrnC - VLngC -VBldC);	
 	CRap = ARap/VRap; 
 	CSlw = ASlw/VSlw; 
 	CFat = AFat/VFat; 
