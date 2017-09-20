@@ -3,40 +3,35 @@
 Integrate (Lsodes, 1e-6, 1e-9, 1);
 MCMC ("tce001.c01.out",
        "", "",                     
-       10000, 0, 10, 10000, 1124);
+       3000, 0, 3, 3000, 1111);
        
 Level { # population
 
-#lnQCC = -0.576;
-lnPLivC = -0.694;
-lnPKidC = 0.187;
-lnPLngC = 0.529;
-
 # (M_)
-Distrib(	M_lnkTSD Uniform -4.6, 0);
-Distrib(	M_lnkAS	Uniform	-6.9, 0);
-Distrib(	M_lnkTD	Uniform	-6.9, 0);
-Distrib(	M_lnkAD	Uniform	-4.6, 0);
+Distrib(	M_lnkTSD Uniform -4.269	4.942);
+Distrib(	M_lnkAS	Uniform	-6.571	7.244);
+Distrib(	M_lnkTD	Uniform	-4.605	0);
+Distrib(	M_lnkAD	Uniform	-7.195	6.62);
 Distrib(	M_lnQCC	TruncNormal	0.0	0.2	-0.8	0.8	);
-#Distrib(	M_lnPFatC	TruncNormal	0.0	0.3	-0.9	0.9	);
-#Distrib(	M_lnPGutC	TruncNormal	0.0	0.4	-1.2	1.2	);
-#Distrib(	M_lnPLivC	TruncNormal	0.0	0.4	-1.2	1.2	); 
-#Distrib(	M_lnPKidC	TruncNormal	0.0	0.4	-1.2	1.2	); 
-#Distrib(	M_lnPBrnC	TruncNormal	0.0	0.4	-1.2	1.2	);
-#Distrib(	M_lnPLngC	TruncNormal	0.0	0.4	-1.2	1.2	);
-#Distrib(	M_lnPRapC	TruncNormal	0.0	0.4	-1.2	1.2	);
-#Distrib(	M_lnPSlwC	TruncNormal	0.0	0.4	-1.2	1.2	);
-Distrib(	M_lnVMaxC	Uniform	-1	0);
-Distrib(	M_lnKMC	Uniform -3 -1);
-Distrib(	M_lnVMaxDCVGC Uniform -7 -3);
-Distrib(	M_lnClDCVGC	Uniform -5 -3);
-Distrib(	M_lnVMaxKidDCVGC Uniform -5 0);
-Distrib(	M_lnClKidDCVGC	Uniform -5 0);
+Distrib(	M_lnPFatC	TruncNormal	0.0	0.3	-0.9	0.9	);
+Distrib(	M_lnPGutC	TruncNormal	0.0	0.4	-1.2	1.2	);
+Distrib(	M_lnPLivC	TruncNormal	0.0	0.4	-1.2	1.2	); 
+Distrib(	M_lnPKidC	TruncNormal	0.0	0.4	-1.2	1.2	); 
+Distrib(	M_lnPBrnC	TruncNormal	0.0	0.4	-1.2	1.2	);
+Distrib(	M_lnPLngC	TruncNormal	0.0	0.4	-1.2	1.2	);
+Distrib(	M_lnPRapC	TruncNormal	0.0	0.4	-1.2	1.2	);
+Distrib(	M_lnPSlwC	TruncNormal	0.0	0.6	-2	2	);
+Distrib(	M_lnVMax	TruncNormal	0.0	0.693 -2 2);
+Distrib(	M_lnKM	Uniform 0 6.9); # KMC 36
+#Distrib(	M_lnVMaxDCVGC Uniform -7 -3);
+#Distrib(	M_lnClDCVGC	Uniform -5 -3);
+#Distrib(	M_lnVMaxKidDCVGC Uniform -5 0);
+#Distrib(	M_lnClKidDCVGC	Uniform -5 0);
 #Distrib(	M_lnVMaxLungLivC Uniform 1 3);
 #Distrib(	M_lnKMClara	Uniform	-7	-3);
-Distrib(    M_lnISOx	   Uniform	-2	2);
-Distrib(    M_lnISConj	   Uniform	-2	2);
-Distrib(	M_lnkUrn	Uniform	-0.8, 0.8);
+#Distrib(   M_lnISOx	   Uniform	-2	2);
+#Distrib(   M_lnISConj	   Uniform	-2	2);
+Distrib(	M_lnkUrn	Uniform 0, 9);
 
 
   # Inter individual variances (Vr_)
@@ -46,27 +41,27 @@ Distrib(	V_lnkAS	InvGamma	2.25	5.0000	);
 Distrib(	V_lnkAD	InvGamma	2.25	5.0000	);
 Distrib(	V_lnkTD	InvGamma	2.25	5.0000	);
 Distrib(	V_lnQCC	InvGamma	2.25	0.0500	);
-#Distrib(	V_lnPFatC	InvGamma	2.25	0.1125	);
-#Distrib(	V_lnPGutC	InvGamma	2.25	0.2000	);
-#Distrib(	V_lnPLivC	InvGamma	2.25	0.2000	); 
-#Distrib(	V_lnPKidC	InvGamma	2.25	0.2000	); 
-#Distrib(	V_lnPBrnC	InvGamma	2.25	0.2000	); 
-#Distrib(	V_lnPLngC	InvGamma	2.25	0.2000	);
-#Distrib(	V_lnPRapC	InvGamma	2.25	0.2000	);
-#Distrib(	V_lnPSlwC	InvGamma	2.25	0.2000	);
-Distrib(	V_lnVMaxC	InvGamma	3	1.3585	);
-Distrib(	V_lnKMC	InvGamma	3	0.1458	);
-Distrib(	V_lnVMaxDCVGC	InvGamma	2.25	0.3125	);
-Distrib(	V_lnClDCVGC	InvGamma	2.25	0.3125	);
-Distrib(	V_lnVMaxKidDCVGC	InvGamma	2.25	0.3125	);
-Distrib(	V_lnClKidDCVGC	InvGamma	2.25	0.3125	);
+Distrib(	V_lnPFatC	InvGamma	2.25	0.1125	);
+Distrib(	V_lnPGutC	InvGamma	2.25	0.2000	);
+Distrib(	V_lnPLivC	InvGamma	2.25	0.2000	); 
+Distrib(	V_lnPKidC	InvGamma	2.25	0.2000	); 
+Distrib(	V_lnPBrnC	InvGamma	2.25	0.2000	); 
+Distrib(	V_lnPLngC	InvGamma	2.25	0.2000	);
+Distrib(	V_lnPRapC	InvGamma	2.25	0.2000	);
+Distrib(	V_lnPSlwC	InvGamma	2.25	0.2000	);
+Distrib(	V_lnVMax	InvGamma	3	1.3585	);
+Distrib(	V_lnKM	InvGamma	3	0.1458	);
+#Distrib(	V_lnVMaxDCVGC	InvGamma	2.25	0.3125	);
+#Distrib(	V_lnClDCVGC	InvGamma	2.25	0.3125	);
+#Distrib(	V_lnVMaxKidDCVGC	InvGamma	2.25	0.3125	);
+#Distrib(	V_lnClKidDCVGC	InvGamma	2.25	0.3125	);
 #Distrib(	V_lnVMaxLungLivC	InvGamma	2.25	0.3125	);
 #Distrib(	V_lnKMClara	InvGamma	2.25	0.3125	);
-Distrib(	V_lnISOx	InvGamma	2.25	5.0000	);
-Distrib(	V_lnISConj	InvGamma	2.25	5.0000	);
+#Distrib(	V_lnISOx	InvGamma	2.25	5.0000	);
+#Distrib(	V_lnISConj	InvGamma	2.25	5.0000	);
 Distrib(	V_lnkUrn	InvGamma	2.25	5.0000	);
 
-	  # (Ve_)
+	# (Ve_)
 Distrib( Ve_CBldMole, LogUniform , 0.01 , 0.5);
 Distrib( Ve_CLivMole, LogUniform , 0.01 , 0.5);
 Distrib( Ve_CKidMole, LogUniform , 0.01 , 0.5);
@@ -74,47 +69,48 @@ Distrib( Ve_CBrnMole, LogUniform , 0.01 , 0.5);
 Distrib( Ve_CLngMole, LogUniform , 0.01 , 0.5);
 
 	# Likelihood	
-  Likelihood (Data(CBldMole), LogNormal_v, Prediction(CBldMole), Ve_CBldMole);
-  Likelihood (Data(CLivMole), LogNormal_v, Prediction(CLivMole), Ve_CLivMole);
-  Likelihood (Data(CKidMole), LogNormal_v, Prediction(CKidMole), Ve_CKidMole);
-  Likelihood (Data(CBrnMole), LogNormal_v, Prediction(CBrnMole), Ve_CBrnMole);
-  Likelihood (Data(CLngMole), LogNormal_v, Prediction(CLngMole), Ve_CLngMole);
+Likelihood (Data(CBldMole), LogNormal_v, Prediction(CBldMole), Ve_CBldMole);
+Likelihood (Data(CLivMole), LogNormal_v, Prediction(CLivMole), Ve_CLivMole);
+Likelihood (Data(CKidMole), LogNormal_v, Prediction(CKidMole), Ve_CKidMole);
+Likelihood (Data(CBrnMole), LogNormal_v, Prediction(CBrnMole), Ve_CBrnMole);
+Likelihood (Data(CLngMole), LogNormal_v, Prediction(CLngMole), Ve_CLngMole);
+Likelihood( CBldMole_ND , Normal , Prediction(CBldMole_ND)	, 1.5E-01 );
   
 Level { # group 
-Distrib(	lnkTSD TruncNormal_v M_lnkTSD V_lnkTSD -4.6, 0);
-Distrib(	lnkAS	TruncNormal_v M_lnkAS V_lnkAS -6.9, 0);
-Distrib(	lnkTD	TruncNormal_v M_lnkTD V_lnkTD -6.9, 0);
-Distrib(	lnkAD	TruncNormal_v M_lnkAD V_lnkAD -4.6, 0);
-Distrib(	lnQCC	TruncNormal_v M_lnQCC V_lnQCC -0.8	0.8	);
-#Distrib(	lnPFatC TruncNormal_v	M_lnPFatC V_lnPFatC -0.9	0.9	);
-#Distrib(	lnPGutC TruncNormal_v M_lnPGutC V_lnPGutC -1.2	1.2	);
-#Distrib(	lnPLivC TruncNormal_v M_lnPLivC V_lnPLivC -1.2	1.2	); 
-#Distrib(	lnPKidC TruncNormal_v M_lnPKidC V_lnPKidC -1.2	1.2	); 
-#Distrib(	lnPBrnC TruncNormal_v M_lnPBrnC V_lnPBrnC -1.2	1.2	);
-#Distrib(	lnPLngC TruncNormal_v M_lnPLngC V_lnPLngC -1.2	1.2	);
-#Distrib(	lnPRapC TruncNormal_v M_lnPRapC V_lnPRapC -1.2	1.2	);
-#Distrib(	lnPSlwC TruncNormal_v M_lnPSlwC V_lnPSlwC -1.2	1.2	);
-Distrib(	lnVMaxC TruncNormal_v M_lnVMaxC V_lnVMaxC -1	0	);
-Distrib(	lnKMC	TruncNormal_v  M_lnKMC V_lnKMC -3	-1);
-Distrib(	lnVMaxDCVGC TruncNormal_v M_lnVMaxDCVGC V_lnVMaxDCVGC -7 -3);
-Distrib(	lnClDCVGC	TruncNormal_v M_lnClDCVGC V_lnClDCVGC -5 -3);
-Distrib(	lnVMaxKidDCVGC TruncNormal_v M_lnVMaxKidDCVGC V_lnVMaxKidDCVGC -5 0);
-Distrib(	lnClKidDCVGC TruncNormal_v M_lnClKidDCVGC V_lnClKidDCVGC -5	0);
-#Distrib(	lnVMaxLungLivC TruncNormal_v	M_lnVMaxLungLivC V_lnVMaxLungLivC 1 3);
-#Distrib(	lnKMClara	TruncNormal_v M_lnKMClara V_lnKMClara -7 -3);
-Distrib(    lnISOx TruncNormal_v	M_lnISOx V_lnISOx -2 2);
-Distrib(    lnISConj TruncNormal_v M_lnISConj V_lnISConj -2	2);
-Distrib(	lnkUrn TruncNormal_v M_lnkUrn V_lnkUrn -0.8, 0.8);
-  
+	Distrib(	lnkTSD TruncNormal_v M_lnkTSD V_lnkTSD -4.269 4.942);
+	Distrib(	lnkAS	TruncNormal_v M_lnkAS V_lnkAS -6.571	7.244);
+	Distrib(	lnkTD	TruncNormal_v M_lnkTD V_lnkTD -4.605	0);
+	Distrib(	lnkAD	TruncNormal_v M_lnkAD V_lnkAD -7.195	6.62);
+	Distrib(	lnQCC	TruncNormal_v M_lnQCC V_lnQCC -0.8	0.8	);
+	Distrib(	lnPFatC TruncNormal_v M_lnPFatC V_lnPFatC -0.9	0.9	);
+	Distrib(	lnPGutC TruncNormal_v M_lnPGutC V_lnPGutC -1.2	1.2	);
+	Distrib(	lnPLivC TruncNormal_v M_lnPLivC V_lnPLivC -1.2	1.2	); 
+	Distrib(	lnPKidC TruncNormal_v M_lnPKidC V_lnPKidC -1.2	1.2	); 
+	Distrib(	lnPBrnC TruncNormal_v M_lnPBrnC V_lnPBrnC -1.2	1.2	);
+	Distrib(	lnPLngC TruncNormal_v M_lnPLngC V_lnPLngC -1.2	1.2	);
+	Distrib(	lnPRapC TruncNormal_v M_lnPRapC V_lnPRapC -1.2	1.2	);
+	Distrib(	lnPSlwC TruncNormal_v M_lnPSlwC V_lnPSlwC -2	2	);
+	Distrib(	lnVMax TruncNormal_v M_lnVMax V_lnVMax -1 1);
+	Distrib(	lnKM	TruncNormal_v  M_lnKM V_lnKM 0 6.9);
+	#Distrib(	lnVMaxDCVGC TruncNormal_v M_lnVMaxDCVGC V_lnVMaxDCVGC -7 -3);
+	#Distrib(	lnClDCVGC	TruncNormal_v M_lnClDCVGC V_lnClDCVGC -5 -3);
+	#Distrib(	lnVMaxKidDCVGC TruncNormal_v M_lnVMaxKidDCVGC V_lnVMaxKidDCVGC -5 0);
+	#Distrib(	lnClKidDCVGC TruncNormal_v M_lnClKidDCVGC V_lnClKidDCVGC -5	0);
+	#Distrib(	lnVMaxLungLivC TruncNormal_v	M_lnVMaxLungLivC V_lnVMaxLungLivC 1 3);
+	#Distrib(	lnKMClara	TruncNormal_v M_lnKMClara V_lnKMClara -7 -3);
+	#Distrib(    lnISOx TruncNormal_v	M_lnISOx V_lnISOx -2 2);
+	#Distrib(    lnISConj TruncNormal_v M_lnISConj V_lnISConj -2	2);
+	Distrib(	lnkUrn TruncNormal_v M_lnkUrn V_lnkUrn 0, 9);
+
 Level { # group B6C3F1
- Experiment { # Yushuan B6C3F1
-PDose = NDoses(2, 800 0 , 0 0.05 );
-TChng =  0.05 ;
-      BW = 0.029055555555555557;
-      fWLiv = 0.04713272222222222;
-      fWKid = 0.015088611111111113;
-      fWBrn = 0.015242166666666668;
-      fWLng = 0.006280333333333334;
+	Experiment { # Yushuan B6C3F1
+	PDose = NDoses(2, 800 0 , 0 0.05 );
+	TChng =  0.05 ;
+    BW = 0.029055555555555557;
+    VLivC = 0.04713272222222222;
+    VKidC = 0.015088611111111113;
+    VBrnC = 0.015242166666666668;
+    VLngC = 0.006280333333333334;
       
       Print(CBldMole, 1.000  1.001  1.002  2.000  2.001  2.002  6.000  6.001  6.002 12.000 12.001 12.002 24.000 24.001 24.002 36.000 36.001 36.002);
       Data(CBldMole, 32.47629,47.14523,42.16838,6.108999,-1,4.356796,-1,15.24812,1.740853,1.657451,-1,-1,-1,-1,-1,-1,-1,-1);
@@ -126,6 +122,9 @@ TChng =  0.05 ;
       Data(CBrnMole, 172.1625,270.99,100.1818,14.99795,-1,12.53385,-1,16.46069,4.391568,3.770507,-1,2.229912,-1,-1,-1,-1,-1,-1);
       Print(CLngMole, 1.000  1.001  1.002  2.000  2.001  2.002  6.000  6.001  6.002 12.000 12.001 12.002 24.000 24.001 24.002 36.000 36.001 36.002);
       Data(CLngMole, 437.8846,165.4295,79.47357,15.08962,-1,12.32619,-1,19.3666,8.479792,5.381483,-1,-1,-1,-1,-1,-1,-1,-1);
+	  Print(CBldMole_ND, 24.000 24.001 24.002 36.000 36.001 36.002);
+      Data(CBldMole_ND, 0,0,0,0,0,0);		
+		
       #Print(Csrm_tca, 1.000  1.001  1.002  2.000  2.001  2.002  6.000  6.001  6.002 12.000 12.001 12.002 24.000 24.001 24.002 36.000 36.001 36.002);
       #Data(Csrm_tca, 205.9521,140.1762,116.6588,477.0697,243.5479,274.6172,14.04001,938.8795,294.468,109.8408,343.6692,311.866,361.13,324.274,688.4111,109.6035,37.08487,-1);
       #Print(Cliv_tca, 1.000  1.001  1.002  2.000  2.001  2.002  6.000  6.001  6.002 12.000 12.001 12.002 24.000 24.001 24.002 36.000 36.001 36.002);
@@ -182,14 +181,14 @@ TChng =  0.05 ;
  } # End Group B6C3F1
  
 Level { # Group C57BL/6
-  Experiment { # Yushuan C57BL/6
-PDose = NDoses(2, 800 0 , 0 0.05 );
-TChng =  0.05 ;
-      BW = 0.0257;
-      fWLiv = 0.048062;
-      fWKid = 0.013692;
-      fWBrn = 0.016715;
-      fWLng = 0.006013;
+	Experiment { # Yushuan C57BL/6
+	PDose = NDoses(2, 800 0 , 0 0.05 );
+	TChng =  0.05 ;
+    BW = 0.0257;
+    VLivC = 0.048062;
+    VKidC = 0.013692;
+    VBrnC = 0.016715;
+    VLngC = 0.006013;
       
       Print(CBldMole, 1.000  1.001  1.002  2.000  2.001  2.002  6.000  6.001  6.002 12.000 12.001 12.002 24.000 24.001 24.002 36.000 36.001 36.002);
       Data(CBldMole, 28.11794,-1,119.6875,8.274555,26.50984,18.79656,-1,1.839461,2.098113,-1,-1,-1,-1,-1,-1,-1,-1,-1);
@@ -201,6 +200,9 @@ TChng =  0.05 ;
       Data(CBrnMole, 211.1512387,578.8256076,2.491808482,19.91658718,111.5859424,71.04721364,2.496266556,4.810102482,5.906874483,-1,-1,-1,-1,-1,-1,-1,-1,-1);
       Print(CLngMole, 1.000  1.001  1.002  2.000  2.001  2.002  6.000  6.001  6.002 12.000 12.001 12.002 24.000 24.001 24.002 36.000 36.001 36.002);
       Data(CLngMole, 255.3321,454.4145,-1,9.449811,162.8717,40.50908,-1,5.053789,6.544572,-1,-1,-1,-1,-1,-1,-1,-1,-1);
+	  Print(CBldMole_ND, 24.000 24.001 24.002 36.000 36.001 36.002);
+      Data(CBldMole_ND, 0,0,0,0,0,0);		
+
       #Print(Csrm_tca, 1.000  1.001  1.002  2.000  2.001  2.002  6.000  6.001  6.002 12.000 12.001 12.002 24.000 24.001 24.002 36.000 36.001 36.002);
       #Data(Csrm_tca, 285.3125,9.884491,361.5668,407.1957,4.400606,86.50689,505.8728,435.0501,756.7392,387.9466,309.8296,1.32051,120.0419,12.82305,20.37458,-1,33.37941,-1);
       #Print(Cliv_tca, 1.000  1.001  1.002  2.000  2.001  2.002  6.000  6.001  6.002 12.000 12.001 12.002 24.000 24.001 24.002 36.000 36.001 36.002);
@@ -256,15 +258,14 @@ TChng =  0.05 ;
  } # End Group C57BL/6
 
 Level { # group strains
-  Experiment { # Yushuan NZW/LacJ
- PDose = NDoses(2, 800 0 , 0 0.05 );
-TChng =  0.05 ;
-      
-      BW = 0.03116;
-      fWLiv = 0.0540345;
-      fWKid = 0.01640994;
-      fWBrn = 0.0139221;
-      fWLng = 0.00616794;
+	Experiment { # Yushuan NZW/LacJ
+	PDose = NDoses(2, 800 0 , 0 0.05 );
+	TChng =  0.05 ;  
+    BW = 0.03116;
+    VLivC = 0.0540345;
+    VKidC = 0.01640994;
+    VBrnC = 0.0139221;
+    VLngC = 0.00616794;
       
       Print(CBldMole, 1.000  1.001  1.002  2.000  2.001  2.002  6.000  6.001  6.002 12.000 12.001 12.002 24.000 24.001 24.002 36.000 36.001 36.002);
       Data(CBldMole, 118.8319,45.07224,33.0413,31.21392,-1,16.21263,1.78624,2.310714,2.611522,-1,-1,-1,-1,-1,-1,-1,-1,-1);
@@ -276,6 +277,9 @@ TChng =  0.05 ;
       Data(CBrnMole, 514.0839,129.098,139.2671,49.40558,-1,28.59306,3.677143,4.087903,4.769062,-1,2.530066,3.277299,-1,-1,-1,-1,-1,-1);
       Print(CLngMole, 1.000  1.001  1.002  2.000  2.001  2.002  6.000  6.001  6.002 12.000 12.001 12.002 24.000 24.001 24.002 36.000 36.001 36.002);
       Data(CLngMole, 1285.279,127.0589,144.4679,40.21185,-1,13.03081,5.591376,7.031267,5.389654,-1,-1,-1,-1,-1,-1,-1,-1,-1);
+	  Print(CBldMole_ND, 24.000 24.001 24.002 36.000 36.001 36.002);
+      Data(CBldMole_ND, 0,0,0,0,0,0);		
+
       #Print(Csrm_tca, 1.000  1.001  1.002  2.000  2.001  2.002  6.000  6.001  6.002 12.000 12.001 12.002 24.000 24.001 24.002 36.000 36.001 36.002);
       #Data(Csrm_tca, 441.3246,456.7791,364.6049,587.5638,13.64104,764.3904,664.6144,196.6991,919.4958,135.538,614.0589,904.2002,717.6505,238.0093,68.40666,300.7618,78.00707,110.21);
       #Print(Cliv_tca, 1.000  1.001  1.002  2.000  2.001  2.002  6.000  6.001  6.002 12.000 12.001 12.002 24.000 24.001 24.002 36.000 36.001 36.002);

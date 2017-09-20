@@ -31,7 +31,8 @@ Outputs = {
 	CLivMole,
 	CKidMole,
 	CBrnMole,
-	CLngMole
+	CLngMole,
+	CBldMole_ND
 };
 
 # ------------------------
@@ -40,30 +41,25 @@ Outputs = {
 
 BW	= 0.0032;  # Species-specific defaults during initialization
 
-kTSD; lnkTSD = log(1.4); # TCE Stomach-duodenum transfer coefficient (/hr)
-kAS; lnkAS = log(1.4); # TCE Stomach absorption coefficient (/hr)
-kAD; lnkAD = log(0.75); # TCE Duodenum absorption coefficient (/hr)
-kTD; lnkTD = log(0.1); # TCE Duodenum-feces transfer coefficient (/hr)
-TChng 	= 0.003; # IV infusion duration (hour)
+kTSD = 1.4; lnkTSD = log(kTSD); # TCE Stomach-duodenum transfer coefficient (/hr)
+kAS = 1.4; lnkAS = log(kAS); # TCE Stomach absorption coefficient (/hr)
+kAD = 0.75; lnkAD = log(kAD); # TCE Duodenum absorption coefficient (/hr)
+kTD = 0.1; lnkTD = log(kTD); # TCE Duodenum-feces transfer coefficient (/hr)
+TChng = 0.003; # IV infusion duration (hour)
 
 # Cardiac output (L/hr/kg^0.75)
-QCC = 11.6; lnQCC = log(11.6);
+QCC = 11.6; lnQCC = log(QCC);
 
 # Fractional blood flows (fraction of cardiac output).
 #http://www.scielo.cl/scielo.php?pid=s0716-97602007000200004&script=sci_arttext
-QGutC = 0.141; lnQGutC = log(QGutC);
-QLivC = 0.02; lnQLivC = log(QLivC);
-QKidC = 0.091; lnQKidC = log(QKidC); 
-QBrnC = 0.030; lnQBrnC = log(QBrnC);
-QLngC = 0.0312; lnQLngC = log(QLngC);
-QFatC = 0.007; lnQFatC = log(QFatC);
-QSlwC = 0.217; lnQSlwC = log(QSlwC);
-QRapC = 0.4628; lnQRapC = log(QRapC);
-
-fWLiv = 0.053;
-fWKid = 0.016;
-fWBrn = 0.013;
-fWLng = 0.0061;
+QGutC = 0.141; 
+QLivC = 0.02; 
+QKidC = 0.091; 
+QBrnC = 0.030;
+QLngC = 0.0312;
+QFatC = 0.007;
+QSlwC = 0.217;
+QRapC = 0.4628;
 
 # Fractional volumes (fraction of body weight).
 VBldC = 0.049; 
@@ -93,12 +89,12 @@ PRap; lnPRapC = 0.0;
 #lnISConj = 0.0;
 VMax; lnVMax = 1; # VMax for hepatic TCE oxidation (mg/hr)
 KM; lnKM = 1; # KM for hepatic TCE oxidation (mg/L)
-VMaxDCVG; lnVMaxDCVG = 1;# VMax for hepatic TCE GSH conjugation (mg/hr)
-KMDCVG;	lnKMDCVG = 1; # KM for hepatic TCE GSH conjugation (mg/L)
-VMaxKidDCVG; lnVMaxKidDCVG = 1; # VMax for renal TCE GSH conjugation (mg/hr)
-lnClDCVG = 1;
-KMKidDCVG; lnKMKidDCVG = 1; # KM for renal TCE GSH conjugation (mg/L)
-lnClKidDCVG = 1;
+#VMaxDCVG; lnVMaxDCVG = 1;# VMax for hepatic TCE GSH conjugation (mg/hr)
+#KMDCVG;	lnKMDCVG = 1; # KM for hepatic TCE GSH conjugation (mg/L)
+#VMaxKidDCVG; lnVMaxKidDCVG = 1; # VMax for renal TCE GSH conjugation (mg/hr)
+#lnClDCVG = 1;
+#KMKidDCVG; lnKMKidDCVG = 1; # KM for renal TCE GSH conjugation (mg/L)
+#lnClKidDCVG = 1;
 #VMaxClara; # VMax for Tracheo-bronchial TCE oxidation (mg/hr)
 #lnVMaxLungLivC = 0.0; # Ratio of lung Vmax to liver Vmax
 #KMClara; lnKMClara = 0.0; # KM for Tracheo-bronchial TCE oxidation (mg/L)
@@ -110,22 +106,6 @@ M_lnkAS;
 M_lnkAD; 
 M_lnkTD;
 M_lnQCC;
-M_QGutC; 
-M_QLivC;
-M_QKidC;
-M_QBrnC;
-M_QLngC;
-M_QFatC;
-M_QSlwC;
-M_VBldC;
-M_VGutC;
-M_VLivC; 
-M_VKidC;
-M_VBrnC;
-M_VLngC;
-M_VFatC;
-M_VRapC;
-M_VSlwC;
 M_lnPGutC;
 M_lnPLivC;
 M_lnPKidC;
@@ -140,12 +120,12 @@ M_lnPRapC;
 
 M_lnVMax;
 M_lnKM;
-M_lnVMaxDCVG;
-M_lnKMDCVG;
-M_lnClDCVG;
-M_lnVMaxKidDCVG;
-M_lnKMKidDCVG;
-M_lnClKidDCVG;
+#M_lnVMaxDCVG;
+#M_lnKMDCVG;
+#M_lnClDCVG;
+#M_lnVMaxKidDCVG;
+#M_lnKMKidDCVG;
+#M_lnClKidDCVG;
 #M_lnVMaxLungLiv;
 #M_lnKMClara;
 M_lnkUrn;
@@ -156,23 +136,6 @@ V_lnkAS;
 V_lnkAD; 
 V_lnkTD;
 V_lnQCC;
-V_QGutC; 
-V_QLivC;
-V_QKidC;
-V_QBrnC;
-V_QLngC;
-V_QFatC;
-V_QSlwC;
-#V_QRapC;	
-V_VBldC;
-V_VGutC;
-V_VLivC; 
-V_VKidC;
-V_VBrnC;
-V_VLngC;
-V_VFatC;
-V_VRapC;
-V_VSlwC;
 V_lnPGutC;
 V_lnPLivC;
 V_lnPKidC;
@@ -187,12 +150,12 @@ V_lnPRapC;
 
 V_lnVMax;
 V_lnKM;
-V_lnVMaxDCVG;
-V_lnKMDCVG;
-V_lnClDCVG;
-V_lnVMaxKidDCVG;
-V_lnKMKidDCVG;
-V_lnClKidDCVG;
+#V_lnVMaxDCVG;
+#V_lnKMDCVG;
+#V_lnClDCVG;
+#V_lnVMaxKidDCVG;
+#V_lnKMKidDCVG;
+#V_lnClKidDCVG;
 #V_lnVMaxLungLivC;
 #V_lnKMClara;
 V_lnkUrn;
@@ -223,10 +186,10 @@ Initialize {
 	#KMClara = exp(lnKMClara);
 	VMax = exp(lnVMax);  
 	KM = exp(lnKM);	
-	VMaxDCVG = exp(lnVMaxDCVG);
-	KMDCVG = exp(lnKMDCVG);
-	VMaxKidDCVG = exp(lnVMaxKidDCVG);
-    KMKidDCVG = exp(lnKMKidDCVG);
+#	VMaxDCVG = exp(lnVMaxDCVG);
+#	KMDCVG = exp(lnKMDCVG);
+#	VMaxKidDCVG = exp(lnVMaxKidDCVG);
+#   KMKidDCVG = exp(lnKMKidDCVG);
 	kUrn = exp(lnkUrn);
 }
 
@@ -241,6 +204,7 @@ Dynamics {
 	QLng = QLngC * QC / QTC; 
 	QSlw = QSlwC * QC / QTC; 
 	QRap = QRapC * QC / QTC;
+	QGutLiv = QGut + QLiv;
 	
 	VTC = VBldC + VGutC + VLivC + VKidC + VBrnC + VFatC + VLngC + VSlwC + VRapC;
 	VBld = VBldC * BW / VTC;
@@ -289,8 +253,8 @@ Dynamics {
     RAO = (kAS * AStom) + (kAD * ADuod);
 	
 # Dynamics for blood
-    dt(ABld) = (QGut*CVGut + QFat*CVFat + QBrn*CVBrn + QSlw*CVSlw + QRap*CVRap +
-    			 + QLng*CVLng + QLiv*CVLiv + QKid*CVKid ) - CBld * QC;
+    dt(ABld) = (QGutLiv*CVLiv + QFat*CVFat + QBrn*CVBrn + QSlw*CVSlw + QRap*CVRap +
+    			 + QLng*CVLng + QKid*CVKid ) - CBld * QC;
 		
 #**** Non-metabolizing tissues ************************************************
 # Amount of TCE in rapidly perfused tissues (mg)
@@ -308,17 +272,17 @@ Dynamics {
 # Rate of TCE oxidation by P450 to TCA, TCOH, and other (DCA) in liver (mg/hr)
 	RAMetLiv1 = (VMax * CVLiv) / (KM + CVLiv);
 # Rate of TCE metabolized to DCVG in liver (mg)
-	RAMetLiv2 = (VMaxDCVG * CVLiv) / (KMDCVG + CVLiv);
+#	RAMetLiv2 = (VMaxDCVG * CVLiv) / (KMDCVG + CVLiv);
 # Dynamics for amount of TCE in liver (mg)
-    dt(ALiv) = (QLiv * (CBld - CVLiv)) - RAMetLiv1 - RAMetLiv2;
+    dt(ALiv) = (QLiv * (CBld - CVLiv)) + (QGut * (CVGut - CVLiv)) - RAMetLiv1; ; # - RAMetLiv2;
 
 #**** Kidney ******************************************************************
 # Rate of TCE metabolized to DCVG in kidney (mg) # 
-	RAMetKid = (VMaxKidDCVG * CVKid) / (KMKidDCVG + CVKid);
+#	RAMetKid = (VMaxKidDCVG * CVKid) / (KMKidDCVG + CVKid);
 # Rate of urinary excretion of TCE
 	RUrn = kUrn * AKid;
 # Amount of TCE in kidney compartment (mg)
-    dt(AKid) = (QKid * (CBld - CVKid)) - RAMetKid - RUrn;
+    dt(AKid) = (QKid * (CBld - CVKid)) - RUrn; # - RAMetKid;
 
 #**** Lung ******************************************************************
 # Rate of TCE oxidation in lung (mg) # 
@@ -328,7 +292,7 @@ Dynamics {
 	 dt(ALng) = (QLng * (CBld - CVLng));
 # other    
 	#dt(AOther) = RAMetLng + RAMetLiv1 + RAMetLiv2 + RAMetKid + RUrn + ADuod * kTD;
-	dt(AOther) = RAMetLiv1 + RAMetLiv2 + RAMetKid + RUrn + ADuod * kTD;
+	dt(AOther) = RAMetLiv1 + RUrn + ADuod * kTD; # + RAMetLiv2 + RAMetKid ;
 }
 
 CalcOutputs {
@@ -338,8 +302,8 @@ CalcOutputs {
 	CKidMole = (CKid < 1.0e-10 ? 1.0e-10 : CKid / MWTCE * 1000);
 	CBrnMole = (CBrn < 1.0e-10 ? 1.0e-10 : CBrn / MWTCE * 1000);
 	CLngMole = (CLng < 1.0e-10 ? 1.0e-10 : CLng / MWTCE * 1000);
+	CBldMole_ND = (CBldMole < 1.0e-10 ? 1.0e-10 : CBldMole);
+
 }
 
 End.
-
-
