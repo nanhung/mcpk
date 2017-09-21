@@ -8,8 +8,8 @@ MCMC ("tce001.c02.out",
 Level { # population
 
 # (M_)
-Distrib(	M_lnkTSD Uniform -1	4.942);
-Distrib(	M_lnkAS	Uniform	-2	2);
+Distrib(	M_lnkTSD Uniform -4.269	4.942);
+Distrib(	M_lnkAS	Uniform	-6.571	7.244);
 Distrib(	M_lnkTD	Uniform	-4.605	0);
 Distrib(	M_lnkAD	Uniform	-7.195	6.62);
 Distrib(	M_lnQCC	TruncNormal	0.0	0.2	-0.8	0.8	);
@@ -77,8 +77,8 @@ Likelihood (Data(CLngMole), LogNormal_v, Prediction(CLngMole), Ve_CLngMole);
 Likelihood( CBldMole_ND , Normal , Prediction(CBldMole_ND)	, 1.5E-01 );
   
 Level { # group 
-	Distrib(	lnkTSD TruncNormal_v M_lnkTSD V_lnkTSD -1 4.942);
-	Distrib(	lnkAS	TruncNormal_v M_lnkAS V_lnkAS -2 2);
+	Distrib(	lnkTSD TruncNormal_v M_lnkTSD V_lnkTSD -4.269	4.942);
+	Distrib(	lnkAS	TruncNormal_v M_lnkAS V_lnkAS -6.571	7.244);
 	Distrib(	lnkTD	TruncNormal_v M_lnkTD V_lnkTD -4.605	0);
 	Distrib(	lnkAD	TruncNormal_v M_lnkAD V_lnkAD -7.195	6.62);
 	Distrib(	lnQCC	TruncNormal_v M_lnQCC V_lnQCC -0.8	0.8	);
