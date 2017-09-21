@@ -1,9 +1,9 @@
 # Use all experiment data
 
 Integrate (Lsodes, 1e-6, 1e-9, 1);
-MCMC ("tce002.c04.out",
+MCMC ("tce002.c03.out",
        "", "",                     
-       8000, 0, 8, 8000, 4444);
+       8000, 0, 8, 8000, 3333);
        
 Level { # population
 
