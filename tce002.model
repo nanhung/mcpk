@@ -105,11 +105,11 @@ PFat; lnPFatC = 1;
 PSlw; lnPSlwC = 1;
 PRap; lnPRapC = 1;
 
-PLivTCA; lnPLivTCAC = 1; 
-PKidTCA; lnPKidTCAC = 1;
-PBrnTCA; lnPBrnTCAC = 1;
-PLngTCA; lnPLngTCAC = 1;
-PBodTCA; lnPBodTCAC = 1;
+PLivTCA; lnPLivTCAC = 1; #(v002)
+PKidTCA; lnPKidTCAC = 1; #(v002)
+PBrnTCA; lnPBrnTCAC = 1; #(v002)
+PLngTCA; lnPLngTCAC = 1; #(v002)
+PBodTCA; lnPBodTCAC = 1; #(v002)
 
 #lnISOx = 0.0; # P450 oxidative metabolism
 #lnISConj = 0.0;
@@ -125,7 +125,7 @@ KM; lnKM = 1; # KM for hepatic TCE oxidation (mg/L)
 #lnVMaxLungLivC = 0.0; # Ratio of lung Vmax to liver Vmax
 #KMClara; lnKMClara = 0.0; # KM for Tracheo-bronchial TCE oxidation (mg/L)
 kUrn = 0.1; lnkUrn = log(kUrn);
-kUrnTCA = 0.1; lnkUrnTCA = log(kUrnTCA);
+kUrnTCA = 0.1; lnkUrnTCA = log(kUrnTCA); #(v002)
 
 #FracTCA = 1.0; lnFracTCA = log(FracTCA);
 #kMetTCA = 1.0; lnkMetTCA = log(kMetTCA);
@@ -145,6 +145,12 @@ M_lnPFatC;
 M_lnPSlwC;
 M_lnPRapC;
 
+M_lnPLivTCAC; #(v002)
+M_lnPKidTCAC; #(v002)
+M_lnPBrnTCAC; #(v002)
+M_lnPLngTCAC; #(v002)
+M_lnPBodTCAC; #(v002)
+
 #M_lnISOx;
 #M_lnISConj;
 
@@ -159,7 +165,7 @@ M_lnKM;
 #M_lnVMaxLungLiv;
 #M_lnKMClara;
 M_lnkUrn;
-M_lnkUrnTCA;
+M_lnkUrnTCA; #(v002)
 #M_lnFracTCA;
 #M_lnkMetTCA; 
 
@@ -178,6 +184,12 @@ V_lnPFatC;
 V_lnPSlwC;
 V_lnPRapC;
 
+V_lnPLivTCAC; #(v002)
+V_lnPKidTCAC; #(v002)
+V_lnPBrnTCAC; #(v002)
+V_lnPLngTCAC; #(v002)
+V_lnPBodTCAC; #(v002)
+
 #V_lnISOx;
 #V_lnISConj;
 
@@ -192,7 +204,7 @@ V_lnKM;
 #V_lnVMaxLungLivC;
 #V_lnKMClara;
 V_lnkUrn;
-V_lnkUrnTCA;
+V_lnkUrnTCA; #(v002)
 #V_lnFracTCA;
 #V_lnkMetTCA;
 
@@ -203,11 +215,11 @@ Ve_CKidMole;
 Ve_CBrnMole;
 Ve_CLngMole;
 
-Ve_CBldTCAMole;
-Ve_CLivTCAMole;
-Ve_CKidTCAMole;
-Ve_CBrnTCAMole;
-Ve_CLngTCAMole;
+Ve_CBldTCAMole; #(v002)
+Ve_CLivTCAMole; #(v002)
+Ve_CKidTCAMole; #(v002)
+Ve_CBrnTCAMole; #(v002)
+Ve_CLngTCAMole; #(v002)
 
 Initialize {
 	kTSD = exp(lnkTSD); 
@@ -224,12 +236,12 @@ Initialize {
 	PSlw = exp(lnPSlwC) * 2.4;
 	PRap = exp(lnPRapC) * 1.9;
 	
-	PLivTCA = exp(lnPLivTCAC) * 2;
-	PKidTCA = exp(lnPKidTCAC) * 2;
-	PBrnTCA = exp(lnPBrnTCAC) * 2;
-	PLngTCA = exp(lnPLngTCAC) * 2;
-	PBodTCA = exp(lnPBodTCAC) * 2;
-	
+	PLivTCA = exp(lnPLivTCAC) * 2; #(v002)
+	PKidTCA = exp(lnPKidTCAC) * 2; #(v002)
+	PBrnTCA = exp(lnPBrnTCAC) * 2; #(v002)
+	PLngTCA = exp(lnPLngTCAC) * 2; #(v002)
+	PBodTCA = exp(lnPBodTCAC) * 2; #(v002)
+
 	#VMaxClara = exp(lnVMaxLungLivC) * VMax * 0.07; #(1.03/1.87*0.7/5.5);
 	#KMClara = exp(lnKMClara);
 	VMax = exp(lnVMax);  
@@ -239,7 +251,7 @@ Initialize {
 #	VMaxKidDCVG = exp(lnVMaxKidDCVG);
 #   KMKidDCVG = exp(lnKMKidDCVG);
 	kUrn = exp(lnkUrn);
-	kUrnTCA = exp(lnkUrnTCA);
+	kUrnTCA = exp(lnkUrnTCA); #(v002)
 	#FracTCA = exp(lnFracTCA);
 #	kMetTCA = exp(lnkMetTCA);
 }
