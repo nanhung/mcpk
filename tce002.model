@@ -64,7 +64,7 @@ kTD = 0.1; lnkTD = log(kTD); # TCE Duodenum-feces transfer coefficient (/hr)
 TChng = 0.003; # IV infusion duration (hour)
 
 # Cardiac output (L/hr/kg^0.75)
-QCC = 11.6; lnQCC = log(QCC);
+QCC = 0.0; lnQCC = log(QCC);
 
 # Fractional blood flows (fraction of cardiac output).
 #http://www.scielo.cl/scielo.php?pid=s0716-97602007000200004&script=sci_arttext
