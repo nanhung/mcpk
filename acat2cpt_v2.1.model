@@ -15,6 +15,8 @@
 #
 # Frederic Bois - Jan 2017
 # ==============================================================================
+# Tlag, K_release, MicroProt_central not use in model
+# Redefine Mol_vol
 
 States  = {Q_central,      # Quantity in central compartment (micromoles)
            Q_periph,       # ~           peripheral compartment
@@ -100,7 +102,7 @@ Inputs  = {Oral_dose_rate, IV_dose_rate, # in micromoles / hours
 # ------------------------
 
 # Body mass (kg)
-BDM = 70; ; lnBDMC = 0.0;
+BDM = 70;
 
 # Total blood flow scaling coefficient to body mass
 sc_F_total = 15; lnsc_F_totalC = 0.0;
@@ -163,16 +165,15 @@ pH_colon = 7; lnpH_colonC = 0.0;
 
 # Microsomal proteins (mg / g of tissue)
 MicroProt_central; # No use
-MicroProt_stom    = 0.0; lnMicroProt_stomC = 0.0;     # to check
+MicroProt_stom    = 1.0; lnMicroProt_stomC = 0.0;     # to check
 MicroProt_duod    = 9.45; lnMicroProt_duodC = 0.0;
 MicroProt_jeju    = 8.82; lnMicroProt_jejuC = 0.0;
 MicroProt_ileum   = 1.62; lnMicroProt_ileumC = 0.0;
-MicroProt_cecum   = 0.0; lnMicroProt_cecumC = 0.0;
-MicroProt_colon   = 0.0; lnMicroProt_colonC = 0.0;
+MicroProt_cecum   = 1.0; lnMicroProt_cecumC = 0.0;
+MicroProt_colon   = 1.0; lnMicroProt_colonC = 0.0;
 
 # G.i. tract epithelial thickness (dm)
 H_ep = 5.25E-4; lnH_epC = 0.0;
-
 
 #-------------------------------------
 # Substance-specific parameters
@@ -187,7 +188,7 @@ pKa1 = 1.84; # basic pKa
 pKa2 = 8.60; # acid  pKa
 
 # Administration lagtime, if needed
-Tlag = 0; # not consider in the model
+Tlag = 0; # not use in the model
 
 # Absorption on(1)/off(0) switches
 f_Abs_stom = 0;
@@ -212,10 +213,10 @@ Weibull_lag = 0.0;
 #K_release; # not use in the model
 
 # Galenic radius (microm)
-G_Radius  = 25.0; lnG_RadiusC = 0.0;
+G_Radius  = 25.0;
 
 # Powder density (g/ml)
-G_Density = 1.2; lnG_DensityC = 0.0;
+G_Density = 1.47; lnG_DensityC = 0.0;
 
 # Solute molal volume at normal boiling point (ml/g) (about twice MM...)
 Mol_vol;
@@ -224,8 +225,8 @@ Mol_vol;
 Solubility = 7.36e6; lnSolubilityC = 0.0;
 
 # Solubility factors
-SFA = 100; lnSFAC = 0.0; # for acids 
-SFB = 50;  lnSFBC = 0.0; # for bases
+SFA = 100; # for acids 
+SFB = 50; # for bases
 
 # Precipitation rate (1/h)
 # According to "Approaches for measuring intestinal precipitation rates of oral drugs"
@@ -238,7 +239,7 @@ Ke_over_a_epit = 0.5; # between lumen and epithelium
 Ke_over_a_tiss = 0.5; # between epithelium and tissue
 
 # Effective permeability of g.i. tract epithelia
-Peff = 0.5;
+Peff = 0.7; 
 
 # Tissue / blood partition coefficients
 PC_periph  = 1;
@@ -271,14 +272,14 @@ V_periph  = 1.0;
 Vmax_vitro = 1.0;
 
 # Gut Michaelis-Menten Km (microM)
-Km_vitro = 1.0;
+Km_vitro = 200;
 
 # Elimination rate constant from central (1/h)
-Kmet = 1.0;
+Kmet = 0.05;
 
 # Transfer rate constants between central and peripheral compartments (1/h)
-Kc2p = 1.0;
-Kp2c = 1.0; 
+Kc2p = 0.97;
+Kp2c = 2.17; 
 
 #-------------------------------------------
 # Scaled physiological G.I. tract parameters
@@ -517,7 +518,8 @@ Initialize {
   Diffusivity = 1.09E-4 * pow(Mol_vol, -0.6);
 
   # Baseline dissolution rate constant (1/microM/hr)
-  K_diss = 1080 * MM * Diffusivity / (G_Density * G_Radius * Diff_thickness);
+  G_DensityC = exp(lnG_DensityC);
+  K_diss = 1080 * MM * Diffusivity / (G_Density * G_DensityC * G_Radius * Diff_thickness);
 
   # Saturation concentrations (according to Henderson-Hasselbach)
   # note: AB_type: 0=neutral, 1=base, 2=acide, 3=diacid, 4=dibase
