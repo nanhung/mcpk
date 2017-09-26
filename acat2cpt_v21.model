@@ -1,0 +1,843 @@
+# ==============================================================================
+# Two-compartment PBPK model with ACAT-like gut model.
+# Linear metabolism
+#
+# Effective permeability is assumed to be the same for each segment
+# of the gi tract
+#
+# version 2.
+#
+# Units:
+# - time in hours
+# - volumes in liters
+# - masses of substances in micromoles
+# - concentrations of substances in microM
+#
+# Frederic Bois - Jan 2017
+# ==============================================================================
+
+States  = {Q_central,      # Quantity in central compartment (micromoles)
+           Q_periph,       # ~           peripheral compartment
+           Q_to_release,   # ~        to release in stomach
+           Q_stom_lu_d,    # ~        in stomach  lumen (dissolved)
+           Q_duod_lu_d,    # ~           duodenum ~     ~
+           Q_jeju_lu_d,    # ~           jejunum  ~     ~
+           Q_ileum_lu_d,   # ~           ileum    ~     ~
+           Q_cecum_lu_d,   # ~           cecum    ~     ~
+           Q_colon_lu_d,   # ~           colon    ~     ~
+           Q_stom_lu_u,    # ~           stomach  lumen (undissolved)
+           Q_duod_lu_u,    # ~           duodenum ~
+           Q_jeju_lu_u,    # ~           jejunum  ~
+           Q_ileum_lu_u,   # ~           ileum    ~
+           Q_cecum_lu_u,   # ~           cecum    ~
+           Q_colon_lu_u,   # ~           colon    ~
+           Q_stom_ep,      # ~           stomach epithelium
+           Q_duod_ep,
+           Q_jeju_ep,
+           Q_ileum_ep,
+           Q_cecum_ep,
+           Q_colon_ep,
+           Q_stom_w,       # ~           stomach wall
+           Q_duod_w,
+           Q_jeju_w,
+           Q_ileum_w,
+           Q_cecum_w,
+           Q_colon_w,
+           Q_absorb_stom,  # ~           absorbed from stomach lumen
+           Q_absorb_duod,
+           Q_absorb_jeju,
+           Q_absorb_ileum,
+           Q_absorb_cecum,
+           Q_absorb_colon,
+           Q_absorb_pv,    # ~           reaching the portal vein
+           Q_met_central,  # ~           metabolized in central
+           Q_met_stom,
+           Q_met_duod,
+           Q_met_jeju,
+           Q_met_ileum,
+           Q_met_cecum,
+           Q_met_colon,
+           Q_feces_d,      # ~           excreted dissolved   in feces
+           Q_feces_u};     # ~           excreted undissolved in feces
+
+Outputs = {C_central,       # Concentration in central compartment (microM)
+           C_periph,        #                  peripheral
+           C_stom_lu_d,     #                  stomach lumen (dissolved)
+           C_duod_lu_d,
+           C_jeju_lu_d,
+           C_ileum_lu_d,
+           C_cecum_lu_d,
+           C_colon_lu_d,
+           C_stom_ep,
+           C_duod_ep,
+           C_jeju_ep,
+           C_ileum_ep,
+           C_cecum_ep,
+           C_colon_ep,
+           C_stom_w,
+           C_duod_w,
+           C_jeju_w,
+           C_ileum_w,
+           C_cecum_w,
+           C_colon_w,
+           Q_gi_lu_d,      # Quantity in g.i. tract lumen (dissolved)
+           Q_gi_lu_u,      # ~                            (undissolved)
+           Q_gi_ep,        # ~                      epithelium
+           Q_gi_w,         # ~                      wall
+           Q_absorb,       # ~ absorbed by the g.i. tract
+           Q_elim,         # ~ metabolized or excreted
+           Q_elim_gi,      # ~ metabolized or excreted from the g.i. tract only
+           Q_organ,        # ~ in the body (including lumina)
+           Q_total,        # ~ in the body and metabolized or excreted
+           Instant_Ka_gi}; # Instantaenous net absorption ratio by g.i. tract
+
+Inputs  = {Oral_dose_rate, IV_dose_rate, # in micromoles / hours
+           PO_dose};                     # in micromoles
+
+
+# ------------------------
+# Physiological parameters
+# ------------------------
+
+# Body mass (kg)
+BDM = 70; ; lnBDMC = 0.0;
+
+# Total blood flow scaling coefficient to body mass
+sc_F_total = 15; lnsc_F_totalC = 0.0;
+
+# Fractions of total blood flow going to tissues (ref Perdaems 2010)
+f_Flow_stom      = 0.024; lnf_Flow_stomC = 0.0;
+f_Flow_duod      = 0.016; lnf_Flow_duodC = 0.0;
+f_Flow_jeju      = 0.056; lnf_Flow_jejuC = 0.0;
+f_Flow_ileum     = 0.033; lnf_Flow_ileumC = 0.0;
+f_Flow_cecum     = 0.006; lnf_Flow_cecumC = 0.0;
+f_Flow_colon     = 0.038; lnf_Flow_colonC = 0.0;
+
+# Tissue fractions of body mass (ref Perdaems 2010)
+f_BDM_stom  = 0.0021; lnf_BDM_stomC = 0.0;
+f_BDM_duod  = 0.0003; lnf_BDM_duodC = 0.0;
+f_BDM_jeju  = 0.0009; lnf_BDM_jejuC = 0.0;
+f_BDM_ileum = 0.0006; lnf_BDM_ileumC = 0.0;
+f_BDM_cecum = 0.0005; lnf_BDM_cecumC = 0.0;
+f_BDM_colon = 0.0048; lnf_BDM_colonC = 0.0;
+
+# Lumina as fractions of body mass (ref Perdaems 2010)
+f_BDM_stom_lu  = 0.0036; lnf_BDM_stom_luC = 0.0;
+f_BDM_duod_lu  = 0.0003; lnf_BDM_duod_luC = 0.0;
+f_BDM_jeju_lu  = 0.0023; lnf_BDM_jeju_luC = 0.0;
+f_BDM_ileum_lu = 0.0032; lnf_BDM_ileum_luC = 0.0;
+f_BDM_cecum_lu = 0.0001; lnf_BDM_cecum_luC = 0.0;
+f_BDM_colon_lu = 0.0051; lnf_BDM_colon_luC = 0.0;
+
+# Lengths of gi tract segments (ref Perdaems 2010) (decimeters, dm)
+Length_stom  = 2.5; lnLength_stomC = 0.0;
+Length_duod  = 2.5; lnLength_duodC = 0.0;
+Length_jeju  = 20; lnLength_jejuC = 0.0;
+Length_ileum = 30; lnLength_ileumC = 0.0;
+Length_cecum = 1.7; lnLength_cecumC = 0.0;
+Length_colon = 12.5; lnLength_colonC = 0.0;
+
+# Radii of gi tract segments (ref Perdaems 2010) (dm)
+Radius_stom  = 0.85; lnRadius_stomC  = 0.0;
+Radius_duod  = 0.2; lnRadius_duodC  = 0.0;
+Radius_jeju  = 0.18; lnRadius_jejuC  = 0.0;
+Radius_ileum = 0.15; lnRadius_ileumC  = 0.0;
+Radius_cecum = 0.35; lnRadius_cecumC  = 0.0;
+Radius_colon = 0.25; lnRadius_colonC  = 0.0;
+
+# Transit half-lives in lumina (ref Perdaems 2010) (hours)
+T12_stom_lu  = 0.25; lnT12_stom_luC = 0.0;
+T12_duod_lu  = 0.25; lnT12_duod_luC = 0.0;
+T12_jeju_lu  = 1.02; lnT12_jeju_luC = 0.0;
+T12_ileum_lu = 2.04; lnT12_ileum_luC = 0.0;
+T12_cecum_lu = 4.55; lnT12_cecum_luC = 0.0;
+T12_colon_lu = 13.5; lnT12_colon_luC = 0.0;
+
+# pH of luminal contents (ref Perdaems 2010)
+pH_stom  = 1.7; lnpH_stomC = 0.0;
+pH_duod  = 6; lnpH_duodC = 0.0;
+pH_jeju  = 6.5; lnpH_jejuC = 0.0;
+pH_ileum = 7.4; lnpH_ileumC = 0.0;
+pH_cecum = 5.9; lnpH_cecumC = 0.0;
+pH_colon = 7; lnpH_colonC = 0.0;
+
+# Microsomal proteins (mg / g of tissue)
+MicroProt_central = 45; lnMicroProt_centralC = 0.0;
+MicroProt_stom    = 0.0; lnMicroProt_stomC = 0.0;     # to check
+MicroProt_duod    = 9.45; lnMicroProt_duodC = 0.0;
+MicroProt_jeju    = 8.82; lnMicroProt_jejuC = 0.0;
+MicroProt_ileum   = 1.62; lnMicroProt_ileumC = 0.0;
+MicroProt_cecum   = 0.0; lnMicroProt_cecumC = 0.0;
+MicroProt_colon   = 0.0; lnMicroProt_colonC = 0.0;
+
+# G.i. tract epithelial thickness (dm)
+H_ep = 5.25E-4; lnH_epC = 0.0;
+
+
+#-------------------------------------
+# Substance-specific parameters
+#-------------------------------------
+
+# Molecular mass (g/mol)
+MM = 180.17; # Theophylline
+
+# Acidobasic type: 0=neutral, 1=base, 2=acide, 3=diacid, 4=dibase
+AB_type = 1;
+pKa1 = 1.84; # basic pKa
+pKa2 = 8.60; # acid  pKa
+
+# Administration lagtime, if needed
+Tlag = 0;
+
+# Absorption on(1)/off(0) switches
+f_Abs_stom = 0;
+f_Abs_duod = 0;
+f_Abs_jeju = 1;
+f_Abs_ileum = 0;
+f_Abs_cecum = 0;
+f_Abs_colon = 0;
+
+# Dosage forms (0/1) switches
+G_immediate_d = 1; # immediate release, dissolved (default)
+G_immediate_u = 0;     # immediate release, undissolved
+G_delayed_d = 0;       # delayed release,   dissolved
+G_delayed_u = 0;       # delayed release,   undissolved
+
+# Weibull delayed release parameters
+Weibull_slope; # avoid division by zero
+Weibull_scale; # avoid division by zero
+Weibull_lag;
+
+# First order delayed release rate constant
+K_release;
+
+# Galenic radius (microm)
+G_Radius  = 25.0; lnG_RadiusC = 0.0;
+
+# Powder density (g/ml)
+G_Density = 1.2; lnG_DensityC = 0.0;
+
+# Solute molal volume at normal boiling point (ml/g) (about twice MM...)
+Mol_vol;
+
+# Intrinsic (instantaneous) water solubility (microg/L)
+Solubility; lnSolubilityC = 0.0;
+
+# Solubility factors
+SFA = 100; lnSFAC = 0.0; # for acids 
+SFB = 50;  lnSFBC = 0.0; # for bases
+
+# Precipitation rate (1/h)
+K_precip;
+
+# Excretion over absorption rate constant ratios
+Ke_over_a_epit; # between lumen and epithelium
+Ke_over_a_tiss; # between epithelium and tissue
+
+# Effective permeability of g.i. tract epithelia
+Peff;
+
+# Tissue / blood partition coefficients
+PC_periph  = 1;
+PC_central = 1;
+PC_stom    = 1;
+PC_duod    = 1;
+PC_jeju    = 1;
+PC_ileum   = 1;
+PC_cecum   = 1;
+PC_colon   = 1;
+
+# Plasma / blood concentration ratio
+Ratio_BP = 1;
+
+# Fractions unbound
+Fu_plasma = 1.0;
+
+Fu_met_stom  = 1.0; # to stomach in vitro metabolic system (e.g. microsomes)
+Fu_met_duod  = 1.0; # etc.
+Fu_met_jeju  = 1.0;
+Fu_met_ileum = 1.0;
+Fu_met_cecum = 1.0;
+Fu_met_colon = 1.0;
+
+# Volumes (L)
+V_central = 1.0;
+V_periph  = 1.0;
+
+# Gut Michaelis-Menten Vmax (micromol/min/mg microsomal proteins)
+Vmax_vitro; lnVmax_vitro = 0.0;
+
+# Gut Michaelis-Menten Km (microM)
+Km_vitro; lnKm_vitro = 0.0;
+
+# Elimination rate constant from central (1/h)
+Kmet; lnKmet = 0.0;
+
+# Transfer rate constants between central and peripheral compartments (1/h)
+Kc2p; lnKc2p = 0.0;
+Kp2c; lnKp2c = 0.0; 
+
+
+#-------------------------------------------
+# Scaled physiological G.I. tract parameters
+#-------------------------------------------
+
+# Blood flows
+F_total;
+
+# Volumes (L)
+V_stom;
+V_duod;
+V_jeju;
+V_ileum;
+V_cecum;
+V_colon;
+
+# Tissue volumes in gi tract
+V_stom_w;
+V_duod_w;
+V_jeju_w;
+V_ileum_w;
+V_cecum_w;
+V_colon_w;
+
+# Luminal volumes in gi tract
+V_stom_lu;
+V_colon_lu;
+V_duod_lu;
+V_jeju_lu;
+V_ileum_lu;
+V_cecum_lu;
+
+# Epithelial volumes in gi tract
+V_stom_ep;
+V_duod_ep;
+V_jeju_ep;
+V_ileum_ep;
+V_cecum_ep;
+V_colon_ep;
+
+# Epithelial surface area in gi tract (dm^2)
+SA_stom;
+SA_duod;
+SA_jeju;
+SA_ileum;
+SA_cecum;
+SA_colon;
+
+# Intestinal transit rates
+Kt_stom;
+Kt_duod;
+Kt_jeju;
+Kt_ileum;
+Kt_cecum;
+Kt_colon;
+
+# Blood flows
+Flow_portvein;
+Flow_stom;
+Flow_duod;
+Flow_jeju;
+Flow_ileum;
+Flow_cecum;
+Flow_colon;
+
+# GI tract absorption flows
+Ka_stom;
+Ka_duod;
+Ka_jeju;
+Ka_ileum;
+Ka_cecum;
+Ka_colon;
+
+# Fraction unbound in blood
+Fu_blood;
+
+# In vivo central and gi tract Vmax
+Vmax_vivo_stom;
+Vmax_vivo_duod;
+Vmax_vivo_jeju;
+Vmax_vivo_ileum;
+Vmax_vivo_cecum;
+Vmax_vivo_colon;
+
+# In vivo Km
+Km_vivo;
+
+# Diffusion layer thickness
+Diff_thickness;
+
+# Diffusion coefficient at infinite dilution
+Diffusivity;
+
+# Baseline dissolution rate constant (1/microM/hr)
+K_diss;
+
+# Saturation concentrations
+Csat_stom;
+Csat_duod;
+Csat_jeju;
+Csat_ileum;
+Csat_cecum;
+Csat_colon;
+
+
+Initialize {
+
+  # Total blood flow
+  F_total = sc_F_total * pow(BDM, 0.75);
+
+  # Volumes of gi tract tissues
+  V_stom_w   = BDM * f_BDM_stom;
+  V_duod_w   = BDM * f_BDM_duod;
+  V_jeju_w   = BDM * f_BDM_jeju;
+  V_ileum_w  = BDM * f_BDM_ileum;
+  V_cecum_w  = BDM * f_BDM_cecum;
+  V_colon_w  = BDM * f_BDM_colon;
+
+  # Blood flows
+  Flow_stom     = F_total * f_Flow_stom;
+  Flow_duod     = F_total * f_Flow_duod;
+  Flow_jeju     = F_total * f_Flow_jeju;
+  Flow_ileum    = F_total * f_Flow_ileum;
+  Flow_cecum    = F_total * f_Flow_cecum;
+  Flow_colon    = F_total * f_Flow_colon;
+  Flow_portvein = Flow_stom  + Flow_duod  + Flow_jeju +
+                  Flow_ileum + Flow_cecum + Flow_colon;
+
+  # Epithelial surface areas
+  SA_stom   = Length_stom  * 2 * 3.1416 * Radius_stom;
+  SA_duod   = Length_duod  * 2 * 3.1416 * Radius_duod;
+  SA_jeju   = Length_jeju  * 2 * 3.1416 * Radius_jeju;
+  SA_ileum  = Length_ileum * 2 * 3.1416 * Radius_ileum;
+  SA_cecum  = Length_cecum * 2 * 3.1416 * Radius_cecum;
+  SA_colon  = Length_colon * 2 * 3.1416 * Radius_colon;
+
+  # Luminal volumes
+  V_stom_lu  = f_BDM_stom_lu  * BDM;
+  V_duod_lu  = f_BDM_duod_lu  * BDM;
+  V_jeju_lu  = f_BDM_jeju_lu  * BDM;
+  V_ileum_lu = f_BDM_ileum_lu * BDM;
+  V_cecum_lu = f_BDM_cecum_lu * BDM;
+  V_colon_lu = f_BDM_colon_lu * BDM;
+
+  # Intestinal transit rates
+  Kt_stom  = (log(2.0) * V_stom_lu  / T12_stom_lu);
+  Kt_duod  = (log(2.0) * V_duod_lu  / T12_duod_lu);
+  Kt_jeju  = (log(2.0) * V_jeju_lu  / T12_jeju_lu);
+  Kt_ileum = (log(2.0) * V_ileum_lu / T12_ileum_lu);
+  Kt_cecum = (log(2.0) * V_cecum_lu / T12_cecum_lu);
+  Kt_colon = (log(2.0) * V_colon_lu / T12_colon_lu);
+
+  # Epithelial volumes
+  V_stom_ep     = H_ep * SA_stom;
+  V_duod_ep     = H_ep * SA_duod;
+  V_jeju_ep     = H_ep * SA_jeju;
+  V_ileum_ep    = H_ep * SA_ileum;
+  V_cecum_ep    = H_ep * SA_cecum;
+  V_colon_ep    = H_ep * SA_colon;
+
+  # Fraction unbound in blood
+  Fu_blood = Fu_plasma / Ratio_BP;
+
+  # Metabolic parameters, scaled from in vitro values
+  Vmax_vivo_stom  = Vmax_vitro * 60 * MicroProt_stom  * V_stom_ep  * 1000;
+  Vmax_vivo_duod  = Vmax_vitro * 60 * MicroProt_duod  * V_duod_ep  * 1000;
+  Vmax_vivo_jeju  = Vmax_vitro * 60 * MicroProt_jeju  * V_jeju_ep  * 1000;
+  Vmax_vivo_ileum = Vmax_vitro * 60 * MicroProt_ileum * V_ileum_ep * 1000;
+  Vmax_vivo_cecum = Vmax_vitro * 60 * MicroProt_cecum * V_cecum_ep * 1000;
+  Vmax_vivo_colon = Vmax_vitro * 60 * MicroProt_colon * V_colon_ep * 1000;
+
+  Km_vivo = Km_vitro;
+
+  # Diffusion layer thickness (bounded between 5 and 30 microns)
+  # See Arav, Drug Development and Industrial Pharmacy, 2012; 38:940–951
+  Diff_thickness = (G_Radius < 5 ? 5 : G_Radius > 30 ? 30 : G_Radius);
+
+  # Diffusion coefficient at infinite dilution (cm2/sec) at 36 degrees Celsius
+  # in water; 1.09E-4 = 7.4E-8 * 309.15 * sqrt(18) / 0.89; 309.15 is 36 degrees
+  # Celsius in Kelvin; 18 it the molecular weight of water; 0.89 is water
+  # viscosity in centopoises. Ref: Wilke, 1955
+  Mol_vol = 1.685023 * pow(MM, 0.910187);
+  Diffusivity = 1.09E-4 * pow(Mol_vol, -0.6);
+
+  # Baseline dissolution rate constant (1/microM/hr)
+  K_diss = 1080 * MM * Diffusivity / (G_Density * G_Radius * Diff_thickness);
+
+  # Saturation concentrations (according to Henderson-Hasselbach)
+  # note: AB_type: 0=neutral, 1=base, 2=acide, 3=diacid, 4=dibase
+  Csat_stom  = Solubility * (
+   AB_type == 1 ? (1+pow(10, pKa1-pH_stom) < SFB * (1+pow(10, pKa1-13))  ?
+                   1+pow(10, pKa1-pH_stom) : SFB * (1+pow(10, pKa1-13))) :
+
+   AB_type == 2 ? (1+pow(10, pH_stom-pKa1) < SFA * (1+pow(10, 1 - pKa1)) ?
+                   1+pow(10, pH_stom-pKa1) : SFA * (1+pow(10, 1 - pKa1))):
+
+   AB_type == 3 ? (1 + pow(10, pKa1 - pH_stom)+pow(10, pH_stom - pKa2) <
+                   SFA * (1 + pow(10, (pKa2 + pKa1) * 0.5))  ?
+                   1 + pow(10, pKa1 - pH_stom)+pow(10, pH_stom - pKa2) :
+                   SFA * (1 + pow(10, (pKa2 + pKa1) * 0.5))) :
+
+   AB_type == 4 ? (1 + pow(10, pKa1 - pH_stom)+pow(10, pH_stom - pKa2) <
+                   SFB * (1 + pow(10, (pKa2 + pKa1) * 0.5)) ?
+                   1 + pow(10, pKa1 - pH_stom)+pow(10, pH_stom - pKa2) :
+                   SFB * (1 + pow(10, (pKa2 + pKa1) * 0.5))) : 1);
+
+  Csat_duod   =  Solubility * (
+   AB_type == 1 ? (1+pow(10, pKa1-pH_duod) < SFB * (1+pow(10, pKa1-13))  ?
+                   1+pow(10, pKa1-pH_duod) : SFB * (1+pow(10, pKa1-13))) :
+
+   AB_type == 2 ? (1+pow(10, pH_duod-pKa1) < SFA * (1+pow(10, 1 - pKa1)) ?
+                   1+pow(10, pH_duod-pKa1) : SFA * (1+pow(10, 1 - pKa1))):
+
+   AB_type == 3 ? (1 + pow(10, pKa1 - pH_duod)+pow(10, pH_duod - pKa2) <
+                   SFA * (1 + pow(10, (pKa2 + pKa1) * 0.5))  ?
+                   1 + pow(10, pKa1 - pH_duod)+pow(10, pH_duod - pKa2) :
+                   SFA * (1 + pow(10, (pKa2 + pKa1) * 0.5))) :
+
+   AB_type == 4 ? (1 + pow(10, pKa1 - pH_duod)+pow(10, pH_duod - pKa2) <
+                   SFB * (1 + pow(10, (pKa2 + pKa1) * 0.5)) ?
+                   1 + pow(10, pKa1 - pH_duod)+pow(10, pH_duod - pKa2) :
+                   SFB * (1 + pow(10, (pKa2 + pKa1) * 0.5))) : 1);
+
+  Csat_jeju   =  Solubility * (
+   AB_type == 1 ? (1+pow(10, pKa1-pH_jeju) < SFB * (1+pow(10, pKa1-13))  ?
+                   1+pow(10, pKa1-pH_jeju) : SFB * (1+pow(10, pKa1-13))) :
+
+   AB_type == 2 ? (1+pow(10, pH_jeju-pKa1) < SFA * (1+pow(10, 1 - pKa1)) ?
+                   1+pow(10, pH_jeju-pKa1) : SFA * (1+pow(10, 1 - pKa1))):
+
+   AB_type == 3 ? (1 + pow(10, pKa1 - pH_jeju)+pow(10, pH_jeju - pKa2) <
+                   SFA * (1 + pow(10, (pKa2 + pKa1) * 0.5))  ?
+                   1 + pow(10, pKa1 - pH_jeju)+pow(10, pH_jeju - pKa2) :
+                   SFA * (1 + pow(10, (pKa2 + pKa1) * 0.5))) :
+
+   AB_type == 4 ? (1 + pow(10, pKa1 - pH_jeju)+pow(10, pH_jeju - pKa2) <
+                   SFB * (1 + pow(10, (pKa2 + pKa1) * 0.5)) ?
+                   1 + pow(10, pKa1 - pH_jeju)+pow(10, pH_jeju - pKa2) :
+                   SFB * (1 + pow(10, (pKa2 + pKa1) * 0.5))) : 1);
+
+  Csat_ileum  =  Solubility * (
+   AB_type == 1 ? (1+pow(10, pKa1-pH_ileum) < SFB * (1+pow(10, pKa1-13))  ?
+                   1+pow(10, pKa1-pH_ileum) : SFB * (1+pow(10, pKa1-13))) :
+
+   AB_type == 2 ? (1+pow(10, pH_ileum-pKa1) < SFA * (1+pow(10, 1 - pKa1)) ?
+                   1+pow(10, pH_ileum-pKa1) : SFA * (1+pow(10, 1 - pKa1))):
+
+   AB_type == 3 ? (1 + pow(10, pKa1 - pH_ileum)+pow(10, pH_ileum - pKa2) <
+                   SFA * (1 + pow(10, (pKa2 + pKa1) * 0.5))  ?
+                   1 + pow(10, pKa1 - pH_ileum)+pow(10, pH_ileum - pKa2) :
+                   SFA * (1 + pow(10, (pKa2 + pKa1) * 0.5))) :
+
+   AB_type == 4 ? (1 + pow(10, pKa1 - pH_ileum)+pow(10, pH_ileum - pKa2) <
+                   SFB * (1 + pow(10, (pKa2 + pKa1) * 0.5)) ?
+                   1 + pow(10, pKa1 - pH_ileum)+pow(10, pH_ileum - pKa2) :
+                   SFB * (1 + pow(10, (pKa2 + pKa1) * 0.5))) : 1);
+
+  Csat_cecum  =  Solubility * (
+   AB_type == 1 ? (1+pow(10, pKa1-pH_cecum) < SFB * (1+pow(10, pKa1-13))  ?
+                   1+pow(10, pKa1-pH_cecum) : SFB * (1+pow(10, pKa1-13))) :
+
+   AB_type == 2 ? (1+pow(10, pH_cecum-pKa1) < SFA * (1+pow(10, 1 - pKa1)) ?
+                   1+pow(10, pH_cecum-pKa1) : SFA * (1+pow(10, 1 - pKa1))):
+
+   AB_type == 3 ? (1 + pow(10, pKa1 - pH_cecum)+pow(10, pH_cecum - pKa2) <
+                   SFA * (1 + pow(10, (pKa2 + pKa1) * 0.5))  ?
+                   1 + pow(10, pKa1 - pH_cecum)+pow(10, pH_cecum - pKa2) :
+                   SFA * (1 + pow(10, (pKa2 + pKa1) * 0.5))) :
+
+   AB_type == 4 ? (1 + pow(10, pKa1 - pH_cecum)+pow(10, pH_cecum - pKa2) <
+                   SFB * (1 + pow(10, (pKa2 + pKa1) * 0.5)) ?
+                   1 + pow(10, pKa1 - pH_cecum)+pow(10, pH_cecum - pKa2) :
+                   SFB * (1 + pow(10, (pKa2 + pKa1) * 0.5))) : 1);
+
+  Csat_colon  =  Solubility * (
+   AB_type == 1 ? (1+pow(10, pKa1-pH_colon) < SFB * (1+pow(10, pKa1-13))  ?
+                   1+pow(10, pKa1-pH_colon) : SFB * (1+pow(10, pKa1-13))) :
+
+   AB_type == 2 ? (1+pow(10, pH_colon-pKa1) < SFA * (1+pow(10, 1 - pKa1)) ?
+                   1+pow(10, pH_colon-pKa1) : SFA * (1+pow(10, 1 - pKa1))):
+
+   AB_type == 3 ? (1 + pow(10, pKa1 - pH_colon)+pow(10, pH_colon - pKa2) <
+                   SFA * (1 + pow(10, (pKa2 + pKa1) * 0.5))  ?
+                   1 + pow(10, pKa1 - pH_colon)+pow(10, pH_colon - pKa2) :
+                   SFA * (1 + pow(10, (pKa2 + pKa1) * 0.5))) :
+
+   AB_type == 4 ? (1 + pow(10, pKa1 - pH_colon)+pow(10, pH_colon - pKa2) <
+                   SFB * (1 + pow(10, (pKa2 + pKa1) * 0.5)) ?
+                   1 + pow(10, pKa1 - pH_colon)+pow(10, pH_colon - pKa2) :
+                   SFB * (1 + pow(10, (pKa2 + pKa1) * 0.5))) : 1);
+
+
+  # GI tract absorption flows
+  Ka_stom  = Peff * SA_stom  * f_Abs_stom;
+  Ka_duod  = Peff * SA_duod  * f_Abs_duod;
+  Ka_jeju  = Peff * SA_jeju  * f_Abs_jeju;
+  Ka_ileum = Peff * SA_ileum * f_Abs_ileum;
+  Ka_cecum = Peff * SA_cecum * f_Abs_cecum;
+  Ka_colon = Peff * SA_colon * f_Abs_colon;
+
+} # End of model scaling
+
+
+Dynamics {
+
+  # Delayed release modeling
+
+  # Weibull delayed release (see TNO intestinal models). This should be
+  # doable with a PerExp input...
+  Release_rate = PO_dose * Weibull_slope / Weibull_scale *
+                 pow((t - Weibull_lag) / Weibull_scale, Weibull_slope - 1) *
+                 exp(-pow((t - Weibull_lag) / Weibull_scale, Weibull_slope));
+
+  # First order delayed release
+  # Release_rate = Oral_dose_rate - K_release * Q_to_release;
+
+  # Concentrations in body compartments
+  C_central = Q_central / V_central;
+  C_periph  = Q_periph  / V_periph;
+
+  # Concentrations dissolved in gi tract lumina
+  C_stom_lu_d  = Q_stom_lu_d  / V_stom_lu;
+  C_duod_lu_d  = Q_duod_lu_d  / V_duod_lu;
+  C_jeju_lu_d  = Q_jeju_lu_d  / V_jeju_lu;
+  C_ileum_lu_d = Q_ileum_lu_d / V_ileum_lu;
+  C_cecum_lu_d = Q_cecum_lu_d / V_cecum_lu;
+  C_colon_lu_d = Q_colon_lu_d / V_colon_lu;
+
+  # Concentrations undissolved in gi tract lumina
+  C_stom_lu_u  = Q_stom_lu_u  / V_stom_lu;
+  C_duod_lu_u  = Q_duod_lu_u  / V_duod_lu;
+  C_jeju_lu_u  = Q_jeju_lu_u  / V_jeju_lu;
+  C_ileum_lu_u = Q_ileum_lu_u / V_ileum_lu;
+  C_cecum_lu_u = Q_cecum_lu_u / V_cecum_lu;
+  C_colon_lu_u = Q_colon_lu_u / V_colon_lu;
+
+  # Concentrations in gi tract epithelia
+  C_stom_ep  = Q_stom_ep  / V_stom_ep;
+  C_duod_ep  = Q_duod_ep  / V_duod_ep;
+  C_jeju_ep  = Q_jeju_ep  / V_jeju_ep;
+  C_ileum_ep = Q_ileum_ep / V_ileum_ep;
+  C_cecum_ep = Q_cecum_ep / V_cecum_ep;
+  C_colon_ep = Q_colon_ep / V_colon_ep;
+
+  # Concentrations in gi tract tissues
+  C_stom_w  = Q_stom_w  / V_stom_w;
+  C_duod_w  = Q_duod_w  / V_duod_w;
+  C_jeju_w  = Q_jeju_w  / V_jeju_w;
+  C_ileum_w = Q_ileum_w / V_ileum_w;
+  C_cecum_w = Q_cecum_w / V_cecum_w;
+  C_colon_w = Q_colon_w / V_colon_w;
+
+  # Blood concentrations at compartment exit
+  Ctb_stom_w  = C_stom_w  / PC_stom;
+  Ctb_duod_w  = C_duod_w  / PC_duod;
+  Ctb_jeju_w  = C_jeju_w  / PC_jeju;
+  Ctb_ileum_w = C_ileum_w / PC_ileum;
+  Ctb_cecum_w = C_cecum_w / PC_cecum;
+  Ctb_colon_w = C_colon_w / PC_colon;
+
+  # Dissolution rate
+  stomach_K_diss  =  K_diss * (Csat_stom  - C_stom_lu_d);
+  duodenum_K_diss =  K_diss * (Csat_duod  - C_duod_lu_d);
+  jejunum_K_diss  =  K_diss * (Csat_jeju  - C_jeju_lu_d);
+  ileon_K_diss    =  K_diss * (Csat_ileum - C_ileum_lu_d);
+  cecum_K_diss    =  K_diss * (Csat_cecum - C_cecum_lu_d);
+  colon_K_diss    =  K_diss * (Csat_colon - C_colon_lu_d);
+
+  # Dissolution rate in lumina
+  Rate_stl_diss  = stomach_K_diss  * Q_stom_lu_u;
+  Rate_dul_diss  = duodenum_K_diss * Q_duod_lu_u;
+  Rate_jel_diss  = jejunum_K_diss  * Q_jeju_lu_u;
+  Rate_ill_diss  = ileon_K_diss    * Q_ileum_lu_u;
+  Rate_cel_diss  = cecum_K_diss    * Q_cecum_lu_u;
+  Rate_col_diss  = colon_K_diss    * Q_colon_lu_u;
+
+  # Precipitations rate in lumina
+  Rate_stl_precip = K_precip * Q_stom_lu_d;
+  Rate_dul_precip = K_precip * Q_duod_lu_d;
+  Rate_jel_precip = K_precip * Q_jeju_lu_d;
+  Rate_ill_precip = K_precip * Q_ileum_lu_d;
+  Rate_cel_precip = K_precip * Q_cecum_lu_d;
+  Rate_col_precip = K_precip * Q_colon_lu_d;
+
+  # Transfers from lumen to lumen or feces (intestinal transit) (dissolved)
+  Rate_stl2dul = Kt_stom  * C_stom_lu_d;
+  Rate_dul2jel = Kt_duod  * C_duod_lu_d;
+  Rate_jel2ill = Kt_jeju  * C_jeju_lu_d;
+  Rate_ill2cel = Kt_ileum * C_ileum_lu_d;
+  Rate_cel2col = Kt_cecum * C_cecum_lu_d;
+  Rate_col2fel = Kt_colon * C_colon_lu_d;
+
+  # Transfers from lumen to lumen or feces (intestinal transit) (undissolved)
+  Rate_stu2duu = Kt_stom  * C_stom_lu_u;
+  Rate_duu2jeu = Kt_duod  * C_duod_lu_u;
+  Rate_jeu2ilu = Kt_jeju  * C_jeju_lu_u;
+  Rate_ilu2ceu = Kt_ileum * C_ileum_lu_u;
+  Rate_ceu2cou = Kt_cecum * C_cecum_lu_u;
+  Rate_cou2feu = Kt_colon * C_colon_lu_u;
+
+  # Transfers from lumina to epithelia for dissolved form
+  Rate_stl2ste = Ka_stom  * (C_stom_lu_d  - Ke_over_a_epit * C_stom_ep);
+  Rate_dul2due = Ka_duod  * (C_duod_lu_d  - Ke_over_a_epit * C_duod_ep);
+  Rate_jel2jee = Ka_jeju  * (C_jeju_lu_d  - Ke_over_a_epit * C_jeju_ep);
+  Rate_ill2ile = Ka_ileum * (C_ileum_lu_d - Ke_over_a_epit * C_ileum_ep);
+  Rate_cel2cee = Ka_cecum * (C_cecum_lu_d - Ke_over_a_epit * C_cecum_ep);
+  Rate_col2coe = Ka_colon * (C_colon_lu_d - Ke_over_a_epit * C_colon_ep);
+
+  # Transfers from epithelia to tissues
+  Rate_ste2stw = Ka_stom  * (C_stom_ep  - Ke_over_a_tiss * C_stom_w);
+  Rate_due2duw = Ka_duod  * (C_duod_ep  - Ke_over_a_tiss * C_duod_w);
+  Rate_jee2jew = Ka_jeju  * (C_jeju_ep  - Ke_over_a_tiss * C_jeju_w);
+  Rate_ile2ilw = Ka_ileum * (C_ileum_ep - Ke_over_a_tiss * C_ileum_w);
+  Rate_cee2cew = Ka_cecum * (C_cecum_ep - Ke_over_a_tiss * C_cecum_w);
+  Rate_coe2cow = Ka_colon * (C_colon_ep - Ke_over_a_tiss * C_colon_w);
+
+  # Transfers from tissues to portal vein
+  Rate_stw2pv = Flow_stom  * Ctb_stom_w;
+  Rate_duw2pv = Flow_duod  * Ctb_duod_w;
+  Rate_jew2pv = Flow_jeju  * Ctb_jeju_w;
+  Rate_ilw2pv = Flow_ileum * Ctb_ileum_w;
+  Rate_cew2pv = Flow_cecum * Ctb_cecum_w;
+  Rate_cow2pv = Flow_colon * Ctb_colon_w;
+
+  # Portal rate in
+  RateIn_portvein = Rate_stw2pv + Rate_duw2pv + Rate_jew2pv +
+                    Rate_ilw2pv + Rate_cew2pv + Rate_cow2pv;
+
+  # Differential equations
+
+  # Quantity to be released to the stomach in case of delayed release
+  dt (Q_to_release) = Release_rate;
+
+  # Quantities absorbed
+  dt (Q_absorb_stom)  = Rate_stl2ste;
+  dt (Q_absorb_duod)  = Rate_dul2due;
+  dt (Q_absorb_jeju)  = Rate_jel2jee;
+  dt (Q_absorb_ileum) = Rate_ill2ile;
+  dt (Q_absorb_cecum) = Rate_cel2cee;
+  dt (Q_absorb_colon) = Rate_col2coe;
+
+  # Quantity reaching the portal vein
+  dt (Q_absorb_pv) = RateIn_portvein;
+
+  # Elimination and metabolism
+
+  dt (Q_met_central) = Kmet * Q_central;
+
+  dt (Q_met_stom)  = Vmax_vivo_stom  * (C_stom_ep / PC_stom) /
+                     (Km_vivo * Fu_met_stom / Fu_blood + 
+                      C_stom_ep / PC_stom);
+
+  dt (Q_met_duod)  = Vmax_vivo_duod  * (C_duod_ep / PC_duod) /
+                     (Km_vivo * Fu_met_duod / Fu_blood + 
+                      C_duod_ep / PC_duod);
+
+  dt (Q_met_jeju)  = Vmax_vivo_jeju * (C_jeju_ep / PC_jeju) /
+                     (Km_vivo * Fu_met_jeju / Fu_blood +
+                      C_jeju_ep / PC_jeju);
+
+  dt (Q_met_ileum) = Vmax_vivo_ileum * (C_ileum_ep / PC_ileum) /
+                     (Km_vivo * Fu_met_ileum / Fu_blood + 
+                      C_ileum_ep / PC_ileum);
+
+  dt (Q_met_cecum) = Vmax_vivo_cecum * (C_cecum_ep / PC_cecum) /
+                     (Km_vivo * Fu_met_cecum / Fu_blood + 
+                      C_cecum_ep / PC_cecum);
+
+  dt (Q_met_colon) = Vmax_vivo_colon * (C_colon_ep / PC_colon) /
+                     (Km_vivo * Fu_met_colon / Fu_blood + 
+                      C_colon_ep / PC_colon);
+
+  dt (Q_feces_d) = Rate_col2fel;
+
+  dt (Q_feces_u) = Rate_cou2feu;
+
+  # Distributions
+
+  dt(Q_periph)  = Kc2p * Q_central - Kp2c * Q_periph;
+  dt(Q_central) = IV_dose_rate + RateIn_portvein - Flow_portvein * C_central -
+                  dt(Q_periph) - dt(Q_met_central);
+
+  dt(Q_stom_lu_d) = (G_immediate_d > 0.5 ? Oral_dose_rate : 0.0) -
+                    Rate_stl2dul - Rate_stl2ste +
+                    Rate_stl_diss  - Rate_stl_precip +
+                    Release_rate * G_delayed_d;
+  dt(Q_stom_lu_u) = (G_immediate_u > 0.5 ? Oral_dose_rate : 0.0) -
+                    Rate_stu2duu -
+                    Rate_stl_diss  + Rate_stl_precip +
+                    Release_rate * G_delayed_u;
+  dt(Q_stom_ep)   = Rate_stl2ste - Rate_ste2stw - dt (Q_met_stom);
+  dt(Q_stom_w)    = Flow_stom * C_central + Rate_ste2stw - Rate_stw2pv;
+
+  dt(Q_duod_lu_d) = Rate_stl2dul  - Rate_dul2jel - Rate_dul2due +
+                    Rate_dul_diss - Rate_dul_precip;
+  dt(Q_duod_lu_u) = Rate_stu2duu  - Rate_duu2jeu -
+                    Rate_dul_diss  + Rate_dul_precip;
+  dt(Q_duod_ep) = Rate_dul2due - Rate_due2duw - dt (Q_met_duod);
+  dt(Q_duod_w)  = Flow_duod * C_central + Rate_due2duw - Rate_duw2pv;
+
+  dt(Q_jeju_lu_d) = Rate_dul2jel  - Rate_jel2ill - Rate_jel2jee +
+                    Rate_jel_diss - Rate_jel_precip;
+  dt(Q_jeju_lu_u) = Rate_duu2jeu  - Rate_jeu2ilu -
+                    Rate_jel_diss + Rate_jel_precip;
+  dt(Q_jeju_ep)   = Rate_jel2jee - Rate_jee2jew - dt (Q_met_jeju);
+  dt(Q_jeju_w)    = Flow_jeju * C_central + Rate_jee2jew - Rate_jew2pv;
+
+  dt(Q_ileum_lu_d) = Rate_jel2ill  - Rate_ill2cel - Rate_ill2ile +
+                     Rate_ill_diss - Rate_ill_precip;
+  dt(Q_ileum_lu_u) = Rate_jeu2ilu  - Rate_ilu2ceu -
+                     Rate_ill_diss + Rate_ill_precip;
+  dt(Q_ileum_ep)   = Rate_ill2ile - Rate_ile2ilw - dt (Q_met_ileum);
+  dt(Q_ileum_w)    = Flow_ileum * C_central + Rate_ile2ilw - Rate_ilw2pv;
+
+  dt(Q_cecum_lu_d) = Rate_ill2cel  - Rate_cel2col - Rate_cel2cee +
+                     Rate_cel_diss - Rate_cel_precip;
+  dt(Q_cecum_lu_u) = Rate_ilu2ceu  - Rate_ceu2cou -
+                     Rate_cel_diss + Rate_cel_precip;
+  dt(Q_cecum_ep)   = Rate_cel2cee - Rate_cee2cew - dt (Q_met_cecum);
+  dt(Q_cecum_w)    = Flow_cecum * C_central + Rate_cee2cew - Rate_cew2pv;
+
+  dt(Q_colon_lu_d) = Rate_cel2col  - dt (Q_feces_d) - Rate_col2coe +
+                     Rate_col_diss - Rate_col_precip;
+  dt(Q_colon_lu_u) = Rate_ceu2cou  - dt (Q_feces_u) -
+                     Rate_col_diss + Rate_col_precip;
+  dt(Q_colon_ep)   = Rate_col2coe - Rate_coe2cow - dt (Q_met_colon);
+  dt(Q_colon_w)    = Flow_colon * C_central + Rate_coe2cow - Rate_cow2pv;
+
+}
+
+CalcOutputs {
+
+  # Mass balance checking
+
+  Q_gi_lu_d = Q_stom_lu_d  + Q_duod_lu_d + Q_jeju_lu_d + Q_ileum_lu_d +
+              Q_cecum_lu_d + Q_colon_lu_d;
+
+  Q_gi_lu_u = Q_stom_lu_u  + Q_duod_lu_u + Q_jeju_lu_u + Q_ileum_lu_u +
+              Q_cecum_lu_u + Q_colon_lu_u;
+
+  Q_gi_ep   = Q_stom_ep  + Q_duod_ep + Q_jeju_ep + Q_ileum_ep +
+              Q_cecum_ep + Q_colon_ep;
+
+  Q_gi_w    = Q_stom_w  + Q_duod_w + Q_jeju_w + Q_ileum_w +
+              Q_cecum_w + Q_colon_w;
+
+  Q_absorb  = Q_absorb_stom  + Q_absorb_duod  +
+              Q_absorb_jeju  + Q_absorb_ileum +
+              Q_absorb_cecum + Q_absorb_colon;
+
+  Q_elim_gi = Q_met_stom  + Q_met_duod  + Q_met_jeju  +
+              Q_met_ileum + Q_met_cecum + Q_met_colon + Q_feces_d + Q_feces_u;
+
+  Q_elim    = Q_met_central + Q_elim_gi;
+
+  Q_organ   = Q_central + Q_periph + Q_gi_lu_d + Q_gi_ep + Q_gi_w;
+
+  Q_total   = Q_organ + Q_elim;
+
+  Instant_Ka_gi = (Q_gi_lu_d > 0 ? Q_absorb_pv / Q_gi_lu_d : 0);
+
+}
+
+End.
