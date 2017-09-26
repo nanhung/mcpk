@@ -187,7 +187,7 @@ pKa1 = 1.84; # basic pKa
 pKa2 = 8.60; # acid  pKa
 
 # Administration lagtime, if needed
-Tlag = 0;
+Tlag = 0; # not consider in the model
 
 # Absorption on(1)/off(0) switches
 f_Abs_stom = 0;
@@ -204,12 +204,12 @@ G_delayed_d = 0;       # delayed release,   dissolved
 G_delayed_u = 0;       # delayed release,   undissolved
 
 # Weibull delayed release parameters
-Weibull_slope; # avoid division by zero
-Weibull_scale; # avoid division by zero
-Weibull_lag;
+Weibull_slope = 1.0; # avoid division by zero
+Weibull_scale = 1.0; # avoid division by zero
+Weibull_lag = 0.0;
 
 # First order delayed release rate constant
-K_release;
+#K_release; # not use in the model
 
 # Galenic radius (microm)
 G_Radius  = 25.0; lnG_RadiusC = 0.0;
@@ -221,21 +221,24 @@ G_Density = 1.2; lnG_DensityC = 0.0;
 Mol_vol;
 
 # Intrinsic (instantaneous) water solubility (microg/L)
-Solubility; lnSolubilityC = 0.0;
+Solubility = 7.36e6; lnSolubilityC = 0.0;
 
 # Solubility factors
 SFA = 100; lnSFAC = 0.0; # for acids 
 SFB = 50;  lnSFBC = 0.0; # for bases
 
 # Precipitation rate (1/h)
-K_precip;
+# According to "Approaches for measuring intestinal precipitation rates of oral drugs"
+# Precipitation rate half‐lifes varied between 500 and 5000 seconds
+# The range of K_precip might be 1.38e-4 (exp(-8.89)) to 1.38e-3 (exp(-6.58)) 
+K_precip = 1.38e-3; lnK_precip = -6.58;
 
 # Excretion over absorption rate constant ratios
-Ke_over_a_epit; # between lumen and epithelium
-Ke_over_a_tiss; # between epithelium and tissue
+Ke_over_a_epit = 0.5; # between lumen and epithelium
+Ke_over_a_tiss = 0.5; # between epithelium and tissue
 
 # Effective permeability of g.i. tract epithelia
-Peff;
+Peff = 0.5;
 
 # Tissue / blood partition coefficients
 PC_periph  = 1;
@@ -265,18 +268,17 @@ V_central = 1.0;
 V_periph  = 1.0;
 
 # Gut Michaelis-Menten Vmax (micromol/min/mg microsomal proteins)
-Vmax_vitro; lnVmax_vitro = 0.0;
+Vmax_vitro = 1.0;
 
 # Gut Michaelis-Menten Km (microM)
-Km_vitro; lnKm_vitro = 0.0;
+Km_vitro = 1.0;
 
 # Elimination rate constant from central (1/h)
-Kmet; lnKmet = 0.0;
+Kmet ; lnKmet = 0.0;
 
 # Transfer rate constants between central and peripheral compartments (1/h)
 Kc2p; lnKc2p = 0.0;
 Kp2c; lnKp2c = 0.0; 
-
 
 #-------------------------------------------
 # Scaled physiological G.I. tract parameters
@@ -576,6 +578,10 @@ Initialize {
   Ka_ileum = Peff * SA_ileum * f_Abs_ileum;
   Ka_cecum = Peff * SA_cecum * f_Abs_cecum;
   Ka_colon = Peff * SA_colon * f_Abs_colon;
+
+  Kmet = exp(lnKmet);   
+  Kc2p = exp(lnKc2p);
+  Kp2c = exp(lnKp2c);
 
 } # End of model scaling
 

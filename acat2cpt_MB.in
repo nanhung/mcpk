@@ -1,0 +1,11 @@
+# Check Massbalance
+OutputFile ("acat2cpt_MB.out");
+
+Integrate (Lsodes, 1e-7, 1e-9, 1);
+
+Simulation {
+Oral_dose_rate = NDoses(2, 17.68108 0, 0 0.1);
+PrintStep ( Q_total , 0, 2, 0.1);	
+}
+
+END.
