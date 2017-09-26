@@ -162,7 +162,7 @@ pH_cecum = 5.9; lnpH_cecumC = 0.0;
 pH_colon = 7; lnpH_colonC = 0.0;
 
 # Microsomal proteins (mg / g of tissue)
-MicroProt_central = 45; lnMicroProt_centralC = 0.0;
+MicroProt_central; # No use
 MicroProt_stom    = 0.0; lnMicroProt_stomC = 0.0;     # to check
 MicroProt_duod    = 9.45; lnMicroProt_duodC = 0.0;
 MicroProt_jeju    = 8.82; lnMicroProt_jejuC = 0.0;
@@ -274,11 +274,11 @@ Vmax_vitro = 1.0;
 Km_vitro = 1.0;
 
 # Elimination rate constant from central (1/h)
-Kmet ; lnKmet = 0.0;
+Kmet = 1.0;
 
 # Transfer rate constants between central and peripheral compartments (1/h)
-Kc2p; lnKc2p = 0.0;
-Kp2c; lnKp2c = 0.0; 
+Kc2p = 1.0;
+Kp2c = 1.0; 
 
 #-------------------------------------------
 # Scaled physiological G.I. tract parameters
@@ -387,68 +387,121 @@ Csat_colon;
 Initialize {
 
   # Total blood flow
-  F_total = sc_F_total * pow(BDM, 0.75);
+  sc_F_totalC = exp(lnsc_F_totalC);
+  F_total = sc_F_total * sc_F_totalC *  pow(BDM, 0.75);
 
   # Volumes of gi tract tissues
-  V_stom_w   = BDM * f_BDM_stom;
-  V_duod_w   = BDM * f_BDM_duod;
-  V_jeju_w   = BDM * f_BDM_jeju;
-  V_ileum_w  = BDM * f_BDM_ileum;
-  V_cecum_w  = BDM * f_BDM_cecum;
-  V_colon_w  = BDM * f_BDM_colon;
+  f_BDM_stomC = exp(lnf_BDM_stomC);
+  f_BDM_duodC = exp(lnf_BDM_duodC);
+  f_BDM_jejuC = exp(lnf_BDM_jejuC);
+  f_BDM_ileumC = exp(lnf_BDM_ileumC);
+  f_BDM_cecumC = exp(lnf_BDM_cecumC);
+  f_BDM_colonC = exp(lnf_BDM_colonC);
+
+  V_stom_w   = BDM * f_BDM_stom * f_BDM_stomC;
+  V_duod_w   = BDM * f_BDM_duod * f_BDM_duodC;
+  V_jeju_w   = BDM * f_BDM_jeju * f_BDM_jejuC;
+  V_ileum_w  = BDM * f_BDM_ileum * f_BDM_ileumC;
+  V_cecum_w  = BDM * f_BDM_cecum * f_BDM_cecumC;
+  V_colon_w  = BDM * f_BDM_colon * f_BDM_colonC;
 
   # Blood flows
-  Flow_stom     = F_total * f_Flow_stom;
-  Flow_duod     = F_total * f_Flow_duod;
-  Flow_jeju     = F_total * f_Flow_jeju;
-  Flow_ileum    = F_total * f_Flow_ileum;
-  Flow_cecum    = F_total * f_Flow_cecum;
-  Flow_colon    = F_total * f_Flow_colon;
+  f_Flow_stomC = exp(lnf_Flow_stomC);
+  f_Flow_duodC = exp(lnf_Flow_duodC);
+  f_Flow_jejuC = exp(lnf_Flow_jejuC);
+  f_Flow_ileumC = exp(lnf_Flow_ileumC);
+  f_Flow_cecumC = exp(lnf_Flow_cecumC);
+  f_Flow_colonC = exp(lnf_Flow_colonC);
+
+  Flow_stom     = F_total * f_Flow_stom * f_Flow_stomC;
+  Flow_duod     = F_total * f_Flow_duod * f_Flow_duodC;
+  Flow_jeju     = F_total * f_Flow_jeju * f_Flow_jejuC;
+  Flow_ileum    = F_total * f_Flow_ileum * f_Flow_ileumC;
+  Flow_cecum    = F_total * f_Flow_cecum * f_Flow_cecumC;
+  Flow_colon    = F_total * f_Flow_colon * f_Flow_colonC;
   Flow_portvein = Flow_stom  + Flow_duod  + Flow_jeju +
                   Flow_ileum + Flow_cecum + Flow_colon;
 
   # Epithelial surface areas
-  SA_stom   = Length_stom  * 2 * 3.1416 * Radius_stom;
-  SA_duod   = Length_duod  * 2 * 3.1416 * Radius_duod;
-  SA_jeju   = Length_jeju  * 2 * 3.1416 * Radius_jeju;
-  SA_ileum  = Length_ileum * 2 * 3.1416 * Radius_ileum;
-  SA_cecum  = Length_cecum * 2 * 3.1416 * Radius_cecum;
-  SA_colon  = Length_colon * 2 * 3.1416 * Radius_colon;
+  Length_stomC = exp(lnLength_stomC);
+  Length_duodC = exp(lnLength_duodC);
+  Length_jejuC = exp(lnLength_jejuC);
+  Length_ileumC = exp(lnLength_ileumC);
+  Length_cecumC = exp(lnLength_cecumC);
+  Length_colonC = exp(lnLength_colonC);
+
+  Radius_stomC = exp(lnRadius_stomC);
+  Radius_duodC = exp(lnRadius_duodC);
+  Radius_jejuC = exp(lnRadius_jejuC);
+  Radius_ileumC = exp(lnRadius_ileumC);
+  Radius_cecumC = exp(lnRadius_cecumC);
+  Radius_colonC = exp(lnRadius_colonC);
+
+  SA_stom   = Length_stom * Length_stomC * 2 * 3.1416 * Radius_stom * Radius_stomC;
+  SA_duod   = Length_duod * Length_duodC  * 2 * 3.1416 * Radius_duod * Radius_duodC;
+  SA_jeju   = Length_jeju * Length_jejuC  * 2 * 3.1416 * Radius_jeju * Radius_jejuC;
+  SA_ileum  = Length_ileum * Length_ileumC * 2 * 3.1416 * Radius_ileum * Radius_ileumC;
+  SA_cecum  = Length_cecum * Length_cecumC * 2 * 3.1416 * Radius_cecum * Radius_cecumC;
+  SA_colon  = Length_colon * Length_colonC * 2 * 3.1416 * Radius_colon * Radius_colonC;
 
   # Luminal volumes
-  V_stom_lu  = f_BDM_stom_lu  * BDM;
-  V_duod_lu  = f_BDM_duod_lu  * BDM;
-  V_jeju_lu  = f_BDM_jeju_lu  * BDM;
-  V_ileum_lu = f_BDM_ileum_lu * BDM;
-  V_cecum_lu = f_BDM_cecum_lu * BDM;
-  V_colon_lu = f_BDM_colon_lu * BDM;
+  f_BDM_stom_luC = exp(lnf_BDM_stom_luC);
+  f_BDM_duod_luC = exp(lnf_BDM_duod_luC);
+  f_BDM_jeju_luC = exp(lnf_BDM_jeju_luC);
+  f_BDM_ileum_luC = exp(lnf_BDM_ileum_luC);
+  f_BDM_cecum_luC = exp(lnf_BDM_cecum_luC);
+  f_BDM_colon_luC = exp(lnf_BDM_colon_luC);
+  
+  V_stom_lu  = f_BDM_stom_lu * f_BDM_stom_luC * BDM;
+  V_duod_lu  = f_BDM_duod_lu * f_BDM_duod_luC  * BDM;
+  V_jeju_lu  = f_BDM_jeju_lu * f_BDM_jeju_luC  * BDM;
+  V_ileum_lu = f_BDM_ileum_lu * f_BDM_ileum_luC * BDM;
+  V_cecum_lu = f_BDM_cecum_lu * f_BDM_cecum_luC * BDM;
+  V_colon_lu = f_BDM_colon_lu * f_BDM_colon_luC * BDM;
 
   # Intestinal transit rates
-  Kt_stom  = (log(2.0) * V_stom_lu  / T12_stom_lu);
-  Kt_duod  = (log(2.0) * V_duod_lu  / T12_duod_lu);
-  Kt_jeju  = (log(2.0) * V_jeju_lu  / T12_jeju_lu);
-  Kt_ileum = (log(2.0) * V_ileum_lu / T12_ileum_lu);
-  Kt_cecum = (log(2.0) * V_cecum_lu / T12_cecum_lu);
-  Kt_colon = (log(2.0) * V_colon_lu / T12_colon_lu);
+  
+  T12_stom_luC = exp(lnT12_stom_luC);
+  T12_duod_luC = exp(lnT12_duod_luC);
+  T12_jeju_luC = exp(lnT12_jeju_luC);
+  T12_ileum_luC = exp(lnT12_ileum_luC);
+  T12_cecum_luC = exp(lnT12_cecum_luC);
+  T12_colon_luC = exp(lnT12_colon_luC);
+  
+  Kt_stom  = log(2.0) * V_stom_lu  / (T12_stom_lu * T12_stom_luC);
+  Kt_duod  = log(2.0) * V_duod_lu  / (T12_duod_lu * T12_duod_luC);
+  Kt_jeju  = log(2.0) * V_jeju_lu  / (T12_jeju_lu * T12_jeju_luC);
+  Kt_ileum = log(2.0) * V_ileum_lu / (T12_ileum_lu * T12_ileum_luC);
+  Kt_cecum = log(2.0) * V_cecum_lu / (T12_cecum_lu * T12_cecum_luC);
+  Kt_colon = log(2.0) * V_colon_lu / (T12_colon_lu * T12_colon_luC);
 
   # Epithelial volumes
-  V_stom_ep     = H_ep * SA_stom;
-  V_duod_ep     = H_ep * SA_duod;
-  V_jeju_ep     = H_ep * SA_jeju;
-  V_ileum_ep    = H_ep * SA_ileum;
-  V_cecum_ep    = H_ep * SA_cecum;
-  V_colon_ep    = H_ep * SA_colon;
+  H_epC = exp(lnH_epC);
+  
+  V_stom_ep     = (H_ep * H_epC) * SA_stom;
+  V_duod_ep     = (H_ep * H_epC) * SA_duod;
+  V_jeju_ep     = (H_ep * H_epC) * SA_jeju;
+  V_ileum_ep    = (H_ep * H_epC) * SA_ileum;
+  V_cecum_ep    = (H_ep * H_epC) * SA_cecum;
+  V_colon_ep    = (H_ep * H_epC) * SA_colon;
 
   # Fraction unbound in blood
   Fu_blood = Fu_plasma / Ratio_BP;
 
   # Metabolic parameters, scaled from in vitro values
-  Vmax_vivo_stom  = Vmax_vitro * 60 * MicroProt_stom  * V_stom_ep  * 1000;
-  Vmax_vivo_duod  = Vmax_vitro * 60 * MicroProt_duod  * V_duod_ep  * 1000;
-  Vmax_vivo_jeju  = Vmax_vitro * 60 * MicroProt_jeju  * V_jeju_ep  * 1000;
-  Vmax_vivo_ileum = Vmax_vitro * 60 * MicroProt_ileum * V_ileum_ep * 1000;
-  Vmax_vivo_cecum = Vmax_vitro * 60 * MicroProt_cecum * V_cecum_ep * 1000;
-  Vmax_vivo_colon = Vmax_vitro * 60 * MicroProt_colon * V_colon_ep * 1000;
+  MicroProt_stomC = exp(lnMicroProt_stomC);
+  MicroProt_duodC = exp(lnMicroProt_duodC);
+  MicroProt_jejuC = exp(lnMicroProt_jejuC);
+  MicroProt_ileumC = exp(lnMicroProt_ileumC);
+  MicroProt_cecumC = exp(lnMicroProt_cecumC);
+  MicroProt_colonC = exp(lnMicroProt_colonC);
+  
+  Vmax_vivo_stom  = Vmax_vitro * 60 * (MicroProt_stom * MicroProt_stomC)  * V_stom_ep  * 1000;
+  Vmax_vivo_duod  = Vmax_vitro * 60 * (MicroProt_duod * MicroProt_duodC)  * V_duod_ep  * 1000;
+  Vmax_vivo_jeju  = Vmax_vitro * 60 * (MicroProt_jeju * MicroProt_jejuC)  * V_jeju_ep  * 1000;
+  Vmax_vivo_ileum = Vmax_vitro * 60 * (MicroProt_ileum * MicroProt_ileumC) * V_ileum_ep * 1000;
+  Vmax_vivo_cecum = Vmax_vitro * 60 * (MicroProt_cecum * MicroProt_cecumC) * V_cecum_ep * 1000;
+  Vmax_vivo_colon = Vmax_vitro * 60 * (MicroProt_colon * MicroProt_colonC) * V_colon_ep * 1000;
 
   Km_vivo = Km_vitro;
 
@@ -468,7 +521,9 @@ Initialize {
 
   # Saturation concentrations (according to Henderson-Hasselbach)
   # note: AB_type: 0=neutral, 1=base, 2=acide, 3=diacid, 4=dibase
-  Csat_stom  = Solubility * (
+  SolubilityC = exp(lnSolubilityC);
+  
+  Csat_stom  = Solubility * SolubilityC * (
    AB_type == 1 ? (1+pow(10, pKa1-pH_stom) < SFB * (1+pow(10, pKa1-13))  ?
                    1+pow(10, pKa1-pH_stom) : SFB * (1+pow(10, pKa1-13))) :
 
@@ -485,7 +540,7 @@ Initialize {
                    1 + pow(10, pKa1 - pH_stom)+pow(10, pH_stom - pKa2) :
                    SFB * (1 + pow(10, (pKa2 + pKa1) * 0.5))) : 1);
 
-  Csat_duod   =  Solubility * (
+  Csat_duod   =  Solubility * SolubilityC * (
    AB_type == 1 ? (1+pow(10, pKa1-pH_duod) < SFB * (1+pow(10, pKa1-13))  ?
                    1+pow(10, pKa1-pH_duod) : SFB * (1+pow(10, pKa1-13))) :
 
@@ -502,7 +557,7 @@ Initialize {
                    1 + pow(10, pKa1 - pH_duod)+pow(10, pH_duod - pKa2) :
                    SFB * (1 + pow(10, (pKa2 + pKa1) * 0.5))) : 1);
 
-  Csat_jeju   =  Solubility * (
+  Csat_jeju   =  Solubility * SolubilityC *(
    AB_type == 1 ? (1+pow(10, pKa1-pH_jeju) < SFB * (1+pow(10, pKa1-13))  ?
                    1+pow(10, pKa1-pH_jeju) : SFB * (1+pow(10, pKa1-13))) :
 
@@ -519,7 +574,7 @@ Initialize {
                    1 + pow(10, pKa1 - pH_jeju)+pow(10, pH_jeju - pKa2) :
                    SFB * (1 + pow(10, (pKa2 + pKa1) * 0.5))) : 1);
 
-  Csat_ileum  =  Solubility * (
+  Csat_ileum  =  Solubility * SolubilityC * (
    AB_type == 1 ? (1+pow(10, pKa1-pH_ileum) < SFB * (1+pow(10, pKa1-13))  ?
                    1+pow(10, pKa1-pH_ileum) : SFB * (1+pow(10, pKa1-13))) :
 
@@ -536,7 +591,7 @@ Initialize {
                    1 + pow(10, pKa1 - pH_ileum)+pow(10, pH_ileum - pKa2) :
                    SFB * (1 + pow(10, (pKa2 + pKa1) * 0.5))) : 1);
 
-  Csat_cecum  =  Solubility * (
+  Csat_cecum  =  Solubility * SolubilityC * (
    AB_type == 1 ? (1+pow(10, pKa1-pH_cecum) < SFB * (1+pow(10, pKa1-13))  ?
                    1+pow(10, pKa1-pH_cecum) : SFB * (1+pow(10, pKa1-13))) :
 
@@ -553,7 +608,7 @@ Initialize {
                    1 + pow(10, pKa1 - pH_cecum)+pow(10, pH_cecum - pKa2) :
                    SFB * (1 + pow(10, (pKa2 + pKa1) * 0.5))) : 1);
 
-  Csat_colon  =  Solubility * (
+  Csat_colon  =  Solubility * SolubilityC *(
    AB_type == 1 ? (1+pow(10, pKa1-pH_colon) < SFB * (1+pow(10, pKa1-13))  ?
                    1+pow(10, pKa1-pH_colon) : SFB * (1+pow(10, pKa1-13))) :
 
@@ -578,10 +633,6 @@ Initialize {
   Ka_ileum = Peff * SA_ileum * f_Abs_ileum;
   Ka_cecum = Peff * SA_cecum * f_Abs_cecum;
   Ka_colon = Peff * SA_colon * f_Abs_colon;
-
-  Kmet = exp(lnKmet);   
-  Kc2p = exp(lnKc2p);
-  Kp2c = exp(lnKp2c);
 
 } # End of model scaling
 
