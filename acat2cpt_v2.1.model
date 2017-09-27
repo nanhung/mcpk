@@ -219,7 +219,7 @@ G_Radius  = 25.0;
 G_Density = 1.47; lnG_DensityC = 0.0;
 
 # Solute molal volume at normal boiling point (ml/g) (about twice MM...)
-Mol_vol;
+Mol_vol = 120;
 
 # Intrinsic (instantaneous) water solubility (microg/L)
 Solubility = 7.36e6; lnSolubilityC = 0.0;
@@ -514,7 +514,8 @@ Initialize {
   # in water; 1.09E-4 = 7.4E-8 * 309.15 * sqrt(18) / 0.89; 309.15 is 36 degrees
   # Celsius in Kelvin; 18 it the molecular weight of water; 0.89 is water
   # viscosity in centopoises. Ref: Wilke, 1955
-  Mol_vol = 1.685023 * pow(MM, 0.910187);
+  # Mol_vol = 1.685023 * pow(MM, 0.910187); Used in previous model
+  
   Diffusivity = 1.09E-4 * pow(Mol_vol, -0.6);
 
   # Baseline dissolution rate constant (1/microM/hr)
