@@ -15,7 +15,7 @@
 #
 # Frederic Bois - Jan 2017
 # ==============================================================================
-# Tlag, K_release, MicroProt_central not use in model
+# MicroProt_central not use in model
 # Redefine Mol_vol
 
 States  = {Q_central,      # Quantity in central compartment (micromoles)
@@ -95,7 +95,6 @@ Outputs = {C_central,       # Concentration in central compartment (microM)
 
 Inputs  = {Oral_dose_rate, IV_dose_rate, # in micromoles / hours
            PO_dose};                     # in micromoles
-
 
 # ------------------------
 # Physiological parameters
@@ -179,6 +178,13 @@ H_ep = 5.25E-4; lnH_epC = 0.0;
 # Substance-specific parameters
 #-------------------------------------
 
+# for PO_dose
+Ingdose = 1776.1;
+Period = 48;
+Tlag = 0;
+RateConst = 1e-8;
+PO_dose = PerExp (Ingdose, Period, Tlag, RateConst);
+
 # Molecular mass (g/mol)
 MM = 180.17; # Theophylline
 
@@ -186,9 +192,6 @@ MM = 180.17; # Theophylline
 AB_type = 1;
 pKa1 = 1.84; # basic pKa
 pKa2 = 8.60; # acid  pKa
-
-# Administration lagtime, if needed
-Tlag = 0; # not use in the model
 
 # Absorption on(1)/off(0) switches
 f_Abs_stom = 0;

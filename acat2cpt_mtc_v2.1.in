@@ -49,7 +49,7 @@ f_Abs_colon = 0;
 G_immediate_d = 0;    #(v2)
 G_immediate_u = 0;    #(v2)
 G_delayed_d  = 1;     #(v2)
-G_delayed_u  = 1;     #(v2)
+G_delayed_u  = 0;     #(v2)
 
 # Weibull delayed release parameters
 Weibull_slope = 1;
@@ -118,10 +118,14 @@ Distrib(Kp2c, Uniform, 1, 10) #httk
 Simulation { #
   
   # Dosing (Total dose = 1776.1 uM)
-  Oral_dose_rate = NDoses(2, 17761 0, 0 0.1);
+  # Use Oral_dose_rate for immediate release
+  # Oral_dose_rate = NDoses(2, 17761 0, 0 0.1); #1.76811
+
+  # Use PO_dose for delay release
+  PO_dose = PerExp (1776.1, 48, 0, 1e-9);
   
-  #Print (Q_total, 0.25, 0.5, 0.75, 1, 1.5, 2, 3, 4, 5, 6, 8, 12, 24, 28);
-  Print (C_central, 0.25, 0.5, 0.75, 1, 1.5, 2, 3, 4, 5, 6, 8, 12, 24, 28);
+  Print (Q_total, 0.25, 0.5, 0.75, 1, 1.5, 2, 3, 4, 5, 6, 8, 12, 24, 28);
+  #Print (C_central, 0.25, 0.5, 0.75, 1, 1.5, 2, 3, 4, 5, 6, 8, 12, 24, 28);
   #Print (lnC_central, 0.25, 0.5, 0.75, 1, 1.5, 2, 3, 4, 5, 6, 8, 12, 24, 28);
 
 }

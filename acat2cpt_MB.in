@@ -4,8 +4,22 @@ OutputFile ("acat2cpt_MB.out");
 Integrate (Lsodes, 1e-7, 1e-9, 1);
 
 Simulation {
-Oral_dose_rate = NDoses(2, 17.68108 0, 0 0.1);
-PrintStep ( Q_total , 0, 2, 0.1);	
+
+# Dosage forms (0/1) switches
+G_immediate_d = 1;     # immediate release, dissolved (default)
+G_immediate_u = 0;     # immediate release, undissolved
+G_delayed_d = 0;       # delayed release,   dissolved
+G_delayed_u = 0;       # delayed release,   undissolved
+
+
+# Dosing (Total dose = 1776.1 uM)
+# Use Oral_dose_rate for immediate release
+Oral_dose_rate = NDoses(2, 17761 0, 0 0.1); #1.76811
+
+# Use PO_dose for delay release
+#PO_dose = PerExp (1776.1, 10, 0, 1e-8);
+
+PrintStep ( Q_total , 0, 30, 1);	
 }
 
 END.
