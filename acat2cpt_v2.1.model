@@ -205,7 +205,7 @@ G_delayed_d = 0;       # delayed release,   dissolved
 G_delayed_u = 0;       # delayed release,   undissolved
 
 # Weibull delayed release parameters
-Weibull_slope = 1.0; # avoid division by zero
+Weibull_slope = 1.0; # avoid division by zero; This parameter can only fix in 1.0;
 Weibull_scale = 1.0; # avoid division by zero
 Weibull_lag = 0.0;
 
@@ -254,7 +254,7 @@ PC_colon   = 1;
 # Plasma / blood concentration ratio
 Ratio_BP = 1;
 
-# Fractions unbound
+# Fractions unbound (updated in current version)
 Fu_plasma = 1.0;
 
 Fu_met_stom  = 1.0; # to stomach in vitro metabolic system (e.g. microsomes)

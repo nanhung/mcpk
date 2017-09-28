@@ -197,9 +197,9 @@ f_Abs_cecum = 1;
 f_Abs_colon = 1;
 
 # Dosage forms (0/1) switches
-G_immediate_d = 1; # immediate release, dissolved (default)
+G_immediate_d = 0; # immediate release, dissolved (default)
 G_immediate_u = 0; # immediate release, undissolved
-G_delayed_d  = 0;  # delayed release,   dissolved
+G_delayed_d  = 1;  # delayed release,   dissolved
 G_delayed_u  = 0;  # delayed release,   undissolved
 
 # Weibull delayed release parameters
