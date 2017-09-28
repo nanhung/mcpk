@@ -35,14 +35,14 @@ Distrib(	M_lnPBrnTCAC	TruncNormal	0.0	0.4	-1.2	1.2	); #(v002)
 Distrib(	M_lnPLngTCAC	TruncNormal	0.0	0.4	-1.2	1.2	); #(v002)
 Distrib(	M_lnPBodTCAC	TruncNormal	0.0	0.4	-1.2	1.2	); #(v002)
 
-Distrib(	M_lnPLivDCVGC	TruncNormal	0.0	0.9	-3	3	); #(v003)
-Distrib(	M_lnPKidDCVGC	TruncNormal	0.0 0.9	-3	3	); #(v003)
-Distrib(	M_lnPBrnDCVGC	TruncNormal	0.0	0.9	-3	3	); #(v003)
-Distrib(	M_lnPLngDCVGC	TruncNormal	0.0	0.9	-3	3	); #(v003)
-Distrib(	M_lnPBodDCVGC	TruncNormal	0.0	0.9	-3	3	); #(v003)
+Distrib(	M_lnPLivDCVGC	TruncNormal	0.0	0.4	-1.2	1.2	); #(v003)
+Distrib(	M_lnPKidDCVGC	TruncNormal	0.0 0.4	-1.2	1.2	); #(v003)
+Distrib(	M_lnPBrnDCVGC	TruncNormal	0.0	0.4	-1.2	1.2	); #(v003)
+Distrib(	M_lnPLngDCVGC	TruncNormal	0.0	0.4	-1.2	1.2	); #(v003)
+Distrib(	M_lnPBodDCVGC	TruncNormal	0.0	0.4	-1.2	1.2	); #(v003)
 
-Distrib(	M_lnVMaxDCVG Uniform -6.9 6.9); #(v003)
-Distrib(	M_lnKMDCVG	Uniform -6.9 6.9); #(v003)
+Distrib(	M_lnVMaxDCVG Uniform -13 -3); #(v003)
+Distrib(	M_lnKMDCVG	Uniform 0 6.9); #(v003)
 #Distrib(	M_lnClDCVGC	Uniform -5 -3);
 #Distrib(	M_lnVMaxKidDCVGC Uniform -5 0);
 #Distrib(	M_lnClKidDCVGC	Uniform -5 0);
@@ -72,7 +72,7 @@ Distrib(	V_lnPSlwC	InvGamma	2.25	0.2000	);
 Distrib(	V_lnVMax	InvGamma	3	1.3585	);
 Distrib(	V_lnKM	InvGamma	3	0.1458	);
 Distrib(	V_lnVMaxDCVG	InvGamma	3	1.3585	); #(v003)
-Distrib(	V_lnKMDCVG	InvGamma	3	1.3585	); #(v003)
+Distrib(	V_lnKMDCVG	InvGamma	3	0.1458	); #(v003)
 
 Distrib(	V_lnPLivTCAC	InvGamma	2.25	0.2000	); #(v002)
 Distrib(	V_lnPKidTCAC	InvGamma	2.25	0.2000	); #(v002)
@@ -163,14 +163,14 @@ Level { # group
 	Distrib(	lnPLngTCAC TruncNormal_v M_lnPLngTCAC V_lnPLngTCAC -1.2	1.2	); #(v002)
 	Distrib(	lnPBodTCAC TruncNormal_v M_lnPBodTCAC V_lnPBodTCAC -1.2	1.2	); #(v002)
 
-	Distrib(	lnPLivDCVGC TruncNormal_v M_lnPLivDCVGC V_lnPLivDCVGC -3	3	); #(v003)
-	Distrib(	lnPKidDCVGC TruncNormal_v M_lnPKidDCVGC V_lnPKidDCVGC -3	3	); #(v003)
-	Distrib(	lnPBrnDCVGC TruncNormal_v M_lnPBrnDCVGC V_lnPBrnDCVGC -3	3	); #(v003)
-	Distrib(	lnPLngDCVGC TruncNormal_v M_lnPLngDCVGC V_lnPLngDCVGC -3	3	); #(v003)
-	Distrib(	lnPBodDCVGC TruncNormal_v M_lnPBodDCVGC V_lnPBodDCVGC -3	3	); #(v003)
+	Distrib(	lnPLivDCVGC TruncNormal_v M_lnPLivDCVGC V_lnPLivDCVGC -1.2	1.2	); #(v003)
+	Distrib(	lnPKidDCVGC TruncNormal_v M_lnPKidDCVGC V_lnPKidDCVGC -1.2	1.2	); #(v003)
+	Distrib(	lnPBrnDCVGC TruncNormal_v M_lnPBrnDCVGC V_lnPBrnDCVGC -1.2	1.2	); #(v003)
+	Distrib(	lnPLngDCVGC TruncNormal_v M_lnPLngDCVGC V_lnPLngDCVGC -1.2	1.2	); #(v003)
+	Distrib(	lnPBodDCVGC TruncNormal_v M_lnPBodDCVGC V_lnPBodDCVGC -1.2	1.2	); #(v003)
 
-	Distrib(	lnVMaxDCVG TruncNormal_v M_lnVMaxDCVG V_lnVMaxDCVG -6.9 6.9); #(v003)
-	Distrib(	lnKMDCVG TruncNormal_v M_lnKMDCVG V_lnKMDCVG -6.9 6.9); #(v003)
+	Distrib(	lnVMaxDCVG TruncNormal_v M_lnVMaxDCVG V_lnVMaxDCVG -13 -3); #(v003)
+	Distrib(	lnKMDCVG TruncNormal_v M_lnKMDCVG V_lnKMDCVG 0 6.9); #(v003)
 	#Distrib(	lnClDCVGC	TruncNormal_v M_lnClDCVGC V_lnClDCVGC -5 -3);
 	#Distrib(	lnVMaxKidDCVGC TruncNormal_v M_lnVMaxKidDCVGC V_lnVMaxKidDCVGC -5 0);
 	#Distrib(	lnClKidDCVGC TruncNormal_v M_lnClKidDCVGC V_lnClKidDCVGC -5	0);
