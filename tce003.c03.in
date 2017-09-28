@@ -3,7 +3,7 @@
 Integrate (Lsodes, 1e-6, 1e-9, 1);
 MCMC ("tce003.c03.out",
        "", "",                     
-       10000, 0, 10, 10000, 3333);
+       15000, 0, 15, 15000, 3333);
        
 Level { # population
 
@@ -11,10 +11,12 @@ Level { # population
 #lnkTSD = 1.36;
 
 # (M_)
-Distrib(	M_lnkTSD Uniform -4.269	4.942);
+#Distrib(	M_lnkTSD Uniform -4.269	4.942);
+Distrib(	M_lnkTSD Uniform 0	4.942);
 Distrib(	M_lnkAS	Uniform	-6.571	7.244);
 Distrib(	M_lnkTD	Uniform	-4.605	0);
-Distrib(	M_lnkAD	Uniform	-7.195	6.62);
+#Distrib(	M_lnkAD	Uniform	-7.195	6.62);
+Distrib(	M_lnkAD	Uniform	-7.195	0);
 Distrib(	M_lnQCC	TruncNormal	0.0	0.2	-0.8	0.8	);
 Distrib(	M_lnPFatC	TruncNormal	0.0	0.3	-0.9	0.9	);
 Distrib(	M_lnPGutC	TruncNormal	0.0	0.4	-1.2	1.2	);
@@ -39,7 +41,7 @@ Distrib(	M_lnPBrnDCVGC	TruncNormal	0.0	0.4	-1.2	1.2	); #(v003)
 Distrib(	M_lnPLngDCVGC	TruncNormal	0.0	0.4	-1.2	1.2	); #(v003)
 Distrib(	M_lnPBodDCVGC	TruncNormal	0.0	0.4	-1.2	1.2	); #(v003)
 
-Distrib(	M_lnVMaxDCVG Uniform -7 -3); #(v003)
+Distrib(	M_lnVMaxDCVG Uniform -13 -3); #(v003)
 Distrib(	M_lnKMDCVG	Uniform 0 6.9); #(v003)
 #Distrib(	M_lnClDCVGC	Uniform -5 -3);
 #Distrib(	M_lnVMaxKidDCVGC Uniform -5 0);
@@ -136,10 +138,13 @@ Likelihood (Data(CLngDCVGMole), LogNormal_v, Prediction(CLngDCVGMole), Ve_CLngDC
 Likelihood( CBldDCVGMole_ND , Normal , Prediction(CBldDCVGMole_ND)	, 3.0E-04 );
 
 Level { # group 
-	Distrib(	lnkTSD TruncNormal_v M_lnkTSD V_lnkTSD -4.269	4.942);
+	#Distrib(	lnkTSD TruncNormal_v M_lnkTSD V_lnkTSD -4.269	4.942);
+	Distrib(	lnkTSD TruncNormal_v M_lnkTSD V_lnkTSD 0	4.942);
 	Distrib(	lnkAS	TruncNormal_v M_lnkAS V_lnkAS -6.571	7.244);
 	Distrib(	lnkTD	TruncNormal_v M_lnkTD V_lnkTD -4.605	0);
-	Distrib(	lnkAD	TruncNormal_v M_lnkAD V_lnkAD -7.195	6.62);
+	#Distrib(	lnkAD	TruncNormal_v M_lnkAD V_lnkAD -7.195	6.62);
+	Distrib(	lnkAD	TruncNormal_v M_lnkAD V_lnkAD -7.195	0);
+	
 	Distrib(	lnQCC	TruncNormal_v M_lnQCC V_lnQCC -0.8	0.8	);
 	Distrib(	lnPFatC TruncNormal_v M_lnPFatC V_lnPFatC -0.9	0.9	);
 	Distrib(	lnPGutC TruncNormal_v M_lnPGutC V_lnPGutC -1.2	1.2	);
@@ -164,7 +169,7 @@ Level { # group
 	Distrib(	lnPLngDCVGC TruncNormal_v M_lnPLngDCVGC V_lnPLngDCVGC -1.2	1.2	); #(v003)
 	Distrib(	lnPBodDCVGC TruncNormal_v M_lnPBodDCVGC V_lnPBodDCVGC -1.2	1.2	); #(v003)
 
-	Distrib(	lnVMaxDCVG TruncNormal_v M_lnVMaxDCVG V_lnVMaxDCVG -7 -3); #(v003)
+	Distrib(	lnVMaxDCVG TruncNormal_v M_lnVMaxDCVG V_lnVMaxDCVG -13 -3); #(v003)
 	Distrib(	lnKMDCVG TruncNormal_v M_lnKMDCVG V_lnKMDCVG 0 6.9); #(v003)
 	#Distrib(	lnClDCVGC	TruncNormal_v M_lnClDCVGC V_lnClDCVGC -5 -3);
 	#Distrib(	lnVMaxKidDCVGC TruncNormal_v M_lnVMaxKidDCVGC V_lnVMaxKidDCVGC -5 0);
