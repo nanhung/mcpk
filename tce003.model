@@ -68,6 +68,7 @@ Outputs = {
 	CBrnDCVGMole,
 	CLngDCVGMole,
 	CBldMole_ND,
+	CBldDCVGMole_ND,
 	ATotal
 };
 
@@ -154,7 +155,7 @@ KMDCVG;	lnKMDCVG = 1; # KM for hepatic TCE GSH conjugation (mg/L)
 #KMClara; lnKMClara = 0.0; # KM for Tracheo-bronchial TCE oxidation (mg/L)
 kUrn = 0.1; lnkUrn = log(kUrn);
 kUrnTCA = 0.1; lnkUrnTCA = log(kUrnTCA); #(v002)
-kDCVC = 0.1; lnkDCVC = log(kDCVC); #(v003)
+kDCVG = 0.1; lnkDCVG = log(kDCVG); #(v003)
 
 #FracTCA = 1.0; lnFracTCA = log(FracTCA);
 #kMetTCA = 1.0; lnkMetTCA = log(kMetTCA);
@@ -203,7 +204,7 @@ M_lnkUrn;
 M_lnkUrnTCA; #(v002)
 #M_lnFracTCA;
 #M_lnkMetTCA;
-M_lnkDCVC; #(v003)
+M_lnkDCVG; #(v003)
 
 # Population Variances (V_)
 V_lnkTSD;
@@ -249,7 +250,7 @@ V_lnkUrn;
 V_lnkUrnTCA; #(v002)
 #V_lnFracTCA;
 #V_lnkMetTCA;
-V_lnkDCVC; #(v003)
+V_lnkDCVG; #(v003)
 
 # Measurement error variances for output (Ve_)
 Ve_CBldMole;
@@ -309,7 +310,7 @@ Initialize {
 	kUrnTCA = exp(lnkUrnTCA); #(v002)
 	#FracTCA = exp(lnFracTCA);
 #	kMetTCA = exp(lnkMetTCA);
-	kDCVC = exp(lnkDCVC); #(v002)
+	kDCVG = exp(lnkDCVG); #(v002)
 }
 
 Dynamics {
@@ -487,7 +488,7 @@ Dynamics {
 	
 #**** Liver *******************************************************************
 # Rate of metabolism of DCVG
-	RAMetDCVC = kDCVC * ALivDCVG;
+	RAMetDCVC = kDCVG * ALivDCVG;
 # Dynamics for amount of DCVG in the liver (mg)
 	dt(ALivDCVG) = QGutLiv * (CBldDCVG - CVLivDCVG)
 	+ RAMetLiv2 - RAMetDCVC ;
@@ -528,6 +529,7 @@ CalcOutputs {
 	CLngDCVGMole = (CLngDCVG < 1.0e-10 ? 1.0e-10 : CLngDCVG / MWDCVG * 1000);
 	
 	CBldMole_ND = (CBldMole < 1.0e-10 ? 1.0e-10 : CBldMole);
+	CBldDCVGMole_ND = (CBldDCVGMole < 1.0e-10 ? 1.0e-10 : CBldDCVGMole);
 
 }
 
