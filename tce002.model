@@ -96,25 +96,25 @@ MWTCA = 163.5;  # TCA
 #StochTCATCE = MWTCA / MWTCE;
 
 # Partition coefficients
-PGut; lnPGutC = 1;
-PLiv; lnPLivC = 1;
-PKid; lnPKidC = 1;
-PBrn; lnPBrnC = 1;
-PLng; lnPLngC = 1;
-PFat; lnPFatC = 1;
-PSlw; lnPSlwC = 1;
-PRap; lnPRapC = 1;
+PGut; lnPGutC = 0.0;
+PLiv; lnPLivC = 0.0;
+PKid; lnPKidC = 0.0;
+PBrn; lnPBrnC = 0.0;
+PLng; lnPLngC = 0.0;
+PFat; lnPFatC = 0.0;
+PSlw; lnPSlwC = 0.0;
+PRap; lnPRapC = 0.0;
 
-PLivTCA; lnPLivTCAC = 1; #(v002)
-PKidTCA; lnPKidTCAC = 1; #(v002)
-PBrnTCA; lnPBrnTCAC = 1; #(v002)
-PLngTCA; lnPLngTCAC = 1; #(v002)
-PBodTCA; lnPBodTCAC = 1; #(v002)
+PLivTCA; lnPLivTCAC = 0.0; #(v002)
+PKidTCA; lnPKidTCAC = 0.0; #(v002)
+PBrnTCA; lnPBrnTCAC = 0.0; #(v002)
+PLngTCA; lnPLngTCAC = 0.0; #(v002)
+PBodTCA; lnPBodTCAC = 0.0; #(v002)
 
-#lnISOx = 0.0; # P450 oxidative metabolism
+lnISOx = 0.0; # P450 oxidative metabolism
 #lnISConj = 0.0;
-VMax; lnVMax = 1; # VMax for hepatic TCE oxidation (mg/hr)
-KM; lnKM = 1; # KM for hepatic TCE oxidation (mg/L)
+VMax; lnVMaxC = 0.0; # VMax for hepatic TCE oxidation (mg/hr)
+KM; lnKMC = 0.0; # KM for hepatic TCE oxidation (mg/L)
 #VMaxDCVG; lnVMaxDCVG = 1;# VMax for hepatic TCE GSH conjugation (mg/hr)
 #KMDCVG;	lnKMDCVG = 1; # KM for hepatic TCE GSH conjugation (mg/L)
 #VMaxKidDCVG; lnVMaxKidDCVG = 1; # VMax for renal TCE GSH conjugation (mg/hr)
@@ -125,7 +125,8 @@ KM; lnKM = 1; # KM for hepatic TCE oxidation (mg/L)
 #lnVMaxLungLivC = 0.0; # Ratio of lung Vmax to liver Vmax
 #KMClara; lnKMClara = 0.0; # KM for Tracheo-bronchial TCE oxidation (mg/L)
 kUrn = 0.1; lnkUrn = log(kUrn);
-kUrnTCA = 0.1; lnkUrnTCA = log(kUrnTCA); #(v002)
+kUrnTCA; lnkUrnTCAC = 0.0; #(v002)
+
 
 #FracTCA = 1.0; lnFracTCA = log(FracTCA);
 #kMetTCA = 1.0; lnkMetTCA = log(kMetTCA);
@@ -151,11 +152,11 @@ M_lnPBrnTCAC; #(v002)
 M_lnPLngTCAC; #(v002)
 M_lnPBodTCAC; #(v002)
 
-#M_lnISOx;
+M_lnISOx;
 #M_lnISConj;
 
-M_lnVMax;
-M_lnKM;
+M_lnVMaxC;
+M_lnKMC;
 #M_lnVMaxDCVG;
 #M_lnKMDCVG;
 #M_lnClDCVG;
@@ -190,11 +191,11 @@ V_lnPBrnTCAC; #(v002)
 V_lnPLngTCAC; #(v002)
 V_lnPBodTCAC; #(v002)
 
-#V_lnISOx;
+V_lnISOx;
 #V_lnISConj;
 
-V_lnVMax;
-V_lnKM;
+V_lnVMaxC;
+V_lnKMC;
 #V_lnVMaxDCVG;
 #V_lnKMDCVG;
 #V_lnClDCVG;
@@ -236,22 +237,24 @@ Initialize {
 	PSlw = exp(lnPSlwC) * 2.4;
 	PRap = exp(lnPRapC) * 1.9;
 	
-	PLivTCA = exp(lnPLivTCAC) * 2; #(v002)
-	PKidTCA = exp(lnPKidTCAC) * 2; #(v002)
-	PBrnTCA = exp(lnPBrnTCAC) * 2; #(v002)
-	PLngTCA = exp(lnPLngTCAC) * 2; #(v002)
-	PBodTCA = exp(lnPBodTCAC) * 2; #(v002)
+	PLivTCA = exp(lnPLivTCAC) * 1.7; #(v002) # Same as PLiv
+	PKidTCA = exp(lnPKidTCAC) * 1.7; #(v002) # Same as PLiv
+	PBrnTCA = exp(lnPBrnTCAC) * 1.7; #(v002) # Same as PLiv
+	PLngTCA = exp(lnPLngTCAC) * 1.7; #(v002) # Same as PLiv
+	PBodTCA = exp(lnPBodTCAC) * 1.7; #(v002) # Same as PLiv
 
 	#VMaxClara = exp(lnVMaxLungLivC) * VMax * 0.07; #(1.03/1.87*0.7/5.5);
 	#KMClara = exp(lnKMClara);
-	VMax = exp(lnVMax);  
-	KM = exp(lnKM);	
+	#VMax = exp(lnVMax);  
+    VMax = exp(lnISOx) * VLivC * exp(lnVMaxC)*	2700; #Basline value = 2700;
+	#KM = exp(lnKM);	
+	KM = 36.0 * exp(lnKMC);
 #	VMaxDCVG = exp(lnVMaxDCVG);
 #	KMDCVG = exp(lnKMDCVG);
 #	VMaxKidDCVG = exp(lnVMaxKidDCVG);
 #   KMKidDCVG = exp(lnKMKidDCVG);
 	kUrn = exp(lnkUrn);
-	kUrnTCA = exp(lnkUrnTCA); #(v002)
+	kUrnTCA = 0.6 * exp(lnkUrnTCAC); #(v002) Basline value = 0.6;
 	#FracTCA = exp(lnFracTCA);
 #	kMetTCA = exp(lnkMetTCA);
 }
