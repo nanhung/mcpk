@@ -69,6 +69,9 @@ Outputs = {
 	CLngDCVGMole,
 	CBldMole_ND,
 	CBldDCVGMole_ND,
+	CKidDCVGMole_ND,
+	CBrnDCVGMole_ND,
+	CLngDCVGMole_ND,
 	ATotal
 };
 
@@ -530,7 +533,9 @@ CalcOutputs {
 	
 	CBldMole_ND = (CBldMole < 1.0e-10 ? 1.0e-10 : CBldMole);
 	CBldDCVGMole_ND = (CBldDCVGMole < 1.0e-10 ? 1.0e-10 : CBldDCVGMole);
-
+	CKidDCVGMole_ND = (CKidDCVGMole < 1.0e-10 ? 1.0e-10 : CKidDCVGMole);
+	CBrnDCVGMole_ND = (CBrnDCVGMole < 1.0e-10 ? 1.0e-10 : CBrnDCVGMole);
+	CLngDCVGMole_ND = (CLngDCVGMole < 1.0e-10 ? 1.0e-10 : CLngDCVGMole);
 }
 
 End.

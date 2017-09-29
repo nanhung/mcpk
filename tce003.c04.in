@@ -65,7 +65,7 @@ Distrib(	M_lnKMDCVG	Uniform 0 6.9); #(v003)
 #Distrib(   M_lnISConj	   Uniform	-2	2);
 Distrib(	M_lnkUrn	Uniform 0, 8);
 Distrib(	M_lnkUrnTCA	Uniform 0, 8); #(v002)
-Distrib(	M_lnkDCVG	Uniform -6.9, 6.9); #(v003)
+Distrib(	M_lnkDCVG	Uniform 0, 9); #(v003)
 
   # Inter individual variances (Vr_)
   
@@ -148,7 +148,10 @@ Likelihood (Data(CLivDCVGMole), LogNormal_v, Prediction(CLivDCVGMole), Ve_CLivDC
 Likelihood (Data(CKidDCVGMole), LogNormal_v, Prediction(CKidDCVGMole), Ve_CKidDCVGMole);  #(v003)
 Likelihood (Data(CBrnDCVGMole), LogNormal_v, Prediction(CBrnDCVGMole), Ve_CBrnDCVGMole);  #(v003)
 Likelihood (Data(CLngDCVGMole), LogNormal_v, Prediction(CLngDCVGMole), Ve_CLngDCVGMole);  #(v003)
-Likelihood( CBldDCVGMole_ND , Normal , Prediction(CBldDCVGMole_ND)	, 3.0E-04 );
+Likelihood( CBldDCVGMole_ND , Normal , Prediction(CBldDCVGMole_ND)	, 2.9E-04 );
+Likelihood( CKidDCVGMole_ND , Normal , Prediction(CKidDCVGMole_ND)	, 1.1E-03 );
+Likelihood( CBrnDCVGMole_ND , Normal , Prediction(CBrnDCVGMole_ND)	, 3.5E-04 );
+Likelihood( CLngDCVGMole_ND , Normal , Prediction(CLngDCVGMole_ND)	, 5.0E-04 );
 
 Level { # group 
 	#Distrib(	lnkTSD TruncNormal_v M_lnkTSD V_lnkTSD -4.269	4.942);
@@ -193,7 +196,7 @@ Level { # group
 	#Distrib(    lnISConj TruncNormal_v M_lnISConj V_lnISConj -2	2);
 	Distrib(	lnkUrn TruncNormal_v M_lnkUrn V_lnkUrn 0, 8);
 	Distrib(	lnkUrnTCA TruncNormal_v M_lnkUrnTCA V_lnkUrnTCA 0, 8); #(v002)
-	Distrib(	lnkDCVG TruncNormal_v M_lnkDCVG V_lnkDCVG -6.9, 6.9); #(v003)
+	Distrib(	lnkDCVG TruncNormal_v M_lnkDCVG V_lnkDCVG 0, 9); #(v003)
 
 Level { # group B6C3F1
 	Experiment { # Yushuan B6C3F1
@@ -250,6 +253,12 @@ Level { # group B6C3F1
       Data(CLngDCVGMole, 0.01725422142,0.01280681164,0.009923539632,0.004184067676,0.004878091328,0.001987924296,-1,0.001922904357,0.000507181279,-1,-1,-1,-1,-1,-1,-1,-1,-1);
       Print(CBldDCVGMole_ND, 12.000 12.001 12.002 24.000 24.001 24.002 36.000 36.001 36.002);
       Data(CBldDCVGMole_ND, 0 0 0 0 0 0 0 0 0);
+      Print(CKidDCVGMole_ND, 12.000 12.001 12.002 24.000 24.001 24.002 36.000 36.001 36.002);
+      Data(CKidDCVGMole_ND, 0 0 0 0 0 0 0 0 0);
+      Print(CBrnDCVGMole_ND, 24.000 24.001 24.002 36.000 36.001 36.002);
+      Data(CBrnDCVGMole_ND, 0 0 0 0 0 0);
+      Print(CLngDCVGMole_ND, 24.000 24.001 24.002 36.000 36.001 36.002);
+      Data(CLngDCVGMole_ND, 0 0 0 0 0 0);
       
       #Print(Csrm_dcc, 1.000  1.001  1.002  2.000  2.001  2.002  6.000  6.001  6.002 12.000 12.001 12.002 24.000 24.001 24.002 36.000 36.001 36.002);
       #Data(Csrm_dcc, -1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1);
@@ -330,6 +339,13 @@ Level { # Group C57BL/6
       Data(CLngDCVGMole, 0.01514029,0.02200417,-1,0.003734234,0.009383888,0.008182497,0.00056236,0.000552636,0.000705897,-1,-1,-1,-1,-1,-1,-1,-1,-1);
       Print(CBldDCVGMole_ND, 6.000  6.001  6.002 12.000 12.001 12.002 24.000 24.001 24.002 36.000 36.001 36.002);
       Data(CBldDCVGMole_ND, 0 0 0 0 0 0 0 0 0 0 0 0);
+      Print(CKidDCVGMole_ND, 12.000 12.001 12.002 24.000 24.001 24.002 36.000 36.001 36.002);
+      Data(CKidDCVGMole_ND, 0 0 0 0 0 0 0 0 0);
+      Print(CBrnDCVGMole_ND, 24.000 24.001 24.002 36.000 36.001 36.002);
+      Data(CBrnDCVGMole_ND, 0 0 0 0 0 0);
+      Print(CLngDCVGMole_ND, 24.000 24.001 24.002 36.000 36.001 36.002);
+      Data(CLngDCVGMole_ND, 0 0 0 0 0 0);
+
       
       #Print(Csrm_dcc, 1.000  1.001  1.002  2.000  2.001  2.002  6.000  6.001  6.002 12.000 12.001 12.002 24.000 24.001 24.002 36.000 36.001 36.002);
       #Data(Csrm_dcc, -1,-1,0.001448438,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1);
@@ -410,6 +426,13 @@ Level { # group strains
       Data(CLngDCVGMole, 0.02308536465,0.008938728531,0.008711333897,0.00446071771,-1,0.004276699307,0.000613011305,0.000538428338,0.000510360646,-1,-1,0.001593399946,-1,-1,-1,-1,-1,-1);
       Print(CBldDCVGMole_ND, 6.000  6.001  6.002 12.000 12.001 12.002 24.000 24.001 24.002 36.000 36.001 36.002);
       Data(CBldDCVGMole_ND, 0 0 0 0 0 0 0 0 0 0 0 0);
+      Print(CKidDCVGMole_ND, 12.000 12.001 12.002 24.000 24.001 24.002 36.000 36.001 36.002);
+      Data(CKidDCVGMole_ND, 0 0 0 0 0 0 0 0 0);
+      Print(CBrnDCVGMole_ND, 24.000 24.001 24.002 36.000 36.001 36.002);
+      Data(CBrnDCVGMole_ND, 0 0 0 0 0 0);
+      Print(CLngDCVGMole_ND, 24.000 24.001 24.002 36.000 36.001 36.002);
+      Data(CLngDCVGMole_ND, 0 0 0 0 0 0);
+
       
       #Print(Csrm_dcc, 1.000  1.001  1.002  2.000  2.001  2.002  6.000  6.001  6.002 12.000 12.001 12.002 24.000 24.001 24.002 36.000 36.001 36.002);
       #Data(Csrm_dcc, -1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1);
