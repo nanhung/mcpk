@@ -166,7 +166,7 @@ M_lnKMC;
 #M_lnVMaxLungLiv;
 #M_lnKMClara;
 M_lnkUrn;
-M_lnkUrnTCA; #(v002)
+M_lnkUrnTCAC; #(v002)
 #M_lnFracTCA;
 #M_lnkMetTCA; 
 
@@ -205,7 +205,7 @@ V_lnKMC;
 #V_lnVMaxLungLivC;
 #V_lnKMClara;
 V_lnkUrn;
-V_lnkUrnTCA; #(v002)
+V_lnkUrnTCAC; #(v002)
 #V_lnFracTCA;
 #V_lnkMetTCA;
 
