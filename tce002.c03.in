@@ -98,7 +98,7 @@ Likelihood (Data(CLivMole), LogNormal_v, Prediction(CLivMole), Ve_CLivMole);
 Likelihood (Data(CKidMole), LogNormal_v, Prediction(CKidMole), Ve_CKidMole);
 Likelihood (Data(CBrnMole), LogNormal_v, Prediction(CBrnMole), Ve_CBrnMole);
 Likelihood (Data(CLngMole), LogNormal_v, Prediction(CLngMole), Ve_CLngMole);
-Likelihood( CBldMole_ND , Normal , Prediction(CBldMole_ND)	, 1.5E-01 );
+Likelihood (Data(CBldMole_ND) , StudentT, 5, Prediction(CBldMole_ND), 5E-02); # LOD = 3*SD
 
 Likelihood (Data(CBldTCAMole), LogNormal_v, Prediction(CBldTCAMole), Ve_CBldTCAMole);  #(v002)
 Likelihood (Data(CLivTCAMole), LogNormal_v, Prediction(CLivTCAMole), Ve_CLivTCAMole);  #(v002)
