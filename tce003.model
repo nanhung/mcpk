@@ -147,7 +147,7 @@ PBodDCVG; lnPBodDCVGC = 0.0; #(v002)
 lnISOx = 0.0; # P450 oxidative metabolism
 lnISConj = 0.0;
 VMax; VMax0 = 2700; lnVMaxC = 0.0; # VMax for hepatic TCE oxidation (mg/hr)
-KM; KM0 = 4; lnKMC = 0.0; # KM for hepatic TCE oxidation (mg/L)
+KM; KM0 = 36; lnKMC = 0.0; # KM for hepatic TCE oxidation (mg/L)
 VMaxDCVG; VMaxDCVG0 = 300; lnVMaxDCVGC = 0.0;# VMax for hepatic TCE GSH conjugation (mg/hr)
 KMDCVG; ClDCVG0 = 1.53; lnClDCVGC = 0.0; # KM for hepatic TCE GSH conjugation (mg/L)
 #VMaxKidDCVG; lnVMaxKidDCVG = 1; # VMax for renal TCE GSH conjugation (mg/hr)
