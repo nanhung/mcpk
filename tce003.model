@@ -143,21 +143,20 @@ PBrnDCVG; lnPBrnDCVGC = 0.0; #(v002)
 PLngDCVG; lnPLngDCVGC = 0.0; #(v002)
 PBodDCVG; lnPBodDCVGC = 0.0; #(v002)
 
-#lnISOx = 0.0; # P450 oxidative metabolism
-#lnISConj = 0.0;
-VMax; lnVMax = 1; # VMax for hepatic TCE oxidation (mg/hr)
-KM; lnKM = 1; # KM for hepatic TCE oxidation (mg/L)
-VMaxDCVG; lnVMaxDCVG = 1;# VMax for hepatic TCE GSH conjugation (mg/hr)
-KMDCVG;	lnKMDCVG = 1; # KM for hepatic TCE GSH conjugation (mg/L)
+lnISOx = 0.0; # P450 oxidative metabolism
+lnISConj = 0.0;
+VMax; VMax0 = 2700; lnVMaxC = 0.0; # VMax for hepatic TCE oxidation (mg/hr)
+KM; KM0 = 4; lnKMC = 0.0; # KM for hepatic TCE oxidation (mg/L)
+VMaxDCVG; VMaxDCVG0 = 300; lnVMaxDCVGC = 0.0;# VMax for hepatic TCE GSH conjugation (mg/hr)
+KMDCVG; ClDCVG0 = 1.53; lnClDCVGC = 0.0; # KM for hepatic TCE GSH conjugation (mg/L)
 #VMaxKidDCVG; lnVMaxKidDCVG = 1; # VMax for renal TCE GSH conjugation (mg/hr)
-#lnClDCVG = 1;
-#KMKidDCVG; lnKMKidDCVG = 1; # KM for renal TCE GSH conjugation (mg/L)
+#KMKidDCVG; # KM for renal TCE GSH conjugation (mg/L)
 #lnClKidDCVG = 1;
 #VMaxClara; # VMax for Tracheo-bronchial TCE oxidation (mg/hr)
 #lnVMaxLungLivC = 0.0; # Ratio of lung Vmax to liver Vmax
 #KMClara; lnKMClara = 0.0; # KM for Tracheo-bronchial TCE oxidation (mg/L)
-kUrn = 0.1; lnkUrn = log(kUrn);
-kUrnTCA = 0.1; lnkUrnTCA = log(kUrnTCA); #(v002)
+kUrn; lnkUrn = 1.0;
+kUrnTCA; kUrnTCA0 = 0.6; lnkUrnTCAC = 0.0; #(v002)
 kDCVG = 0.1; lnkDCVG = log(kDCVG); #(v003)
 
 #FracTCA = 1.0; lnFracTCA = log(FracTCA);
@@ -190,21 +189,20 @@ M_lnPBrnDCVGC; #(v002)
 M_lnPLngDCVGC; #(v002)
 M_lnPBodDCVGC; #(v002)
 
-#M_lnISOx;
-#M_lnISConj;
+M_lnISOx;
+M_lnISConj;
 
-M_lnVMax;
-M_lnKM;
-M_lnVMaxDCVG;
-M_lnKMDCVG;
-#M_lnClDCVG;
+M_lnVMaxC;
+M_lnKMC;
+M_lnVMaxDCVGC;
+M_lnClDCVGC;
 #M_lnVMaxKidDCVG;
 #M_lnKMKidDCVG;
 #M_lnClKidDCVG;
 #M_lnVMaxLungLiv;
 #M_lnKMClara;
 M_lnkUrn;
-M_lnkUrnTCA; #(v002)
+M_lnkUrnTCAC; #(v002)
 #M_lnFracTCA;
 #M_lnkMetTCA;
 M_lnkDCVG; #(v003)
@@ -236,21 +234,20 @@ V_lnPBrnDCVGC; #(v002)
 V_lnPLngDCVGC; #(v002)
 V_lnPBodDCVGC; #(v002)
 
-#V_lnISOx;
-#V_lnISConj;
+V_lnISOx;
+V_lnISConj;
 
-V_lnVMax;
-V_lnKM;
-V_lnVMaxDCVG;
-V_lnKMDCVG;
-#V_lnClDCVG;
+V_lnVMaxC;
+V_lnKMC;
+V_lnVMaxDCVGC;
+V_lnClDCVGC;
 #V_lnVMaxKidDCVG;
 #V_lnKMKidDCVG;
 #V_lnClKidDCVG;
 #V_lnVMaxLungLivC;
 #V_lnKMClara;
 V_lnkUrn;
-V_lnkUrnTCA; #(v002)
+V_lnkUrnTCAC; #(v002)
 #V_lnFracTCA;
 #V_lnkMetTCA;
 V_lnkDCVG; #(v003)
@@ -289,28 +286,28 @@ Initialize {
 	PSlw = exp(lnPSlwC) * 2.4;
 	PRap = exp(lnPRapC) * 1.9;
 	
-	PLivTCA = exp(lnPLivTCAC) * 2; #(v002)
-	PKidTCA = exp(lnPKidTCAC) * 2; #(v002)
-	PBrnTCA = exp(lnPBrnTCAC) * 2; #(v002)
-	PLngTCA = exp(lnPLngTCAC) * 2; #(v002)
-	PBodTCA = exp(lnPBodTCAC) * 2; #(v002)
+	PLivTCA = exp(lnPLivTCAC) * 1.7; #(v002) # Same as PLiv
+	PKidTCA = exp(lnPKidTCAC) * 1.7; #(v002) # Same as PLiv
+	PBrnTCA = exp(lnPBrnTCAC) * 1.7; #(v002) # Same as PLiv
+	PLngTCA = exp(lnPLngTCAC) * 1.7; #(v002) # Same as PLiv
+	PBodTCA = exp(lnPBodTCAC) * 1.7; #(v002) # Same as PLiv
 	
-	PLivDCVG = exp(lnPLivDCVGC) * 2; #(v002)
-	PKidDCVG = exp(lnPKidDCVGC) * 2; #(v002)
-	PBrnDCVG = exp(lnPBrnDCVGC) * 2; #(v002)
-	PLngDCVG = exp(lnPLngDCVGC) * 2; #(v002)
-	PBodDCVG = exp(lnPBodDCVGC) * 2; #(v002)
+	PLivDCVG = exp(lnPLivDCVGC) * 2; #(v003)
+	PKidDCVG = exp(lnPKidDCVGC) * 2; #(v003)
+	PBrnDCVG = exp(lnPBrnDCVGC) * 2; #(v003)
+	PLngDCVG = exp(lnPLngDCVGC) * 2; #(v003)
+	PBodDCVG = exp(lnPBodDCVGC) * 2; #(v003)
 
 	#VMaxClara = exp(lnVMaxLungLivC) * VMax * 0.07; #(1.03/1.87*0.7/5.5);
 	#KMClara = exp(lnKMClara);
-	VMax = exp(lnVMax);  
-	KM = exp(lnKM);	
-	VMaxDCVG = exp(lnVMaxDCVG);
-	KMDCVG = exp(lnKMDCVG);
+	VMax = VMax0 * exp(lnISOx) * VLivC * exp(lnVMaxC);
+	KM = KM0 * exp(lnKMC);
+	VMaxDCVG = VMaxDCVG0 * exp(lnISConj) * VLivC * exp(lnVMaxDCVGC);
+	KMDCVG = VMaxDCVG/(VLivC * ClDCVG0 * exp(lnClDCVGC));
 #	VMaxKidDCVG = exp(lnVMaxKidDCVG);
 #   KMKidDCVG = exp(lnKMKidDCVG);
 	kUrn = exp(lnkUrn);
-	kUrnTCA = exp(lnkUrnTCA); #(v002)
+	kUrnTCA = kUrnTCA0 * exp(lnkUrnTCAC); #(v002)
 	#FracTCA = exp(lnFracTCA);
 #	kMetTCA = exp(lnkMetTCA);
 	kDCVG = exp(lnkDCVG); #(v002)
