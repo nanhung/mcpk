@@ -55,7 +55,7 @@ Distrib(	M_lnkAD	Uniform	-7.195	0);
 #Distrib(	M_lnPLngTCAC	TruncNormal	0.0	0.4	-1.2	1.2	); #(v002)
 #Distrib(	M_lnPBodTCAC	TruncNormal	0.0	0.4	-1.2	1.2	); #(v002)
 
-Distrib(	M_lnPLivDCVGC	TruncNormal	0.0 1.163	-3.489	3.489	); #(v003)
+Distrib(	M_lnPLivDCVGC	TruncNormal	0.0 0.8	-2.4	2.4	); #(v003)
 Distrib(	M_lnPKidDCVGC	TruncNormal	0.0 0.4	-1.2	1.2	); #(v003)
 Distrib(	M_lnPBrnDCVGC	TruncNormal	0.0 0.4	-1.2	1.2	); #(v003)
 Distrib(	M_lnPLngDCVGC	TruncNormal	0.0 0.4	-1.2	1.2	); #(v003)
@@ -74,7 +74,7 @@ Distrib(	M_lnClDCVGC	Uniform -6.908 6.908); #(v003)
 Distrib( M_lnISConj	Uniform	-4.605 0)
 Distrib(	M_lnkUrn	Uniform 0, 8);
 #Distrib(	M_lnkUrnTCAC	Uniform -4.605 4.605); #(v002)
-Distrib(	M_lnkDCVG	Uniform 3, 9); #(v003)
+Distrib(	M_lnkDCVG	Uniform 7, 9); #(v003)
 
   # Inter individual variances (Vr_)
   
@@ -184,7 +184,7 @@ Level { # group
 #	Distrib(	lnPLngTCAC TruncNormal_v M_lnPLngTCAC V_lnPLngTCAC -1.2	1.2	); #(v002)
 #	Distrib(	lnPBodTCAC TruncNormal_v M_lnPBodTCAC V_lnPBodTCAC -1.2	1.2	); #(v002)
 
-	Distrib(	lnPLivDCVGC TruncNormal_v M_lnPLivDCVGC V_lnPLivDCVGC -3.489	3.489	); #(v003)
+	Distrib(	lnPLivDCVGC TruncNormal_v M_lnPLivDCVGC V_lnPLivDCVGC -2.4	2.4	); #(v003)
 	Distrib(	lnPKidDCVGC TruncNormal_v M_lnPKidDCVGC V_lnPKidDCVGC -1.2	1.2 ); #(v003)
 	Distrib(	lnPBrnDCVGC TruncNormal_v M_lnPBrnDCVGC V_lnPBrnDCVGC -1.2	1.2	); #(v003)
 	Distrib(	lnPLngDCVGC TruncNormal_v M_lnPLngDCVGC V_lnPLngDCVGC -1.2	1.2	); #(v003)
@@ -204,7 +204,7 @@ Level { # group
 	Distrib(    lnISConj TruncNormal_v M_lnISConj V_lnISConj -4.605 0);
 	Distrib(	lnkUrn TruncNormal_v M_lnkUrn V_lnkUrn 0, 8);
 #	Distrib(	lnkUrnTCAC TruncNormal_v M_lnkUrnTCAC V_lnkUrnTCAC -4.605 4.605); #(v002)
-	Distrib(	lnkDCVG TruncNormal_v M_lnkDCVG V_lnkDCVG 3, 9); #(v003)
+	Distrib(	lnkDCVG TruncNormal_v M_lnkDCVG V_lnkDCVG 7, 9); #(v003)
 
 Level { # group B6C3F1
 	Experiment { # Yushuan B6C3F1
