@@ -5,7 +5,7 @@ MCMC ("tce003.c02.out",
        
 Level { # population
 
-# Revise maximum likelihood estimation
+# Revise center estimators
 KM0 = 4; # 36*exp(-2.44)
 VMaxDCVG0 = 2.103878; # 300*exp(-4.96) 
 ClDCVG0 = 0.041; # 1.53*exp(-3.63)
@@ -56,10 +56,10 @@ Distrib(	M_lnkAD	Uniform	-7.195	0);
 #Distrib(	M_lnPBodTCAC	TruncNormal	0.0	0.4	-1.2	1.2	); #(v002)
 
 Distrib(	M_lnPLivDCVGC	TruncNormal	0.0 1.163	-3.489	3.489	); #(v003)
-Distrib(	M_lnPKidDCVGC	TruncNormal	0.0 1.163	-3.489	3.489	); #(v003)
-Distrib(	M_lnPBrnDCVGC	TruncNormal	0.0 1.163	-3.489	3.489	); #(v003)
-Distrib(	M_lnPLngDCVGC	TruncNormal	0.0 1.163	-3.489	3.489	); #(v003)
-Distrib(	M_lnPBodDCVGC	TruncNormal	0.0 1.163	-3.489	3.489	); #(v003)
+Distrib(	M_lnPKidDCVGC	TruncNormal	0.0 0.4	-1.2	1.2	); #(v003)
+Distrib(	M_lnPBrnDCVGC	TruncNormal	0.0 0.4	-1.2	1.2	); #(v003)
+Distrib(	M_lnPLngDCVGC	TruncNormal	0.0 0.4	-1.2	1.2	); #(v003)
+Distrib(	M_lnPBodDCVGC	TruncNormal	0.0 0.4	-1.2	1.2	); #(v003)
 
 #Distrib(	M_lnVMaxC	TruncNormal	0.0	0.693 -2.079 2.079); 
 #Distrib(	M_lnKMC	TruncNormal 0.0 1.386 -4.158 2.079);
@@ -98,10 +98,10 @@ Distrib(	V_lnkTD	InvGamma	2.25	5.0000	);
 #Distrib(	V_lnPLngTCAC	InvGamma	2.25	0.2000	); #(v002)
 #Distrib(	V_lnPBodTCAC	InvGamma	2.25	0.2000	); #(v002)
 Distrib(	V_lnPLivDCVGC	InvGamma	2.25	0.3125	); #(v002)
-Distrib(	V_lnPKidDCVGC	InvGamma	2.25	0.3125	); #(v002)
-Distrib(	V_lnPBrnDCVGC	InvGamma	2.25	0.3125	); #(v002)
-Distrib(	V_lnPLngDCVGC	InvGamma	2.25	0.3125	); #(v002)
-Distrib(	V_lnPBodDCVGC	InvGamma	2.25	0.3125	); #(v002)
+Distrib(	V_lnPKidDCVGC	InvGamma	2.25	0.2000	); #(v002)
+Distrib(	V_lnPBrnDCVGC	InvGamma	2.25	0.2000	); #(v002)
+Distrib(	V_lnPLngDCVGC	InvGamma	2.25	0.2000	); #(v002)
+Distrib(	V_lnPBodDCVGC	InvGamma	2.25	0.2000	); #(v002)
 
 #Distrib(	V_lnVMaxC	InvGamma	3	1.3585	);
 #Distrib(	V_lnKMC	InvGamma	3	0.1458	);
@@ -185,10 +185,10 @@ Level { # group
 #	Distrib(	lnPBodTCAC TruncNormal_v M_lnPBodTCAC V_lnPBodTCAC -1.2	1.2	); #(v002)
 
 	Distrib(	lnPLivDCVGC TruncNormal_v M_lnPLivDCVGC V_lnPLivDCVGC -3.489	3.489	); #(v003)
-	Distrib(	lnPKidDCVGC TruncNormal_v M_lnPKidDCVGC V_lnPKidDCVGC -3.489	3.489 ); #(v003)
-	Distrib(	lnPBrnDCVGC TruncNormal_v M_lnPBrnDCVGC V_lnPBrnDCVGC -3.489	3.489	); #(v003)
-	Distrib(	lnPLngDCVGC TruncNormal_v M_lnPLngDCVGC V_lnPLngDCVGC -3.489	3.489	); #(v003)
-	Distrib(	lnPBodDCVGC TruncNormal_v M_lnPBodDCVGC V_lnPBodDCVGC -3.489	3.489	); #(v003)
+	Distrib(	lnPKidDCVGC TruncNormal_v M_lnPKidDCVGC V_lnPKidDCVGC -1.2	1.2 ); #(v003)
+	Distrib(	lnPBrnDCVGC TruncNormal_v M_lnPBrnDCVGC V_lnPBrnDCVGC -1.2	1.2	); #(v003)
+	Distrib(	lnPLngDCVGC TruncNormal_v M_lnPLngDCVGC V_lnPLngDCVGC -1.2	1.2	); #(v003)
+	Distrib(	lnPBodDCVGC TruncNormal_v M_lnPBodDCVGC V_lnPBodDCVGC -1.2	1.2	); #(v003)
 
 #	Distrib(	lnVMaxC TruncNormal_v M_lnVMaxC V_lnVMaxC -2.079 2.079);
 #	Distrib(	lnKMC	TruncNormal_v  M_lnKMC V_lnKMC -4.158 2.079);
