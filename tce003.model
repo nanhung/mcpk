@@ -293,11 +293,11 @@ Initialize {
 	PLngTCA = exp(lnPLngTCAC) * 1.7; #(v002) # Same as PLiv
 	PBodTCA = exp(lnPBodTCAC) * 1.7; #(v002) # Same as PLiv
 	
-	PLivDCVG = exp(lnPLivDCVGC) * 2; #(v003)
-	PKidDCVG = exp(lnPKidDCVGC) * 2; #(v003)
-	PBrnDCVG = exp(lnPBrnDCVGC) * 2; #(v003)
-	PLngDCVG = exp(lnPLngDCVGC) * 2; #(v003)
-	PBodDCVG = exp(lnPBodDCVGC) * 2; #(v003)
+	PLivDCVG = exp(lnPLivDCVGC) * 1.0; #(v003)
+	PKidDCVG = exp(lnPKidDCVGC) * 1.0; #(v003)
+	PBrnDCVG = exp(lnPBrnDCVGC) * 1.0; #(v003)
+	PLngDCVG = exp(lnPLngDCVGC) * 1.0; #(v003)
+	PBodDCVG = exp(lnPBodDCVGC) * 1.0; #(v003)
 
 	#VMaxClara = exp(lnVMaxLungLivC) * VMax * 0.07; #(1.03/1.87*0.7/5.5);
 	#KMClara = exp(lnKMClara);
