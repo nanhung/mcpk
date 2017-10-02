@@ -284,7 +284,7 @@ Initialize {
 	kTSD = exp(lnkTSD); 
 	kAS = exp(lnkAS);
 	kAD = exp(lnkAD);
-	kTD = 0.0 * exp(lnkTD); # assume no fecal excretion -- 100% absorption
+	kTD = exp(lnkTD); # assume no fecal excretion -- 100% absorption
 	QCC = exp(lnQCC);
 	PGut = exp(lnPGutC) * 1.9;
 	PLiv = exp(lnPLivC) * 1.7;
