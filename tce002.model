@@ -283,8 +283,8 @@ Initialize {
 #	VMaxKidDCVG = exp(lnVMaxKidDCVG);
 #   KMKidDCVG = exp(lnKMKidDCVG);
 	kUrn = exp(lnkUrn);
-	#kUrnTCA = 0.6 * exp(lnISkTCA) * exp(lnkUrnTCAC) * BW / (VBodTCA * PBodTCA); #(v002) Basline value = 0.6;
-	kUrnTCA = 0.6 * exp(lnISkTCA) * exp(lnkUrnTCAC);
+	kUrnTCA = 0.6 * exp(lnISkTCA) * exp(lnkUrnTCAC) * BW / (VBodTCA * PBodTCA); #(v002) Basline value = 0.6;
+#	kUrnTCA = 0.6 * exp(lnISkTCA) * exp(lnkUrnTCAC);
 	#FracTCA = exp(lnFracTCA);
 #	kMetTCA = exp(lnkMetTCA);
 }
