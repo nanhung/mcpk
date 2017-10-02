@@ -112,6 +112,11 @@ VLngC = 0.015;
 VFatC = 0.070; 
 VRapC = 0.100; 
 VSlwC = 0.676; 
+VTC = 1;
+
+# Vol
+VBld; VGut; VLiv; VKid; VBrn; VLng; VFat; VRap; VSlw;
+VBodTCA;
 
 # Molecular Weights
 MWTCE = 131.39; # TCE
@@ -146,6 +151,7 @@ PBodDCVG; lnPBodDCVGC = 0.0; #(v002)
 
 lnISOx = 0.0; # P450 oxidative metabolism
 lnISConj = 0.0;
+lnISkTCA = 0.0;
 VMax; VMax0 = 2700; lnVMaxC = 0.0; # VMax for hepatic TCE oxidation (mg/hr)
 KM; KM0 = 36; lnKMC = 0.0; # KM for hepatic TCE oxidation (mg/L)
 VMaxDCVG; VMaxDCVG0 = 300; lnVMaxDCVGC = 0.0;# VMax for hepatic TCE GSH conjugation (mg/hr)
@@ -157,7 +163,7 @@ KMDCVG; ClDCVG0 = 1.53; lnClDCVGC = 0.0; # KM for hepatic TCE GSH conjugation (m
 #lnVMaxLungLivC = 0.0; # Ratio of lung Vmax to liver Vmax
 #KMClara; lnKMClara = 0.0; # KM for Tracheo-bronchial TCE oxidation (mg/L)
 kUrn; lnkUrn = 1.0;
-kUrnTCA; kUrnTCA0 = 0.6; lnkUrnTCAC = 0.0; #(v002)
+kUrnTCA; kUrnTCA0 = 0.6; lnkUrnTCAC = 0.0; 
 kDCVG = 0.1; lnkDCVG = log(kDCVG); #(v003)
 
 #FracTCA = 1.0; lnFracTCA = log(FracTCA);
@@ -192,6 +198,7 @@ M_lnPBodDCVGC; #(v002)
 
 M_lnISOx;
 M_lnISConj;
+M_lnISkTCA;
 
 M_lnVMaxC;
 M_lnKMC;
@@ -237,6 +244,7 @@ V_lnPBodDCVGC; #(v002)
 
 V_lnISOx;
 V_lnISConj;
+V_lnISkTCA;
 
 V_lnVMaxC;
 V_lnKMC;
@@ -276,22 +284,34 @@ Initialize {
 	kTSD = exp(lnkTSD); 
 	kAS = exp(lnkAS);
 	kAD = exp(lnkAD);
-	kTD = exp(lnkTD);
+	kTD = 0.0 * exp(lnkTD); # assume no fecal excretion -- 100% absorption
 	QCC = exp(lnQCC);
 	PGut = exp(lnPGutC) * 1.9;
 	PLiv = exp(lnPLivC) * 1.7;
 	PKid = exp(lnPKidC) * 2.1;
-	PBrn = exp(lnPBrnC) * 1.9; # Same as Rap
-	PLng = exp(lnPLngC) * 1.9; # Same as Rap
+	PBrn = exp(lnPBrnC) * 1.0;
+	PLng = exp(lnPLngC) * 1.0; 
 	PFat = exp(lnPFatC) * 36;
 	PSlw = exp(lnPSlwC) * 2.4;
 	PRap = exp(lnPRapC) * 1.9;
 	
-	PLivTCA = exp(lnPLivTCAC) * 1.7; #(v002) # Same as PLiv
-	PKidTCA = exp(lnPKidTCAC) * 1.7; #(v002) # Same as PLiv
-	PBrnTCA = exp(lnPBrnTCAC) * 1.7; #(v002) # Same as PLiv
-	PLngTCA = exp(lnPLngTCAC) * 1.7; #(v002) # Same as PLiv
-	PBodTCA = exp(lnPBodTCAC) * 1.7; #(v002) # Same as PLiv
+	PLivTCA = exp(lnPLivTCAC) * 1.0; #(v002) 
+	PKidTCA = exp(lnPKidTCAC) * 1.0; #(v002) 
+	PBrnTCA = exp(lnPBrnTCAC) * 1.0; #(v002) 
+	PLngTCA = exp(lnPLngTCAC) * 1.0; #(v002)
+	PBodTCA = exp(lnPBodTCAC) * 1.0; #(v002) 
+	
+	VTC = VBldC + VGutC + VLivC + VKidC + VBrnC + VFatC + VLngC + VSlwC + VRapC;
+	VBld = VBldC * BW / VTC;
+	VGut = VGutC * BW / VTC;
+	VLiv = VLivC * BW / VTC;
+	VKid = VKidC * BW / VTC;
+	VBrn = VBrnC * BW / VTC;
+	VLng = VLngC * BW / VTC;
+	VFat = VFatC * BW / VTC;
+	VRap = VRapC * BW / VTC;
+	VSlw = VSlwC * BW / VTC;
+	VBodTCA = VFat + VGut + VRap + VSlw;
 	
 	PLivDCVG = exp(lnPLivDCVGC) * 1.0; #(v003)
 	PKidDCVG = exp(lnPKidDCVGC) * 1.0; #(v003)
@@ -308,7 +328,7 @@ Initialize {
 #	VMaxKidDCVG = exp(lnVMaxKidDCVG);
 #   KMKidDCVG = exp(lnKMKidDCVG);
 	kUrn = exp(lnkUrn);
-	kUrnTCA = kUrnTCA0 * exp(lnkUrnTCAC); #(v002)
+	kUrnTCA = kUrnTCA0 * exp(lnISkTCA) * exp(lnkUrnTCAC) * BW / (VBodTCA * PBodTCA);  #(v002)
 	#FracTCA = exp(lnFracTCA);
 #	kMetTCA = exp(lnkMetTCA);
 	kDCVG = exp(lnkDCVG); #(v002)
@@ -326,17 +346,6 @@ Dynamics {
 	QSlw = QSlwC * QC / QTC; 
 	QRap = QRapC * QC / QTC;
 	QGutLiv = QGut + QLiv;
-	
-	VTC = VBldC + VGutC + VLivC + VKidC + VBrnC + VFatC + VLngC + VSlwC + VRapC;
-	VBld = VBldC * BW / VTC;
-	VGut = VGutC * BW / VTC;
-	VLiv = VLivC * BW / VTC;
-	VKid = VKidC * BW / VTC;
-	VBrn = VBrnC * BW / VTC;
-	VLng = VLngC * BW / VTC;
-	VFat = VFatC * BW / VTC;
-	VRap = VRapC * BW / VTC;
-	VSlw = VSlwC * BW / VTC;
 	
 # Tissue Concentrations (mg/L)
 	CRap = ARap/VRap; 
@@ -417,7 +426,6 @@ Dynamics {
 #######
 ##	TCA
 #######
-	VBodTCA = VFat + VGut + VRap + VSlw;
 	QBodTCA = QFat + QRap + QSlw + QGut;
 # Tissue Concentrations (mg/L)
 	CLivTCA = ALivTCA/VLiv; 
