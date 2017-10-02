@@ -6,7 +6,7 @@ MCMC ("tce003.c04.out",
 Level { # population
 
 # Revise center estimators
-VMax0 = 1433.69 # 2700*exp(-0.633)
+VMax0 = 1433.69; # 2700*exp(-0.633)
 KM0 = 3.138; # 36*exp(-2.44)
 VMaxDCVG0 = 2.103878; # 300*exp(-4.96) 
 ClDCVG0 = 0.041; # 1.53*exp(-3.63)
