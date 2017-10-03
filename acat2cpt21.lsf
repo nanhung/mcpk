@@ -11,8 +11,8 @@
 #BSUB -B -N                       ##Send email on job begin (-B) and end (-N)
 
 ## Test sensitive parameters
-time ./mcsim.acat2cpt_v2.1 acat2cpt2.c01.in &
-time ./mcsim.acat2cpt_v2.1 acat2cpt2.c02.in & 
-time ./mcsim.acat2cpt_v2.1 acat2cpt2.c03.in & 
-time ./mcsim.acat2cpt_v2.1 acat2cpt2.c04.in
+time ./mcsim.acat2cpt_v2.1 acat2cpt21.c01.in &
+time ./mcsim.acat2cpt_v2.1 acat2cpt21.c02.in & 
+time ./mcsim.acat2cpt_v2.1 acat2cpt21.c03.in & 
+time ./mcsim.acat2cpt_v2.1 acat2cpt21.c04.in
 wait
