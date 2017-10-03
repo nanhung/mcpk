@@ -7,7 +7,7 @@ Level { # population
 
 # Test TCE TCA in all tissues to find the MLE for parameters 
 # Then fix some parameters
-# Test LivDCVG BrnDCVG / Converge OK
+# Test LivDCVG BrnDCVG KidDCVG LngDCVG / Converge OK
 
 lnkTSD = -0.0199;
 lnkAS =1.2938;
@@ -33,6 +33,12 @@ lnPKidTCAC = -0.5058;
 lnPBrnTCAC = -0.2409;
 lnPLngTCAC = -0.2979;
 lnPBodTCAC = -0.7777;
+
+#lnPLivDCVGC = 3.457;
+#lnPKidDCVGC = -2.3016;
+#lnPBrnDCVGC = -1.9699;
+#lnPLngDCVGC = -2.8309;
+#lnPBodDCVGC = ;
 
 # (M_)
 #Distrib(	M_lnkTSD Uniform -4.269	4.942);
@@ -60,7 +66,7 @@ Distrib(	M_lnPLivDCVGC	TruncNormal	0.0 1.3 -3.9 3.9); #(v003)
 Distrib(	M_lnPKidDCVGC	TruncNormal	0.0 1.3 -3.9 3.9); #(v003)
 Distrib(	M_lnPBrnDCVGC	TruncNormal	0.0 1.3 -3.9 3.9); #(v003)
 Distrib(	M_lnPLngDCVGC	TruncNormal	0.0 1.3 -3.9 3.9); #(v003)
-#Distrib(	M_lnPBodDCVGC	TruncNormal	0.0 1.3 -3.9 3.9); #(v003)
+Distrib(	M_lnPBodDCVGC	TruncNormal	0.0 1.3 -3.9 3.9); #(v003)
 
 Distrib(	M_lnVMaxC	TruncNormal	0.0	0.693 -2.079 2.079); 
 Distrib(	M_lnKMC	TruncNormal 0.0 1.386 -4.158 2.079);
@@ -103,7 +109,7 @@ Distrib(	V_lnPLivDCVGC	InvGamma	2.25	0.3125	); #(v002)
 Distrib(	V_lnPKidDCVGC	InvGamma	2.25	0.3125	); #(v002)
 Distrib(	V_lnPBrnDCVGC	InvGamma	2.25	0.3125	); #(v002)
 Distrib(	V_lnPLngDCVGC	InvGamma	2.25	0.3125	); #(v002)
-#Distrib(	V_lnPBodDCVGC	InvGamma	2.25	0.3125	); #(v002)
+Distrib(	V_lnPBodDCVGC	InvGamma	2.25	0.3125	); #(v002)
 
 Distrib(	V_lnVMaxC	InvGamma	3	1.3585	);
 Distrib(	V_lnKMC	InvGamma	3	0.1458	);
@@ -190,7 +196,7 @@ Level { # group
 	Distrib(	lnPKidDCVGC TruncNormal_v M_lnPKidDCVGC V_lnPKidDCVGC -3.9 3.9); #(v003)
 	Distrib(	lnPBrnDCVGC TruncNormal_v M_lnPBrnDCVGC V_lnPBrnDCVGC -3.9 3.9); #(v003)
 	Distrib(	lnPLngDCVGC TruncNormal_v M_lnPLngDCVGC V_lnPLngDCVGC -3.9 3.9); #(v003)
-#	Distrib(	lnPBodDCVGC TruncNormal_v M_lnPBodDCVGC V_lnPBodDCVGC -3.489	3.489 ); #(v003)
+	Distrib(	lnPBodDCVGC TruncNormal_v M_lnPBodDCVGC V_lnPBodDCVGC -3.9 3.9); #(v003)
 
 	Distrib(	lnVMaxC TruncNormal_v M_lnVMaxC V_lnVMaxC -2.079 2.079);
 	Distrib(	lnKMC	TruncNormal_v  M_lnKMC V_lnKMC -4.158 2.079);
@@ -227,7 +233,7 @@ Level { # group B6C3F1
       Data(CBrnMole, 172.1625,270.99,100.1818,14.99795,-1,12.53385,-1,16.46069,4.391568,3.770507,-1,2.229912,-1,-1,-1,-1,-1,-1);
       Print(CLngMole, 1.000  1.001  1.002  2.000  2.001  2.002  6.000  6.001  6.002 12.000 12.001 12.002 24.000 24.001 24.002 36.000 36.001 36.002);
       Data(CLngMole, 437.8846,165.4295,79.47357,15.08962,-1,12.32619,-1,19.3666,8.479792,5.381483,-1,-1,-1,-1,-1,-1,-1,-1);
-	    Print(CBldMole_ND, 24.000 24.001 24.002 36.000 36.001 36.002);
+	Print(CBldMole_ND, 24.000 24.001 24.002 36.000 36.001 36.002);
       Data(CBldMole_ND, 0,0,0,0,0,0);		
 		
       Print(CBldTCAMole, 1.000  1.001  1.002  2.000  2.001  2.002  6.000  6.001  6.002 12.000 12.001 12.002 24.000 24.001 24.002 36.000 36.001 36.002);
