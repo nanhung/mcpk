@@ -63,6 +63,7 @@ States  = {Q_central,      # Quantity in central compartment (micromoles)
            Q_feces_u};     # ~           excreted undissolved in feces
 
 Outputs = {C_central,       # Concentration in central compartment (microM)
+           lnC_central,
            C_periph,        #                  peripheral
            C_stom_lu_d,     #                  stomach lumen (dissolved)
            C_duod_lu_d,
@@ -387,6 +388,45 @@ Csat_ileum;
 Csat_cecum;
 Csat_colon;
 
+#------------------------------------
+# Variances inter individuelles (Vr_)
+#------------------------------------
+
+Vr_Mol_vol;	
+Vr_Weibull_scale;
+Vr_Weibull_lag;
+Vr_G_Radius;
+Vr_lnG_DensityC;
+Vr_K_precip;
+Vr_Ke_over_a_epit;
+Vr_Ke_over_a_tiss;
+Vr_Peff;
+Vr_PC_stom;
+Vr_PC_duod;
+Vr_PC_jeju;
+Vr_PC_ileum;
+Vr_PC_cecum;
+Vr_PC_colon;
+Vr_Fu_plasma;
+Vr_Fu_met_stom;
+Vr_Fu_met_duod;
+Vr_Fu_met_jeju;
+Vr_Fu_met_ileum;
+Vr_Fu_met_cecum;
+Vr_Fu_met_colon;
+Vr_V_central;
+Vr_V_periph;
+Vr_Vmax_vitro;
+Vr_Km_vitro;
+Vr_Kmet;
+Vr_Kc2p;
+Vr_Kp2c;
+
+#-------------------------
+#  Data Error (Verr_...)
+#-------------------------
+
+Ve_lnC_central;
 
 Initialize {
 
@@ -900,6 +940,8 @@ CalcOutputs {
   Q_total   = Q_organ + Q_elim;
 
   Instant_Ka_gi = (Q_gi_lu_d > 0 ? Q_absorb_pv / Q_gi_lu_d : 0);
+  
+  lnC_central = (C_central > 0 ? log (C_central) : -20);
 
 }
 

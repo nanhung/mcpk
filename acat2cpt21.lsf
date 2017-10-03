@@ -5,14 +5,14 @@
 #BSUB -R "span[ptile=1]"    ## request 1 core per node.
 #BSUB -R "rusage[mem=32]"	## reserves 32MB per process/CPU for the job 
 #BSUB -M 32			    ## sets to 32MB as the per process enforceable memory limit.
-#BSUB -o acat2.0921.%J		## directs the job's standard output (%J is jobid)
+#BSUB -o acat21.1003.%J		## directs the job's standard output (%J is jobid)
 ##BSUB -P 082803364811       ## set account
 #BSUB -u nhsieh@cvm.tamu.edu      ## send all emails to email_address
 #BSUB -B -N                       ##Send email on job begin (-B) and end (-N)
 
 ## Test sensitive parameters
-time ./mcsim.acat2cpt_v2 acat2cpt2.c05.in &
-time ./mcsim.acat2cpt_v2 acat2cpt2.c06.in & 
-time ./mcsim.acat2cpt_v2 acat2cpt2.c07.in & 
-time ./mcsim.acat2cpt_v2 acat2cpt2.c08.in
+time ./mcsim.acat2cpt_v2.1 acat2cpt2.c01.in &
+time ./mcsim.acat2cpt_v2.1 acat2cpt2.c02.in & 
+time ./mcsim.acat2cpt_v2.1 acat2cpt2.c03.in & 
+time ./mcsim.acat2cpt_v2.1 acat2cpt2.c04.in
 wait
