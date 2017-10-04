@@ -1,7 +1,7 @@
 Integrate (Lsodes, 1e-6, 1e-9, 1);
 MCMC ("tce003.c02.out",
        "", "",                     
-       20000, 0, 20, 20000, 2222);
+       30000, 0, 30, 30000, 2222);
        
 Level { # population
 
