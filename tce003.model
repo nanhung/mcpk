@@ -162,7 +162,7 @@ KMDCVG; ClDCVG0 = 1.53; lnClDCVGC = 0.0; # KM for hepatic TCE GSH conjugation (m
 #VMaxClara; # VMax for Tracheo-bronchial TCE oxidation (mg/hr)
 #lnVMaxLungLivC = 0.0; # Ratio of lung Vmax to liver Vmax
 #KMClara; lnKMClara = 0.0; # KM for Tracheo-bronchial TCE oxidation (mg/L)
-kUrn; lnkUrn = 1.0;
+kUrn; kUrn0 = 1.0; lnkUrnC = 0.0;
 kUrnTCA; kUrnTCA0 = 0.6; lnkUrnTCAC = 0.0; 
 kDCVG = 0.1; lnkDCVG = log(kDCVG); #(v003)
 
@@ -209,7 +209,7 @@ M_lnClDCVGC;
 #M_lnClKidDCVG;
 #M_lnVMaxLungLiv;
 #M_lnKMClara;
-M_lnkUrn;
+M_lnkUrnC;
 M_lnkUrnTCAC; #(v002)
 #M_lnFracTCA;
 #M_lnkMetTCA;
@@ -255,7 +255,7 @@ V_lnClDCVGC;
 #V_lnClKidDCVG;
 #V_lnVMaxLungLivC;
 #V_lnKMClara;
-V_lnkUrn;
+V_lnkUrnC;
 V_lnkUrnTCAC; #(v002)
 #V_lnFracTCA;
 #V_lnkMetTCA;
@@ -294,6 +294,7 @@ Initialize {
 	PFat = exp(lnPFatC) * 36;
 	PSlw = exp(lnPSlwC) * 2.4;
 	PRap = exp(lnPRapC) * 1.9;
+	PRap = exp(lnPRapC) * 1.9;
 	
 	PLivTCA = exp(lnPLivTCAC) * 1.0; #(v002) 
 	PKidTCA = exp(lnPKidTCAC) * 1.0; #(v002) 
@@ -327,8 +328,8 @@ Initialize {
 	KMDCVG = VMaxDCVG/(VLivC * ClDCVG0 * exp(lnClDCVGC));
 #	VMaxKidDCVG = exp(lnVMaxKidDCVG);
 #   KMKidDCVG = exp(lnKMKidDCVG);
-	kUrn = exp(lnkUrn);
-	kUrnTCA = kUrnTCA0 * exp(lnISkTCA) * exp(lnkUrnTCAC) * BW / (VBodTCA * PBodTCA);  #(v002)
+	kUrn = kUrn0 * exp(lnkUrnC) * BW / (VKid * PKid);
+	kUrnTCA = kUrnTCA0 * exp(lnISkTCA) * exp(lnkUrnTCAC) * BW / (VKid * PKidTCA);  #(v002)
 	#FracTCA = exp(lnFracTCA);
 #	kMetTCA = exp(lnkMetTCA);
 	kDCVG = exp(lnkDCVG); #(v002)
