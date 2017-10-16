@@ -34,7 +34,6 @@ VBLVC= 0.0557; lnVBLVC = log(0.0557);         # Venous Blood.
 VSC = 0.185; lnVSC = log(0.185);            # Slowly Perfused
 VRC = 0.0765; lnVRC = log(0.0765);           # Rapidly Perfused (1- everything else)
 
-
 # Fractional blood flows (fraction of cardiac output).
 QFC  = 0.052; lnQFC = log(0.052);           # Fat. **
 QKC  = 0.175; lnQKC = log(0.175);          # Kidney.
@@ -43,7 +42,6 @@ QLBC = 0.046; lnQLBC = log(0.046);          # Hepatic artery. **
 QMC  = 0.191; lnQMC = log(0.191);          # Muscle
 QSC = 0.14; lnQSC = log(0.14);           # Slowly Perfused
 QRC = 0.215; lnQRC = log(0.215);           # Rapidly Perfused (1 -  everything else)
-
 
 # Chemical Specific Transport Params
 #-----------------------------------
