@@ -57,6 +57,9 @@ Distrib(	M_lnPLngC	TruncNormal	0.0	0.4	-1.2	1.2	);
 Distrib(	M_lnPRapC	TruncNormal	0.0	0.4	-1.2	1.2	);
 Distrib(	M_lnPSlwC	TruncNormal	0.0	0.4	-1.2	1.2	);
 
+Distrib(	M_lnPLivTCOHC	TruncNormal	0.0	0.4	-1.2	1.2	); #(v004)
+Distrib(	M_lnPKidTCOHC	TruncNormal	0.0	0.4	-1.2	1.2	); #(v004)
+
 Distrib(	M_lnPLivTCAC	TruncNormal	0.0	0.4	-1.2	1.2	); #(v002)
 Distrib(	M_lnPKidTCAC	TruncNormal	0.0 0.4	-1.2	1.2	); #(v002)
 Distrib(	M_lnPBrnTCAC	TruncNormal	0.0	0.4	-1.2	1.2	); #(v002)
@@ -83,6 +86,7 @@ Distrib( M_lnISTCA Uniform -4.605 4.605); # (v004)
 Distrib( M_lnISConj	Uniform	-4.605 4.605);
 Distrib( M_lnISkTCA	Uniform	-4.605 4.605);
 Distrib(	M_lnkUrnC	Uniform -4.605 4.605);
+Distrib(	M_lnkUrnTCOHC	Uniform -4.605 4.605); #(v002)
 Distrib(	M_lnkUrnTCAC	Uniform -4.605 4.605); #(v002)
 Distrib(	M_lnkDCVG	Uniform 7, 14); #(v003)
 
@@ -102,6 +106,9 @@ Distrib(	V_lnPBrnC	InvGamma	2.25	0.2000	);
 Distrib(	V_lnPLngC	InvGamma	2.25	0.2000	);
 Distrib(	V_lnPRapC	InvGamma	2.25	0.2000	);
 Distrib(	V_lnPSlwC	InvGamma	2.25	0.2000	);
+
+Distrib(	V_lnPLivTCOHC	InvGamma	2.25	0.2000	); #(v004)
+Distrib(	V_lnPKidTCOHC	InvGamma	2.25	0.2000	); #(v004)
 
 Distrib(	V_lnPLivTCAC	InvGamma	2.25	0.2000	); #(v002)
 Distrib(	V_lnPKidTCAC	InvGamma	2.25	0.2000	); #(v002)
@@ -129,6 +136,7 @@ Distrib(	V_lnISTCA	InvGamma	2.25	5.0000	);
 Distrib(	V_lnISConj	InvGamma	2.25	5.0000	);
 Distrib(    V_lnISkTCA	InvGamma	2.25	5.0000      );
 Distrib(	V_lnkUrnC	InvGamma	2.25	5.0000	);
+Distrib(	V_lnkUrnTCOHC	InvGamma	2.25	5.0000	); #(v004)
 Distrib(	V_lnkUrnTCAC	InvGamma	2.25	5.0000	); #(v002)
 Distrib(	V_lnkDCVG	InvGamma	2.25	5.0000	); #(v003)
 
@@ -138,6 +146,12 @@ Distrib( Ve_CLivMole, LogUniform , 0.01 , 0.5);
 Distrib( Ve_CKidMole, LogUniform , 0.01 , 0.5);
 Distrib( Ve_CBrnMole, LogUniform , 0.01 , 0.5);
 Distrib( Ve_CLngMole, LogUniform , 0.01 , 0.5);
+
+Distrib( Ve_CBldTCOHMole, LogUniform , 0.01 , 0.5); #(v002)
+Distrib( Ve_CLivTCOHMole, LogUniform , 0.01 , 0.5); #(v002)
+Distrib( Ve_CKidTCOHMole, LogUniform , 0.01 , 0.5); #(v002)
+Distrib( Ve_CBrnTCOHMole, LogUniform , 0.01 , 0.5); #(v002)
+Distrib( Ve_CLngTCOHMole, LogUniform , 0.01 , 0.5); #(v002)
 
 Distrib( Ve_CBldTCAMole, LogUniform , 0.01 , 0.5); #(v002)
 Distrib( Ve_CLivTCAMole, LogUniform , 0.01 , 0.5); #(v002)
@@ -157,6 +171,15 @@ Likelihood (CLivMole, LogNormal_v, Prediction(CLivMole), Ve_CLivMole);
 Likelihood (CKidMole, LogNormal_v, Prediction(CKidMole), Ve_CKidMole);
 Likelihood (CBrnMole, LogNormal_v, Prediction(CBrnMole), Ve_CBrnMole);
 Likelihood (CLngMole, LogNormal_v, Prediction(CLngMole), Ve_CLngMole);
+
+Likelihood (CBldTCOHMole, LogNormal_v, Prediction(CBldTCOHMole), Ve_CBldTCOHMole);  #(v002)
+Likelihood (CLivTCOHMole, LogNormal_v, Prediction(CLivTCOHMole), Ve_CLivTCOHMole);  #(v002)
+#Likelihood (CKidTCAMole, LogNormal_v, Prediction(CKidTCAMole), Ve_CKidTCAMole);  #(v002)
+#Likelihood (CBrnTCAMole, LogNormal_v, Prediction(CBrnTCAMole), Ve_CBrnTCAMole);  #(v002)
+#Likelihood (CLngTCAMole, LogNormal_v, Prediction(CLngTCAMole), Ve_CLngTCAMole);  #(v002)
+
+Likelihood (CBldTCAMole, LogNormal_v, Prediction(CBldTCAMole), Ve_CBldTCAMole);  #(v004)
+Likelihood (CLivTCAMole, LogNormal_v, Prediction(CLivTCAMole), Ve_CLivTCAMole);  #(v004)
 
 Likelihood (CBldTCAMole, LogNormal_v, Prediction(CBldTCAMole), Ve_CBldTCAMole);  #(v002)
 Likelihood (CLivTCAMole, LogNormal_v, Prediction(CLivTCAMole), Ve_CLivTCAMole);  #(v002)
@@ -192,8 +215,11 @@ Level { # group
 	Distrib(	lnPLngC TruncNormal_v M_lnPLngC V_lnPLngC -1.2	1.2	);
 	Distrib(	lnPRapC TruncNormal_v M_lnPRapC V_lnPRapC -1.2	1.2	);
 	Distrib(	lnPSlwC TruncNormal_v M_lnPSlwC V_lnPSlwC -1.2	1.2	);
+
+	Distrib(	lnPLivTCOHC TruncNormal_v M_lnPLivTCOHC V_lnPLivTCOHC -1.2	1.2	); #(v004)
+	Distrib(	lnPKidTCOHC TruncNormal_v M_lnPKidTCOHC V_lnPKidTCOHC -1.2	1.2	); #(v004)
 	
-	Distrib(	lnPLivTCAC TruncNormal_v M_lnPLivTCAC V_lnPLivTCAC -1.2	1.2	); #(v002#
+	Distrib(	lnPLivTCAC TruncNormal_v M_lnPLivTCAC V_lnPLivTCAC -1.2	1.2	); #(v002)
 	Distrib(	lnPKidTCAC TruncNormal_v M_lnPKidTCAC V_lnPKidTCAC -1.2	1.2	); #(v002)
 	Distrib(	lnPBrnTCAC TruncNormal_v M_lnPBrnTCAC V_lnPBrnTCAC -1.2	1.2	); #(v002)
 	Distrib(	lnPLngTCAC TruncNormal_v M_lnPLngTCAC V_lnPLngTCAC -1.2	1.2	); #(v002)
@@ -220,6 +246,7 @@ Level { # group
 	Distrib(    lnISConj TruncNormal_v M_lnISConj V_lnISConj -4.605 4.605);
 	Distrib(    lnISkTCA TruncNormal_v M_lnISkTCA V_lnISkTCA -4.605 4.605);
 	Distrib(	lnkUrnC TruncNormal_v M_lnkUrnC V_lnkUrnC -4.605 4.605);
+	Distrib(	lnkUrnTCOHC TruncNormal_v M_lnkUrnTCOHC V_lnkUrnTCOHC -4.605 4.605); #(v002)
 	Distrib(	lnkUrnTCAC TruncNormal_v M_lnkUrnTCAC V_lnkUrnTCAC -4.605 4.605); #(v002)
 	Distrib(	lnkDCVG TruncNormal_v M_lnkDCVG V_lnkDCVG 7, 14); #(v003)
 
@@ -256,10 +283,10 @@ Level { # group B6C3F1
       Data(CBrnTCAMole, 94.95236,103.4512,122.3418,146.9419,106.7135,131.6178,77.53594,247.0766,149.414,123.8792,81.58922,124.0561,89.96939,81.08015,112.2824,93.1306,93.97441,-1);
       Print(CLngTCAMole, 1.000  1.001  1.002  2.000  2.001  2.002  6.000  6.001  6.002 12.000 12.001 12.002 24.000 24.001 24.002 36.000 36.001 36.002);
       Data(CLngTCAMole, 155.714,228.0699,207.0414,243.7262,174.3042,332.9564,13.25463,627.2296,346.1246,301.6048,15.81202,257.3531,189.5025,177.1577,286.9933,62.73829,19.17387,3.811594);
-      #Print(Csrm_tch, 0);
-      #Data(Csrm_tch, -1);
-      #Print(Cliv_tch, 0);
-      #Data(Cliv_tch, -1);
+      Print(CBldTCOHMole, 1.000  1.001  1.002  2.000  2.001  2.002  6.000  6.001  6.002 12.000 12.001 12.002 24.000 24.001 24.002 36.000 36.001 36.002);
+      Data(CBldTCOHMole, 497.7025235,451.9970844,299.4073406,458.940424,-1,228.6340515,-1,171.664217,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1);
+      Print(CLivTCOHMole, 1.000  1.001  1.002  2.000  2.001  2.002  6.000  6.001  6.002 12.000 12.001 12.002 24.000 24.001 24.002 36.000 36.001 36.002);
+      Data(CLivTCOHMole, 655.6209986,762.6805362,775.6052889,961.8438503,-1,867.0697101,-1,472.8946995,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1);
       #Print(Ckid_tch, 0);
       #Data(Ckid_tch, -1);
       #Print(Cbrn_tch, 0);
@@ -342,10 +369,10 @@ Level { # Group C57BL/6
       Data(CBrnTCAMole, 112.6037,106,83.6399,124.1964,133.448,123.2166,143.4634,141.6024,154.425,108.332,129.3717,-1,94.51762,82.564,85.68723,-1,75.02832,-1);
       Print(CLngTCAMole, 1.000  1.001  1.002  2.000  2.001  2.002  6.000  6.001  6.002 12.000 12.001 12.002 24.000 24.001 24.002 36.000 36.001 36.002);
       Data(CLngTCAMole, 167.5628,178.004,10.10046,193.46,200.9749,194.7042,247.9556,333.1484,306.5159,187.0589,189.4434,3.830097,43.6058,14.98696,10.49468,4.781818,13.15333,3.757143);
-      #Print(Csrm_tch, 0);
-      #Data(Csrm_tch, -1);
-      #Print(Cliv_tch, 0);
-      #Data(Cliv_tch, -1);
+      Print(CBldTCOHMole, 1.000  1.001  1.002  2.000  2.001  2.002  6.000  6.001  6.002 12.000 12.001 12.002 24.000 24.001 24.002 36.000 36.001 36.002);
+      Data(CBldTCOHMole, 371.8376924,-1,667.1582144,256.0246635,245.1682964,216.5467594,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1);
+      Print(CLivTCOHMole, 1.000  1.001  1.002  2.000  2.001  2.002  6.000  6.001  6.002 12.000 12.001 12.002 24.000 24.001 24.002 36.000 36.001 36.002);
+      Data(CLivTCOHMole, 600.3516761,130.9235096,571.2662393,336.6027594,550.7591477,596.9013417,96.23578868,78.37395989,163.9070194,-1,-1,-1,-1,-1,-1,-1,-1,-1);
       #Print(Ckid_tch, 0);
       #Data(Ckid_tch, -1);
       #Print(Cbrn_tch, 0);
@@ -429,10 +456,10 @@ Level { # group strains
       Data(CBrnTCAMole, 127.3266,136.602,123.0097,129.9366,80.77031,202.7271,202.9802,118.251,188.2703,102.8193,175.8525,205.301,170.792,101.6145,83.37967,96.09308,82.66092,112.649);
       Print(CLngTCAMole, 1.000  1.001  1.002  2.000  2.001  2.002  6.000  6.001  6.002 12.000 12.001 12.002 24.000 24.001 24.002 36.000 36.001 36.002);
       Data(CLngTCAMole, 301.6994,377.0107,283.7571,356.2526,13.09494,502.709,485.2544,413.5374,484.8533,194.9373,396.9378,515.4495,391.1874,86.35006,14.23748,267.2706,84.85808,98.39729);
-      #Print(Csrm_tch, 0);
-      #Data(Csrm_tch, -1);
-      #Print(Cliv_tch, 0);
-      #Data(Cliv_tch, -1);
+      Print(CBldTCOHMole, 1.000  1.001  1.002  2.000  2.001  2.002  6.000  6.001  6.002 12.000 12.001 12.002 24.000 24.001 24.002 36.000 36.001 36.002);
+      Data(CBldTCOHMole, 828.1557714,644.3518967,502.5350884,924.3144403,-1,682.2104919,-1,-1,76.64193856,-1,-1,-1,-1,-1,-1,-1,-1,-1);
+      Print(CLivTCOHMole, 1.000  1.001  1.002  2.000  2.001  2.002  6.000  6.001  6.002 12.000 12.001 12.002 24.000 24.001 24.002 36.000 36.001 36.002);
+      Data(CLivTCOHMole, 1295.769149,1136.625941,1402.720494,1608.707646,-1,1646.889219,135.9341546,76.90175679,110.1547302,-1,-1,-1,-1,-1,-1,-1,-1,-1);
       #Print(Ckid_tch, 0);
       #Data(Ckid_tch, -1);
       #Print(Cbrn_tch, 0);
@@ -458,7 +485,6 @@ Level { # group strains
 #      Print(CLngDCVGMole_ND, 24.000 24.001 24.002 36.000 36.001 36.002);
 #      Data(CLngDCVGMole_ND, 0 0 0 0 0 0);
 
-      
       #Print(Csrm_dcc, 1.000  1.001  1.002  2.000  2.001  2.002  6.000  6.001  6.002 12.000 12.001 12.002 24.000 24.001 24.002 36.000 36.001 36.002);
       #Data(Csrm_dcc, -1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1);
       #Print(Cliv_dcc, 1.000  1.001  1.002  2.000  2.001  2.002  6.000  6.001  6.002 12.000 12.001 12.002 24.000 24.001 24.002 36.000 36.001 36.002);

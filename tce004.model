@@ -175,9 +175,9 @@ PLngDCVG; lnPLngDCVGC = 0.0; #(v002)
 PBodDCVG; lnPBodDCVGC = 0.0; #(v002)
 
 FracTCA; FracTCA0 = 0.32; lnFracTCAC = 0.0; #(v004)
-lnISTCA = 0.0; #(v004)
 # FracOther = 0;
 lnISOx = 0.0; 
+lnISTCA = 0.0; #(v004)
 lnISConj = 0.0;
 lnISkTCA = 0.0;
 VMax; VMax0 = 2700; lnVMaxC = 0.0; # VMax for hepatic TCE oxidation (mg/hr)
@@ -266,6 +266,12 @@ V_lnPLngC;
 V_lnPFatC;
 V_lnPSlwC;
 V_lnPRapC;
+
+V_lnPLivTCOHC; #(v004)
+V_lnPKidTCOHC; #(v004)
+V_lnPBrnTCOHC; #(v004)
+V_lnPLngTCOHC; #(v004)
+V_lnPBodTCOHC; #(v004)
 
 V_lnPLivTCAC; #(v002)
 V_lnPKidTCAC; #(v002)
