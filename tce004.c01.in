@@ -80,7 +80,7 @@ Distrib(	M_lnClDCVGC	Uniform -6.908 6.908); #(v003)
 #Distrib(	M_lnVMaxLungLivC Uniform 1 3);
 #Distrib(	M_lnKMClara	Uniform	-7	-3);
 Distrib( M_lnISOx Uniform	-4.605 4.605);
-Distrib( M_lnISTCA Uniform -4.605 4.605); # (v004)
+#Distrib( M_lnISTCA Uniform -4.605 4.605); # (v004)
 Distrib( M_lnISConj	Uniform	-4.605 4.605);
 Distrib( M_lnISkTCA	Uniform	-4.605 4.605);
 Distrib(	M_lnkUrnC	Uniform -4.605 4.605);
@@ -132,7 +132,7 @@ Distrib(	V_lnClDCVGC	InvGamma	2.25	0.3125	) #(v003);
 #Distrib(	V_lnVMaxLungLivC	InvGamma	2.25	0.3125	);
 #Distrib(	V_lnKMClara	InvGamma	2.25	0.3125	);
 Distrib(	V_lnISOx	InvGamma	2.25	5.0000	);
-Distrib(	V_lnISTCA	InvGamma	2.25	5.0000	);
+#Distrib(	V_lnISTCA	InvGamma	2.25	5.0000	);
 Distrib(	V_lnISConj	InvGamma	2.25	5.0000	);
 Distrib(    V_lnISkTCA	InvGamma	2.25	5.0000      );
 Distrib(	V_lnkUrnC	InvGamma	2.25	5.0000	);
@@ -246,7 +246,7 @@ Level { # group
 	#Distrib(	lnVMaxLungLivC TruncNormal_v	M_lnVMaxLungLivC V_lnVMaxLungLivC 1 3);
 	#Distrib(	lnKMClara	TruncNormal_v M_lnKMClara V_lnKMClara -7 -3);
 	Distrib(    lnISOx TruncNormal_v	M_lnISOx V_lnISOx -4.605 4.605);
-	Distrib(    lnISTCA TruncNormal_v M_lnISTCA V_lnISTCA	-4.605 4.605);
+#	Distrib(    lnISTCA TruncNormal_v M_lnISTCA V_lnISTCA	-4.605 4.605);
 	Distrib(    lnISConj TruncNormal_v M_lnISConj V_lnISConj -4.605 4.605);
 	Distrib(    lnISkTCA TruncNormal_v M_lnISkTCA V_lnISkTCA -4.605 4.605);
 	Distrib(	lnkUrnC TruncNormal_v M_lnkUrnC V_lnkUrnC -4.605 4.605);
