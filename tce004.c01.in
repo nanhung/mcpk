@@ -10,7 +10,7 @@ Level { # population
 # Add VMaxTCOH and KMTCOH
 # Fix VMaxDCVGC / converge OK
 # Use all data and remove LivTCOH_ND / converge fail
-# Remove BrnTCOH and LngTCOH 
+# Remove BrnTCOH and LngTCOH (narrow KMTCOH and VMaxTCOH)
 
 lnkTSD = -0.0199;
 lnkAS =1.2938;
