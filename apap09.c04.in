@@ -1,7 +1,7 @@
 Integrate(Lsodes, 1.0e-5, 3.09e-7, 1);
 MCMC("apap09.c04.out", 
 "", "", 
-80000, 0, 80, 80000, 4444); # Full calibration
+50000, 0, 50, 50000, 4444); # Full calibration
 
 
 Level { # Population Level
@@ -31,12 +31,12 @@ Distrib(M_lnTg, Uniform, -2.3026 0.0974);
 #Distrib(M_lnCYP_Km, Uniform, 3.6122 6.0122);
 #Distrib(M_lnCYP_VmaxC, Uniform,-0.2561 2.1439); 
 
-Distrib(M_lnSULT_Km_apap, Uniform, 5.8901 8.2901);
+Distrib(M_lnSULT_Km_apap, TruncNormal, 5.703, 1.0, 4.24, 7.166); # use previous
 #Distrib(M_lnSULT_Ki, Uniform, 4.9696 7.3696);
 #Distrib(M_lnSULT_Km_paps, Uniform, -2.2642 0.1358);
 Distrib(M_lnSULT_VmaxC, Uniform, 4.9463 7.3696);
 
-Distrib(M_lnUGT_Km, Uniform, 7.5226 9.9226);
+Distrib(M_lnUGT_Km, TruncNormal, 8.6995, 1., 7.6009, 9.3926); # use previous
 #Distrib(M_lnUGT_Ki, Uniform, 9.6178 12.0178);
 #Distrib(M_lnUGT_Km_GA, Uniform, -2.2700 0.1300);
 Distrib(M_lnUGT_VmaxC, Uniform, 7.3583 9.7583); 
@@ -107,12 +107,12 @@ Distrib(lnTg, TruncNormal_v, M_lnTg, Var_lnTg, -2.3026 0.0974);
 #Distrib(lnCYP_Km, TruncNormal_v, M_lnCYP_Km, Var_lnCYP_Km, 3.6122 6.0122);
 #Distrib(lnCYP_VmaxC, TruncNormal_v, M_lnCYP_VmaxC, Var_lnCYP_VmaxC, -0.2561 2.1439); 
 
-Distrib(lnSULT_Km_apap, TruncNormal_v, M_lnSULT_Km_apap, Var_lnSULT_Km_apap, 5.8901 8.2901);
+Distrib(lnSULT_Km_apap, TruncNormal_v, M_lnSULT_Km_apap, Var_lnSULT_Km_apap, 4.24, 7.166); # use previous
 #Distrib(lnSULT_Ki, TruncNormal_v, M_lnSULT_Ki, Var_lnSULT_Ki, 4.9696 7.3696);
 #Distrib(lnSULT_Km_paps, TruncNormal_v, M_lnSULT_Km_paps, Var_lnSULT_Km_paps,-2.2642 0.1358);
 Distrib(lnSULT_VmaxC, TruncNormal_v, M_lnSULT_VmaxC, Var_lnSULT_VmaxC, 4.9463 7.3696);
 
-Distrib(lnUGT_Km, TruncNormal_v, M_lnUGT_Km, Var_lnUGT_Km, 7.5226 9.9226);
+Distrib(lnUGT_Km, TruncNormal_v, M_lnUGT_Km, Var_lnUGT_Km, 7.6009, 9.3926); # use previous
 #Distrib(lnUGT_Ki, TruncNormal_v, M_lnUGT_Ki, Var_lnUGT_Ki, 9.6178 12.0178);
 #Distrib(lnUGT_Km_GA, TruncNormal_v, M_lnUGT_Km_GA, Var_lnUGT_Km_GA, -2.2700 0.1300);
 Distrib(lnUGT_VmaxC, TruncNormal_v, M_lnUGT_VmaxC, Var_lnUGT_VmaxC, 7.3583 9.7583);
