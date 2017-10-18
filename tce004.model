@@ -398,7 +398,7 @@ Initialize {
 	kUrn = kUrn0 * exp(lnkUrnC) * BW / (VKid * PKid);
 	kUrnTCOH = kUrnTCOH0 * exp(lnkUrnTCOHC) * BW / (VKid * PKidTCOH);  #(v004)
 	kUrnTCA = kUrnTCA0 * exp(lnISkTCA) * exp(lnkUrnTCAC) * BW / (VKid * PKidTCA);  #(v002)
-	FracTCA = FracTCA0 * exp(lnISTCA + lnFracTCAC) / (1 + FracTCA0 * exp(lnISTCA + lnFracTCAC)); #(v004)
+	FracTCA = FracTCA0 * exp(lnFracTCAC); #(v004) revised
 	
 	#FracTCA = exp(lnFracTCA);
 #	kMetTCA = exp(lnkMetTCA);
