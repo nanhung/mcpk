@@ -184,6 +184,8 @@ lnISConj = 0.0;
 lnISkTCA = 0.0;
 VMax; VMax0 = 2700; lnVMaxC = 0.0; # VMax for hepatic TCE oxidation (mg/hr)
 KM; KM0 = 36; lnKMC = 0.0; # KM for hepatic TCE oxidation (mg/L)
+VMaxTCOH; lnVMaxTCOHC	= 0.0;	# Scaled by BW^0.75
+KMTCOH; lnKMTCOHC	= 0.0; 
 VMaxDCVG; VMaxDCVG0 = 300; lnVMaxDCVGC = 0.0;# VMax for hepatic TCE GSH conjugation (mg/hr)
 KMDCVG; ClDCVG0 = 1.53; lnClDCVGC = 0.0; # KM for hepatic TCE GSH conjugation (mg/L)
 #VMaxKidDCVG; lnVMaxKidDCVG = 1; # VMax for renal TCE GSH conjugation (mg/hr)
@@ -240,6 +242,8 @@ M_lnISkTCA;
 
 M_lnVMaxC;
 M_lnKMC;
+M_lnVMaxTCOHC;
+M_lnKMTCOHC; 
 M_lnVMaxDCVGC;
 M_lnClDCVGC;
 #M_lnVMaxKidDCVG;
@@ -294,6 +298,8 @@ V_lnISTCA; #(004)
 
 V_lnVMaxC;
 V_lnKMC;
+V_lnVMaxTCOHC;
+V_lnKMTCOHC; 
 V_lnVMaxDCVGC;
 V_lnClDCVGC;
 #V_lnVMaxKidDCVG;
@@ -383,6 +389,8 @@ Initialize {
 	#KMClara = exp(lnKMClara);
 	VMax = VMax0 * exp(lnISOx) * VLivC * exp(lnVMaxC);
 	KM = KM0 * exp(lnKMC);
+	VMaxTCOH = pow(BW, 0.75) * exp(lnVMaxTCOHC);
+	KMTCOH = exp(lnKMTCOHC);
 	VMaxDCVG = VMaxDCVG0 * exp(lnISConj) * VLivC * exp(lnVMaxDCVGC);
 	KMDCVG = VMaxDCVG/(VLivC * ClDCVG0 * exp(lnClDCVGC));
 #	VMaxKidDCVG = exp(lnVMaxKidDCVG);
@@ -514,7 +522,7 @@ Dynamics {
 
 #**** Liver *******************************************************************
 # Rate of oxidation of TCOH to TCA (mg/hr)
-#	RAMetTCOHTCA = (VMaxTCOH * CVLivTCOH) / (KMTCOH + CVLivTCOH);
+	RAMetTCOHTCA = (VMaxTCOH * CVLivTCOH) / (KMTCOH + CVLivTCOH);
 # Amount of glucuronidation to TCOG (mg/hr)
 #	RAMetTCOHGluc = (VMaxGluc * CVLivTCOH) / (KMGluc + CVLivTCOH);
 # Amount of TCOH metabolized to other (e.g., DCA)
@@ -522,8 +530,8 @@ Dynamics {
 # Amount of TCOH-Gluc recirculated (mg)
 #	RARecircTCOG = kEHR * ABileTCOG;
 
-dt(ALivTCOH) = QGutLiv * (CBldTCOH - CVLivTCOH) 
-		# - RAMetTCOH - RAMetTCOHTCA - RAMetTCOHGluc 
+dt(ALivTCOH) = QGutLiv * (CBldTCOH - CVLivTCOH) - RAMetTCOHTCA
+		# - RAMetTCOH - RAMetTCOHGluc 
 		+ (1.0 - FracTCA) * RAMetLiv1; 
 
 #**** kidney ***************************************
@@ -570,7 +578,7 @@ dt(ALivTCOH) = QGutLiv * (CBldTCOH - CVLivTCOH)
 # Rate of metabolism of TCA
 #	RAMetTCA = kMetTCA * ALivTCA;
 # Dynamics for amount of TCA in the liver (mg)
-    dt(ALivTCA) = QGutLiv * (CBldTCA - CVLivTCA) + FracTCA * RAMetLiv1 ;# -RAMetTCA
+    dt(ALivTCA) = QGutLiv * (CBldTCA - CVLivTCA) + FracTCA * RAMetLiv1 + RAMetTCOHTCA ;# -RAMetTCA
 				  #+ (FracTCA * StochTCATCE * RAMetLiv1); 
 				  
 #**** kidney ***************************************
