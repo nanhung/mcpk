@@ -1,7 +1,7 @@
 Integrate (Lsodes, 1e-6, 1e-9, 1);
 MCMC ("tce004.c03.out",
        "", "",                     
-       20000, 0, 20, 20000, 3333);
+       16000, 0, 16, 16000, 3333);
        
 Level { # population
 
@@ -11,7 +11,8 @@ Level { # population
 # Fix VMaxDCVGC / converge OK
 # Use all data and remove LivTCOH_ND / converge fail
 # Remove BrnTCOH and LngTCOH (narrow KMTCOH and VMaxTCOH)
-# narrow ISkTCA, add all data, fix VMax
+# narrow ISkTCA, add all data, fix VMax / Converge GOOD!
+# Extend PC of TCOH (1.2 to 1.8) and add KidDCVG_ND
 
 lnkTSD = -0.0199;
 lnkAS =1.2938;
@@ -20,7 +21,6 @@ lnkAD = -1.238;
 
 lnVMaxC = 0;
 lnVMaxDCVGC = 4.3;
-
 
 lnPFatC = 0.25;
 lnPGutC = -0.66;
@@ -58,13 +58,13 @@ Distrib(	M_lnQCC	TruncNormal	0.0	0.2	-0.8	0.8	);
 #Distrib(	M_lnPRapC	TruncNormal	0.0	0.4	-1.2	1.2	);
 #Distrib(	M_lnPSlwC	TruncNormal	0.0	0.4	-1.2	1.2	);
 
-Distrib(	M_lnPLivTCOHC	TruncNormal	0.0	0.4	-1.2	1.2	); #(v004)
-Distrib(	M_lnPKidTCOHC	TruncNormal	0.0	0.4	-1.2	1.2	); #(v004)
-Distrib(	M_lnPBrnTCOHC	TruncNormal	0.0	0.4	-1.2	1.2	); #(v004)
-Distrib(	M_lnPLngTCOHC	TruncNormal	0.0	0.4	-1.2	1.2	); #(v004)
+Distrib(	M_lnPLivTCOHC	TruncNormal	0.0	0.6	-1.8	1.8	); #(v004)
+Distrib(	M_lnPKidTCOHC	TruncNormal	0.0	0.6	-1.8	1.8	); #(v004)
+Distrib(	M_lnPBrnTCOHC	TruncNormal	0.0	0.6	-1.8	1.8	); #(v004)
+Distrib(	M_lnPLngTCOHC	TruncNormal	0.0	0.6	-1.8	1.8	); #(v004)
 
 #Distrib(	M_lnPLivTCAC	TruncNormal	0.0	0.4	-1.2	1.2	); #(v002)
-#Distrib(	M_lnPKidTCAC	TruncNormal	0.0 0.4	-1.2	1.2	); #(v002)
+#Distrib(	M_lnPKidTCAC	TruncNormal	0.0   0.4	-1.2	1.2	); #(v002)
 #Distrib(	M_lnPBrnTCAC	TruncNormal	0.0	0.4	-1.2	1.2	); #(v002)
 #Distrib(	M_lnPLngTCAC	TruncNormal	0.0	0.4	-1.2	1.2	); #(v002)
 #Distrib(	M_lnPBodTCAC	TruncNormal	0.0	0.4	-1.2	1.2	); #(v002)
@@ -112,10 +112,10 @@ Distrib(	V_lnQCC	InvGamma	2.25	0.0500	);
 #Distrib(	V_lnPRapC	InvGamma	2.25	0.2000	);
 #Distrib(	V_lnPSlwC	InvGamma	2.25	0.2000	);
 
-Distrib(	V_lnPLivTCOHC	InvGamma	2.25	0.2000	); #(v004)
-Distrib(	V_lnPKidTCOHC	InvGamma	2.25	0.2000	); #(v004)
-Distrib(	V_lnPBrnTCOHC	InvGamma	2.25	0.2000	); #(v004)
-Distrib(	V_lnPLngTCOHC	InvGamma	2.25	0.2000	); #(v004)
+Distrib(	V_lnPLivTCOHC	InvGamma	2.25 0.3125	); #(v004)
+Distrib(	V_lnPKidTCOHC	InvGamma	2.25 0.3125	); #(v004)
+Distrib(	V_lnPBrnTCOHC	InvGamma	2.25 0.3125	); #(v004)
+Distrib(	V_lnPLngTCOHC	InvGamma	2.25 0.3125	); #(v004)
 
 #Distrib(	V_lnPLivTCAC	InvGamma	2.25	0.2000	); #(v002)
 #Distrib(	V_lnPKidTCAC	InvGamma	2.25	0.2000	); #(v002)
@@ -205,7 +205,7 @@ Likelihood (CBldTCOHMole_ND , StudentT, 5, Prediction(CBldTCOHMole_ND), 8.0);
 #Likelihood (CLivTCOHMole_ND , StudentT, 5, Prediction(CLivTCOHMole_ND), 5.0);
 
 Likelihood (CBldDCVGMole_ND, StudentT, 5, Prediction(CBldDCVGMole_ND), 1E-04);
-#Likelihood (CKidDCVGMole_ND, StudentT, 5, Prediction(CKidDCVGMole_ND), 4E-05);
+Likelihood (CKidDCVGMole_ND, StudentT, 5, Prediction(CKidDCVGMole_ND), 4E-05);
 #Likelihood (CBrnDCVGMole_ND, StudentT, 5, Prediction(CBrnDCVGMole_ND), 1.2E-04);
 #Likelihood (CLngDCVGMole_ND, StudentT, 5, Prediction(CLngDCVGMole_ND), 1.7E-04);
 
@@ -225,10 +225,10 @@ Level { # group
 #	Distrib(	lnPRapC TruncNormal_v M_lnPRapC V_lnPRapC -1.2	1.2	);
 #	Distrib(	lnPSlwC TruncNormal_v M_lnPSlwC V_lnPSlwC -1.2	1.2	);
 
-	Distrib(	lnPLivTCOHC TruncNormal_v M_lnPLivTCOHC V_lnPLivTCOHC -1.2	1.2	); #(v004)
-	Distrib(	lnPKidTCOHC TruncNormal_v M_lnPKidTCOHC V_lnPKidTCOHC -1.2	1.2	); #(v004)
-	Distrib(	lnPBrnTCOHC TruncNormal_v M_lnPBrnTCOHC V_lnPBrnTCOHC -1.2	1.2	); #(v004)
-	Distrib(	lnPLngTCOHC TruncNormal_v M_lnPLngTCOHC V_lnPLngTCOHC -1.2	1.2	); #(v004)
+	Distrib(	lnPLivTCOHC TruncNormal_v M_lnPLivTCOHC V_lnPLivTCOHC -1.8	1.8	); #(v004)
+	Distrib(	lnPKidTCOHC TruncNormal_v M_lnPKidTCOHC V_lnPKidTCOHC -1.8	1.8	); #(v004)
+	Distrib(	lnPBrnTCOHC TruncNormal_v M_lnPBrnTCOHC V_lnPBrnTCOHC -1.8	1.8	); #(v004)
+	Distrib(	lnPLngTCOHC TruncNormal_v M_lnPLngTCOHC V_lnPLngTCOHC -1.8	1.8	); #(v004)
 
 #	Distrib(	lnPLivTCAC TruncNormal_v M_lnPLivTCAC V_lnPLivTCAC -1.2	1.2	); #(v002)
 #	Distrib(	lnPKidTCAC TruncNormal_v M_lnPKidTCAC V_lnPKidTCAC -1.2	1.2	); #(v002)
@@ -324,8 +324,8 @@ Level { # group B6C3F1
       Data(CLngDCVGMole, 0.01725422142,0.01280681164,0.009923539632,0.004184067676,0.004878091328,0.001987924296,-1,0.001922904357,0.000507181279,-1,-1,-1,-1,-1,-1,-1,-1,-1);
       Print(CBldDCVGMole_ND, 24.000 24.001 24.002 36.000 36.001 36.002);
       Data(CBldDCVGMole_ND, 0 0 0 0 0 0);
-#      Print(CKidDCVGMole_ND, 24.000 24.001 24.002 36.000 36.001 36.002);
-#      Data(CKidDCVGMole_ND, 0 0 0 0 0 0);
+      Print(CKidDCVGMole_ND, 24.000 24.001 24.002 36.000 36.001 36.002);
+      Data(CKidDCVGMole_ND, 0 0 0 0 0 0);
 #      Print(CBrnDCVGMole_ND, 24.000 24.001 24.002 36.000 36.001 36.002);
 #      Data(CBrnDCVGMole_ND, 0 0 0 0 0 0);
 #      Print(CLngDCVGMole_ND, 24.000 24.001 24.002 36.000 36.001 36.002);
@@ -416,8 +416,8 @@ Level { # Group C57BL/6
       Data(CLngDCVGMole, 0.01514029,0.02200417,-1,0.003734234,0.009383888,0.008182497,0.00056236,0.000552636,0.000705897,-1,-1,-1,-1,-1,-1,-1,-1,-1);
       Print(CBldDCVGMole_ND, 24.000 24.001 24.002 36.000 36.001 36.002);
       Data(CBldDCVGMole_ND, 0 0 0 0 0 0);
-#      Print(CKidDCVGMole_ND, 24.000 24.001 24.002 36.000 36.001 36.002);
-#      Data(CKidDCVGMole_ND, 0 0 0 0 0 0);
+      Print(CKidDCVGMole_ND, 24.000 24.001 24.002 36.000 36.001 36.002);
+      Data(CKidDCVGMole_ND, 0 0 0 0 0 0);
 #      Print(CBrnDCVGMole_ND, 24.000 24.001 24.002 36.000 36.001 36.002);
 #      Data(CBrnDCVGMole_ND, 0 0 0 0 0 0);
 #      Print(CLngDCVGMole_ND, 24.000 24.001 24.002 36.000 36.001 36.002);
@@ -509,8 +509,8 @@ Level { # group strains
       Data(CLngDCVGMole, 0.02308536465,0.008938728531,0.008711333897,0.00446071771,-1,0.004276699307,0.000613011305,0.000538428338,0.000510360646,-1,-1,0.001593399946,-1,-1,-1,-1,-1,-1);
       Print(CBldDCVGMole_ND, 24.000 24.001 24.002 36.000 36.001 36.002);
       Data(CBldDCVGMole_ND, 0 0 0 0 0 0);
-#      Print(CKidDCVGMole_ND, 24.000 24.001 24.002 36.000 36.001 36.002);
-#      Data(CKidDCVGMole_ND, 0 0 0 0 0 0);
+      Print(CKidDCVGMole_ND, 24.000 24.001 24.002 36.000 36.001 36.002);
+      Data(CKidDCVGMole_ND, 0 0 0 0 0 0);
 #      Print(CBrnDCVGMole_ND, 24.000 24.001 24.002 36.000 36.001 36.002);
 #      Data(CBrnDCVGMole_ND, 0 0 0 0 0 0);
 #      Print(CLngDCVGMole_ND, 24.000 24.001 24.002 36.000 36.001 36.002);
