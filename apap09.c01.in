@@ -25,7 +25,7 @@ lnVmax_AS = 16.45457;
 lnkGA_syn = 10.49127;
 lnkPAPS_syn = 8.205218;
 
-Distrib(M_lnTg, Uniform, -2.3026 0.0974);
+Distrib(M_lnTg, TruncNormal, -1.4552, 0.5, -2.5, 0.0); # use previous
 #Distrib(M_lnTp, Uniform, -4.2449 -1.8449);
 
 #Distrib(M_lnCYP_Km, Uniform, 3.6122 6.0122);
@@ -41,7 +41,7 @@ Distrib(M_lnUGT_Km, TruncNormal, 8.6995, 1., 7.6009, 9.3926); # use previous
 #Distrib(M_lnUGT_Km_GA, Uniform, -2.2700 0.1300);
 Distrib(M_lnUGT_VmaxC, Uniform, 7.3583 9.7583); 
 
-Distrib(M_lnKm_AG, Uniform, 8.5700 10.9700);
+Distrib(M_lnKm_AG, TruncNormal, 9.903, 0.3, 8.071, 10.513); # use previous
 Distrib(M_lnVmax_AG, Uniform, 9.2745 11.6745);
 #Distrib(M_lnKm_AS, Uniform, 8.8123 11.2123);
 #Distrib(M_lnVmax_AS, Uniform, 15.2546 17.6546);
@@ -101,7 +101,7 @@ Likelihood(Data(lnCPL_AS_mcgL), Normal_v, Prediction(lnCPL_AS_mcgL), Verr_lnCPL_
 
 
 Level { # Group Level
-Distrib(lnTg, TruncNormal_v, M_lnTg, Var_lnTg, -2.3026 0.0974);
+Distrib(lnTg, TruncNormal_v, M_lnTg, Var_lnTg, -2.5, 0.0); # use previous
 #Distrib(lnTp, TruncNormal_v, M_lnTp, Var_lnTp, -4.2449 -1.8449);
 
 #Distrib(lnCYP_Km, TruncNormal_v, M_lnCYP_Km, Var_lnCYP_Km, 3.6122 6.0122);
@@ -117,7 +117,7 @@ Distrib(lnUGT_Km, TruncNormal_v, M_lnUGT_Km, Var_lnUGT_Km, 7.6009, 9.3926); # us
 #Distrib(lnUGT_Km_GA, TruncNormal_v, M_lnUGT_Km_GA, Var_lnUGT_Km_GA, -2.2700 0.1300);
 Distrib(lnUGT_VmaxC, TruncNormal_v, M_lnUGT_VmaxC, Var_lnUGT_VmaxC, 7.3583 9.7583);
 
-Distrib(lnKm_AG, TruncNormal_v, M_lnKm_AG, Var_lnKm_AG, 8.5700 10.9700);
+Distrib(lnKm_AG, TruncNormal_v, M_lnKm_AG, Var_lnKm_AG, 8.071, 10.513); # use previous
 Distrib(lnVmax_AG, TruncNormal_v, M_lnVmax_AG, Var_lnVmax_AG, 9.2745 11.6745);
 #Distrib(lnKm_AS, TruncNormal_v, M_lnKm_AS, Var_lnKm_AS, 8.8123 11.2123);
 #Distrib(lnVmax_AS, TruncNormal_v, M_lnVmax_AS, Var_lnVmax_AS, 15.2546 17.6546);
