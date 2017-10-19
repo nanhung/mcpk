@@ -13,7 +13,7 @@ Level { # population
 # Remove BrnTCOH and LngTCOH (narrow KMTCOH and VMaxTCOH)
 # narrow ISkTCA, add all data, fix VMax / Converge GOOD!
 # Extend PC of TCOH (1.2 to 1.8) and add KidDCVG_ND / Converge GOOD!
-# Test VMaxDCVG and PC DCVG / Converge Fail / fix VMaxTCOHC
+# Test VMaxDCVG and PC DCVG / Converge Fail / fix VMaxTCOHC Converge GOOD!
 
 lnkTSD = -0.0199;
 lnkAS =1.2938;
@@ -207,7 +207,7 @@ Likelihood (CBldTCOHMole_ND , StudentT, 5, Prediction(CBldTCOHMole_ND), 8.0);
 #Likelihood (CLivTCOHMole_ND , StudentT, 5, Prediction(CLivTCOHMole_ND), 5.0);
 
 Likelihood (CBldDCVGMole_ND, StudentT, 5, Prediction(CBldDCVGMole_ND), 1E-04);
-Likelihood (CKidDCVGMole_ND, StudentT, 5, Prediction(CKidDCVGMole_ND), 4E-05);
+#Likelihood (CKidDCVGMole_ND, StudentT, 5, Prediction(CKidDCVGMole_ND), 4E-05);
 #Likelihood (CBrnDCVGMole_ND, StudentT, 5, Prediction(CBrnDCVGMole_ND), 1.2E-04);
 #Likelihood (CLngDCVGMole_ND, StudentT, 5, Prediction(CLngDCVGMole_ND), 1.7E-04);
 
@@ -326,8 +326,8 @@ Level { # group B6C3F1
       Data(CLngDCVGMole, 0.01725422142,0.01280681164,0.009923539632,0.004184067676,0.004878091328,0.001987924296,-1,0.001922904357,0.000507181279,-1,-1,-1,-1,-1,-1,-1,-1,-1);
       Print(CBldDCVGMole_ND, 24.000 24.001 24.002 36.000 36.001 36.002);
       Data(CBldDCVGMole_ND, 0 0 0 0 0 0);
-      Print(CKidDCVGMole_ND, 24.000 24.001 24.002 36.000 36.001 36.002);
-      Data(CKidDCVGMole_ND, 0 0 0 0 0 0);
+#      Print(CKidDCVGMole_ND, 24.000 24.001 24.002 36.000 36.001 36.002);
+#      Data(CKidDCVGMole_ND, 0 0 0 0 0 0);
 #      Print(CBrnDCVGMole_ND, 24.000 24.001 24.002 36.000 36.001 36.002);
 #      Data(CBrnDCVGMole_ND, 0 0 0 0 0 0);
 #      Print(CLngDCVGMole_ND, 24.000 24.001 24.002 36.000 36.001 36.002);
@@ -418,8 +418,8 @@ Level { # Group C57BL/6
       Data(CLngDCVGMole, 0.01514029,0.02200417,-1,0.003734234,0.009383888,0.008182497,0.00056236,0.000552636,0.000705897,-1,-1,-1,-1,-1,-1,-1,-1,-1);
       Print(CBldDCVGMole_ND, 24.000 24.001 24.002 36.000 36.001 36.002);
       Data(CBldDCVGMole_ND, 0 0 0 0 0 0);
-      Print(CKidDCVGMole_ND, 24.000 24.001 24.002 36.000 36.001 36.002);
-      Data(CKidDCVGMole_ND, 0 0 0 0 0 0);
+#      Print(CKidDCVGMole_ND, 24.000 24.001 24.002 36.000 36.001 36.002);
+#      Data(CKidDCVGMole_ND, 0 0 0 0 0 0);
 #      Print(CBrnDCVGMole_ND, 24.000 24.001 24.002 36.000 36.001 36.002);
 #      Data(CBrnDCVGMole_ND, 0 0 0 0 0 0);
 #      Print(CLngDCVGMole_ND, 24.000 24.001 24.002 36.000 36.001 36.002);
@@ -511,8 +511,8 @@ Level { # group strains
       Data(CLngDCVGMole, 0.02308536465,0.008938728531,0.008711333897,0.00446071771,-1,0.004276699307,0.000613011305,0.000538428338,0.000510360646,-1,-1,0.001593399946,-1,-1,-1,-1,-1,-1);
       Print(CBldDCVGMole_ND, 24.000 24.001 24.002 36.000 36.001 36.002);
       Data(CBldDCVGMole_ND, 0 0 0 0 0 0);
-      Print(CKidDCVGMole_ND, 24.000 24.001 24.002 36.000 36.001 36.002);
-      Data(CKidDCVGMole_ND, 0 0 0 0 0 0);
+#      Print(CKidDCVGMole_ND, 24.000 24.001 24.002 36.000 36.001 36.002);
+#      Data(CKidDCVGMole_ND, 0 0 0 0 0 0);
 #      Print(CBrnDCVGMole_ND, 24.000 24.001 24.002 36.000 36.001 36.002);
 #      Data(CBrnDCVGMole_ND, 0 0 0 0 0 0);
 #      Print(CLngDCVGMole_ND, 24.000 24.001 24.002 36.000 36.001 36.002);
