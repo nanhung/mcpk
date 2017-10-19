@@ -13,7 +13,7 @@ Level { # population
 # Remove BrnTCOH and LngTCOH (narrow KMTCOH and VMaxTCOH)
 # narrow ISkTCA, add all data, fix VMax / Converge GOOD!
 # Extend PC of TCOH (1.2 to 1.8) and add KidDCVG_ND / Converge GOOD!
-# Test VMaxDCVG and PC DCVG
+# Test VMaxDCVG and PC DCVG / Converge Fail / fix VMaxTCOHC
 
 lnkTSD = -0.0199;
 lnkAS =1.2938;
@@ -22,6 +22,7 @@ lnkAD = -1.238;
 
 lnVMaxC = 0;
 #lnVMaxDCVGC = 4.3;
+lnVMaxTCOHC=2.8;
 
 lnPFatC = 0.25;
 lnPGutC = -0.66;
@@ -78,7 +79,7 @@ Distrib(	M_lnPLngDCVGC	TruncNormal	0.0 1.3 -3.9 3.9); #(v003)
 
 #Distrib(	M_lnVMaxC	TruncNormal	0.0	0.693 -2.079 2.079); 
 Distrib(	M_lnKMC	TruncNormal 0.0 1.386 -4.158 2.079);
-Distrib(	M_lnVMaxTCOHC Uniform -4.605 4.605 ); # (v004)
+#Distrib(	M_lnVMaxTCOHC Uniform -4.605 4.605 ); # (v004)
 Distrib(	M_lnKMTCOHC	Uniform -2.079 2.079); # (v004)
 Distrib(	M_lnFracTCAC TruncNormal 0.0 0.3 -0.9 0.9); # (v004)
 Distrib(	M_lnVMaxDCVGC Uniform -6.908 6.908); #(v003)
@@ -132,7 +133,7 @@ Distrib(	V_lnPLngDCVGC	InvGamma	2.25	0.3125	); #(v002)
 
 Distrib(	V_lnVMaxC	InvGamma	3	1.3585	);
 Distrib(	V_lnKMC	InvGamma	3	0.1458	);
-Distrib(	V_lnVMaxTCOHC	InvGamma	2.25	0.3125	); #(v004)
+#Distrib(	V_lnVMaxTCOHC	InvGamma	2.25	0.3125	); #(v004)
 Distrib(	V_lnKMTCOHC	InvGamma	2.25	0.3125	); #(v004)
 Distrib(	V_lnFracTCAC	InvGamma	2.25	0.3125	); #(v004)
 Distrib(	V_lnVMaxDCVGC	InvGamma	2.25	0.3125	); #(v003)
@@ -245,7 +246,7 @@ Level { # group
 
 #	Distrib(	lnVMaxC TruncNormal_v M_lnVMaxC V_lnVMaxC -2.079 2.079);
 	Distrib(	lnKMC	TruncNormal_v  M_lnKMC V_lnKMC -4.158 2.079);
-	Distrib(	lnVMaxTCOHC	TruncNormal_v	M_lnVMaxTCOHC	V_lnVMaxTCOHC	-4.605 4.605	);
+#	Distrib(	lnVMaxTCOHC	TruncNormal_v	M_lnVMaxTCOHC	V_lnVMaxTCOHC	-4.605 4.605	);
       Distrib(	lnKMTCOHC	TruncNormal_v	M_lnKMTCOHC	V_lnKMTCOHC	-2.079 2.079	);
 	Distrib(	lnFracTCAC	TruncNormal_v	M_lnFracTCAC	V_lnFracTCAC	-0.9 0.9	);
 	Distrib(	lnVMaxDCVGC TruncNormal_v M_lnVMaxDCVGC V_lnVMaxDCVGC -6.908	6.908); #(v003)
