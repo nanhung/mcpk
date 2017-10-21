@@ -1,11 +1,11 @@
 #BSUB -J mcsim_1		        ## sets the job name
 #BSUB -L /bin/bash		        ## uses the bash login shell to initialize the job's execution environment.
-#BSUB -W 48:00  	             ## sets to 48 hours the job's runtime wall-clock limit.
+#BSUB -W 8:00  	                ## sets to 8 hours the job's runtime wall-clock limit.
 #BSUB -n 4			            ## assigns 4 cores for execution.
 #BSUB -R "span[ptile=1]"        ## Request 1 core per node.
 #BSUB -R "rusage[mem=32]"       ## reserves 32MB per process/CPU for the job 
 #BSUB -M 32			            ## sets to 32MB as the per process enforceable memory limit.
-#BSUB -o tce1020.%J		        ## directs the job's standard output (%J is jobid)
+#BSUB -o tce1021.%J		        ## directs the job's standard output (%J is jobid)
 #BSUB -u nhsieh@cvm.tamu.edu    ## send all emails to email_address
 #BSUB -N                        ## Send email on job begin (-B) and end (-N)
 ##BSUB -P 082803364811          ## set account
