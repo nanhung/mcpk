@@ -24,10 +24,10 @@ MCMC ("tce220.c05.out",
 
 Level { #Population level
 
-# KMC = -2.44;
-KMClara = -5.05;
-KMGluc = 3.41;
-KMTCOH = -0.0643
+# lnKMC = -2.44;
+lnKMClara = -5.05;
+lnKMGluc = 3.41;
+lnKMTCOH = -0.0643;
 
 ###### POPULATION MEANS
 
@@ -186,7 +186,7 @@ Distrib(	V_lnkAS	InvGamma	2.25	5.0000	);
 Distrib(	V_lnkAD	InvGamma	2.25	5.0000	);
 					
 Distrib(	V_lnVMaxC	InvGamma	3	1.3585	);
-Distrib(	V_lnKMC	InvGamma	3	0.1458	);
+#Distrib(	V_lnKMC	InvGamma	3	0.1458	);
 Distrib(	V_lnFracOtherC	InvGamma	2.25	0.3125	);
 #Distrib(	V_lnFracTCAC	InvGamma	2.25	0.3125	);
 Distrib(	V_lnVMaxDCVGC	InvGamma	2.25	0.3125	);
@@ -420,7 +420,7 @@ Distrib(	lnkAD	TruncNormal_v	M_lnkAD	V_lnkAD	-7.195	6.62	);
 							
 							
 Distrib(	lnVMaxC	TruncNormal_v	M_lnVMaxC	V_lnVMaxC	-2.079	2.079	);
-Distrib(	lnKMC	TruncNormal_v	M_lnKMC	V_lnKMC	-4.158	2.079	);
+#Distrib(	lnKMC	TruncNormal_v	M_lnKMC	V_lnKMC	-4.158	2.079	);
 #Distrib(	lnClC	TruncNormal_v	M_lnClC	V_lnClC	0	1	);
 Distrib(	lnFracOtherC	TruncNormal_v	M_lnFracOtherC	V_lnFracOtherC	-6.908	6.908	);
 #Distrib(	lnFracTCAC	TruncNormal_v	M_lnFracTCAC	V_lnFracTCAC	-3.489	3.489	);
