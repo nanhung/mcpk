@@ -24,6 +24,11 @@ MCMC ("tce220.c07.out",
 
 Level { #Population level
 
+# KMC = -2.44;
+KMClara = -5.05;
+KMGluc = 3.41;
+KMTCOH = -0.0643
+
 ###### POPULATION MEANS
 
 Distrib(	M_lnQCC	TruncNormal	0.0	0.2	-0.8	0.8	);
@@ -75,7 +80,7 @@ Distrib(	M_lnkAS	Uniform			-6.571	7.244	);
 Distrib(	M_lnkAD	Uniform			-7.195	6.62	);
 
 Distrib(	M_lnVMaxC	TruncNormal	0.0	0.693	-2.079	2.079	);
-Distrib(	M_lnKMC	TruncNormal	0.0	1.386	-4.158	2.079	);
+#Distrib(	M_lnKMC	TruncNormal	0.0	1.386	-4.158	2.079	);
 #Distrib(	M_lnClC	Normal			0	1	);
 Distrib(	M_lnFracOtherC	Uniform			-6.908	6.908	);
 #Distrib(	M_lnFracTCAC	TruncNormal	0.0	1.163	-3.489	3.489	);
@@ -86,16 +91,16 @@ Distrib(	M_lnClDCVGC	Uniform			-6.908	6.908	);
 #Distrib(	M_lnClKidDCVGC	Uniform			-4.605	9.21	);
 #Distrib(	M_lnKMKidDCVGC	Normal			0	1	);
 #Distrib(	M_lnVMaxLungLivC	TruncNormal	0.0	1.099	-3.297	3.297	);
-Distrib(	M_lnKMClara	Uniform			-6.908	6.908	);
-Distrib(	M_lnFracLungSysC	Uniform			-6.908	6.908	);
+#Distrib(	M_lnKMClara	Uniform			-6.908	6.908	);
+#Distrib(	M_lnFracLungSysC	Uniform			-6.908	6.908	);
 							
 							
 Distrib(	M_lnVMaxTCOHC	Uniform			-9.21	9.21	);
 #Distrib(	M_lnClTCOHC	Normal			0	1	);
-Distrib(	M_lnKMTCOH	Uniform			-9.21	9.21	);
+#Distrib(	M_lnKMTCOH	Uniform			-9.21	9.21	);
 Distrib(	M_lnVMaxGlucC	Uniform			-9.21	9.21	);
 #Distrib(	M_lnClGlucC	Normal			0	1	);
-Distrib(	M_lnKMGluc	Uniform			-6.908	6.908	);
+#Distrib(	M_lnKMGluc	Uniform			-6.908	6.908	);
 Distrib(	M_lnkMetTCOHC	Uniform			-11.513	6.908	);
 							
 							
@@ -182,26 +187,21 @@ Distrib(	V_lnkAD	InvGamma	2.25	5.0000	);
 					
 Distrib(	V_lnVMaxC	InvGamma	3	1.3585	);
 Distrib(	V_lnKMC	InvGamma	3	0.1458	);
-#Distrib(	V_lnClC	InvGamma	#DIV/0!	#DIV/0!	);
 Distrib(	V_lnFracOtherC	InvGamma	2.25	0.3125	);
 #Distrib(	V_lnFracTCAC	InvGamma	2.25	0.3125	);
 Distrib(	V_lnVMaxDCVGC	InvGamma	2.25	0.3125	);
 Distrib(	V_lnClDCVGC	InvGamma	2.25	0.3125	);
-#Distrib(	V_lnKMDCVGC	InvGamma	#DIV/0!	#DIV/0!	);
 #Distrib(	V_lnVMaxKidDCVGC	InvGamma	2.25	0.3125	);
 #Distrib(	V_lnClKidDCVGC	InvGamma	2.25	0.3125	);
-#Distrib(	V_lnKMKidDCVGC	InvGamma	#DIV/0!	#DIV/0!	);
 #Distrib(	V_lnVMaxLungLivC	InvGamma	2.25	0.3125	);
-Distrib(	V_lnKMClara	InvGamma	2.25	0.3125	);
-Distrib(	V_lnFracLungSysC	InvGamma	2.25	0.3125	);
+#Distrib(	V_lnKMClara	InvGamma	2.25	0.3125	);
+#Distrib(	V_lnFracLungSysC	InvGamma	2.25	0.3125	);
 					
 					
 Distrib(	V_lnVMaxTCOHC	InvGamma	2.25	0.3125	);
-#Distrib(	V_lnClTCOHC	InvGamma	#DIV/0!	#DIV/0!	);
-Distrib(	V_lnKMTCOH	InvGamma	2.25	0.3125	);
+#Distrib(	V_lnKMTCOH	InvGamma	2.25	0.3125	);
 Distrib(	V_lnVMaxGlucC	InvGamma	2.25	0.3125	);
-#Distrib(	V_lnClGlucC	InvGamma	#DIV/0!	#DIV/0!	);
-Distrib(	V_lnKMGluc	InvGamma	2.25	0.3125	);
+#Distrib(	V_lnKMGluc	InvGamma	2.25	0.3125	);
 Distrib(	V_lnkMetTCOHC	InvGamma	2.25	0.3125	);
 					
 					
@@ -431,16 +431,16 @@ Distrib(	lnClDCVGC	TruncNormal_v	M_lnClDCVGC	V_lnClDCVGC	-6.908	6.908	);
 #Distrib(	lnClKidDCVGC	TruncNormal_v	M_lnClKidDCVGC	V_lnClKidDCVGC	-4.605	9.21	);
 #Distrib(	lnKMKidDCVGC	TruncNormal_v	M_lnKMKidDCVGC	V_lnKMKidDCVGC	0	1	);
 #Distrib(	lnVMaxLungLivC	TruncNormal_v	M_lnVMaxLungLivC	V_lnVMaxLungLivC	-3.297	3.297	);
-Distrib(	lnKMClara	TruncNormal_v	M_lnKMClara	V_lnKMClara	-6.908	6.908	);
-Distrib(	lnFracLungSysC	TruncNormal_v	M_lnFracLungSysC	V_lnFracLungSysC	-6.908	6.908	);
+#Distrib(	lnKMClara	TruncNormal_v	M_lnKMClara	V_lnKMClara	-6.908	6.908	);
+#Distrib(	lnFracLungSysC	TruncNormal_v	M_lnFracLungSysC	V_lnFracLungSysC	-6.908	6.908	);
 							
 							
 Distrib(	lnVMaxTCOHC	TruncNormal_v	M_lnVMaxTCOHC	V_lnVMaxTCOHC	-9.21	9.21	);
 #Distrib(	lnClTCOHC	TruncNormal_v	M_lnClTCOHC	V_lnClTCOHC	0	1	);
-Distrib(	lnKMTCOH	TruncNormal_v	M_lnKMTCOH	V_lnKMTCOH	-9.21	9.21	);
+#Distrib(	lnKMTCOH	TruncNormal_v	M_lnKMTCOH	V_lnKMTCOH	-9.21	9.21	);
 Distrib(	lnVMaxGlucC	TruncNormal_v	M_lnVMaxGlucC	V_lnVMaxGlucC	-9.21	9.21	);
 #Distrib(	lnClGlucC	TruncNormal_v	M_lnClGlucC	V_lnClGlucC	0	1	);
-Distrib(	lnKMGluc	TruncNormal_v	M_lnKMGluc	V_lnKMGluc	-6.908	6.908	);
+#Distrib(	lnKMGluc	TruncNormal_v	M_lnKMGluc	V_lnKMGluc	-6.908	6.908	);
 Distrib(	lnkMetTCOHC	TruncNormal_v	M_lnkMetTCOHC	V_lnkMetTCOHC	-11.513	6.908	);
 							
 							
