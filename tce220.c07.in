@@ -302,6 +302,8 @@ Distrib(	V_lnkUrnTCOGC	InvGamma	2.25	0.3125	);
 	Distrib( Ve_CKidMole , LogUniform , 0.01 , 3.3 ); #(v220)
 	Distrib( Ve_CBldTCAMole , LogUniform , 0.01 , 3.3 ); #(v220)
 	Distrib( Ve_CLivTCAMole , LogUniform , 0.01 , 3.3 ); #(v220)
+	Distrib( Ve_CTotTCOHMole , LogUniform , 0.01 , 3.3 ); #(v220)
+	Distrib( Ve_CLivTCOHMole , LogUniform , 0.01 , 3.3 ); #(v220)
 	
 #Likelihoods
 
@@ -528,6 +530,8 @@ Likelihood( CLivMole , LogNormal_v , Prediction( CLivMole ) , Ve_CLivMole );
 Likelihood( CKidMole , LogNormal_v , Prediction( CKidMole ) , Ve_CKidMole );
 Likelihood( CBldTCAMole , LogNormal_v , Prediction( CBldTCAMole ) , Ve_CBldTCAMole );
 Likelihood( CLivTCAMole , LogNormal_v , Prediction( CLivTCAMole ) , Ve_CLivTCAMole );
+Likelihood( CTotTCOHMole , LogNormal_v , Prediction( CTotTCOHMole ) , Ve_CTotTCOHMole );
+Likelihood( CLivTCOHMole , LogNormal_v , Prediction( CLivTCOHMole ) , Ve_CLivTCOHMole );
 
 Experiment { # Begin Yushuan B6C3F1
 Species =  3 ;
@@ -551,6 +555,11 @@ Print( CBldTCAMole, 1.000  1.001  1.002  2.000  2.001  2.002  6.000  6.001  6.00
 Data( CBldTCAMole, 205.9521,140.1762,116.6588,477.0697,243.5479,274.6172,14.04001,938.8795,294.468,109.8408,343.6692,311.866,361.13,324.274,688.4111,109.6035,37.08487,-1 );
 Print( CLivTCAMole, 1.000  1.001  1.002  2.000  2.001  2.002  6.000  6.001  6.002 12.000 12.001 12.002 24.000 24.001 24.002 36.000 36.001 36.002 );
 Data( CLivTCAMole, 124.342,127.398,153.7094,218.7358,145.2347,247.0382,12.61355,558.8154,299.7211,267.8219,4.280554,230.9855,151.8828,155.0781,244.5889,57.63927,19.69355,-1 );
+Print( CTotTCOHMole, 1.000  1.001  1.002  2.000  2.001  2.002  6.000  6.001  6.002 12.000 12.001 12.002 24.000 24.001 24.002 36.000 36.001 36.002 );
+Data( CTotTCOHMole, 497.7025235,451.9970844,299.4073406,458.940424,-1,228.6340515,-1,171.664217,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1);
+Print( CLivTCOHMole, 1.000  1.001  1.002  2.000  2.001  2.002  6.000  6.001  6.002 12.000 12.001 12.002 24.000 24.001 24.002 36.000 36.001 36.002 );
+Data( CLivTCOHMole, 655.6209986,762.6805362,775.6052889,961.8438503,-1,867.0697101,-1,472.8946995,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1);
+
 
 } # End Yushuan B6C3F1
 
