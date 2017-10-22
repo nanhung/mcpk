@@ -1,0 +1,133 @@
+#------------------------------------------------------
+# Simulation file for two-compartment ACAT model v2
+# 
+# Oral dosing of theophylline is simply simulated.
+#
+# Units: 
+# - time in hours
+# - volumes in liters
+# - masses of substances in micromoles
+# - concentrations of substances in microM
+#
+#------------------------------------------------------
+
+MonteCarlo ("acat2cpt.mtc.out", 1000, 1234);
+
+Integrate (Lsodes, 1e-6, 1e-6, 1);
+
+#-------------------------------------
+# Substance-specific parameters
+#-------------------------------------
+
+# Molecular mass (g/mol)
+MM = 180.17; # theophylline
+
+# Solute molal volume at normal boiling point
+Distrib (Mol_vol, Uniform, 120, 360); #(v2)
+
+# Absorption on(1)/off(0) switches
+#Distrib (f_Abs_stom, Binomial, 0.5, 1); #(v2)
+#Distrib (f_Abs_duod, Binomial, 0.5, 1); #(v2)
+#Distrib (f_Abs_jeju, Binomial, 0.5, 1); #(v2)
+#Distrib (f_Abs_ileum, Binomial, 0.5, 1); #(v2)
+#Distrib (f_Abs_cecum, Binomial, 0.5, 1); #(v2)
+#Distrib (f_Abs_colon, Binomial, 0.5, 1); #(v2)
+
+f_Abs_stom = 0;
+f_Abs_duod = 0;
+f_Abs_jeju = 1;
+f_Abs_ileum = 0;
+f_Abs_cecum = 0;
+f_Abs_colon = 0;
+
+# Dosage forms (0/1) switches
+#Distrib (G_immediate_d, Binomial, 0.5, 1); #(v2)
+#Distrib (G_immediate_u, Binomial, 0.5, 1); #(v2)
+#Distrib (G_delayed_d, Binomial, 0.5, 1); #(v2)
+#Distrib (G_delayed_u, Binomial, 0.5, 1); #(v2)
+
+G_immediate_d = 0;    #(v2)
+G_immediate_u = 1;    #(v2)
+G_delayed_d  = 0;     #(v2)
+G_delayed_u  = 0;     #(v2)
+
+# Weibull delayed release parameters
+Weibull_slope = 1;
+Distrib (Weibull_scale, Uniform, 0.1, 1); #(v2)
+Distrib (Weibull_lag, Uniform, 0, 1); #(v2)
+
+# Galenic radius (microm)
+Distrib (G_Radius Uniform, 5, 30); #(v2)
+
+# Powder density (g/ml)
+Distrib (lnG_DensityC TruncNormal	0.0	0.4	-1.2	1.2); #(v2)
+
+# Intrinsic (instantaneous) water solubility (microg/L)
+Distrib( lnSolubilityC TruncNormal	0.0	0.4	-1.2	1.2); #(v2)
+#lnSolubility = 17.96812;
+
+# Solubility factors
+SFA = 100; #(v2)
+SFB = 50; #(v2)
+
+# Precipitation rate (1/h)
+Distrib (K_precip Uniform 1.38e-4, 1.38e-3); #(v2)
+
+# Excretion over absorption rate constant ratios
+Distrib (Ke_over_a_epit, Uniform, 0.01, 1); #(v2)
+Distrib (Ke_over_a_tiss, Uniform, 0.01, 1); #(v2)
+
+# Effective permeability of g.i. tract epithelia
+Distrib (Peff, Uniform, 0.01, 1); # theophylline
+
+# Tissue / blood partition coefficients
+Distrib (PC_stom,  Uniform, 0.1, 10);
+Distrib (PC_duod,  Uniform, 0.1, 10);
+Distrib (PC_jeju,  Uniform, 0.1, 10);
+Distrib (PC_ileum, Uniform, 0.1, 10);
+Distrib (PC_cecum, Uniform, 0.1, 10);
+Distrib (PC_colon, Uniform, 0.1, 10);
+
+# Fractions unbound
+Distrib (Fu_plasma,  Uniform, 0, 1); #(v2)
+
+Distrib (Fu_met_stom,  Uniform, 0, 1); #(v2)
+Distrib (Fu_met_duod,  Uniform, 0, 1); #(v2)
+Distrib (Fu_met_jeju,  Uniform, 0, 1); #(v2)
+Distrib (Fu_met_ileum, Uniform, 0, 1); #(v2)
+Distrib (Fu_met_cecum, Uniform, 0, 1); #(v2)
+Distrib (Fu_met_colon, Uniform, 0, 1); #(v2)
+
+# Volumes (L)
+Distrib (V_central, Uniform, 0.1, 10);
+Distrib (V_periph, Uniform, 1, 10);
+
+# Michaelis-Menten Vmax (micromol/min/mg microsomal proteins)
+Distrib(Vmax_vitro, Uniform, 0.1, 1); # Assume
+
+# Michaelis-Menten Km (microM)
+Distrib(Km_vitro, Uniform, 100, 1000); # theophylline reference
+
+# Elimination rate constant from central (1/h)
+Distrib(Kmet, Uniform, 0.01, 1);
+
+# Transfer rate constants between central and peripheral compartments (1/h)
+Distrib(Kc2p, Uniform, 0.1, 10);
+Distrib(Kp2c, Uniform, 1, 10);
+
+Simulation { #
+  
+  # Dosing (Total dose = 1776.1 uM)
+  # Use Oral_dose_rate for immediate release
+   Oral_dose_rate = NDoses(2, 17761 0, 0 0.1);
+
+  # Use PO_dose for delay release
+  # PO_dose = PerExp (1776.1, 48, 0, 1e-1);
+  
+  #Print (Q_total, 0.25, 0.5, 0.75, 1, 1.5, 2, 3, 4, 5, 6, 8, 12, 24, 28);
+  Print (C_central, 0.25, 0.5, 0.75, 1, 1.5, 2, 3, 4, 5, 6, 8, 12, 24, 28);
+  #Print (lnC_central, 0.25, 0.5, 0.75, 1, 1.5, 2, 3, 4, 5, 6, 8, 12, 24, 28);
+
+}
+  
+End.

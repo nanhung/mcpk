@@ -325,7 +325,9 @@ ATCOG,		# ONLY FOR COMPARISON WITH HACK
   CBldTCAMole, #(v220)
   CLivTCAMole, #(v220)
   CPlasTCAMole, 
-  CPlasTCAFreeMole #(v1d), #
+  CPlasTCAFreeMole, #(v1d), #
+  CTotTCOHMole, #(v220)
+  CLivTCOHMole #(v220)
 
 #******************************************************************************
 #*** Outputs that are dose metrics
@@ -928,6 +930,8 @@ Ve_CLivMole = 1; #(v220)
 Ve_CKidMole = 1; #(v220)
 Ve_CBldTCAMole = 1; #(v220)
 Ve_CLivTCAMole = 1; #(v220)
+Ve_CTotTCOHMole = 1; #(v220)
+Ve_CLivTCOHMole = 1; #(v220)
 
 #******************************************************************************
 #***                  Defaults for input parameters                         ***
@@ -2992,6 +2996,8 @@ CalcOutputs{
 	CLivTCAMole = CLivTCA / MWTCA * 1000; #(v220)
 	CPlasTCAMole = (CPlasTCAMole < 1.0e-15 ? 1.0e-15 : CPlasTCAMole);
 	CPlasTCAFreeMole = (CPlasTCAFreeMole < 1.0e-15 ? 1.0e-15 : CPlasTCAFreeMole);
+	CTotTCOHMole = TotCTCOH / MWTCOH * 1000; #(v220)
+	CLivTCOHMole = CLivTCOH / MWTCOH * 1000; #(v220)
 
 #**** Dose Metrics ************************************************************
 # Oxidation/BW

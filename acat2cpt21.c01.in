@@ -1,7 +1,7 @@
 Integrate(Lsodes, 1.0e-5, 3.09e-7, 1);
-MCMC ("acat2cpt21.c01.out", 
+MCMC ("acat2cpt.c01.out", 
 "","",
-100000, 0, 100, 100000, 1111); # for sensitive parameters only
+100000, 0, 100, 100000, 1111); 
 
 Level { # Population Level
 
@@ -86,18 +86,17 @@ Distrib(Vmax_vitro, Uniform, 0.1, 1); # Assume
 Distrib(Km_vitro, Uniform, 100, 1000); # theophylline reference
 
 # Elimination rate constant from central (1/h)
-Distrib(Kmet, Uniform, 0.01, 1) #httk
+Distrib(Kmet, Uniform, 0.01, 1);
 
 # Transfer rate constants between central and peripheral compartments (1/h)
-Distrib(Kc2p, Uniform, 0.1, 10) #httk
-Distrib(Kp2c, Uniform, 1, 10) #httk
+Distrib(Kc2p, Uniform, 0.1, 10);
+Distrib(Kp2c, Uniform, 1, 10);
 	
 # variances inter individuelles
 
 Distrib (Vr_Weibull_scale, InvGamma, 2.25, 0.3125);
 Distrib (Vr_Weibull_lag, InvGamma, 2.25, 0.3125);
 Distrib (Vr_G_Radius, InvGamma, 2.25, 0.3125);
-
 Distrib (Vr_K_precip, InvGamma, 2.25, 0.3125);
 Distrib (Vr_Ke_over_a_epit, InvGamma, 2.25, 0.3125);
 Distrib (Vr_Ke_over_a_tiss, InvGamma, 2.25, 0.3125);
@@ -133,7 +132,6 @@ Level { # Individuals
 Distrib (Weibull_scale, TruncLogNormal_v, Weibull_scale, Vr_Weibull_scale 0.1, 1);
 Distrib (Weibull_lag, TruncLogNormal_v, Weibull_lag, Vr_Weibull_lag  0.01, 1);
 Distrib (G_Radius, TruncLogNormal_v, G_Radius, Vr_G_Radius 5, 30);
-
 Distrib (K_precip, TruncLogNormal_v, K_precip, Vr_K_precip 1.38e-4, 1.38e-3);
 Distrib (Ke_over_a_epit, TruncLogNormal_v, Ke_over_a_epit, Vr_Ke_over_a_epit, 0.01, 1);
 Distrib (Ke_over_a_tiss, TruncLogNormal_v, Ke_over_a_tiss, Vr_Ke_over_a_tiss, 0.01, 1);
