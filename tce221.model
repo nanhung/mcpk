@@ -1232,8 +1232,8 @@ Initialize {
 #(v1.2)		(Species == 3 ? 0.005 : (Species == 2 ? 0.021 : 0.025 ));
 	QKidCtmp = QKidC*
 		(Species == 3 ? 0.091 : (Species == 2 ? 0.141 : (Male == 0 ? 0.17 : 0.19) ));
-	QBrnCtmp = QKidC*0.030; #(V221)
-	QLngCtmp = QLngC*0.0312; #(V221)
+	QBrnCtmp = QKidC * 0.030; #(V221)
+	QLngCtmp = QLngC * 0.0312; #(V221)
 
 # Plasma Flows to Tissues (L/hr)
 ## Mice and rats from Hejtmancik et al. 2002, 
@@ -1267,8 +1267,8 @@ Initialize {
         VFat = BW * (VFatCmeas > 0.0 ? VFatCmeas : (VFatC * (Species == 3 ? 0.07 : (Species == 2 ? 0.07 : (Male == 0 ? 0.317 : 0.199)  ))));
         VGut = VGutC * BW *
 	(Species == 3 ? 0.049 : (Species == 2 ? 0.032 : (Male == 0 ? 0.022 : 0.020) ));
-        VLiv = VLivC * BW *
-	(Species == 3 ? 0.055 : (Species == 2 ? 0.034 : (Male == 0 ? 0.023 : 0.025) ));
+    #    VLiv = VLivC * BW *
+	#(Species == 3 ? 0.055 : (Species == 2 ? 0.034 : (Male == 0 ? 0.023 : 0.025) ));
         VRap = VRapC * BW * ## VRaptmp = VRapC * BW * #(v1a)#(v1b)#(v1c) -- temporary variable
 	(Species == 3 ? 0.100 : (Species == 2 ? 0.088 : (Male == 0 ? 0.093 : 0.088) ));
 #(v1.2)         VTB = VTBC * BW *
@@ -1280,8 +1280,10 @@ Initialize {
 	#(v1.2) Respiratory tract volume is TB region 
 	#(v1.2) will be multiplied by partition coef. below
 			## VRap = VRaptmp + VTB; #(v1b) -- add TB to rapidly perfused
-	VKid = VKidC * BW *
-	(Species == 3 ? 0.017 : (Species == 2 ? 0.007 : (Male == 0 ? 0.0046 : 0.0043) ));
+	#VKid = VKidC * BW *
+	#(Species == 3 ? 0.017 : (Species == 2 ? 0.007 : (Male == 0 ? 0.0046 : 0.0043) ));
+	VLiv = VLivC * BW; #(v221)
+	VKid = VKidC * BW; #(v221)
 	VBrn = VBrnC * BW; #(v221)
     VLng = VLngC * BW; #(v221)
 	
@@ -1292,7 +1294,7 @@ Initialize {
 #(v1.2)        VSlw = (Species == 3 ? 0.8897 : (Species == 2 ? 0.8995 : (Male == 0 ? 0.85778 : 0.856))) * BW 
 #(v1.2)		- VFat - VGut - VLiv - VRap - VTB - VKid - VBld;
         VSlw = (Species == 3 ? 0.8897 : (Species == 2 ? 0.8995 : (Male == 0 ? 0.85778 : 0.856))) * BW 
-		- VFat - VGut - VLiv - VRap - VRespEfftmp - VKid - VBld;
+		- VFat - VGut - VLiv - VRap - VRespEfftmp - VKid - VBld - VBrn - VLng; #(v221)
 	#(v1.2) replaced VTB by VRespEfftmp
 
 			## - VFat - VGut - VLiv - VRaptmp - VTB - VKid - VBld; #(v1a)#(v1b)#(v1c)

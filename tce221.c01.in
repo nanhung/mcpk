@@ -11,7 +11,7 @@
 Integrate(Lsodes, 1e-5, 0.3e-8 , 1)
 MCMC ("tce221.c01.out",
 "","",
-16000, 0, 16, 16000, 5555);
+16000, 0, 16, 16000, 1111);
 
 # Fix following parameters at baseline values
 # All physiological parameters except QCC and VPR (DResp is not physiological)
@@ -59,6 +59,8 @@ Distrib(	M_lnPLivC	TruncNormal	0.0	0.4	-1.2	1.2	); #(v220)
 #fixed#Distrib(	M_lnPRapC	TruncNormal	0.0	0.4	-1.2	1.2	);
 #fixed#Distrib(	M_lnPRespC	TruncNormal	0.0	0.4	-1.2	1.2	);
 Distrib(	M_lnPKidC	TruncNormal	0.0	0.4	-1.2	1.2	); #(v220)
+Distrib(	M_lnPBrnC	TruncNormal	0.0	0.4	-1.2	1.2	); #(v221)
+Distrib(	M_lnPLngC	TruncNormal	0.0	0.4	-1.2	1.2	); #(v221)
 #fixed#Distrib(	M_lnPSlwC	TruncNormal	0.0	0.4	-1.2	1.2	);
 							
 Distrib(	M_lnPRBCPlasTCAC	Uniform			-4.605	4.605	);
@@ -163,6 +165,8 @@ Distrib(	V_lnPLivC	InvGamma	2.25	0.2000	); #(v220)
 #fixed#Distrib(	V_lnPRapC	InvGamma	2.25	0.2000	);
 #fixed#Distrib(	V_lnPRespC	InvGamma	2.25	0.2000	);
 Distrib(	V_lnPKidC	InvGamma	2.25	0.2000	); #(v220)
+Distrib(	V_lnPBrnC	InvGamma	2.25	0.2000	); #(v221)
+Distrib(	V_lnPLngC	InvGamma	2.25	0.2000	); #(v221)
 #fixed#Distrib(	V_lnPSlwC	InvGamma	2.25	0.2000	);
 					
 					
@@ -494,6 +498,11 @@ BWmeas =  0.0275 ;
 PDose = NDoses(2, 1200 0 , 0 0.05 );
 TChng =  0.05 ;
 
+VLivC = 0.04713272222222222; #(v221)
+VKidC = 0.015088611111111113; #(v221)
+VBrnC = 0.015242166666666668; #(v221)
+VLngC = 0.006280333333333334; #(v221)
+
 # Data
 Print( AUrnTCOGTCOH , 24, 48, 72, 96, 120, 144 );
 Data( AUrnTCOGTCOH , 8.23, 11.263, 12.195, 12.409, 12.641, 12.709 );
@@ -542,11 +551,16 @@ Species =  3 ;
 Male =  1 ;
 
 # Measured Covariates (if any)
-BWmeas =  0.029 ;
+BWmeas = 0.029055555555555557;
 
 # Exposure/Dosing
 PDose = NDoses(2, 800 0 , 0 0.05 );
+
 TChng =  0.05 ;
+VLivC = 0.04713272222222222;
+VKidC = 0.015088611111111113;
+VBrnC = 0.015242166666666668;
+VLngC = 0.006280333333333334;
 
 # Data
 Print( CVenMole , 1.000  1.001  1.002  2.000  2.001  2.002  6.000  6.001  6.002 12.000 12.001 12.002 24.000 24.001 24.002 36.000 36.001 36.002 );
