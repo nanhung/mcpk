@@ -10,13 +10,13 @@
 #BSUB -u nhsieh@cvm.tamu.edu      ## send all emails to email_address
 #BSUB -N                          ## Send email on job begin (-B) and end (-N)
 
-time ./mcsim.apap.pbpk_v2 apap14.c01.in & 
-time ./mcsim.apap.pbpk_v2 apap14.c02.in & 
-time ./mcsim.apap.pbpk_v2 apap14.c03.in & 
-time ./mcsim.apap.pbpk_v2 apap14.c04.in &
-time ./mcsim.apap.pbpk_v2 apap14.c05.in & 
-time ./mcsim.apap.pbpk_v2 apap14.c06.in & 
-time ./mcsim.apap.pbpk_v2 apap14.c07.in & 
-time ./mcsim.apap.pbpk_v2 apap14.c08.in
+time ./mcsim.apap.pbpk_v2 apap12.c01.in & 
+time ./mcsim.apap.pbpk_v2 apap12.c02.in & 
+time ./mcsim.apap.pbpk_v2 apap12.c03.in & 
+time ./mcsim.apap.pbpk_v2 apap12.c04.in &
+time ./mcsim.apap.pbpk_v2 apap12.c05.in & 
+time ./mcsim.apap.pbpk_v2 apap12.c06.in & 
+time ./mcsim.apap.pbpk_v2 apap12.c07.in & 
+time ./mcsim.apap.pbpk_v2 apap12.c08.in
 
 wait
