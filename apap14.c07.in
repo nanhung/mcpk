@@ -1,7 +1,7 @@
 Integrate(Lsodes, 1.0e-5, 3.09e-7, 1);
-MCMC("apap09.c01.out", 
+MCMC("apap14.c07.out", 
 "", "", 
-80000, 0, 80, 80000, 1111); # Full calibration
+80000, 0, 80, 80000, 7777); # Full calibration
 
 
 Level { # Population Level
@@ -48,6 +48,7 @@ Distrib(M_lnkPAPS_syn, Uniform, 0., 13);
 Distrib(M_lnCLC_APAP, Uniform, -6., 1);
 Distrib(M_lnCLC_AG, Uniform, -6., 1);
 Distrib(M_lnCLC_AS, Uniform, -6., 1);
+
 
 # Var
 Distrib(Var_lnTg, InvGamma, 2.25, 0.3125);
