@@ -24,10 +24,13 @@ MCMC ("tce221.c04.out",
 
 Level { #Population level
 
+###### FIXED PARAMETERS
+
 # lnKMC = -2.44;
 lnKMClara = -5.05;
 lnKMGluc = 3.41;
 lnKMTCOH = -0.0643;
+lnDRespC = -4.61;
 
 ###### POPULATION MEANS
 
@@ -39,7 +42,7 @@ Distrib(	M_lnQCC	TruncNormal	0.0	0.2	-0.8	0.8	);
 #fixed#Distrib(	M_QGutC	TruncNormal	1.0	0.17	0.66	1.34	);
 #fixed#Distrib(	M_QLivC	TruncNormal	1.0	0.17	0.66	1.34	);
 #fixed#Distrib(	M_QSlwC	TruncNormal	1.0	0.29	0.42	1.58	);
-Distrib(	M_lnDRespC	Uniform			-6.909	2.303	);
+#Distrib(	M_lnDRespC	Uniform			-6.909	2.303	);
 #fixed#Distrib(	M_QKidC	TruncNormal	1.0	0.32	0.36	1.64	);
 #fixed#Distrib(	M_FracPlasC	TruncNormal	1.0	0.2	0.4	1.6	);
 							
@@ -144,7 +147,7 @@ Distrib(	V_lnQCC	InvGamma	2.25	0.0500	);
 #fixed#Distrib(	V_QGutC	InvGamma	6	0.1445	);
 #fixed#Distrib(	V_QLivC	InvGamma	6	0.1445	);
 #fixed#Distrib(	V_QSlwC	InvGamma	6	0.4205	);
-Distrib(	V_lnDRespC	InvGamma	6	0.2000	);
+#Distrib(	V_lnDRespC	InvGamma	6	0.2000	);
 #fixed#Distrib(	V_QKidC	InvGamma	6	0.5120	);
 #fixed#Distrib(	V_FracPlasC	InvGamma	6	0.2000	);
 					
@@ -381,7 +384,7 @@ Distrib(	lnQCC	TruncNormal_v	M_lnQCC	V_lnQCC	-0.8	0.8	);
 #fixed#Distrib(	QGutC	TruncNormal_v	M_QGutC	V_QGutC	0.66	1.34	);
 #fixed#Distrib(	QLivC	TruncNormal_v	M_QLivC	V_QLivC	0.66	1.34	);
 #fixed#Distrib(	QSlwC	TruncNormal_v	M_QSlwC	V_QSlwC	0.42	1.58	);
-Distrib(	lnDRespC	TruncNormal_v	M_lnDRespC	V_lnDRespC	-6.909	2.303	);
+#Distrib(	lnDRespC	TruncNormal_v	M_lnDRespC	V_lnDRespC	-6.909	2.303	);
 #fixed#Distrib(	QKidC	TruncNormal_v	M_QKidC	V_QKidC	0.36	1.64	);
 #fixed#Distrib(	FracPlasC	TruncNormal_v	M_FracPlasC	V_FracPlasC	0.4	1.6	);
 							
