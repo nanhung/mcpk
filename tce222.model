@@ -2673,7 +2673,7 @@ Dynamics{
 # Dynamics for DCVG in blood
     dt(ABldDCVG) = QGutLiv*CVLivDCVG + QBod*CVBodDCVG + QKid*CVKidDCVG
     + QBrn*CVBrnDCVG + QLng*CVLngDCVG 
-    - QCnow*CBldDCVG;
+    - CBldDCVG * QCnow;
 
 #**** Body ********************************************************************
 # Dynamics for amount of DCVG in the body (mg)
@@ -3206,7 +3206,7 @@ CalcOutputs{
 # DCVG
 	CBodDCVG = (CBodDCVG < 1.0e-15 ? 1.0e-15 : CBodDCVG); #(v222)
 	CBldDCVG = (CBldDCVG < 1.0e-15 ? 1.0e-15 : CBldDCVG); #(v222)
-	CLivDCVG = (CLivDCVG < 1.0e-15 ? 1.0e-15 : CKivDCVG); #(v222)
+	CLivDCVG = (CLivDCVG < 1.0e-15 ? 1.0e-15 : CLivDCVG); #(v222)
 	CKidDCVG = (CKidDCVG < 1.0e-15 ? 1.0e-15 : CKidDCVG); #(v222)
 	CBrnDCVG = (CBrnDCVG < 1.0e-15 ? 1.0e-15 : CBrnDCVG); #(v222)
 	CLngDCVG = (CLngDCVG < 1.0e-15 ? 1.0e-15 : CLngDCVG); #(v222)
