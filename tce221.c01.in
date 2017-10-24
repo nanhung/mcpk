@@ -26,6 +26,9 @@ Level { #Population level
 
 ###### FIXED PARAMETERS
 
+lnkTSD = 0.7;
+lnkAS = -0.47;
+
 lnKMClara = -5.05;
 lnVMaxLungLivC = 2.28;
 lnKMGluc = 3.41;
@@ -86,10 +89,11 @@ Distrib(	M_lnPLngTCOHC	TruncNormal	0.0	0.6	-1.8	1.8	); #(v221)
 #fixed#Distrib(	M_lnPBodTCOGC	Uniform			-4.605	4.605	);
 #fixed#Distrib(	M_lnPLivTCOGC	Uniform			-4.605	4.605	);
 						
-Distrib(	M_lnkTSD	Uniform			-4.269	4.942	);
-Distrib(	M_lnkAS	Uniform			-6.571	7.244	);
-Distrib(	M_lnkTD	Uniform			-4.605	0	);
+#Distrib(	M_lnkTSD	Uniform			-4.269	4.942	);
+#Distrib(	M_lnkAS	Uniform			-6.571	7.244	);
 Distrib(	M_lnkAD	Uniform			-7.195	6.62	);
+#Distrib(	M_lnkTD	Uniform			-4.605	0	);
+
 
 Distrib(	M_lnVMaxC	TruncNormal	0.0	0.693	-2.079	2.079	);
 Distrib(	M_lnKMC	TruncNormal	0.0	1.386	-4.158	2.079	);
@@ -194,10 +198,11 @@ Distrib(	V_lnPLngTCOHC	InvGamma	2.25 0.3125	); #(v221)
 #fixed#Distrib(	V_lnPLivTCOGC	InvGamma	2.25	0.2000	);
 					
 					
-Distrib(	V_lnkTSD	InvGamma	2.25	5.0000	);
-Distrib(	V_lnkAS	InvGamma	2.25	5.0000	);
-Distrib(	V_lnkTD	InvGamma	2.25	5.0000	);
+#Distrib(	V_lnkTSD	InvGamma	2.25	5.0000	);
+#Distrib(	V_lnkAS	InvGamma	2.25	5.0000	);
 Distrib(	V_lnkAD	InvGamma	2.25	5.0000	);
+#Distrib(	V_lnkTD	InvGamma	2.25	5.0000	);
+
 					
 Distrib(	V_lnVMaxC	InvGamma	3	1.3585	);
 Distrib(	V_lnKMC	InvGamma	3	0.1458	);
@@ -445,10 +450,10 @@ Distrib(	lnPLngTCOHC	TruncNormal_v	M_lnPLngTCOHC	V_lnPLngTCOHC	-1.8	1.8	);
 #fixed#Distrib(	lnPLivTCOGC	TruncNormal_v	M_lnPLivTCOGC	V_lnPLivTCOGC	-4.605	4.605	);
 							
 							
-Distrib(	lnkTSD	TruncNormal_v	M_lnkTSD	V_lnkTSD	-4.269	4.942	);
-Distrib(	lnkAS	TruncNormal_v	M_lnkAS	V_lnkAS	-6.571	7.244	);
-Distrib(	lnkTD	TruncNormal_v	M_lnkTD	V_lnkTD	-4.605	0	);
+#Distrib(	lnkTSD	TruncNormal_v	M_lnkTSD	V_lnkTSD	-4.269	4.942	);
+#Distrib(	lnkAS	TruncNormal_v	M_lnkAS	V_lnkAS	-6.571	7.244	);
 Distrib(	lnkAD	TruncNormal_v	M_lnkAD	V_lnkAD	-7.195	6.62	);
+#Distrib(	lnkTD	TruncNormal_v	M_lnkTD	V_lnkTD	-4.605	0	);
 #Distrib(	lnkASTCA	TruncNormal_v	M_lnkASTCA	V_lnkASTCA	-7.195	6.62	);
 #Distrib(	lnkASTCOH	TruncNormal_v	M_lnkASTCOH	V_lnkASTCOH	-7.195	6.62	);
 							
