@@ -2655,6 +2655,8 @@ Dynamics{
 
 #**** Blood (venous) ******************************************************************
 # Tissue Concentrations (mg/L)
+	
+	CBldDCVG = ABldDCVG/VBld;
 	CBodDCVG = ABodDCVG/VBod;
 	CLivDCVG = ALivDCVG/VLiv; 
 	CKidDCVG = AKidDCVG/VKid; 
@@ -3202,12 +3204,12 @@ CalcOutputs{
 	AUrnTCOGTCOH_sat = (AUrnTCOG_sat < 1.0e-15 ? 1.0e-15 : StochTCOHGluc*AUrnTCOG_sat);
 	AUrnTCOGTCOH_collect = (AUrnTCOG_collect < 1.0e-15 ? 1.0e-15 : StochTCOHGluc*AUrnTCOG_collect);
 # DCVG
-	CBodDCVG = (ABodDCVG < 1.0e-15 ? 1.0e-15 : ABodDCVG/VBod); #(v222)
-	CBldDCVG = (ABldDCVG < 1.0e-15 ? 1.0e-15 : ABldDCVG/VBld); #(v222)
-	CLivDCVG = (ALivDCVG < 1.0e-15 ? 1.0e-15 : ALivDCVG/VLiv); #(v222)
-	CKidDCVG = (AKidDCVG < 1.0e-15 ? 1.0e-15 : AKidDCVG/VKid); #(v222)
-	CBrnDCVG = (ABrnDCVG < 1.0e-15 ? 1.0e-15 : ABrnDCVG/VBrn); #(v222)
-	CLngDCVG = (ALngDCVG < 1.0e-15 ? 1.0e-15 : ALngDCVG/VLng); #(v222)
+	CBodDCVG = (CBodDCVG < 1.0e-15 ? 1.0e-15 : CBodDCVG); #(v222)
+	CBldDCVG = (CBldDCVG < 1.0e-15 ? 1.0e-15 : CBldDCVG); #(v222)
+	CLivDCVG = (CLivDCVG < 1.0e-15 ? 1.0e-15 : CKivDCVG); #(v222)
+	CKidDCVG = (CKidDCVG < 1.0e-15 ? 1.0e-15 : CKidDCVG); #(v222)
+	CBrnDCVG = (CBrnDCVG < 1.0e-15 ? 1.0e-15 : CBrnDCVG); #(v222)
+	CLngDCVG = (CLngDCVG < 1.0e-15 ? 1.0e-15 : CLngDCVG); #(v222)
 	#CDCVGmol = (CDCVGmol < 1.0e-15 ? 1.0e-15 : CDCVGmol);
 	#CDCVGmol0 = CDCVGmol;
 	#CDCVG_NDtmp = CDFNormal(3*(1-CDCVGmol/CDCVGmolLD)); 

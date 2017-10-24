@@ -9,7 +9,7 @@
 #TCA and DCA have background subtracted
 
 Integrate(Lsodes, 1e-5, 0.3e-8 , 1)
-MCMC ("tce221.c03.out",
+MCMC ("tce222.c03.out",
 "","",
 40000, 0, 20, 40000, 3333);
 
