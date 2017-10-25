@@ -399,8 +399,17 @@ ATCOG,		# ONLY FOR COMPARISON WITH HACK
   CLivNDCVCMole, # NAcDCVC concentration in liver #(v222)
   CKidNDCVCMole, # NAcDCVC concentration in kidney #(v222)
   CBrnNDCVCMole, # NAcDCVC concentration in Brain #(v222)
-  CLngNDCVCMole	 # NAcDCVC concentration in Lung #(v222)
+  CLngNDCVCMole, # NAcDCVC concentration in Lung #(v222)
 
+# ND
+	CBldMole_ND,
+	CLivMole_ND,
+	CBldTCOHMole_ND,
+	CLivTCOHMole_ND, 
+	CLivDCVGMole_ND,
+	CBrnDCVGMole_ND,
+	CBldDCVCMole_ND,
+	CKidDCVCMole_ND
 #******************************************************************************
 #*** Outputs that are dose metrics
 #(v1d)  AMetLiv1BW,	# Amount of oxidative metabolism in liver/liver volume
@@ -3445,6 +3454,17 @@ CalcOutputs{
 	CKidNDCVCMole = CKidNDCVC / MWNADCVC * 1000; #(v222)
 	CBrnNDCVCMole = CBrnNDCVC / MWNADCVC * 1000; #(v222)
 	CLngNDCVCMole = CLngNDCVC / MWNADCVC * 1000; #(v222)
+	
+		# ND
+	CBldMole_ND = (CVenMole < 1.0e-10 ? 1.0e-10 : CVenMole);
+	CLivMole_ND = (CLivMole < 1.0e-10 ? 1.0e-10 : CLivMole);
+	CBldTCOHMole_ND = (CTotTCOHMole < 1.0e-10 ? 1.0e-10 : CTotTCOHMole); 
+	CLivTCOHMole_ND = (CLivTCOHMole < 1.0e-10 ? 1.0e-10 : CLivTCOHMole); 
+	CLivDCVGMole_ND = (CLivDCVGMole < 1.0e-10 ? 1.0e-10 : CLivDCVGMole);
+	CBrnDCVGMole_ND = (CBrnDCVGMole < 1.0e-10 ? 1.0e-10 : CBrnDCVGMole);
+	CBldDCVCMole_ND = (CBldDCVCMole < 1.0e-10 ? 1.0e-10 : CBldDCVCMole);
+	CKidDCVCMole_ND = (CKidDCVCMole < 1.0e-10 ? 1.0e-10 : CKidDCVCMole);
+	
 
 #**** Dose Metrics ************************************************************
 # Oxidation/BW
