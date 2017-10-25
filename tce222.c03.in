@@ -533,6 +533,12 @@ Distrib(	lnPRBCPlasTCAC	TruncNormal_v	M_lnPRBCPlasTCAC	V_lnPRBCPlasTCAC	-4.605	4
 	Distrib(	lnPKidDCVCC TruncNormal_v M_lnPKidDCVCC V_lnPKidDCVCC -3.9 3.9); #(v222)
 	Distrib(	lnPBrnDCVCC TruncNormal_v M_lnPBrnDCVCC V_lnPBrnDCVCC -3.9 3.9); #(v222)
 	Distrib(	lnPLngDCVCC TruncNormal_v M_lnPLngDCVCC V_lnPLngDCVCC -3.9 3.9); #(v222)
+	
+	Distrib(	lnPLivNDCVCC TruncNormal_v M_lnPLivNDCVCC V_lnPLivNDCVCC -3.9 3.9); #(v222)
+	Distrib(	lnPKidNDCVCC TruncNormal_v M_lnPKidNDCVCC V_lnPKidNDCVCC -3.9 3.9); #(v222)
+	Distrib(	lnPBrnNDCVCC TruncNormal_v M_lnPBrnNDCVCC V_lnPBrnNDCVCC -3.9 3.9); #(v222)
+	Distrib(	lnPLngNDCVCC TruncNormal_v M_lnPLngNDCVCC V_lnPLngNDCVCC -3.9 3.9); #(v222)
+	
 #	Distrib(	lnPBodDCVCC TruncNormal_v M_lnPBodDCVCC V_lnPBodDCVCC -3.9 3.9 ); #(v222)			
 							
 #Distrib(	lnkTSD	TruncNormal_v	M_lnkTSD	V_lnkTSD	-4.269	4.942	);
