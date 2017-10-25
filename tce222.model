@@ -90,11 +90,24 @@ States = {
 	AKidDCVG,   #(v222)
 	ABrnDCVG,   #(v222)
 	ALngDCVG,   #(v222)
-	
-#(v1e)	AMetDCVG,
+
+##-- DCVC
+	ABodDCVC,	# Amount of DCVC in body (v222)
+	ABldDCVC,	#(v222) 
+	ALivDCVC,   #(v222)
+	AKidDCVC,   #(v222)
+	ABrnDCVC,   #(v222)
+	ALngDCVC,   #(v222)
+
+##-- NAcDCVC
+	ABodNDCVC,	# Amount of NAcDCVC in body (v222)
+	ABldNDCVC,	#(v222) 
+	ALivNDCVC,   #(v222)
+	AKidNDCVC,   #(v222)
+	ABrnNDCVC,   #(v222)
+	ALngNDCVC,   #(v222)
+
 ##-- DCVC in body
-#(v1e)	ADCVCIn,
-        ADCVC,		# Amount of DCVC in body
 #(v2.0) deleted ABioactDCVC,
 ##-- DCVC eliminated#(v2.0)
 #(v1e) 	AElimDCVC,	# Amount of DCVC eliminated#(v2.0)
@@ -238,9 +251,25 @@ CLngDCVG,		# DCVG concentration in Lung #(v222)
 #CDCVGmol0,	# Dummy variable without likelihood (for plotting)
 #CDCVG_ND,	# Non-detect of DCVG (<0.001 nmol/ml= 1e-6 mmol/l )#(v2.0)
 		# Output -ln(likelihood)
-CDCVCmol,		# concentration of DCVC (mmol/l) #(v2.0)
-CDCVCmol0,	# Dummy variable without likelihood (for plotting)#(v2.0)
-CDCVC_ND,	# Non-detect of DCVC (<0.001 nmol/ml= 1e-6 mmol/l )#(v2.0)
+
+# DCVC
+CBodDCVC,       # DCVC concentration in Body #(v222)
+CBldDCVC,		# DCVC concentration in Blood #(v222)
+CLivDCVC,		# DCVC concentration in liver #(v222)
+CKidDCVC,		# DCVC concentration in kidney #(v222)
+CBrnDCVC,		# DCVC concentration in Brain #(v222)
+CLngDCVC,		# DCVC concentration in Lung #(v222)
+
+# NaCDCVC
+CBodNDCVC,      # NAcDCVC concentration in Body #(v222)
+CBldNDCVC,		# NAcDCVC concentration in Blood #(v222)
+CLivNDCVC,		# NAcDCVC concentration in liver #(v222)
+CKidNDCVC,		# NAcDCVC concentration in kidney #(v222)
+CBrnNDCVC,		# NAcDCVC concentration in Brain #(v222)
+CLngNDCVC,		# NAcDCVC concentration in Lung #(v222)
+
+#CDCVCmol0,	# Dummy variable without likelihood (for plotting)#(v2.0)
+#CDCVC_ND,	# Non-detect of DCVC (<0.001 nmol/ml= 1e-6 mmol/l )#(v2.0)
 		# Output -ln(likelihood)#(v2.0)
 CDCAmol,		# concentration of DCA (mmol/l) #(v2.0)
 CDCAmol0,	# Dummy variable without likelihood (for plotting)#(v2.0)
@@ -360,7 +389,17 @@ ATCOG,		# ONLY FOR COMPARISON WITH HACK
   CLivDCVGMole,	# DCVG concentration in liver #(v222)
   CKidDCVGMole,	# DCVG concentration in kidney #(v222)
   CBrnDCVGMole,	# DCVG concentration in Brain #(v222)
-  CLngDCVGMole	# DCVG concentration in Lung #(v222)
+  CLngDCVGMole,	# DCVG concentration in Lung #(v222)
+  CBldDCVCMole,	# DCVC concentration in Blood (nmol/ml) #(v222)
+  CLivDCVCMole,	# DCVC concentration in liver #(v222)
+  CKidDCVCMole,	# DCVC concentration in kidney #(v222)
+  CBrnDCVCMole,	# DCVC concentration in Brain #(v222)
+  CLngDCVCMole,	# DCVC concentration in Lung #(v222)
+  CBldNDCVCMole, # NAcDCVC concentration in Blood (nmol/ml) #(v222)
+  CLivNDCVCMole, # NAcDCVC concentration in liver #(v222)
+  CKidNDCVCMole, # NAcDCVC concentration in kidney #(v222)
+  CBrnNDCVCMole, # NAcDCVC concentration in Brain #(v222)
+  CLngNDCVCMole	 # NAcDCVC concentration in Lung #(v222)
 
 #******************************************************************************
 #*** Outputs that are dose metrics
@@ -395,6 +434,7 @@ ATCOG,		# ONLY FOR COMPARISON WITH HACK
   StochTCEGluc = MWTCE / MWTCOHGluc;
   StochDCVGTCE = MWDCVG / MWTCE;
   StochDCVCTCE = MWDCVC / MWTCE;
+  StochDCVCDCVG = MWDCVC / MWDCVG;
         StochN = MWNADCVC / MWDCVC;
 
 #******************************************************************************
@@ -469,8 +509,21 @@ PLivDCVG	= 1; #(v222)
 PKidDCVG	= 1; #(v222)
 PBrnDCVG	= 1; #(v222)
 PLngDCVG	= 1; #(v222)
-VDCVG	= 1;	# DCVG effective volume of distribution
-VDCVC	= 1;	# DCVC effective volume of distribution#(v2.0)
+
+PBodDCVC	= 1; #(v222)
+PLivDCVC	= 1; #(v222)	
+PKidDCVC	= 1; #(v222)
+PBrnDCVC	= 1; #(v222)
+PLngDCVC	= 1; #(v222)
+
+PBodNDCVC	= 1; #(v222)
+PLivNDCVC	= 1; #(v222)	
+PKidNDCVC	= 1; #(v222)
+PBrnNDCVC	= 1; #(v222)
+PLngNDCVC	= 1; #(v222)
+
+#VDCVG	= 1;	# DCVG effective volume of distribution
+#VDCVC	= 1;	# DCVC effective volume of distribution#(v2.0)
 VDCA	= 1;	# DCA effective volume of distribution (central compartment)#(v2.0)
 #******************************************************************************
 # Oral absorption
@@ -528,7 +581,11 @@ kDCVG	= 1;	# Rate constant for hepatic DCVG->DCVC (/hr)
 FracKidDCVC	= 1;	# Fraction of renal TCE GSH conj. "directly" to DCVC (i.e., via first pass)
 #******************************************************************************
 # DCVC metabolism/clearance
-kElimDCVC	= 1;	# Lumped rate constant for DCVC elimination (/hr)#(v2.0)
+kDCVC = 1; # Rate constant for hepatic DCVC->NAcDCVC (/hr)(v222)
+#kElimDCVC	= 1;	# Lumped rate constant for DCVC elimination (/hr)#(v2.0)
+
+kNDCVC = 1; #(v222)
+
 #******************************************************************************
 # Closed chamber and other exposure parameters 
 Rodents	= 1;	# Number of rodents in closed chamber data
@@ -549,8 +606,8 @@ BWmeas	= 0.0;	# Body weight
 VFatCmeas	= 0.0; # Fractional volume fat
 PBmeas	= 0.0;	# Measured blood-air partition coefficient
 Hematocritmeas = 0.0; # Measured hematocrit -- used for FracPlas = 1 - HCt
-CDCVGmolLD = 1e-6; # Detection limit of CDCVGmol (in mmol/L)#(v2.0)
-CDCVCmolLD = 1e-6; # Detection limit of CDCVCmol (in mmol/L)#(v2.0)
+#CDCVGmolLD = 1e-6; # Detection limit of CDCVGmol (in mmol/L)#(v2.0)
+#CDCVCmolLD = 1e-6; # Detection limit of CDCVCmol (in mmol/L)#(v2.0)
 CDCAmolLD = 1e-5; # Detection limit of CDCAmol (in mmol/L)#(v2.0)
 
 #******************************************************************************
@@ -632,6 +689,18 @@ lnPKidDCVGC	= 0.0; #(v222)
 lnPBrnDCVGC	= 0.0; #(v222)
 lnPLngDCVGC	= 0.0; #(v222)
 
+lnPBodDCVCC	= 0.0; #(v222)
+lnPLivDCVCC	= 0.0; #(v222)
+lnPKidDCVCC	= 0.0; #(v222)
+lnPBrnDCVCC	= 0.0; #(v222)
+lnPLngDCVCC	= 0.0; #(v222)
+
+lnPBodNDCVCC = 0.0; #(v222)
+lnPLivNDCVCC = 0.0; #(v222)
+lnPKidNDCVCC = 0.0; #(v222)
+lnPBrnNDCVCC = 0.0; #(v222)
+lnPLngNDCVCC = 0.0; #(v222)
+
 #lnPeffDCVG	= 0.0;	# Scaled to species-specific central estimates
 #lnPeffDCVC	= 0.0;	# Scaled to species-specific central estimates#(v2.0)
 lnPeffDCA	= 0.0;	# Scaled to species-specific central estimates#(v2.0)
@@ -673,8 +742,8 @@ lnISConj = 0.0; # GSH conjugation metabolism
 lnISkTCA = 0.0; # TCA metabolism/clearance
 lnISkDCA = 0.0; # DCA metabolism/clearance
 lnISkDCVG = 0.0; # DCVG -> DCVC
-lnISkDCVC = 0.0; # DCVC clearance
-
+lnISkDCVC = 0.0; # DCVC -> NAcDCVC #(v222)
+lnISkNDCVC = 0.0; # NAcDCVC metabolism (v222)
 # Clearance in lung
 #(v1.2) lnVMaxClearC	= 0.0;	# Scaled by BW^0.75
 #(v1.2) lnKMClear	= 0.0;	# 
@@ -708,7 +777,11 @@ lnFracKidDCVCC	= 0.0;	# Ratio of "directly" to DCVC to systemic DCVG
 lnkDCVGC	= 0.0;	# Scaled by BW^-0.25
 
 # DCVC metabolism
-lnkElimDCVCC	= 0.0;	# Scaled by BW^-0.25#(v2.0)
+#lnkElimDCVCC	= 0.0;	# Scaled by BW^-0.25#(v2.0)
+lnkDCVCC = 0.0; #(v222)
+
+# NAcDCVC metabolism
+lnkNDCVCC = 0.0; #(v222)
 
 # Closed chamber parameters
 NRodents	= 1;	# 
@@ -786,6 +859,18 @@ M_lnPKidDCVGC	= 0.0; #(v222)
 M_lnPBrnDCVGC	= 0.0; #(v222)
 M_lnPLngDCVGC	= 0.0; #(v222)
 
+M_lnPBodDCVCC	= 0.0; #(v222)
+M_lnPLivDCVCC	= 0.0; #(v222)
+M_lnPKidDCVCC	= 0.0; #(v222)
+M_lnPBrnDCVCC	= 0.0; #(v222)
+M_lnPLngDCVCC	= 0.0; #(v222)
+
+M_lnPBodNDCVCC = 0.0; #(v222)
+M_lnPLivNDCVCC = 0.0; #(v222)
+M_lnPKidNDCVCC = 0.0; #(v222)
+M_lnPBrnNDCVCC = 0.0; #(v222)
+M_lnPLngNDCVCC = 0.0; #(v222)
+
 #M_lnPeffDCVG	= 1.0;
 #M_lnPeffDCVC	= 1.0;#(v2.0)
 M_lnPeffDCA	= 1.0;#(v2.0)
@@ -818,7 +903,8 @@ M_lnISConj = 0.0; # GSH conjugation metabolism
 M_lnISkTCA = 0.0; # TCA metabolism/clearance
 M_lnISkDCA = 0.0; # DCA metabolism/clearance
 M_lnISkDCVG = 0.0; # DCVG -> DCVC
-M_lnISkDCVC = 0.0; # DCVC clearance
+M_lnISkDCVC = 0.0; # DCVC -> NAcDCVC
+M_lnISkNDCVC = 0.0; # NAcDCVC metabolism
 
 #(v1.2) M_lnVMaxClearC	= 1.0;
 #(v1.2) M_lnKMClear	= 1.0;
@@ -837,7 +923,9 @@ M_lnkEHRC	= 1.0;
 M_lnkUrnTCOGC	= 1.0;
 M_lnFracKidDCVCC	= 1.0;
 M_lnkDCVGC	= 1.0;
-M_lnkElimDCVCC	= 1.0;#(v2.0)
+#M_lnkElimDCVCC	= 1.0;#(v2.0)
+M_lnkDCVCC	= 1.0; #(v222)
+M_lnkNDCVCC	= 1.0; #(v222)
 M_lnkClearDCAC	= 1.0;#(v2.0)
 M_lnkDCAcen_perC	= 1.0;#(v2.0)
 M_lnkDCAper_cenC	= 1.0;#(v2.0)
@@ -912,6 +1000,18 @@ V_lnPKidDCVGC	= 0.0; #(v222)
 V_lnPBrnDCVGC	= 0.0; #(v222)
 V_lnPLngDCVGC	= 0.0; #(v222)
 
+V_lnPBodDCVCC	= 0.0; #(v222)
+V_lnPLivDCVCC	= 0.0; #(v222)
+V_lnPKidDCVCC	= 0.0; #(v222)
+V_lnPBrnDCVCC	= 0.0; #(v222)
+V_lnPLngDCVCC	= 0.0; #(v222)
+
+V_lnPBodNDCVCC	= 0.0; #(v222)
+V_lnPLivNDCVCC	= 0.0; #(v222)
+V_lnPKidNDCVCC	= 0.0; #(v222)
+V_lnPBrnNDCVCC	= 0.0; #(v222)
+V_lnPLngNDCVCC	= 0.0; #(v222)
+
 #V_lnPeffDCVG	= 1.0;
 #V_lnPeffDCVC	= 1.0;#(v2.0)
 V_lnPeffDCA	= 1.0;#(v2.0)
@@ -944,7 +1044,8 @@ V_lnISConj = 1.0; # GSH conjugation metabolism
 V_lnISkTCA = 1.0; # TCA metabolism/clearance
 V_lnISkDCA = 1.0; # DCA metabolism/clearance
 V_lnISkDCVG = 1.0; # DCVG -> DCVC
-V_lnISkDCVC = 1.0; # DCVC clearance
+V_lnISkDCVC = 1.0; # DCVC -> NAcDCVC
+V_lnISkNDCVC = 1.0; # NAcDCVC metabolism
 
 #(v1.2) V_lnVMaxClearC	= 1.0;
 #(v1.2) V_lnKMClear	= 1.0;
@@ -963,7 +1064,9 @@ V_lnkEHRC	= 1.0;
 V_lnkUrnTCOGC	= 1.0;
 V_lnFracKidDCVCC	= 1.0;
 V_lnkDCVGC	= 1.0;
-V_lnkElimDCVCC	= 1.0;#(v2.0)
+#V_lnkElimDCVCC	= 1.0;#(v2.0)
+V_lnkDCVCC	= 1.0; #(v222)
+V_lnkNDCVCC	= 1.0; #(v222)
 V_lnkClearDCAC	= 1.0;#(v2.0)
 V_lnkDCAcen_perC	= 1.0;#(v2.0)
 V_lnkDCAper_cenC	= 1.0;#(v2.0)
@@ -1036,6 +1139,12 @@ Ve_CKidDCVG	= 1; #(v222)
 Ve_CBrnDCVG	= 1; #(v222)
 Ve_CLngDCVG	= 1; #(v222)
 
+Ve_CBldDCVC	= 1; #(v222)
+Ve_CLivDCVC	= 1; #(v222)
+Ve_CKidDCVC	= 1; #(v222)
+Ve_CBrnDCVC	= 1; #(v222)
+Ve_CLngDCVC	= 1; #(v222)
+
 #Ve_CDCVGmol	= 1;#(v2.0)
 #Ve_CDCVCmol	= 1;#(v2.0)
 Ve_CDCAmol	= 1;#(v2.0)
@@ -1064,6 +1173,19 @@ Ve_CLivDCVGMole = 1; #(v222)
 Ve_CKidDCVGMole = 1; #(v222)
 Ve_CBrnDCVGMole = 1; #(v222)
 Ve_CLngDCVGMole = 1; #(v222)
+
+Ve_CBldDCVCMole = 1; #(v222)
+Ve_CLivDCVCMole = 1; #(v222)
+Ve_CKidDCVCMole = 1; #(v222)
+Ve_CBrnDCVCMole = 1; #(v222)
+Ve_CLngDCVCMole = 1; #(v222)
+
+Ve_CBldNDCVCMole = 1; #(v222)
+Ve_CLivNDCVCMole = 1; #(v222)
+Ve_CKidNDCVCMole = 1; #(v222)
+Ve_CBrnNDCVCMole = 1; #(v222)
+Ve_CLngNDCVCMole = 1; #(v222)
+
 
 #******************************************************************************
 #***                  Defaults for input parameters                         ***
@@ -1600,7 +1722,7 @@ Initialize {
     PLivTCOG = exp(lnPLivTCOGC) *
 		(Species == 3 ? 1.3 : (Species == 2 ? 1.3 : 0.59 ));
 
-# DCVG distribution volume
+# DCVG partitioning
 	# exp(lnPeffDCVG) is the effective partition coefficient for
 	# the "body" (non-blood) compartment
 	# Diffuse prior distribution: loguniform 1e-3 to 1e3
@@ -1612,12 +1734,25 @@ Initialize {
 	PBrnDCVG = exp(lnPBrnDCVGC) * 1.0; #(v222)
     PLngDCVG = exp(lnPLngDCVGC) * 1.0; #(v222)
 
-# DCVC distribution volume#(v2.0)
+# DCVC partitioning
 	# exp(lnPeffDCVC) is the effective partition coefficient for#(v2.0)
 	# the "body" (non-blood) compartment#(v2.0)
 	# Diffuse prior distribution: loguniform 1e-3 to 1e3#(v2.0)
 #	VDCVC = VBld +  	# blood plus body (with "effective" PC)#(v2.0)
 #	exp(lnPeffDCVC) * (VBod + VLiv);#(v2.0)
+
+	PBodDCVC = exp(lnPBodDCVCC) * 1.0; #(v222)
+	PLivDCVC = exp(lnPLivDCVCC) * 1.0; #(v222)
+	PKidDCVC = exp(lnPKidDCVCC) * 1.0; #(v222)
+	PBrnDCVC = exp(lnPBrnDCVCC) * 1.0; #(v222)
+    PLngDCVC = exp(lnPLngDCVCC) * 1.0; #(v222)
+
+# NAcDCVC partitioning
+	PBodNDCVC = exp(lnPBodNDCVCC) * 1.0; #(v222)
+	PLivNDCVC = exp(lnPLivNDCVCC) * 1.0; #(v222)
+	PKidNDCVC = exp(lnPKidNDCVCC) * 1.0; #(v222)
+	PBrnNDCVC = exp(lnPBrnNDCVCC) * 1.0; #(v222)
+    PLngNDCVC = exp(lnPLngNDCVCC) * 1.0; #(v222)
 
 # DCA distribution volume#(v2.0)
 	# exp(lnPeffDCA) is the effective partition coefficient for#(v2.0)
@@ -1877,7 +2012,11 @@ Initialize {
 	# No in vitro data.  So use diffuse priors of 
 	# 	1e-4 to 1e2 /hr/kg^0.25 (0.3/hr to 35/hr for human) 
         # add interstrain variability
-	kElimDCVC = exp(lnISkDCVC) * exp(lnkElimDCVCC) / BW25;#(v2.0)
+#	kElimDCVC = exp(lnISkDCVC) * exp(lnkElimDCVCC) / BW25;#(v2.0)
+	kDCVC = exp(lnISkDCVC) * exp(lnkDCVCC) / BW25; #(v222)
+
+# NAcDCVC Kinetics (/hr)#(v2.0)
+	kNDCVC = exp(lnISkNDCVC) * exp(lnkNDCVCC) / BW25; #(v222)
 
 # DCA Kinetics (/hr)#(v2.0)
         # add interstrain variability
@@ -2630,30 +2769,7 @@ Dynamics{
 #******************************************************************************
 #***                       DCVG Sub-model                                   ***
 #******************************************************************************
-# State Variables with dynamics: 
-#	ADCVGmol
-# Input Variables: 
-#	none
-# Other State Variables and Global Parameters:
-#	kDCVG
-#	FracKidDCVC	# Fraction of kidney DCVG going to DCVC in first pass
-#	VDCVG
-# Temporary variables used:
-#	RAMetLiv2
-#	RAMetKid
-# Temporary variables assigned:
-#	RAMetDCVG
-#	CDCVGmol
-# Notes:
-#	Assume negligible GGT activity in liver as compared to kidney,
-#	supported by in vitro data on GGT (even accounting for 5x 
-#	greater liver mass relative to kidney mass), as well as lack
-#	of DCVC detected in blood.
-#	Need to account for "first pass" in kidney (TCE->DCVG->DCVC 
-#	without systemic circulation).  
-#******************************************************************************
 
-#**** Blood (venous) ******************************************************************
 # Tissue Concentrations (mg/L)
 	
 	CBldDCVG = ABldDCVG/VBld;
@@ -2696,28 +2812,80 @@ Dynamics{
 #******************************************************************************
 #***                       DCVC Sub-model                                   ***
 #******************************************************************************
-# State Variables with dynamics: 
-#	ADCVC#(v2.0)
-# Input Variables: 
-#	none
-# Other State Variables and Global Parameters:
-#	MWDCVC
-#	FracKidDCVC
-#	StochDCVCTCE
-#	kElimDCVC#(v2.0)
-#	VDCVC#(v2.0)
-# Temporary variables used:
-#	RAMetDCVG
-#	RAMetKid
-# Temporary variables assigned:
-# Notes:#(v2.0)
+# Tissue Concentrations (mg/L)
+	
+	CBldDCVC = ABldDCVC/VBld;
+	CBodDCVC = ABodDCVC/VBod;
+	CLivDCVC = ALivDCVC/VLiv; 
+	CKidDCVC = AKidDCVC/VKid; 
+    CBrnDCVC = ABrnDCVC/VBrn;
+    CLngDCVC = ALngDCVC/VLng;
+	
+# Concentration in venous blood
+	CVBodDCVC = CBodDCVC / PBodDCVC;
+	CVLivDCVC = CLivDCVC / PLivDCVC;
+	CVKidDCVC = CKidDCVC / PKidDCVC;
+	CVBrnDCVC = CBrnDCVC / PBrnDCVC;
+	CVLngDCVC = CLngDCVC / PLngDCVC;
+
+# Dynamics for DCVC in blood
+    dt(ABldDCVC) = QGutLiv*CVLivDCVC + QBod*CVBodDCVC + QKid*CVKidDCVC
+    + QBrn*CVBrnDCVC + QLng*CVLngDCVC 
+    - CBldDCVC * QCnow;
+
+#**** Body ********************************************************************
+# Dynamics for amount of DCVC in the body (mg)
+	dt(ABodDCVC) = QBod * (CBldDCVC - CVBodDCVC);
+	dt(ABrnDCVC) = QBrn * (CBldDCVC - CVBrnDCVC);
+	dt(ALngDCVC) = QLng * (CBldDCVC - CVLngDCVC);
+
+# Dynamics for amount of DCVC in the kidney (mg)
+    dt(AKidDCVC) = QKid * (CBldDCVC - CVKidDCVC)
+                    + RAMetKid * FracKidDCVC * StochDCVCTCE;
+
+# Dynamics for amount of DCVC in the liver (mg)
+# Rate of metabolism of DCVC to NAcDCVC in liver
+	RAMetDCVC = kDCVC * ALivDCVC;
+	dt(ALivDCVC) = RAMetDCVG * StochDCVCDCVG + QGutLiv * (CBldDCVC - CVLivDCVC)
+	                - RAMetDCVC; 
+
 #******************************************************************************
-# Amount of DCVC in body (mg) #(v2.0)
-    dt(ADCVC) = RAMetDCVG * MWDCVC  
-		+ RAMetKid * FracKidDCVC * StochDCVCTCE
-		- kElimDCVC * ADCVC;#(v2.0)
-# Concentration of DCVG in blood (in mmoles/l)#(v2.0)
-	CDCVCmol = ADCVC / MWDCVC / VDCVC;#(v2.0)
+#***                    NAcDCVC Sub-model                                   ***
+#******************************************************************************
+# Tissue Concentrations (mg/L)
+	
+	CBldNDCVC = ABldNDCVC/VBld;
+	CBodNDCVC = ABodNDCVC/VBod;
+	CLivNDCVC = ALivNDCVC/VLiv; 
+	CKidNDCVC = AKidNDCVC/VKid; 
+    CBrnNDCVC = ABrnNDCVC/VBrn;
+    CLngNDCVC = ALngNDCVC/VLng;
+	
+# Concentration in venous blood
+	CVBodNDCVC = CBodNDCVC / PBodNDCVC;
+	CVLivNDCVC = CLivNDCVC / PLivNDCVC;
+	CVKidNDCVC = CKidNDCVC / PKidNDCVC;
+	CVBrnNDCVC = CBrnNDCVC / PBrnNDCVC;
+	CVLngNDCVC = CLngNDCVC / PLngNDCVC;
+
+# Dynamics for DCVC in blood
+    dt(ABldNDCVC) = QGutLiv*CVLivNDCVC + QBod*CVBodNDCVC + QKid*CVKidNDCVC
+    + QBrn*CVBrnNDCVC + QLng*CVLngNDCVC 
+    - CBldNDCVC * QCnow;
+
+#**** Body ********************************************************************
+# Dynamics for amount of NAcDCVC in the body (mg)
+	dt(ABodNDCVC) = QBod * (CBldDCVC - CVBodNDCVC);
+	dt(ABrnNDCVC) = QBrn * (CBldDCVC - CVBrnNDCVC);
+	dt(ALngNDCVC) = QLng * (CBldDCVC - CVLngNDCVC);
+
+# Dynamics for amount of NAcDCVC in the kidney (mg)
+    dt(AKidNDCVC) = QKid * (CBldNDCVC - CVKidNDCVC);
+
+# Rate of metabolism of DCVC to NAcDCVC in liver
+	dt(ALivNDCVC) = RAMetDCVC * StochN + QGutLiv * (CBldNDCVC - CVLivNDCVC)
+	                - kNDCVC * ALivNDCVC; 
+
 #******************************************************************************
 #***                       Total Mass Balance                               ***
 #******************************************************************************
@@ -3217,11 +3385,18 @@ CalcOutputs{
 	#CDCVG_ND = ( CDCVG_NDtmp < 1.0 ? ( CDCVG_NDtmp >= 1e-100 ? -log(CDCVG_NDtmp) : -log(1e-100)) : 1e-100 );
 	
 # DCVC#(v2.0)
-	CDCVCmol = (CDCVCmol < 1.0e-15 ? 1.0e-15 : CDCVCmol);#(v2.0)
-	CDCVCmol0 = CDCVCmol;#(v2.0)
-	CDCVC_NDtmp = CDFNormal(3*(1-CDCVCmol/CDCVCmolLD)); #(v2.0)
+	CBodDCVC = (CBodDCVC < 1.0e-15 ? 1.0e-15 : CBodDCVC); #(v222)
+	CBldDCVC = (CBldDCVC < 1.0e-15 ? 1.0e-15 : CBldDCVC); #(v222)
+	CLivDCVC = (CLivDCVC < 1.0e-15 ? 1.0e-15 : CLivDCVC); #(v222)
+	CKidDCVC = (CKidDCVC < 1.0e-15 ? 1.0e-15 : CKidDCVC); #(v222)
+	CBrnDCVC = (CBrnDCVC < 1.0e-15 ? 1.0e-15 : CBrnDCVC); #(v222)
+	CLngDCVC = (CLngDCVC < 1.0e-15 ? 1.0e-15 : CLngDCVC); #(v222)
+
+#	CDCVCmol = (CDCVCmol < 1.0e-15 ? 1.0e-15 : CDCVCmol);#(v2.0)
+#	CDCVCmol0 = CDCVCmol;#(v2.0)
+#	CDCVC_NDtmp = CDFNormal(3*(1-CDCVCmol/CDCVCmolLD)); #(v2.0)
 		# Assuming LD = 3*sigma_blank, Normally distributed#(v2.0)
-	CDCVC_ND = ( CDCVC_NDtmp < 1.0 ? ( CDCVC_NDtmp >= 1e-100 ? -log(CDCVC_NDtmp) : -log(1e-100)) : 1e-100 );#(v2.0)
+#	CDCVC_ND = ( CDCVC_NDtmp < 1.0 ? ( CDCVC_NDtmp >= 1e-100 ? -log(CDCVC_NDtmp) : -log(1e-100)) : 1e-100 );#(v2.0)
 # DCA#(v2.0)
 	CDCAmol = (CDCAmol < 1.0e-15 ? 1.0e-15 : CDCAmol);#(v2.0)
 	CDCAmol0 = CDCAmol;#(v2.0)
@@ -3259,6 +3434,17 @@ CalcOutputs{
 	CBrnDCVGMole = CBrnDCVG / MWDCVG * 1000; #(v222)
 	CLngDCVGMole = CLngDCVG / MWDCVG * 1000; #(v222)
 	
+	CBldDCVCMole = CBldDCVC / MWDCVC * 1000; #(v222)
+	CLivDCVCMole = CLivDCVC / MWDCVC * 1000; #(v222)
+	CKidDCVCMole = CKidDCVC / MWDCVC * 1000; #(v222)
+	CBrnDCVCMole = CBrnDCVC / MWDCVC * 1000; #(v222)
+	CLngDCVCMole = CLngDCVC / MWDCVC * 1000; #(v222)
+
+	CBldNDCVCMole = CBldNDCVC / MWNADCVC * 1000; #(v222)
+	CLivNDCVCMole = CLivNDCVC / MWNADCVC * 1000; #(v222)
+	CKidNDCVCMole = CKidNDCVC / MWNADCVC * 1000; #(v222)
+	CBrnNDCVCMole = CBrnNDCVC / MWNADCVC * 1000; #(v222)
+	CLngNDCVCMole = CLngNDCVC / MWNADCVC * 1000; #(v222)
 
 #**** Dose Metrics ************************************************************
 # Oxidation/BW
