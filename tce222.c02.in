@@ -467,7 +467,6 @@ lnFracKidDCVCC = 10; # All kidney GSH conjugation is locally processed
 lnVMaxKidDCVGC = -30; # Remove kidney GSH conjugation (not identifiable)
 lnClKidDCVGC = -30; # Remove kidney GSH conjugation (not identifiable)
 
-
 Likelihood( CVenMole , LogNormal_v , Prediction( CVenMole ) , Ve_CVenMole );
 Likelihood( CLivMole , LogNormal_v , Prediction( CLivMole ) , Ve_CLivMole );
 Likelihood( CKidMole , LogNormal_v , Prediction( CKidMole ) , Ve_CKidMole );
@@ -500,16 +499,17 @@ Likelihood( CKidNDCVCMole , LogNormal_v , Prediction( CKidNDCVCMole ) , Ve_CKidN
 Likelihood( CBrnNDCVCMole , LogNormal_v , Prediction( CBrnNDCVCMole ) , Ve_CBrnNDCVCMole ); #(v222)
 Likelihood( CLngNDCVCMole , LogNormal_v , Prediction( CLngNDCVCMole ) , Ve_CLngNDCVCMole ); #(v222)
 
-
 Likelihood (CBldMole_ND , StudentT, 5, Prediction(CBldMole_ND), 0.5); # LOD = 3*SD
 Likelihood (CLivMole_ND , StudentT, 5, Prediction(CLivMole_ND), 0.6); # LOD = 3*SD
+
 Likelihood (CBldTCOHMole_ND , StudentT, 5, Prediction(CBldTCOHMole_ND), 8.0);
 Likelihood (CLivTCOHMole_ND , StudentT, 5, Prediction(CLivTCOHMole_ND), 5.0);
+
 Likelihood (CLivDCVGMole_ND, StudentT, 5, Prediction(CLivDCVGMole_ND), 3.0E-04);
 Likelihood (CBrnDCVGMole_ND, StudentT, 5, Prediction(CBrnDCVGMole_ND), 1.1E-04);
+
 Likelihood (CBldDCVCMole_ND, StudentT, 5, Prediction(CBldDCVCMole_ND), 1.5E-05);
 Likelihood (CKidDCVCMole_ND, StudentT, 5, Prediction(CKidDCVCMole_ND), 3.6E-05);
-
 
 Level { #Subject/group level
 
@@ -620,10 +620,9 @@ Distrib(	lnkUrnTCOGC	TruncNormal_v	M_lnkUrnTCOGC	V_lnkUrnTCOGC	-6.908	6.908	);
 Distrib(	lnkDCVGC	TruncNormal_v	M_lnkDCVGC	V_lnkDCVGC	-9.21	4.605	);
 Distrib(	lnkDCVCC	TruncNormal_v	M_lnkDCVCC	V_lnkDCVCC	-9.21	4.605	); #(v222)
 Distrib(	lnkNDCVCC	TruncNormal_v	M_lnkNDCVCC	V_lnkNDCVCC	-9.21	4.605	); #(v222)
-
-
-
-Level { # Group B6C3F1
+							
+######## BEGIN GROUP 2 
+Level {
 
 Experiment { # Begin Yushuan B6C3F1
 Species =  3 ;
@@ -685,7 +684,7 @@ Data(CLivTCOHMole_ND, 0,0,0,0,0,0);
 
 
 Print(CBldDCVGMole, 1.000  1.001  1.002  2.000  2.001  2.002  6.000  6.001  6.002 12.000 12.001 12.002 24.000 24.001 24.002 36.000 36.001 36.002);
-Data(CBldDCVGMole, 0.002339665883,0.003266692584,0.001337021161,0.000189563094,0.000228109898,0.000320284573,-1,0.000129053693,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1);
+Data(CBldDCVGMole, 0.002339665883,0.003266692584,0.001337021161,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1);
 Print(CLivDCVGMole, 1.000  1.001  1.002  2.000  2.001  2.002  6.000  6.001  6.002 12.000 12.001 12.002 24.000 24.001 24.002 36.000 36.001 36.002);
 Data(CLivDCVGMole, 0.03347188,0.04951391,0.03100383,0.007750781,0.006910517,0.008365555,0.002550738,0.01106992,0.003040018,0.003074784,-1,0.002786674,-1,-1,-1,-1,-1,-1);
 Print(CKidDCVGMole, 1.000  1.001  1.002  2.000  2.001  2.002  6.000  6.001  6.002 12.000 12.001 12.002 24.000 24.001 24.002 36.000 36.001 36.002);
@@ -709,8 +708,8 @@ Print(CBrnDCVCMole, 1.000  1.001  1.002  2.000  2.001  2.002  6.000  6.001  6.00
 Data(CBrnDCVCMole, 0.006995898482,0.004592308135,0.003883283574,-1,0.00736222677,0.005224682682,0.002920412495,0.005545521111,-1,-1,-1,0.006002704647,-1,-1,-1,-1,-1,-1);
 Print(CLngDCVCMole, 1.000  1.001  1.002  2.000  2.001  2.002  6.000  6.001  6.002 12.000 12.001 12.002 24.000 24.001 24.002 36.000 36.001 36.002);
 Data(CLngDCVCMole, 0.004932243745,0.005430402481,0.002158526869,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1);
-Print(CBldDCVCMole_ND, 24.000 24.001 24.002 36.000 36.001 36.002);
-Data(CBldDCVCMole_ND, 0 0 0 0 0 0);
+Print(CBldDCVCMole_ND, 12.000 12.001 12.002 24.000 24.001 24.002 36.000 36.001 36.002);
+Data(CBldDCVCMole_ND, 0 0 0 0 0 0 0 0 0);
 Print(CKidDCVCMole_ND, 24.000 24.001 24.002 36.000 36.001 36.002);
 Data(CKidDCVCMole_ND, 0 0 0 0 0 0);
 
@@ -727,7 +726,9 @@ Data(CLngNDCVCMole, 0.004999705,0.005868362,0.006000809,0.004609921,0.004298516,
 
 
 } # End Yushuan B6C3F1
-} # Group B6C3F1
+
+######## END GROUP 2
+}
 
 };
 };
