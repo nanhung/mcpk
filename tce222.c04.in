@@ -467,37 +467,7 @@ lnFracKidDCVCC = 10; # All kidney GSH conjugation is locally processed
 lnVMaxKidDCVGC = -30; # Remove kidney GSH conjugation (not identifiable)
 lnClKidDCVGC = -30; # Remove kidney GSH conjugation (not identifiable)
 
-Likelihood( CVenMole , LogNormal_v , Prediction( CVenMole ) , Ve_CVenMole );
-Likelihood( CLivMole , LogNormal_v , Prediction( CLivMole ) , Ve_CLivMole );
-Likelihood( CKidMole , LogNormal_v , Prediction( CKidMole ) , Ve_CKidMole );
-Likelihood( CBrnMole , LogNormal_v , Prediction( CBrnMole ) , Ve_CBrnMole ); #(v221)
-Likelihood( CLngMole , LogNormal_v , Prediction( CLngMole ) , Ve_CLngMole ); #(v221)
-Likelihood( CBldTCAMole , LogNormal_v , Prediction( CBldTCAMole ) , Ve_CBldTCAMole );
-Likelihood( CLivTCAMole , LogNormal_v , Prediction( CLivTCAMole ) , Ve_CLivTCAMole );
-Likelihood( CKidTCAMole , LogNormal_v , Prediction( CKidTCAMole ) , Ve_CKidTCAMole ); #(v221)
-Likelihood( CBrnTCAMole , LogNormal_v , Prediction( CBrnTCAMole ) , Ve_CBrnTCAMole ); #(v221)
-Likelihood( CLngTCAMole , LogNormal_v , Prediction( CLngTCAMole ) , Ve_CLngTCAMole ); #(v221)
-Likelihood( CTotTCOHMole , LogNormal_v , Prediction( CTotTCOHMole ) , Ve_CTotTCOHMole );
-Likelihood( CLivTCOHMole , LogNormal_v , Prediction( CLivTCOHMole ) , Ve_CLivTCOHMole );
-Likelihood( CKidTCOHMole , LogNormal_v , Prediction( CKidTCOHMole ) , Ve_CKidTCOHMole ); #(v221)
-Likelihood( CBrnTCOHMole , LogNormal_v , Prediction( CBrnTCOHMole ) , Ve_CBrnTCOHMole ); #(v221)
-Likelihood( CLngTCOHMole , LogNormal_v , Prediction( CLngTCOHMole ) , Ve_CLngTCOHMole ); #(v221)
 
-Likelihood( CBldDCVGMole , LogNormal_v , Prediction( CBldDCVGMole ) , Ve_CBldDCVGMole ); #(v222)
-Likelihood( CLivDCVGMole , LogNormal_v , Prediction( CLivDCVGMole ) , Ve_CLivDCVGMole ); #(v222)
-Likelihood( CKidDCVGMole , LogNormal_v , Prediction( CKidDCVGMole ) , Ve_CKidDCVGMole ); #(v222)
-Likelihood( CBrnDCVGMole , LogNormal_v , Prediction( CBrnDCVGMole ) , Ve_CBrnDCVGMole ); #(v222)
-Likelihood( CLngDCVGMole , LogNormal_v , Prediction( CLngDCVGMole ) , Ve_CLngDCVGMole ); #(v222)
-Likelihood( CBldDCVCMole , LogNormal_v , Prediction( CBldDCVCMole ) , Ve_CBldDCVCMole ); #(v222)
-Likelihood( CLivDCVCMole , LogNormal_v , Prediction( CLivDCVCMole ) , Ve_CLivDCVCMole ); #(v222)
-Likelihood( CKidDCVCMole , LogNormal_v , Prediction( CKidDCVCMole ) , Ve_CKidDCVCMole ); #(v222)
-Likelihood( CBrnDCVCMole , LogNormal_v , Prediction( CBrnDCVCMole ) , Ve_CBrnDCVCMole ); #(v222)
-Likelihood( CLngDCVCMole , LogNormal_v , Prediction( CLngDCVCMole ) , Ve_CLngDCVCMole ); #(v222)
-Likelihood( CBldNDCVCMole , LogNormal_v , Prediction( CBldNDCVCMole ) , Ve_CBldNDCVCMole ); #(v222)
-Likelihood( CLivNDCVCMole , LogNormal_v , Prediction( CLivNDCVCMole ) , Ve_CLivNDCVCMole ); #(v222)
-Likelihood( CKidNDCVCMole , LogNormal_v , Prediction( CKidNDCVCMole ) , Ve_CKidNDCVCMole ); #(v222)
-Likelihood( CBrnNDCVCMole , LogNormal_v , Prediction( CBrnNDCVCMole ) , Ve_CBrnNDCVCMole ); #(v222)
-Likelihood( CLngNDCVCMole , LogNormal_v , Prediction( CLngNDCVCMole ) , Ve_CLngNDCVCMole ); #(v222)
 
 Likelihood (CBldMole_ND , StudentT, 5, Prediction(CBldMole_ND), 0.5); # LOD = 3*SD
 Likelihood (CLivMole_ND , StudentT, 5, Prediction(CLivMole_ND), 0.6); # LOD = 3*SD
@@ -623,6 +593,39 @@ Distrib(	lnkNDCVCC	TruncNormal_v	M_lnkNDCVCC	V_lnkNDCVCC	-9.21	4.605	); #(v222)
 							
 ######## BEGIN GROUP 2 
 Level {
+
+Likelihood( CVenMole , LogNormal_v , Prediction( CVenMole ) , Ve_CVenMole );
+Likelihood( CLivMole , LogNormal_v , Prediction( CLivMole ) , Ve_CLivMole );
+Likelihood( CKidMole , LogNormal_v , Prediction( CKidMole ) , Ve_CKidMole );
+Likelihood( CBrnMole , LogNormal_v , Prediction( CBrnMole ) , Ve_CBrnMole ); #(v221)
+Likelihood( CLngMole , LogNormal_v , Prediction( CLngMole ) , Ve_CLngMole ); #(v221)
+Likelihood( CBldTCAMole , LogNormal_v , Prediction( CBldTCAMole ) , Ve_CBldTCAMole );
+Likelihood( CLivTCAMole , LogNormal_v , Prediction( CLivTCAMole ) , Ve_CLivTCAMole );
+Likelihood( CKidTCAMole , LogNormal_v , Prediction( CKidTCAMole ) , Ve_CKidTCAMole ); #(v221)
+Likelihood( CBrnTCAMole , LogNormal_v , Prediction( CBrnTCAMole ) , Ve_CBrnTCAMole ); #(v221)
+Likelihood( CLngTCAMole , LogNormal_v , Prediction( CLngTCAMole ) , Ve_CLngTCAMole ); #(v221)
+Likelihood( CTotTCOHMole , LogNormal_v , Prediction( CTotTCOHMole ) , Ve_CTotTCOHMole );
+Likelihood( CLivTCOHMole , LogNormal_v , Prediction( CLivTCOHMole ) , Ve_CLivTCOHMole );
+Likelihood( CKidTCOHMole , LogNormal_v , Prediction( CKidTCOHMole ) , Ve_CKidTCOHMole ); #(v221)
+Likelihood( CBrnTCOHMole , LogNormal_v , Prediction( CBrnTCOHMole ) , Ve_CBrnTCOHMole ); #(v221)
+Likelihood( CLngTCOHMole , LogNormal_v , Prediction( CLngTCOHMole ) , Ve_CLngTCOHMole ); #(v221)
+
+Likelihood( CBldDCVGMole , LogNormal_v , Prediction( CBldDCVGMole ) , Ve_CBldDCVGMole ); #(v222)
+Likelihood( CLivDCVGMole , LogNormal_v , Prediction( CLivDCVGMole ) , Ve_CLivDCVGMole ); #(v222)
+Likelihood( CKidDCVGMole , LogNormal_v , Prediction( CKidDCVGMole ) , Ve_CKidDCVGMole ); #(v222)
+Likelihood( CBrnDCVGMole , LogNormal_v , Prediction( CBrnDCVGMole ) , Ve_CBrnDCVGMole ); #(v222)
+Likelihood( CLngDCVGMole , LogNormal_v , Prediction( CLngDCVGMole ) , Ve_CLngDCVGMole ); #(v222)
+Likelihood( CBldDCVCMole , LogNormal_v , Prediction( CBldDCVCMole ) , Ve_CBldDCVCMole ); #(v222)
+Likelihood( CLivDCVCMole , LogNormal_v , Prediction( CLivDCVCMole ) , Ve_CLivDCVCMole ); #(v222)
+Likelihood( CKidDCVCMole , LogNormal_v , Prediction( CKidDCVCMole ) , Ve_CKidDCVCMole ); #(v222)
+Likelihood( CBrnDCVCMole , LogNormal_v , Prediction( CBrnDCVCMole ) , Ve_CBrnDCVCMole ); #(v222)
+Likelihood( CLngDCVCMole , LogNormal_v , Prediction( CLngDCVCMole ) , Ve_CLngDCVCMole ); #(v222)
+Likelihood( CBldNDCVCMole , LogNormal_v , Prediction( CBldNDCVCMole ) , Ve_CBldNDCVCMole ); #(v222)
+Likelihood( CLivNDCVCMole , LogNormal_v , Prediction( CLivNDCVCMole ) , Ve_CLivNDCVCMole ); #(v222)
+Likelihood( CKidNDCVCMole , LogNormal_v , Prediction( CKidNDCVCMole ) , Ve_CKidNDCVCMole ); #(v222)
+Likelihood( CBrnNDCVCMole , LogNormal_v , Prediction( CBrnNDCVCMole ) , Ve_CBrnNDCVCMole ); #(v222)
+Likelihood( CLngNDCVCMole , LogNormal_v , Prediction( CLngNDCVCMole ) , Ve_CLngNDCVCMole ); #(v222)
+
 
 Experiment { # Begin Yushuan B6C3F1
 Species =  3 ;
