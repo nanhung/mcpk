@@ -147,7 +147,7 @@ Radius_jeju  = 0.18; lnRadius_jejuC  = 0.0;
 Radius_ileum = 0.15; lnRadius_ileumC  = 0.0;
 Radius_cecum = 0.35; lnRadius_cecumC  = 0.0;
 Radius_colon = 0.25; lnRadius_colonC  = 0.0;
-
+# no default value
 # Transit half-lives in lumina (ref Perdaems 2010) (hours)
 T12_stom_lu  = 0.25; lnT12_stom_luC = 0.0;
 T12_duod_lu  = 0.25; lnT12_duod_luC = 0.0;
@@ -190,10 +190,13 @@ PO_dose = PerExp (Ingdose, Period, Tlag, RateConst);
 # Molecular mass (g/mol)
 MM = 180.17; # Theophylline
 
-# Acidobasic type: 0=neutral, 1=base, 2=acide, 3=diacid, 4=dibase
-AB_type = 1;
-pKa1 = 1.84; # basic pKa
-pKa2 = 8.60; # acid  pKa
+# Acido-basic type: 0 = neutral, 1 = base, 2 = acid, 3 = ampholyte
+AB_type = 1 ; # neutral is the default
+
+# Ionization constants 
+pKb = 5.19; # basic equilibrium constant
+pKa = 8.81; # acid  equilibrium constant (KORTUM,G ET AL 1961)
+
 
 # Absorption on(1)/off(0) switches
 f_Abs_stom = 0;
@@ -228,10 +231,6 @@ Mol_vol = 120;
 
 # Intrinsic (instantaneous) water solubility (microg/L)
 Solubility = 7.36e6; lnSolubilityC = 0.0;
-
-# Solubility factors
-SFA = 100; # for acids 
-SFB = 50; # for bases
 
 # Precipitation rate (1/h)
 # According to "Approaches for measuring intestinal precipitation rates of oral drugs"
@@ -393,7 +392,8 @@ Csat_colon;
 # Variances inter individuelles (Vr_)
 #------------------------------------
 
-Vr_Mol_vol;	
+Vr_Mol_vol;
+Vr_lnSolubilityC;
 Vr_Weibull_scale;
 Vr_Weibull_lag;
 Vr_G_Radius;
@@ -408,6 +408,7 @@ Vr_PC_jeju;
 Vr_PC_ileum;
 Vr_PC_cecum;
 Vr_PC_colon;
+Vr_Ratio_BP
 Vr_Fu_plasma;
 Vr_Fu_met_stom;
 Vr_Fu_met_duod;
@@ -563,114 +564,51 @@ Initialize {
   Diffusivity = 1.09E-4 * pow(Mol_vol, -0.6);
 
   # Baseline dissolution rate constant (1/microM/hr)
-  G_DensityC = exp(lnG_DensityC);
-  K_diss = 1080 * MM * Diffusivity / (G_Density * G_DensityC * G_Radius * Diff_thickness);
+  K_diss = 1080 * MM * Diffusivity / (G_Density * exp(lnG_DensityC) * G_Radius * Diff_thickness);
 
   # Saturation concentrations (according to Henderson-Hasselbach)
-  # note: AB_type: 0=neutral, 1=base, 2=acide, 3=diacid, 4=dibase
-  SolubilityC = exp(lnSolubilityC);
-  
-  Csat_stom  = Solubility * SolubilityC * (
-   AB_type == 1 ? (1+pow(10, pKa1-pH_stom) < SFB * (1+pow(10, pKa1-13))  ?
-                   1+pow(10, pKa1-pH_stom) : SFB * (1+pow(10, pKa1-13))) :
+  # note: AB_type: 0 = neutral, 1 = base, 2 = acid, 3 = ampholyte
+  Csat_stom  = Solubility * exp(lnSolubilityC) * (
+   AB_type == 1 ? 1 + pow(10, pKb - pH_stom) :
 
-   AB_type == 2 ? (1+pow(10, pH_stom-pKa1) < SFA * (1+pow(10, 1 - pKa1)) ?
-                   1+pow(10, pH_stom-pKa1) : SFA * (1+pow(10, 1 - pKa1))):
+   AB_type == 2 ? 1 + pow(10, pH_stom - pKa) :
 
-   AB_type == 3 ? (1 + pow(10, pKa1 - pH_stom)+pow(10, pH_stom - pKa2) <
-                   SFA * (1 + pow(10, (pKa2 + pKa1) * 0.5))  ?
-                   1 + pow(10, pKa1 - pH_stom)+pow(10, pH_stom - pKa2) :
-                   SFA * (1 + pow(10, (pKa2 + pKa1) * 0.5))) :
+   AB_type == 3 ? 1 + pow(10, pKb - pH_stom) + pow(10, pH_stom - pKa) : 1);
 
-   AB_type == 4 ? (1 + pow(10, pKa1 - pH_stom)+pow(10, pH_stom - pKa2) <
-                   SFB * (1 + pow(10, (pKa2 + pKa1) * 0.5)) ?
-                   1 + pow(10, pKa1 - pH_stom)+pow(10, pH_stom - pKa2) :
-                   SFB * (1 + pow(10, (pKa2 + pKa1) * 0.5))) : 1);
+  Csat_duod   =  Solubility * exp(lnSolubilityC) * (
+   AB_type == 1 ? 1 + pow(10, pKb - pH_duod) :
 
-  Csat_duod   =  Solubility * SolubilityC * (
-   AB_type == 1 ? (1+pow(10, pKa1-pH_duod) < SFB * (1+pow(10, pKa1-13))  ?
-                   1+pow(10, pKa1-pH_duod) : SFB * (1+pow(10, pKa1-13))) :
+   AB_type == 2 ? 1 + pow(10, pH_duod - pKa) :
 
-   AB_type == 2 ? (1+pow(10, pH_duod-pKa1) < SFA * (1+pow(10, 1 - pKa1)) ?
-                   1+pow(10, pH_duod-pKa1) : SFA * (1+pow(10, 1 - pKa1))):
+   AB_type == 3 ? 1 + pow(10, pKb - pH_duod) + pow(10, pH_duod - pKa) : 1);
 
-   AB_type == 3 ? (1 + pow(10, pKa1 - pH_duod)+pow(10, pH_duod - pKa2) <
-                   SFA * (1 + pow(10, (pKa2 + pKa1) * 0.5))  ?
-                   1 + pow(10, pKa1 - pH_duod)+pow(10, pH_duod - pKa2) :
-                   SFA * (1 + pow(10, (pKa2 + pKa1) * 0.5))) :
+  Csat_jeju   =  Solubility * exp(lnSolubilityC) * (
+   AB_type == 1 ? 1 + pow(10, pKb - pH_jeju) :
 
-   AB_type == 4 ? (1 + pow(10, pKa1 - pH_duod)+pow(10, pH_duod - pKa2) <
-                   SFB * (1 + pow(10, (pKa2 + pKa1) * 0.5)) ?
-                   1 + pow(10, pKa1 - pH_duod)+pow(10, pH_duod - pKa2) :
-                   SFB * (1 + pow(10, (pKa2 + pKa1) * 0.5))) : 1);
+   AB_type == 2 ? 1 + pow(10, pH_jeju - pKa) :
 
-  Csat_jeju   =  Solubility * SolubilityC *(
-   AB_type == 1 ? (1+pow(10, pKa1-pH_jeju) < SFB * (1+pow(10, pKa1-13))  ?
-                   1+pow(10, pKa1-pH_jeju) : SFB * (1+pow(10, pKa1-13))) :
+   AB_type == 3 ? 1 + pow(10, pKb - pH_jeju) + pow(10, pH_jeju - pKa) : 1);
 
-   AB_type == 2 ? (1+pow(10, pH_jeju-pKa1) < SFA * (1+pow(10, 1 - pKa1)) ?
-                   1+pow(10, pH_jeju-pKa1) : SFA * (1+pow(10, 1 - pKa1))):
+  Csat_ileum  =  Solubility * exp(lnSolubilityC) * (
+   AB_type == 1 ? 1 + pow(10, pKb - pH_ileum) :
 
-   AB_type == 3 ? (1 + pow(10, pKa1 - pH_jeju)+pow(10, pH_jeju - pKa2) <
-                   SFA * (1 + pow(10, (pKa2 + pKa1) * 0.5))  ?
-                   1 + pow(10, pKa1 - pH_jeju)+pow(10, pH_jeju - pKa2) :
-                   SFA * (1 + pow(10, (pKa2 + pKa1) * 0.5))) :
+   AB_type == 2 ? 1 + pow(10, pH_ileum - pKa) :
 
-   AB_type == 4 ? (1 + pow(10, pKa1 - pH_jeju)+pow(10, pH_jeju - pKa2) <
-                   SFB * (1 + pow(10, (pKa2 + pKa1) * 0.5)) ?
-                   1 + pow(10, pKa1 - pH_jeju)+pow(10, pH_jeju - pKa2) :
-                   SFB * (1 + pow(10, (pKa2 + pKa1) * 0.5))) : 1);
+   AB_type == 3 ? 1 + pow(10, pKb - pH_ileum) + pow(10, pH_ileum - pKa) : 1);
 
-  Csat_ileum  =  Solubility * SolubilityC * (
-   AB_type == 1 ? (1+pow(10, pKa1-pH_ileum) < SFB * (1+pow(10, pKa1-13))  ?
-                   1+pow(10, pKa1-pH_ileum) : SFB * (1+pow(10, pKa1-13))) :
+  Csat_cecum  =  Solubility * exp(lnSolubilityC) * (
+   AB_type == 1 ? 1 + pow(10, pKb - pH_cecum) :
 
-   AB_type == 2 ? (1+pow(10, pH_ileum-pKa1) < SFA * (1+pow(10, 1 - pKa1)) ?
-                   1+pow(10, pH_ileum-pKa1) : SFA * (1+pow(10, 1 - pKa1))):
+   AB_type == 2 ? 1 + pow(10, pH_cecum - pKa) :
 
-   AB_type == 3 ? (1 + pow(10, pKa1 - pH_ileum)+pow(10, pH_ileum - pKa2) <
-                   SFA * (1 + pow(10, (pKa2 + pKa1) * 0.5))  ?
-                   1 + pow(10, pKa1 - pH_ileum)+pow(10, pH_ileum - pKa2) :
-                   SFA * (1 + pow(10, (pKa2 + pKa1) * 0.5))) :
+   AB_type == 3 ? 1 + pow(10, pKb - pH_cecum) + pow(10, pH_cecum - pKa) : 1);
 
-   AB_type == 4 ? (1 + pow(10, pKa1 - pH_ileum)+pow(10, pH_ileum - pKa2) <
-                   SFB * (1 + pow(10, (pKa2 + pKa1) * 0.5)) ?
-                   1 + pow(10, pKa1 - pH_ileum)+pow(10, pH_ileum - pKa2) :
-                   SFB * (1 + pow(10, (pKa2 + pKa1) * 0.5))) : 1);
+  Csat_colon  =  Solubility * exp(lnSolubilityC) * (
+   AB_type == 1 ? 1 + pow(10, pKb - pH_colon) :
 
-  Csat_cecum  =  Solubility * SolubilityC * (
-   AB_type == 1 ? (1+pow(10, pKa1-pH_cecum) < SFB * (1+pow(10, pKa1-13))  ?
-                   1+pow(10, pKa1-pH_cecum) : SFB * (1+pow(10, pKa1-13))) :
+   AB_type == 2 ? 1 + pow(10, pH_colon - pKa) :
 
-   AB_type == 2 ? (1+pow(10, pH_cecum-pKa1) < SFA * (1+pow(10, 1 - pKa1)) ?
-                   1+pow(10, pH_cecum-pKa1) : SFA * (1+pow(10, 1 - pKa1))):
-
-   AB_type == 3 ? (1 + pow(10, pKa1 - pH_cecum)+pow(10, pH_cecum - pKa2) <
-                   SFA * (1 + pow(10, (pKa2 + pKa1) * 0.5))  ?
-                   1 + pow(10, pKa1 - pH_cecum)+pow(10, pH_cecum - pKa2) :
-                   SFA * (1 + pow(10, (pKa2 + pKa1) * 0.5))) :
-
-   AB_type == 4 ? (1 + pow(10, pKa1 - pH_cecum)+pow(10, pH_cecum - pKa2) <
-                   SFB * (1 + pow(10, (pKa2 + pKa1) * 0.5)) ?
-                   1 + pow(10, pKa1 - pH_cecum)+pow(10, pH_cecum - pKa2) :
-                   SFB * (1 + pow(10, (pKa2 + pKa1) * 0.5))) : 1);
-
-  Csat_colon  =  Solubility * SolubilityC *(
-   AB_type == 1 ? (1+pow(10, pKa1-pH_colon) < SFB * (1+pow(10, pKa1-13))  ?
-                   1+pow(10, pKa1-pH_colon) : SFB * (1+pow(10, pKa1-13))) :
-
-   AB_type == 2 ? (1+pow(10, pH_colon-pKa1) < SFA * (1+pow(10, 1 - pKa1)) ?
-                   1+pow(10, pH_colon-pKa1) : SFA * (1+pow(10, 1 - pKa1))):
-
-   AB_type == 3 ? (1 + pow(10, pKa1 - pH_colon)+pow(10, pH_colon - pKa2) <
-                   SFA * (1 + pow(10, (pKa2 + pKa1) * 0.5))  ?
-                   1 + pow(10, pKa1 - pH_colon)+pow(10, pH_colon - pKa2) :
-                   SFA * (1 + pow(10, (pKa2 + pKa1) * 0.5))) :
-
-   AB_type == 4 ? (1 + pow(10, pKa1 - pH_colon)+pow(10, pH_colon - pKa2) <
-                   SFB * (1 + pow(10, (pKa2 + pKa1) * 0.5)) ?
-                   1 + pow(10, pKa1 - pH_colon)+pow(10, pH_colon - pKa2) :
-                   SFB * (1 + pow(10, (pKa2 + pKa1) * 0.5))) : 1);
+   AB_type == 3 ? 1 + pow(10, pKb - pH_colon) + pow(10, pH_colon - pKa) : 1);
 
 
   # GI tract absorption flows
