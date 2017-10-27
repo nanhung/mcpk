@@ -45,7 +45,7 @@ Distrib(M_lnCLC_AS, Uniform, -6., 1);
 
 # Additional sensitive parameters (37)
 
-Distrib(M_lnQCC, TruncNormal, 2.785011, 0.4690792, 1.585011, 3.985011);
+Distrib(M_lnQCC, TruncNormal, 2.785011 0.4167421 1.785011 3.785011)
 
 Distrib(M_lnVFC, TruncNormal, -1.541779 0.03275559 -1.621779 -1.461779);
 Distrib(M_lnVKC, TruncNormal, -5.426151 0.03269649 -5.506151 -5.346151);
@@ -65,31 +65,29 @@ Distrib(M_lnQSC, TruncNormal, -1.966113 0.03363265 -2.046113 -1.886113);
 
 Distrib(M_lnBP_APAP, Uniform, -2.3, 0);
 
-Distrib(M_lnPF_APAP, TruncNormal, -0.8051967, 0.8222427, -2.805197, 1.194803);
-Distrib(M_lnPG_APAP, TruncNormal, -0.09761283 0.8129753 -2.097613 1.902387);
-Distrib(M_lnPK_APAP, TruncNormal, -0.3410828 0.7922901 -2.341083 1.658917);
-Distrib(M_lnPL_APAP, TruncNormal, -0.375421, 0.8022198, -2.375421, 1.624579);
-Distrib(M_lnPM_APAP, TruncNormal, -0.375421, 0.8092956, -2.375421, 1.624579);
-Distrib(M_lnPR_APAP, TruncNormal, -0.375421 0.8185051 -2.375421 1.624579);
-Distrib(M_lnPS_APAP, TruncNormal, -0.5008753, 0.8252237, -2.500875, 1.499125);
+Distrib(M_lnPF_APAP, TruncNormal, -0.8051967 0.3923243 -1.805197 0.1948033);
+Distrib(M_lnPG_APAP, TruncNormal, -0.09761283 0.4209822 -1.097613 0.9023872);
+Distrib(M_lnPK_APAP, TruncNormal, -0.3410828 0.4099462 -1.341083 0.6589172);
+Distrib(M_lnPL_APAP, TruncNormal, -0.375421 0.3996793 -1.375421 0.624579);
+Distrib(M_lnPM_APAP, TruncNormal, -0.375421 0.4138126 -1.375421 0.624579);
+Distrib(M_lnPR_APAP, TruncNormal, -0.3915622 0.4049084 -1.391562 0.6084378);
+Distrib(M_lnPS_APAP, TruncNormal, -0.5008753 0.3996192 -1.500875 0.4991247);
 
-Distrib(M_lnPF_AG, TruncNormal, -2.055725 0.8386238 -4.055725 -0.05572502);
-Distrib(M_lnPG_AG, TruncNormal, -0.830113 0.8257665 -2.830113 1.169887);
-Distrib(M_lnPK_AG, TruncNormal, -0.9364934 0.8278373 -2.936493 1.063507);
-Distrib(M_lnPL_AG, TruncNormal, -1.136314 0.8263193 -3.136314 0.8636858);
-Distrib(M_lnPM_AG, TruncNormal, -1.090644 0.816993 -3.090644 0.9093559);
-Distrib(M_lnPR_AG, TruncNormal, -1.010601 0.8151735 -3.010601 0.9893986);
-Distrib(M_lnPS_AG, TruncNormal, -1.046969 0.8110738 -3.046969 0.9530309);
+Distrib(M_lnPF_AG, TruncNormal, -2.055725 0.4159407 -3.055725 -1.055725);
+Distrib(M_lnPG_AG, TruncNormal, -0.830113 0.410936 -1.830113 0.169887);
+Distrib(M_lnPK_AG, TruncNormal, -0.9364934 0.4095666 -1.936493 0.06350656);
+Distrib(M_lnPL_AG, TruncNormal, -1.136314 0.4195047 -2.136314 -0.1363142);
+Distrib(M_lnPM_AG, TruncNormal, -1.090644 0.4141211 -2.090644 -0.09064412);
+Distrib(M_lnPR_AG, TruncNormal, -1.010601 0.4105971 -2.010601 -0.01060141);
+Distrib(M_lnPS_AG, TruncNormal, -1.046969 0.397972 -2.046969 -0.04696906);
 
-Distrib(M_lnPF_AS, TruncNormal, -2.430418 0.8221467 -4.430418 -0.4304185);
-Distrib(M_lnPG_AS, TruncNormal, -1.214023 0.8040046 -3.214023 0.7859769);
-Distrib(M_lnPK_AS, TruncNormal, -1.343235 0.842253 -3.343235 0.6567651);
-Distrib(M_lnPL_AS, TruncNormal, -1.594549 0.8117538 -3.594549 0.4054507);
-Distrib(M_lnPM_AS, TruncNormal, -1.61445 0.8183404 -3.61445 0.3855495);
-Distrib(M_lnPR_AS, TruncNormal, -1.575036 0.7977511 -3.575036 0.4249635);
-Distrib(M_lnPS_AS, TruncNormal, -1.370421 0.8482856 -3.370421 0.629579);
-
-
+Distrib(M_lnPF_AS, TruncNormal, -2.430418 0.4083209 -3.430418 -1.430418);
+Distrib(M_lnPG_AS, TruncNormal, -1.214023 0.4079434 -2.214023 -0.2140231);
+Distrib(M_lnPK_AS, TruncNormal, -1.343235 0.3982327 -2.343235 -0.3432349);
+Distrib(M_lnPL_AS, TruncNormal, -1.594549 0.3955258 -2.594549 -0.5945493);
+Distrib(M_lnPM_AS, TruncNormal, -1.61445 0.4101304 -2.61445 -0.6144505);
+Distrib(M_lnPR_AS, TruncNormal, -1.575036 0.412912 -2.575036 -0.5750365);
+Distrib(M_lnPS_AS, TruncNormal, -1.370421 0.4173879 -2.370421 -0.370421);
 
 # Var
 # Original sensitive parameters (21)
@@ -231,29 +229,29 @@ Distrib(lnVSC, TruncNormal_v, M_lnVSC, Var_lnVSC, -1.767399 -1.607399);
 
 Distrib(lnBP_APAP, TruncNormal_v, M_lnBP_APAP, Var_lnBP_APAP, -2.3, 0); 
 
-Distrib(lnPF_APAP, TruncNormal_v, M_lnPF_APAP Var_lnPF_APAP -2.805197, 1.194803);
-Distrib(lnPG_APAP, TruncNormal_v, M_lnPG_APAP Var_lnPG_APAP -2.097613 1.902387);
-Distrib(lnPK_APAP, TruncNormal_v, M_lnPK_APAP Var_lnPK_APAP -2.341083 1.658917);
-Distrib(lnPL_APAP, TruncNormal_v, M_lnPL_APAP Var_lnPL_APAP -2.375421, 1.624579);
-Distrib(lnPM_APAP, TruncNormal_v, M_lnPM_APAP Var_lnPM_APAP -2.375421, 1.624579);
-Distrib(lnPR_APAP, TruncNormal_v, M_lnPR_APAP Var_lnPR_APAP -2.375421 1.624579);
-Distrib(lnPS_APAP, TruncNormal_v, M_lnPS_APAP Var_lnPS_APAP -2.500875, 1.499125);
+Distrib(lnPF_APAP, TruncNormal_v, M_lnPF_APAP Var_lnPF_APAP -1.805197 0.1948033);
+Distrib(lnPG_APAP, TruncNormal_v, M_lnPG_APAP Var_lnPG_APAP -1.097613 0.9023872);
+Distrib(lnPK_APAP, TruncNormal_v, M_lnPK_APAP Var_lnPK_APAP -1.341083 0.6589172);
+Distrib(lnPL_APAP, TruncNormal_v, M_lnPL_APAP Var_lnPL_APAP -1.375421 0.624579);
+Distrib(lnPM_APAP, TruncNormal_v, M_lnPM_APAP Var_lnPM_APAP -1.375421 0.624579);
+Distrib(lnPR_APAP, TruncNormal_v, M_lnPR_APAP Var_lnPR_APAP -1.391562 0.6084378);
+Distrib(lnPS_APAP, TruncNormal_v, M_lnPS_APAP Var_lnPS_APAP -1.500875 0.4991247);
 
-Distrib(lnPF_AG, TruncNormal_v, M_lnPF_AG Var_lnPF_AG -4.055725 -0.05572502);
-Distrib(lnPG_AG, TruncNormal_v, M_lnPG_AG Var_lnPG_AG -2.830113 1.169887);
-Distrib(lnPK_AG, TruncNormal_v, M_lnPK_AG Var_lnPK_AG -2.936493 1.063507);
-Distrib(lnPL_AG, TruncNormal_v, M_lnPL_AG Var_lnPL_AG -3.136314 0.8636858);
-Distrib(lnPM_AG, TruncNormal_v, M_lnPM_AG Var_lnPM_AG -3.090644 0.9093559);
-Distrib(lnPR_AG, TruncNormal_v, M_lnPR_AG Var_lnPR_AG -3.010601 0.9893986);
-Distrib(lnPS_AG, TruncNormal_v, M_lnPS_AG Var_lnPS_AG -3.046969 0.9530309);
+Distrib(lnPF_AG, TruncNormal_v, M_lnPF_AG Var_lnPF_AG -3.055725 -1.055725);
+Distrib(lnPG_AG, TruncNormal_v, M_lnPG_AG Var_lnPG_AG -1.830113 0.169887);
+Distrib(lnPK_AG, TruncNormal_v, M_lnPK_AG Var_lnPK_AG -1.936493 0.06350656);
+Distrib(lnPL_AG, TruncNormal_v, M_lnPL_AG Var_lnPL_AG -2.136314 -0.1363142);
+Distrib(lnPM_AG, TruncNormal_v, M_lnPM_AG Var_lnPM_AG -2.090644 -0.09064412);
+Distrib(lnPR_AG, TruncNormal_v, M_lnPR_AG Var_lnPR_AG -2.010601 -0.01060141);
+Distrib(lnPS_AG, TruncNormal_v, M_lnPS_AG Var_lnPS_AG -2.046969 -0.04696906);
 
-Distrib(lnPF_AS, TruncNormal_v, M_lnPF_AS Var_lnPF_AS -4.430418 -0.4304185);
-Distrib(lnPG_AS, TruncNormal_v, M_lnPF_AS Var_lnPF_AS -3.214023 0.7859769);
-Distrib(lnPK_AS, TruncNormal_v, M_lnPF_AS Var_lnPF_AS -3.343235 0.6567651);
-Distrib(lnPL_AS, TruncNormal_v, M_lnPF_AS Var_lnPF_AS -3.594549 0.4054507);
-Distrib(lnPM_AS, TruncNormal_v, M_lnPF_AS Var_lnPF_AS -3.61445 0.3855495);
-Distrib(lnPR_AS, TruncNormal_v, M_lnPF_AS Var_lnPF_AS -3.575036 0.4249635);
-Distrib(lnPS_AS, TruncNormal_v, M_lnPF_AS Var_lnPF_AS -3.370421 0.629579);
+Distrib(lnPF_AS, TruncNormal_v, M_lnPF_AS Var_lnPF_AS -3.430418 -1.430418);
+Distrib(lnPG_AS, TruncNormal_v, M_lnPF_AS Var_lnPF_AS -2.214023 -0.2140231);
+Distrib(lnPK_AS, TruncNormal_v, M_lnPF_AS Var_lnPF_AS -2.343235 -0.3432349);
+Distrib(lnPL_AS, TruncNormal_v, M_lnPF_AS Var_lnPF_AS -2.594549 -0.5945493);
+Distrib(lnPM_AS, TruncNormal_v, M_lnPF_AS Var_lnPF_AS -2.61445 -0.6144505);
+Distrib(lnPR_AS, TruncNormal_v, M_lnPF_AS Var_lnPF_AS -2.575036 -0.5750365);
+Distrib(lnPS_AS, TruncNormal_v, M_lnPF_AS Var_lnPF_AS -2.370421 -0.370421);
 
 Level { # Study 1
 Simulation { #Volak (2013) 325 mg 9
