@@ -9,9 +9,9 @@
 #TCA and DCA have background subtracted
 
 Integrate(Lsodes, 1e-5, 0.3e-8 , 1)
-MCMC ("tce222.c05.out",
+MCMC ("tce222.c01.out",
 "","",
-20000, 0, 20, 20000, 5555);
+20000, 0, 20, 20000, 1111);
 
 # Fix following parameters at baseline values
 # All physiological parameters except QCC and VPR (DResp is not physiological)
