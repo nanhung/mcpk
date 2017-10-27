@@ -1,7 +1,7 @@
 Integrate(Lsodes, 1.0e-5, 3.09e-7, 1);
-MCMC("apap21s.c02.out", 
+MCMC("apap20s.c03.out", 
 "", "", 
-160000, 0, 160, 160000, 2222); # Full calibration
+160000, 0, 160, 160000, 3333); # Full calibration
 
 
 Level { # Population Level
@@ -53,12 +53,12 @@ Distrib(M_lnCLC_AS, Uniform, -6., 1);
 # Additional sensitive parameters
 
 Distrib(M_lnCYP_VmaxC, Uniform, -2., 5.); 
-Distrib(M_lnQCC, TruncNormal, 2.785011, 0.4690792, 1.585011, 3.985011)
+Distrib(M_lnQCC, TruncNormal, 2.785011 0.4167421 1.785011 3.785011)
 Distrib(M_lnBP_APAP, Uniform, -2.3, 0);
-Distrib(M_lnPF_APAP, TruncNormal, -0.8051967, 0.8222427, -2.805197, 1.194803);
-Distrib(M_lnPL_APAP, TruncNormal, -0.375421, 0.8022198, -2.375421, 1.624579);
-Distrib(M_lnPM_APAP, TruncNormal, -0.375421, 0.8092956, -2.375421, 1.624579);
-Distrib(M_lnPS_APAP, TruncNormal, -0.5008753, 0.8252237, -2.500875, 1.499125);
+Distrib(M_lnPF_APAP, TruncNormal, -0.8051967 0.3923243 -1.805197 0.1948033);
+Distrib(M_lnPL_APAP, TruncNormal, -0.375421 0.3996793 -1.375421 0.624579);
+Distrib(M_lnPM_APAP, TruncNormal, -0.375421 0.4138126 -1.375421 0.624579);
+
 
 # Var
 # Original sensitive parameters
@@ -149,13 +149,11 @@ Distrib(lnCLC_AS, TruncNormal_v, M_lnCLC_AS, Var_lnCLC_AS, -6., 1);
 
 # Additional sensitive parameters
 Distrib(lnCYP_VmaxC, TruncNormal_v, M_lnCYP_VmaxC, Var_lnCYP_VmaxC, -2., 5.); 
-Distrib(lnQCC, TruncNormal_v, M_lnQCC, Var_lnQCC, 1.585011, 3.985011); 
+Distrib(lnQCC, TruncNormal_v, M_lnQCC, Var_lnQCC, 1.785011 3.785011); 
 Distrib(lnBP_APAP, TruncNormal_v, M_lnBP_APAP, Var_lnBP_APAP, -2.3, 0); 
-Distrib(lnPF_APAP, TruncNormal_v, M_lnPF_APAP, Var_lnPF_APAP, -2.805197, 1.194803); 
-Distrib(lnPL_APAP, TruncNormal_v, M_lnPL_APAP, Var_lnPL_APAP, -2.375421, 1.624579); 
-Distrib(lnPM_APAP, TruncNormal_v, M_lnPM_APAP, Var_lnPM_APAP, -2.375421, 1.624579); 
-Distrib(lnPS_APAP, TruncNormal_v, M_lnPS_APAP, Var_lnPS_APAP, -2.500875, 1.499125); 
-
+Distrib(lnPF_APAP, TruncNormal_v, M_lnPF_APAP, Var_lnPF_APAP, -1.805197 0.1948033); 
+Distrib(lnPL_APAP, TruncNormal_v, M_lnPL_APAP, Var_lnPL_APAP, -1.375421 0.624579); 
+Distrib(lnPM_APAP, TruncNormal_v, M_lnPM_APAP, Var_lnPM_APAP, -1.375421 0.624579); 
 
 Level { # Study 1
 Simulation { #Volak (2013) 325 mg 9
