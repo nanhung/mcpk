@@ -11,7 +11,7 @@
 Integrate(Lsodes, 1e-5, 0.3e-8 , 1)
 MCMC ("tce222.c07.out",
 "","",
-40000, 0, 20, 40000, 7777);
+20000, 0, 20, 20000, 7777);
 
 # Fix following parameters at baseline values
 # All physiological parameters except QCC and VPR (DResp is not physiological)
@@ -24,7 +24,8 @@ MCMC ("tce222.c07.out",
 
 # Fix some parameters / converge OK!
 
-# Remove CKidDCVCMole_ND
+# Remove CKidDCVCMole_ND / Converge OK
+# Remove TCOH ND in 24 hr
 
 Level { #Population level
 
@@ -683,10 +684,10 @@ Print( CBrnTCOHMole, 1.000  1.001  1.002  2.000  2.001  2.002  6.000  6.001  6.0
 Data( CBrnTCOHMole, 2225.758193,174.0347977,186.8598762,165.4313961,-1,161.0008198,-1,129.4725211,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1);
 Print( CLngTCOHMole, 1.000  1.001  1.002  2.000  2.001  2.002  6.000  6.001  6.002 12.000 12.001 12.002 24.000 24.001 24.002 36.000 36.001 36.002 );
 Data( CLngTCOHMole, 383.7869212,398.1594999,285.9825204,382.5061596,-1,300.1657436,-1,280.6456514,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1);
-Print(CBldTCOHMole_ND, 24.000 24.001 24.002 36.000 36.001 36.002);
-Data(CBldTCOHMole_ND, 0,0,0,0,0,0);
-Print(CLivTCOHMole_ND, 24.000 24.001 24.002 36.000 36.001 36.002);
-Data(CLivTCOHMole_ND, 0,0,0,0,0,0);
+Print(CBldTCOHMole_ND,36.000 36.001 36.002);
+Data(CBldTCOHMole_ND, 0,0,0);
+Print(CLivTCOHMole_ND, 36.000 36.001 36.002);
+Data(CLivTCOHMole_ND, 0,0,0);
 
 
 Print(CBldDCVGMole, 1.000  1.001  1.002  2.000  2.001  2.002  6.000  6.001  6.002 12.000 12.001 12.002 24.000 24.001 24.002 36.000 36.001 36.002);
