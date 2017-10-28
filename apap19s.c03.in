@@ -1,7 +1,7 @@
 Integrate(Lsodes, 1.0e-5, 3.09e-7, 1);
-MCMC("apap20.c02.out", 
+MCMC("apap19s.c01.out", 
 "", "", 
-160000, 0, 160, 160000, 2222); # Full calibration
+100000, 0, 100, 100000, 1111); # Full calibration
 
 
 Level { # Population Level
@@ -15,7 +15,7 @@ Level { # Population Level
 
 lnTp = -3.401;
 lnCYP_Km = 4.867;
-#lnCYP_VmaxC = -2.;
+lnCYP_VmaxC = -2.;
 lnSULT_Ki = 6.265301;
 lnSULT_Km_paps = -0.6931472;
 lnUGT_Ki = 10.9682;
@@ -31,7 +31,7 @@ Distrib(M_lnTg, TruncNormal, -1.4552, 0.5, -2.5, 0.0);
 Distrib(M_lnSULT_Km_apap, TruncNormal, 5.703, 1.0, 4.24, 8.0); 
 #Distrib(M_lnSULT_Ki, TruncNormal, 6.265, 0.5, 5.4337, 6.7129);
 #Distrib(M_lnSULT_Km_paps, TruncNormal, -0.6931, 0.5, -3., 0.);
-Distrib(M_lnSULT_VmaxC, Uniform, 0., 15); 
+#Distrib(M_lnSULT_VmaxC, Uniform, 0., 15); 
 
 Distrib(M_lnUGT_Km, TruncNormal, 8.6995, 1., 7.6009, 9.3926); 
 #Distrib(M_lnUGT_Ki, TruncNormal, 10.968, 0.5, 9.998, 11.451);
@@ -70,7 +70,7 @@ Distrib(Var_lnTg, InvGamma, 2.25, 0.3125);
 Distrib(Var_lnSULT_Km_apap, InvGamma, 2.25, 0.3125);
 #Distrib(Var_lnSULT_Ki, InvGamma, 2.25, 0.3125);
 #Distrib(Var_lnSULT_Km_paps, InvGamma, 2.25, 0.3125);
-Distrib(Var_lnSULT_VmaxC, InvGamma, 2.25, 0.3125);
+#Distrib(Var_lnSULT_VmaxC, InvGamma, 2.25, 0.3125);
 
 Distrib(Var_lnUGT_Km, InvGamma, 2.25, 0.3125);
 #Distrib(Var_lnUGT_Ki, InvGamma, 2.25, 0.3125);
@@ -128,7 +128,7 @@ Distrib(lnTg, TruncNormal_v, M_lnTg, Var_lnTg, -2.5, 0.);
 Distrib(lnSULT_Km_apap, TruncNormal_v, M_lnSULT_Km_apap, Var_lnSULT_Km_apap, 4.24, 8.);
 #Distrib(lnSULT_Ki, TruncNormal_v, M_lnSULT_Ki, Var_lnSULT_Ki, 5.4337, 6.7129);
 #Distrib(lnSULT_Km_paps, TruncNormal_v, M_lnSULT_Km_paps, Var_lnSULT_Km_paps, -3., 0.);
-Distrib(lnSULT_VmaxC, TruncNormal_v, M_lnSULT_VmaxC, Var_lnSULT_VmaxC, 0, 15.); 
+#Distrib(lnSULT_VmaxC, TruncNormal_v, M_lnSULT_VmaxC, Var_lnSULT_VmaxC, 0, 15.); 
 
 Distrib(lnUGT_Km, TruncNormal_v, M_lnUGT_Km, Var_lnUGT_Km, 7.6009, 9.3926);
 #Distrib(lnUGT_Ki, TruncNormal_v, M_lnUGT_Ki, Var_lnUGT_Ki, 9.998, 11.451);
