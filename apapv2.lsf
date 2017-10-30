@@ -14,9 +14,9 @@ time ./mcsim.apap.pbpk_v2 apap19s.c05.in &
 time ./mcsim.apap.pbpk_v2 apap19s.c06.in & 
 time ./mcsim.apap.pbpk_v2 apap19s.c07.in & 
 time ./mcsim.apap.pbpk_v2 apap19s.c08.in &
-time ./mcsim.apap.pbpk_v2 apap19s.c05.in & 
-time ./mcsim.apap.pbpk_v2 apap19s.c06.in & 
-time ./mcsim.apap.pbpk_v2 apap19s.c07.in & 
-time ./mcsim.apap.pbpk_v2 apap19s.c08.in 
+time ./mcsim.apap.pbpk_v2 apap19s.c01.in & 
+time ./mcsim.apap.pbpk_v2 apap19s.c02.in & 
+time ./mcsim.apap.pbpk_v2 apap19s.c03.in & 
+time ./mcsim.apap.pbpk_v2 apap19s.c04.in 
 
 wait
