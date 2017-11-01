@@ -188,10 +188,10 @@ Distrib(	M_lnkUrnTCOGC	Uniform			-6.908	6.908	);
 #Distrib(	M_lnPeffDCVG	Uniform			-6.908	6.908	);
 #Distrib(	M_lnPeffDCVC	Uniform			-6.908	6.908	);
 #Distrib(	M_lnPeffDCA	Uniform			-6.908	6.908	);
-Distrib(	M_lnkDCVGC	Uniform			-9.21	4.605	);
+Distrib(	M_lnkDCVGC	Uniform			-6.908	6.908	);
 #Distrib(	M_lnkElimDCVCC	Uniform			-9.21	4.605	);
-Distrib(	M_lnkDCVCC	Uniform			-9.21	4.605	); #(v222)
-Distrib(	M_lnkNDCVCC	Uniform			-9.21	4.605	); #(v222)
+Distrib(	M_lnkDCVCC	Uniform			-6.908	6.908	); #(v222)
+Distrib(	M_lnkNDCVCC	Uniform			-6.908	6.908	); #(v222)
 #Distrib(	M_lnkClearDCAC	Uniform			-9.21	4.605	);
 #Distrib(	M_lnkDCAcen_perC	Uniform			-9.21	4.605	);
 #Distrib(	M_lnkDCAper_cenC	Uniform			-9.21	4.605	);
@@ -270,7 +270,7 @@ Distrib(	V_lnPLivNDCVCC	InvGamma	2.25	0.3125	); #(v222)
 Distrib(	V_lnPKidNDCVCC	InvGamma	2.25	0.3125	); #(v222)
 Distrib(	V_lnPBrnNDCVCC	InvGamma	2.25	0.3125	); #(v222)
 Distrib(	V_lnPLngNDCVCC	InvGamma	2.25	0.3125	); #(v222)
-Distrib(	V_lnPBodNDCVCC	InvGamma	2.25	0.3125	); #(v222) Not used	
+Distrib(	V_lnPBodNDCVCC	InvGamma	2.25	0.3125	); #(v222)
 
 #Distrib(	V_lnkTSD	InvGamma	2.25	5.0000	);
 #Distrib(	V_lnkAS	InvGamma	2.25	5.0000	);
@@ -578,9 +578,9 @@ Distrib(	lnkBileC	TruncNormal_v	M_lnkBileC	V_lnkBileC	-9.21	4.605	);
 #Distrib(	lnkEHRC	TruncNormal_v	M_lnkEHRC	V_lnkEHRC	-9.21	4.605	);
 Distrib(	lnkUrnTCOGC	TruncNormal_v	M_lnkUrnTCOGC	V_lnkUrnTCOGC	-6.908	6.908	);
 
-Distrib(	lnkDCVGC	TruncNormal_v	M_lnkDCVGC	V_lnkDCVGC	-9.21	4.605	);
-Distrib(	lnkDCVCC	TruncNormal_v	M_lnkDCVCC	V_lnkDCVCC	-9.21	4.605	); #(v222)
-Distrib(	lnkNDCVCC	TruncNormal_v	M_lnkNDCVCC	V_lnkNDCVCC	-9.21	4.605	); #(v222)
+Distrib(	lnkDCVGC	TruncNormal_v	M_lnkDCVGC	V_lnkDCVGC	-6.908	6.908	);
+Distrib(	lnkDCVCC	TruncNormal_v	M_lnkDCVCC	V_lnkDCVCC	-6.908	6.908	); #(v222)
+Distrib(	lnkNDCVCC	TruncNormal_v	M_lnkNDCVCC	V_lnkNDCVCC	-6.908	6.908	); #(v222)
 							
 ######## BEGIN GROUP 2 
 Level {
