@@ -26,6 +26,7 @@ MCMC ("tce222.c04.out",
 
 # test 49 parameters w/ 8 NDs
 # Fix 39 parameters, test 12 parameters
+# extend PRBC, kDCVG, kDCVC, kNDCVC
 
 Level { #Population level
 
@@ -111,7 +112,7 @@ lnkEHRC = -2.455;
 #Distrib(	M_lnPBrnC	TruncNormal	0.0	0.4	-1.2	1.2	); #(v221)
 #Distrib(	M_lnPLngC	TruncNormal	0.0	0.4	-1.2	1.2	); #(v221)
 
-Distrib(	M_lnPRBCPlasTCAC	Uniform			-4.605	4.605	);
+Distrib(	M_lnPRBCPlasTCAC	Uniform			-6.908	6.908	);
 #Distrib(	M_lnPLivTCAC	TruncNormal	0.0	0.4	-1.2	1.2	); #(v220)#
 #Distrib(	M_lnPKidTCAC	TruncNormal	0.0	0.4	-1.2	1.2	); #(v221)
 #Distrib(	M_lnPBrnTCAC	TruncNormal	0.0	0.4	-1.2	1.2	); #(v221)
@@ -184,10 +185,10 @@ Distrib(	M_lnkUrnTCOGC	Uniform			-6.908	6.908	);
 #Distrib(	M_lnPeffDCVG	Uniform			-6.908	6.908	);
 #Distrib(	M_lnPeffDCVC	Uniform			-6.908	6.908	);
 #Distrib(	M_lnPeffDCA	Uniform			-6.908	6.908	);
-Distrib(	M_lnkDCVGC	Uniform			-9.21	4.605	);
+Distrib(	M_lnkDCVGC	Uniform			-6.908	6.908	);
 #Distrib(	M_lnkElimDCVCC	Uniform			-9.21	4.605	);
-Distrib(	M_lnkDCVCC	Uniform			-9.21	4.605	); #(v222)
-Distrib(	M_lnkNDCVCC	Uniform			-9.21	4.605	); #(v222)
+Distrib(	M_lnkDCVCC	Uniform			-6.908	6.908	); #(v222)
+Distrib(	M_lnkNDCVCC	Uniform			-6.908	6.908	); #(v222)
 #Distrib(	M_lnkClearDCAC	Uniform			-9.21	4.605	);
 #Distrib(	M_lnkDCAcen_perC	Uniform			-9.21	4.605	);
 #Distrib(	M_lnkDCAper_cenC	Uniform			-9.21	4.605	);
@@ -232,7 +233,7 @@ Distrib(	M_lnkNDCVCC	Uniform			-9.21	4.605	); #(v222)
 #Distrib(	V_lnPLngC	InvGamma	2.25	0.2000	); #(v221)
 
 					
-Distrib(	V_lnPRBCPlasTCAC	InvGamma	2.25	0.1411	);
+Distrib(	V_lnPRBCPlasTCAC	InvGamma	2.25	0.3125	);
 #fixed#Distrib(	V_lnPBodTCAC	InvGamma	2.25	0.1411	);
 #Distrib(	V_lnPLivTCAC	InvGamma	2.25	0.2000	); #(v220)
 #Distrib(	V_lnPKidTCAC	InvGamma	2.25	0.2000	); #(v221)
@@ -505,7 +506,7 @@ Level { #Subject/group level
 #Distrib(	lnPBrnC	TruncNormal_v	M_lnPBrnC	V_lnPBrnC	-1.2	1.2	); #(v221)
 #Distrib(	lnPLngC	TruncNormal_v	M_lnPLngC	V_lnPLngC	-1.2	1.2	); #(v221)
 
-Distrib(	lnPRBCPlasTCAC	TruncNormal_v	M_lnPRBCPlasTCAC	V_lnPRBCPlasTCAC	-4.605	4.605	);
+Distrib(	lnPRBCPlasTCAC	TruncNormal_v	M_lnPRBCPlasTCAC	V_lnPRBCPlasTCAC	-6.908	6.908	);
 #Distrib(	lnPLivTCAC	TruncNormal_v	M_lnPLivTCAC	V_lnPLivTCAC	-1.2	1.2	); #(v220)
 #Distrib(	lnPKidTCAC	TruncNormal_v	M_lnPKidTCAC	V_lnPKidTCAC	-1.2	1.2	); #(v221)
 #Distrib(	lnPBrnTCAC	TruncNormal_v	M_lnPBrnTCAC	V_lnPBrnTCAC	-1.2	1.2	); #(v221)
@@ -573,9 +574,9 @@ Distrib(	lnkBileC	TruncNormal_v	M_lnkBileC	V_lnkBileC	-9.21	4.605	);
 #Distrib(	lnkEHRC	TruncNormal_v	M_lnkEHRC	V_lnkEHRC	-9.21	4.605	);
 Distrib(	lnkUrnTCOGC	TruncNormal_v	M_lnkUrnTCOGC	V_lnkUrnTCOGC	-6.908	6.908	);
 
-Distrib(	lnkDCVGC	TruncNormal_v	M_lnkDCVGC	V_lnkDCVGC	-9.21	4.605	);
-Distrib(	lnkDCVCC	TruncNormal_v	M_lnkDCVCC	V_lnkDCVCC	-9.21	4.605	); #(v222)
-Distrib(	lnkNDCVCC	TruncNormal_v	M_lnkNDCVCC	V_lnkNDCVCC	-9.21	4.605	); #(v222)
+Distrib(	lnkDCVGC	TruncNormal_v	M_lnkDCVGC	V_lnkDCVGC	-6.908	6.908	);
+Distrib(	lnkDCVCC	TruncNormal_v	M_lnkDCVCC	V_lnkDCVCC	-6.908	6.908	); #(v222)
+Distrib(	lnkNDCVCC	TruncNormal_v	M_lnkNDCVCC	V_lnkNDCVCC	-6.908	6.908	); #(v222)
 							
 ######## BEGIN GROUP 2 
 Level {
