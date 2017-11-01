@@ -26,7 +26,8 @@ MCMC ("tce222.c02.out",
 
 # test 49 parameters w/ 8 NDs
 # Fix 39 parameters, test 12 parameters
-# test 10 parameters / fix PLivNDCVC FracOther 
+# test 10 parameters / fix PLivNDCVC FracOther / converge OK
+# Add PC NDCVC
 
 Level { #Population level
 
@@ -60,10 +61,10 @@ lnPLivDCVCC = 1.089;
 lnPKidDCVCC = 1.695;
 lnPBrnDCVCC = 0.679;
 lnPLngDCVCC = 0.1745;
-lnPLivNDCVCC = -0.2975;
-lnPKidNDCVCC = 0.22913;
-lnPBrnNDCVCC = 0.5739;
-lnPLngNDCVCC = 0.588;
+#lnPLivNDCVCC = -0.2975;
+#lnPKidNDCVCC = 0.22913;
+#lnPBrnNDCVCC = 0.5739;
+#lnPLngNDCVCC = 0.588;
 lnkAS = 1.05248;
 lnkAD = -1.412695;
 lnkTSD = 0.8768;
@@ -143,11 +144,11 @@ Distrib(	M_lnPRBCPlasTCAC	Uniform			-4.605	4.605	);
 #Distrib(	M_lnPLngDCVCC	TruncNormal	0.0 1.3 -3.9 3.9); #(v222)
 #Distrib(	M_lnPBodDCVCC	TruncNormal	0.0 1.3 -3.9 3.9); #(v222) Not used
 
-#Distrib(	M_lnPLivNDCVCC	TruncNormal	0.0 1.3 -3.9 3.9); #(v222)
-#Distrib(	M_lnPKidNDCVCC	TruncNormal	0.0 1.3 -3.9 3.9); #(v222)
-#Distrib(	M_lnPBrnNDCVCC	TruncNormal	0.0 1.3 -3.9 3.9); #(v222)
-#Distrib(	M_lnPLngNDCVCC	TruncNormal	0.0 1.3 -3.9 3.9); #(v222)
-#Distrib(	M_lnPBodNDCVCC	TruncNormal	0.0 1.3 -3.9 3.9); #(v222) Not used
+Distrib(	M_lnPLivNDCVCC	TruncNormal	0.0 1.3 -3.9 3.9); #(v222)
+Distrib(	M_lnPKidNDCVCC	TruncNormal	0.0 1.3 -3.9 3.9); #(v222)
+Distrib(	M_lnPBrnNDCVCC	TruncNormal	0.0 1.3 -3.9 3.9); #(v222)
+Distrib(	M_lnPLngNDCVCC	TruncNormal	0.0 1.3 -3.9 3.9); #(v222)
+Distrib(	M_lnPBodNDCVCC	TruncNormal	0.0 1.3 -3.9 3.9); #(v222) Not used
 
 #Distrib(	M_lnkTSD	Uniform			-4.269	4.942	);
 #Distrib(	M_lnkAS	Uniform			-6.571	7.244	);
@@ -265,11 +266,11 @@ Distrib(	V_lnPRBCPlasTCAC	InvGamma	2.25	0.1411	);
 #Distrib(	V_lnPLngDCVCC	InvGamma	2.25	0.3125	); #(v222)
 #Distrib(	V_lnPBodDCVCC	InvGamma	2.25	0.3125	); #(v222) Not used	
 
-#Distrib(	V_lnPLivNDCVCC	InvGamma	2.25	0.3125	); #(v222)
-#Distrib(	V_lnPKidNDCVCC	InvGamma	2.25	0.3125	); #(v222)
-#Distrib(	V_lnPBrnNDCVCC	InvGamma	2.25	0.3125	); #(v222)
-#Distrib(	V_lnPLngNDCVCC	InvGamma	2.25	0.3125	); #(v222)
-#Distrib(	V_lnPBodDCVCC	InvGamma	2.25	0.3125	); #(v222) Not used	
+Distrib(	V_lnPLivNDCVCC	InvGamma	2.25	0.3125	); #(v222)
+Distrib(	V_lnPKidNDCVCC	InvGamma	2.25	0.3125	); #(v222)
+Distrib(	V_lnPBrnNDCVCC	InvGamma	2.25	0.3125	); #(v222)
+Distrib(	V_lnPLngNDCVCC	InvGamma	2.25	0.3125	); #(v222)
+Distrib(	V_lnPBodDCVCC	InvGamma	2.25	0.3125	); #(v222) Not used	
 
 #Distrib(	V_lnkTSD	InvGamma	2.25	5.0000	);
 #Distrib(	V_lnkAS	InvGamma	2.25	5.0000	);
@@ -537,10 +538,11 @@ Distrib(	lnPRBCPlasTCAC	TruncNormal_v	M_lnPRBCPlasTCAC	V_lnPRBCPlasTCAC	-4.605	4
 #	Distrib(	lnPBrnDCVCC TruncNormal_v M_lnPBrnDCVCC V_lnPBrnDCVCC -3.9 3.9); #(v222)
 #	Distrib(	lnPLngDCVCC TruncNormal_v M_lnPLngDCVCC V_lnPLngDCVCC -3.9 3.9); #(v222)
 	
-#	Distrib(	lnPLivNDCVCC TruncNormal_v M_lnPLivNDCVCC V_lnPLivNDCVCC -3.9 3.9); #(v222)
-#	Distrib(	lnPKidNDCVCC TruncNormal_v M_lnPKidNDCVCC V_lnPKidNDCVCC -3.9 3.9); #(v222)
-#	Distrib(	lnPBrnNDCVCC TruncNormal_v M_lnPBrnNDCVCC V_lnPBrnNDCVCC -3.9 3.9); #(v222)
-#	Distrib(	lnPLngNDCVCC TruncNormal_v M_lnPLngNDCVCC V_lnPLngNDCVCC -3.9 3.9); #(v222)
+	Distrib(	lnPLivNDCVCC TruncNormal_v M_lnPLivNDCVCC V_lnPLivNDCVCC -3.9 3.9); #(v222)
+	Distrib(	lnPKidNDCVCC TruncNormal_v M_lnPKidNDCVCC V_lnPKidNDCVCC -3.9 3.9); #(v222)
+	Distrib(	lnPBrnNDCVCC TruncNormal_v M_lnPBrnNDCVCC V_lnPBrnNDCVCC -3.9 3.9); #(v222)
+	Distrib(	lnPLngNDCVCC TruncNormal_v M_lnPLngNDCVCC V_lnPLngNDCVCC -3.9 3.9); #(v222)
+	Distrib(	lnPBodNDCVCC TruncNormal_v M_lnPBodNDCVCC V_lnPBodNDCVCC -3.9 3.9); #(v222)
 	
 #	Distrib(	lnPBodDCVCC TruncNormal_v M_lnPBodDCVCC V_lnPBodDCVCC -3.9 3.9 ); #(v222)			
 							
