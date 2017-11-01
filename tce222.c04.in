@@ -270,7 +270,7 @@ Distrib(	V_lnPLivNDCVCC	InvGamma	2.25	0.3125	); #(v222)
 Distrib(	V_lnPKidNDCVCC	InvGamma	2.25	0.3125	); #(v222)
 Distrib(	V_lnPBrnNDCVCC	InvGamma	2.25	0.3125	); #(v222)
 Distrib(	V_lnPLngNDCVCC	InvGamma	2.25	0.3125	); #(v222)
-Distrib(	V_lnPBodDCVCC	InvGamma	2.25	0.3125	); #(v222) Not used	
+Distrib(	V_lnPBodNDCVCC	InvGamma	2.25	0.3125	); #(v222) Not used	
 
 #Distrib(	V_lnkTSD	InvGamma	2.25	5.0000	);
 #Distrib(	V_lnkAS	InvGamma	2.25	5.0000	);
