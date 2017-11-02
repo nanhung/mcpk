@@ -274,8 +274,11 @@ VKidC = 0.8875654;
 #VBrnC = 0.015242166666666668;
 #VLngC = 0.006280333333333334;
 
-Print( CVen, 0.5, 1, 2, 4, 6, 12, 24, 36); 
-
+Print( CVen, CBldMix, CFat, CLiv, CKid, 0.5, 1, 2, 4, 6, 12, 24, 36); 
+Print( CPlasTCA, CBldTCA, CLivTCA, AUrnTCA, 0.5, 1, 2, 4, 6, 12, 24, 36);
+Print( CTCOH, TotCTCOH, CLivTCOH, 0.5, 1, 2, 4, 6, 12, 24, 36);
+Print( CTCOGTCOH, CLivTCOGTCOH, AUrnTCOGTCOH, 0.5, 1, 2, 4, 6, 12, 24, 36);
+Print( CDCVGmol, CDCVCmol, CDCAmol, 0.5, 1, 2, 4, 6, 12, 24, 36);
 } # End B6C3F1
 
 
@@ -292,7 +295,8 @@ NRodents =  14 ;
 VChC =  9.1 ;
 lnkLossC =  -3.912 ;
 
-Print( CInhPPM, 0.5, 1, 2, 4, 6, 12, 24, 36); 
+Print( CInhPPM, AExh, 0.5, 1, 2, 4, 6, 12, 24, 36); 
+
 
 } # End Fisher91 TCEmceB6fMinhc9118e 
 

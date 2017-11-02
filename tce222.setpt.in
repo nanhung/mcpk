@@ -239,6 +239,7 @@ Distrib(	lnPeffDCVC	TruncNormal_v	M_lnPeffDCVC	V_lnPeffDCVC	-6.908	6.908	);
 Distrib(	lnPeffDCA	TruncNormal_v	M_lnPeffDCA	V_lnPeffDCA	-6.908	6.908	);
 Distrib(	lnkDCVGC	TruncNormal_v	M_lnkDCVGC	V_lnkDCVGC	-9.21	4.605	);
 Distrib(	lnkElimDCVCC	TruncNormal_v	M_lnkElimDCVCC	V_lnkElimDCVCC	-9.21	4.605	);
+#Distrib(	lnkDCVCC	TruncNormal_v	M_lnkElimDCVCC	V_lnkElimDCVCC	-9.21	4.605	); #(v222)
 Distrib(	lnkClearDCAC	TruncNormal_v	M_lnkClearDCAC	V_lnkClearDCAC	-9.21	4.605	);
 Distrib(	lnkDCAcen_perC	TruncNormal_v	M_lnkDCAcen_perC	V_lnkDCAcen_perC	-9.21	4.605	);
 Distrib(	lnkDCAper_cenC	TruncNormal_v	M_lnkDCAper_cenC	V_lnkDCAper_cenC	-9.21	4.605	);
@@ -275,8 +276,11 @@ VBrnC = 1.016144;
 VLngC = 1.046722;
 
 # Parameters
-Print( CVen, 0.5, 1, 2, 4, 6, 12, 24, 36); 
-
+Print( CVen, CBldMix, CFat, CLiv, CKid, 0.5, 1, 2, 4, 6, 12, 24, 36); 
+Print( CPlasTCA, CBldTCA, CLivTCA, AUrnTCA, 0.5, 1, 2, 4, 6, 12, 24, 36);
+Print( CTCOH, TotCTCOH, CLivTCOH, 0.5, 1, 2, 4, 6, 12, 24, 36);
+Print( CTCOGTCOH, CLivTCOGTCOH, AUrnTCOGTCOH, 0.5, 1, 2, 4, 6, 12, 24, 36);
+Print( CDCVGmol, CDCVCmol, CDCAmol, 0.5, 1, 2, 4, 6, 12, 24, 36);
 } # End B6C3F1
 
 Experiment { # Begin Fisher91 TCEmceB6fMinhc9118e 
@@ -292,7 +296,8 @@ NRodents =  14 ;
 VChC =  9.1 ;
 lnkLossC =  -3.912 ;
 
-Print( CInhPPM, 0.5, 1, 2, 4, 6, 12, 24, 36); 
+Print( CInhPPM, AExh, 0.5, 1, 2, 4, 6, 12, 24, 36); 
+
 
 } # End Fisher91 TCEmceB6fMinhc9118e 
 

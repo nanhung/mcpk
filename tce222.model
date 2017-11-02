@@ -390,11 +390,13 @@ ATCOG,		# ONLY FOR COMPARISON WITH HACK
   CKidDCVGMole,	# DCVG concentration in kidney #(v222)
   CBrnDCVGMole,	# DCVG concentration in Brain #(v222)
   CLngDCVGMole,	# DCVG concentration in Lung #(v222)
+  CDCVGmol,
   CBldDCVCMole,	# DCVC concentration in Blood (nmol/ml) #(v222)
   CLivDCVCMole,	# DCVC concentration in liver #(v222)
   CKidDCVCMole,	# DCVC concentration in kidney #(v222)
   CBrnDCVCMole,	# DCVC concentration in Brain #(v222)
   CLngDCVCMole,	# DCVC concentration in Lung #(v222)
+  CDCVCmol,
   CBldNDCVCMole, # NAcDCVC concentration in Blood (nmol/ml) #(v222)
   CLivNDCVCMole, # NAcDCVC concentration in liver #(v222)
   CKidNDCVCMole, # NAcDCVC concentration in kidney #(v222)
@@ -3442,12 +3444,14 @@ CalcOutputs{
 	CKidDCVGMole = CKidDCVG / MWDCVG * 1000; #(v222)
 	CBrnDCVGMole = CBrnDCVG / MWDCVG * 1000; #(v222)
 	CLngDCVGMole = CLngDCVG / MWDCVG * 1000; #(v222)
+	CDCVGmol = CBldDCVGMole;
 	
 	CBldDCVCMole = CBldDCVC / MWDCVC * 1000; #(v222)
 	CLivDCVCMole = CLivDCVC / MWDCVC * 1000; #(v222)
 	CKidDCVCMole = CKidDCVC / MWDCVC * 1000; #(v222)
 	CBrnDCVCMole = CBrnDCVC / MWDCVC * 1000; #(v222)
 	CLngDCVCMole = CLngDCVC / MWDCVC * 1000; #(v222)
+    CDCVCmol = CBldDCVCMole;
 
 	CBldNDCVCMole = CBldNDCVC / MWNADCVC * 1000; #(v222)
 	CLivNDCVCMole = CLivNDCVC / MWNADCVC * 1000; #(v222)
