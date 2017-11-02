@@ -591,7 +591,7 @@ FracKidDCVC	= 1;	# Fraction of renal TCE GSH conj. "directly" to DCVC (i.e., via
 #******************************************************************************
 # DCVC metabolism/clearance
 kDCVC = 1; # Rate constant for hepatic DCVC->NAcDCVC (/hr)(v222)
-#kElimDCVC	= 1;	# Lumped rate constant for DCVC elimination (/hr)#(v2.0)
+kElimDCVC	= 1;	# Lumped rate constant for DCVC elimination (/hr)#(v2.0)
 
 kNDCVC = 1; #(v222)
 
@@ -710,8 +710,8 @@ lnPKidNDCVCC = 0.0; #(v222)
 lnPBrnNDCVCC = 0.0; #(v222)
 lnPLngNDCVCC = 0.0; #(v222)
 
-#lnPeffDCVG	= 0.0;	# Scaled to species-specific central estimates
-#lnPeffDCVC	= 0.0;	# Scaled to species-specific central estimates#(v2.0)
+lnPeffDCVG	= 0.0;	# Scaled to species-specific central estimates
+lnPeffDCVC	= 0.0;	# Scaled to species-specific central estimates#(v2.0)
 lnPeffDCA	= 0.0;	# Scaled to species-specific central estimates#(v2.0)
 
 # Oral Absorption rates
@@ -786,7 +786,7 @@ lnFracKidDCVCC	= 0.0;	# Ratio of "directly" to DCVC to systemic DCVG
 lnkDCVGC	= 0.0;	# Scaled by BW^-0.25
 
 # DCVC metabolism
-#lnkElimDCVCC	= 0.0;	# Scaled by BW^-0.25#(v2.0)
+lnkElimDCVCC	= 0.0;	# Scaled by BW^-0.25#(v2.0)
 lnkDCVCC = 0.0; #(v222)
 
 # NAcDCVC metabolism
@@ -880,8 +880,8 @@ M_lnPKidNDCVCC = 0.0; #(v222)
 M_lnPBrnNDCVCC = 0.0; #(v222)
 M_lnPLngNDCVCC = 0.0; #(v222)
 
-#M_lnPeffDCVG	= 1.0;
-#M_lnPeffDCVC	= 1.0;#(v2.0)
+M_lnPeffDCVG	= 1.0;
+M_lnPeffDCVC	= 1.0;#(v2.0)
 M_lnPeffDCA	= 1.0;#(v2.0)
 M_lnkTSD	= 1.0;
 M_lnkAS	= 1.0;
@@ -932,7 +932,7 @@ M_lnkEHRC	= 1.0;
 M_lnkUrnTCOGC	= 1.0;
 M_lnFracKidDCVCC	= 1.0;
 M_lnkDCVGC	= 1.0;
-#M_lnkElimDCVCC	= 1.0;#(v2.0)
+M_lnkElimDCVCC	= 1.0;#(v2.0)
 M_lnkDCVCC	= 1.0; #(v222)
 M_lnkNDCVCC	= 1.0; #(v222)
 M_lnkClearDCAC	= 1.0;#(v2.0)
@@ -1021,8 +1021,8 @@ V_lnPKidNDCVCC	= 0.0; #(v222)
 V_lnPBrnNDCVCC	= 0.0; #(v222)
 V_lnPLngNDCVCC	= 0.0; #(v222)
 
-#V_lnPeffDCVG	= 1.0;
-#V_lnPeffDCVC	= 1.0;#(v2.0)
+V_lnPeffDCVG	= 1.0;
+V_lnPeffDCVC	= 1.0;#(v2.0)
 V_lnPeffDCA	= 1.0;#(v2.0)
 V_lnkTSD	= 1.0;
 V_lnkAS	= 1.0;
@@ -1073,7 +1073,7 @@ V_lnkEHRC	= 1.0;
 V_lnkUrnTCOGC	= 1.0;
 V_lnFracKidDCVCC	= 1.0;
 V_lnkDCVGC	= 1.0;
-#V_lnkElimDCVCC	= 1.0;#(v2.0)
+V_lnkElimDCVCC	= 1.0;#(v2.0)
 V_lnkDCVCC	= 1.0; #(v222)
 V_lnkNDCVCC	= 1.0; #(v222)
 V_lnkClearDCAC	= 1.0;#(v2.0)
@@ -1154,8 +1154,8 @@ Ve_CKidDCVC	= 1; #(v222)
 Ve_CBrnDCVC	= 1; #(v222)
 Ve_CLngDCVC	= 1; #(v222)
 
-#Ve_CDCVGmol	= 1;#(v2.0)
-#Ve_CDCVCmol	= 1;#(v2.0)
+Ve_CDCVGmol	= 1;#(v2.0)
+Ve_CDCVCmol	= 1;#(v2.0)
 Ve_CDCAmol	= 1;#(v2.0)
 Ve_AUrnTCTotMole	= 1;
 Ve_TotCTCOH	= 1;
@@ -1467,7 +1467,7 @@ Initialize {
 #(v1.2)		(Species == 3 ? 0.005 : (Species == 2 ? 0.021 : 0.025 ));
 	QKidCtmp = QKidC*
 		(Species == 3 ? 0.091 : (Species == 2 ? 0.141 : (Male == 0 ? 0.17 : 0.19) ));
-	QBrnCtmp = QKidC * 0.030; #(V221)
+	QBrnCtmp = QBrnC * 0.030; #(V221)
 	QLngCtmp = QLngC * 0.0312; #(V221)
 
 # Plasma Flows to Tissues (L/hr)
@@ -1502,8 +1502,8 @@ Initialize {
         VFat = BW * (VFatCmeas > 0.0 ? VFatCmeas : (VFatC * (Species == 3 ? 0.07 : (Species == 2 ? 0.07 : (Male == 0 ? 0.317 : 0.199)  ))));
         VGut = VGutC * BW *
 	(Species == 3 ? 0.049 : (Species == 2 ? 0.032 : (Male == 0 ? 0.022 : 0.020) ));
-    #    VLiv = VLivC * BW *
-	#(Species == 3 ? 0.055 : (Species == 2 ? 0.034 : (Male == 0 ? 0.023 : 0.025) ));
+        VLiv = VLivC * BW *
+	(Species == 3 ? 0.055 : (Species == 2 ? 0.034 : (Male == 0 ? 0.023 : 0.025) ));
         VRap = VRapC * BW * ## VRaptmp = VRapC * BW * #(v1a)#(v1b)#(v1c) -- temporary variable
 	(Species == 3 ? 0.100 : (Species == 2 ? 0.088 : (Male == 0 ? 0.093 : 0.088) ));
 #(v1.2)         VTB = VTBC * BW *
@@ -1515,12 +1515,12 @@ Initialize {
 	#(v1.2) Respiratory tract volume is TB region 
 	#(v1.2) will be multiplied by partition coef. below
 			## VRap = VRaptmp + VTB; #(v1b) -- add TB to rapidly perfused
-	#VKid = VKidC * BW *
-	#(Species == 3 ? 0.017 : (Species == 2 ? 0.007 : (Male == 0 ? 0.0046 : 0.0043) ));
-	VLiv = VLivC * BW; #(v221)
-	VKid = VKidC * BW; #(v221)
-	VBrn = VBrnC * BW; #(v221)
-    VLng = VLngC * BW; #(v221)
+	VKid = VKidC * BW *
+	(Species == 3 ? 0.017 : (Species == 2 ? 0.007 : (Male == 0 ? 0.0046 : 0.0043) ));
+	#VLiv = VLivC * BW; #(v221)
+	#VKid = VKidC * BW; #(v221)
+	VBrn = VBrnC * BW * 0.015; #(v221) Use B6C3F1
+    VLng = VLngC * BW * 0.006; #(v221) Use B6C3F1
 	
         VBld = VBldC * BW *
 	(Species == 3 ? 0.049 : (Species == 2 ? 0.074 : (Male == 0 ? 0.068 : 0.077) ));
@@ -1630,8 +1630,8 @@ Initialize {
 			##		+ QTBCtmp/PTB); #(v1c) -- then adjust PC for TB
        PKid = exp(lnPKidC) * 		# Slowly perfused/blood
 		(Species == 3 ? 2.1 : (Species == 2 ? 1.3 : 1.6 ));
-		PBrn = exp(lnPBrnC); #(v221)
-		PLng = exp(lnPLngC); #(v221)
+		PBrn = exp(lnPBrnC) * 1.0; #(v221)
+		PLng = exp(lnPLngC) * 1.0; #(v221)
 		
 	# Mice: Abbas and Fisher 1997, single datum, so assumed uncert CV = 0.4
 	# Rats: Pooling Barton et al. 1995, Sato et al. 1977.  Recent article
@@ -2021,7 +2021,7 @@ Initialize {
 	# No in vitro data.  So use diffuse priors of 
 	# 	1e-4 to 1e2 /hr/kg^0.25 (0.3/hr to 35/hr for human) 
         # add interstrain variability
-#	kElimDCVC = exp(lnISkDCVC) * exp(lnkElimDCVCC) / BW25;#(v2.0)
+	kElimDCVC = exp(lnISkDCVC) * exp(lnkElimDCVCC) / BW25;#(v2.0)
 	kDCVC = exp(lnISkDCVC) * exp(lnkDCVCC) / BW25; #(v222)
 
 # NAcDCVC Kinetics (/hr)#(v2.0)
@@ -2437,8 +2437,8 @@ Dynamics{
     dt(ASlw) = QSlw * (CArt - CVSlw);
 # Amount of TCE in tissues (mg)
     dt(AFat) = QFat*(CArt - CVFat);
-    dt(ABrn) = QBrn*(CArt - CVBrn);
-    dt(ALng) = QLng*(CArt - CVLng);
+    dt(ABrn) = QBrn*(CArt - CVBrn); #(v221)
+    dt(ALng) = QLng*(CArt - CVLng); #(v221)
 
 # Amount of TCE in gut compartment (mg)
     dt(AGut) = (QGut * (CArt - CVGut)) + RAO;
