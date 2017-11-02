@@ -13,7 +13,7 @@ Level { # Population Level
 # Remove the ... and fill these in
 # ======================================
 
-Distrib(M_lnTg, TruncNormal, -1.4552, 0.5, -2.5, 0.);
+Distrib(M_lnTg, TruncNormal, -1.4552, 0.5, -2.5, 0.0);
 Distrib(M_lnTp, TruncNormal, -3.401, 0.5, -4.5, -2.5);
 
 Distrib(M_lnCYP_Km, TruncNormal, 4.867, 1., 4.1431, 5.347);
