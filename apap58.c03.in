@@ -1,7 +1,7 @@
 Integrate(Lsodes, 1.0e-5, 3.09e-7, 1);
-MCMC("apap58.c03-2.out", 
-"apap58.c03.out", "", 
-160000, 0, 160, 160000, 3333); # Full calibration
+MCMC("apap58.c03.out", 
+"", "", 
+200000, 0, 200, 200000, 3333); # Full calibration
 
 
 Level { # Population Level
@@ -123,21 +123,21 @@ Distrib(Var_lnCLC_AS, InvGamma, 2.25, 0.3125);
 
 Distrib(Var_lnQCC, InvGamma, 2.25, 0.3125);
 
-Distrib(Var_lnVFC, InvGamma, 2.25, 0.03);
-Distrib(Var_lnVKC, InvGamma, 2.25, 0.03);
-Distrib(Var_lnVGC, InvGamma, 2.25, 0.03);
-Distrib(Var_lnVLC, InvGamma, 2.25, 0.03);
-Distrib(Var_lnVMC, InvGamma, 2.25, 0.03);
-Distrib(Var_lnVBLAC, InvGamma, 2.25, 0.03);
-Distrib(Var_lnVBLVC, InvGamma, 2.25, 0.03);
-Distrib(Var_lnVSC, InvGamma, 2.25, 0.03);
+Distrib(Var_lnVFC, InvGamma, 2.25, 0.01);
+Distrib(Var_lnVKC, InvGamma, 2.25, 0.01);
+Distrib(Var_lnVGC, InvGamma, 2.25, 0.01);
+Distrib(Var_lnVLC, InvGamma, 2.25, 0.01);
+Distrib(Var_lnVMC, InvGamma, 2.25, 0.01);
+Distrib(Var_lnVBLAC, InvGamma, 2.25, 0.01);
+Distrib(Var_lnVBLVC, InvGamma, 2.25, 0.01);
+Distrib(Var_lnVSC, InvGamma, 2.25, 0.01);
 
-Distrib(Var_lnQFC, InvGamma, 2.25, 0.03);
-Distrib(Var_lnQKC, InvGamma, 2.25, 0.03);
-Distrib(Var_lnQGC, InvGamma, 2.25, 0.03);
-Distrib(Var_lnQLBC, InvGamma, 2.25, 0.03);
-Distrib(Var_lnQMC, InvGamma, 2.25, 0.03);
-Distrib(Var_lnQSC, InvGamma, 2.25, 0.03);
+Distrib(Var_lnQFC, InvGamma, 2.25, 0.01);
+Distrib(Var_lnQKC, InvGamma, 2.25, 0.01);
+Distrib(Var_lnQGC, InvGamma, 2.25, 0.01);
+Distrib(Var_lnQLBC, InvGamma, 2.25, 0.01);
+Distrib(Var_lnQMC, InvGamma, 2.25, 0.01);
+Distrib(Var_lnQSC, InvGamma, 2.25, 0.01);
 
 Distrib(Var_lnBP_APAP, InvGamma, 2.25, 0.3125);
 
@@ -226,6 +226,13 @@ Distrib(lnVMC, TruncNormal_v, M_lnVMC, Var_lnVMC, -0.9962907 -0.8362907);
 Distrib(lnVBLAC, TruncNormal_v, M_lnVBLAC, Var_lnVBLAC, -3.797279 -3.637279);
 Distrib(lnVBLVC, TruncNormal_v, M_lnVBLVC, Var_lnVBLVC, -2.967775 -2.807775);
 Distrib(lnVSC, TruncNormal_v, M_lnVSC, Var_lnVSC, -1.767399 -1.607399); 
+
+Distrib(lnQFC, TruncNormal_v, M_lnQFC, Var_lnQFC, -3.036512 -2.876512);
+Distrib(lnQKC, TruncNormal_v, M_lnQKC, Var_lnQKC, -1.822969 -1.662969);
+Distrib(lnQGC, TruncNormal_v, M_lnQGC, Var_lnQGC, -1.789258 -1.629258);
+Distrib(lnQLBC, TruncNormal_v, M_lnQLBC, Var_lnQLBC, -3.159114 -2.999114);
+Distrib(lnQMC TruncNormal_v, M_lnQMC, Var_lnQMC, -1.735482 -1.575482);
+Distrib(lnQSC, TruncNormal_v, M_lnQSC, Var_lnQSC, -2.046113 -1.886113);  
 
 Distrib(lnBP_APAP, TruncNormal_v, M_lnBP_APAP, Var_lnBP_APAP, -2.3, 0); 
 
