@@ -35,7 +35,7 @@ Distrib(M_lnTg, TruncNormal, -1.4552, 0.4, -2.4552, -0.4552);
 #Distrib(M_lnSULT_Km_paps, TruncNormal, -0.6931, 0.5, -3., 0.);
 Distrib(M_lnSULT_VmaxC, Uniform, 0., 15); 
 
-Distrib(M_lnUGT_Km, TruncNormal, 8.6995, 0.4., 7.6995, 9.6995); #
+Distrib(M_lnUGT_Km, TruncNormal, 8.6995, 0.4, 7.6995, 9.6995); #
 #Distrib(M_lnUGT_Ki, TruncNormal, 10.968, 0.5, 9.998, 11.451);
 #Distrib(M_lnUGT_Km_GA, TruncNormal, -0.6931, 0.5, -3., 0.);
 Distrib(M_lnUGT_VmaxC, Uniform, 0., 15); 
