@@ -308,7 +308,7 @@ ATCOG,		# ONLY FOR COMPARISON WITH HACK
   #VSlwSC, # (vrisk3) #Slowly perfused fractional compartment volume 
   #VPlasSC, # (vrisk3) #Plasma fractional compartment volume 
   #VBodSC, # (vrisk3) #TCA Body fractional compartment volume [not incl. blood+liver]
-  #VBodTCOHSC, # (vrisk3) #TCOH/G Body fractional compartment volume [not incl. liver]
+  #VBodTCOGSC, # (vrisk3) #TCOH/G Body fractional compartment volume [not incl. liver]
   #PB, # (vrisk3) #TCE Blood/air partition coefficient
   #PFat, # (vrisk3) #TCE Fat/Blood partition coefficient
   #PGut, # (vrisk3) #TCE Gut/Blood partition coefficient
@@ -380,6 +380,7 @@ ATCOG,		# ONLY FOR COMPARISON WITH HACK
   CLngTCAMole, #(v220)
   CPlasTCAMole, 
   CPlasTCAFreeMole,
+  CBldTCOHMole, #(v220)
   CTotTCOHMole, #(v220)
   CLivTCOHMole, #(v220)
   CKidTCOHMole, #(v221)
@@ -486,7 +487,7 @@ VBld	= 1;	# Blood compartment volume (L)
 VSlw	= 1;	# Slowly perfused compartment volume (L)
 VPlas	= 1;	# Plasma compartment volume [fraction of blood] (L)
 VBod	= 1;	# TCA Body compartment volume [not incl. blood+liver] (L)
-VBodTCOH	= 1;	# TCOH/G Body compartment volume [not incl. liver] (L)
+VBodTCOG	= 1;	# TCOH/G Body compartment volume [not incl. liver] (L)
 #******************************************************************************
 # Distribution/partitioning
 PB	= 1;	# TCE Blood/air partition coefficient
@@ -1173,6 +1174,8 @@ Ve_CLivTCAMole = 1; #(v220)
 Ve_CKidTCAMole = 1; #(v221)
 Ve_CBrnTCAMole = 1; #(v221)
 Ve_CLngTCAMole = 1; #(v221)
+
+Ve_CBldTCOHMole = 1; #(v220)
 Ve_CTotTCOHMole = 1; #(v220)
 Ve_CLivTCOHMole = 1; #(v220)
 Ve_CKidTCOHMole = 1; #(v221)
@@ -1249,7 +1252,7 @@ Initialize {
 #	VSlw		Slowly perfused compartment volume (L)
 #	VPlas		Plasma compartment volume [fraction of blood] (L)
 #	VBod		TCA Body compartment volume [not incl. blood+liver] (L)
-#	VBodTCOH	TCOH/G Body compartment volume [not incl. liver] (L)
+#	VBodTCOG	TCOH/G Body compartment volume [not incl. liver] (L)
 #	PB		TCE Blood/air partition coefficient
 #	PFat		TCE Fat/Blood partition coefficient
 #	PGut		TCE Gut/Blood partition coefficient
@@ -1543,12 +1546,12 @@ Initialize {
 
        VPlas = FracPlas * VBld;
 #(v1.2)	VBod = VFat + VGut + VRap + VTB + VKid + VSlw; # For TCA
-	VBod = VFat + VGut + VRap + VRespEfftmp + VSlw; # For TCA #(v221) remove Kid
+	VBod = VFat + VGut + VRap + VRespEfftmp + VSlw; #(v221) remove Kid
 	## VFat + VGut + VRap + VTB + VKid + VSlw + VBld;#(v1h)
 			## VFat + VGut + VRaptmp + VTB + VKid + VSlw; #(v1a)#(v1b)#(v1c) For TCA
 	## VFat + VGut + VRaptmp + VTB + VKid + VSlw + VBld;#(v1a)(v1b)+(v1h)
-	VBodTCOH = VBod + VBld;	# for TCOH and TCOG -- body without liver
-	## VBodTCOH = VBod; #(v1h)
+	VBodTCOG = VBod + VKid + VBrn + VLng;	# for TCOG -- body without liver # (v300)
+	## VBodTCOG = VBod; #(v1h)
 
 # Partition coefficients
        PB = (PBmeas > 0.0 ? PBmeas : (exp(lnPBC) * (Species == 3 ? 15. : (Species == 2 ? 22. : 9.5 )))); # Blood-air
@@ -2005,7 +2008,7 @@ Initialize {
 	#	= CL_GFR / BW (BW=0.02 for mouse, 0.265 for rat, 70 for human)
 	#	kUrn = CL_GFR / VBld
 	#	Diffuse prior with Uncertainty of up,down 1000-fold 
-	kUrnTCOG = exp(lnkUrnTCOGC) * BW / (VBodTCOH * PBodTCOG) *
+	kUrnTCOG = exp(lnkUrnTCOGC) * BW / (VBodTCOG * PBodTCOG) *
 		(Species == 3 ? 0.6 : (Species == 2 ? 0.522 : 0.108));
 
 # DCVG Kinetics (/hr) 
@@ -2155,7 +2158,7 @@ Dynamics{
   #VSlwSC=VSlw/BW; # (vrisk3) #Slowly perfused fractional compartment volume 
   #VPlasSC=VPlas/BW; # (vrisk3) #Plasma fractional compartment volume 
   #VBodSC=VBod/BW; # (vrisk3) #TCA Body fractional compartment volume [not incl. blood+liver]
-  #VBodTCOHSC=VBodTCOH/BW; # (vrisk3) #TCOH/G Body fractional compartment volume [not incl. liver]
+  #VBodTCOGSC=VBodTCOG/BW; # (vrisk3) #TCOH/G Body fractional compartment volume [not incl. liver]
 
 
 #******************************************************************************
@@ -2471,7 +2474,7 @@ Dynamics{
 # Other State Variables and Global Parameters:
 #	ABileTCOG
 #	kEHR
-#	VBodTCOH
+#	VBodTCOG
 #	PBodTCOH
 #	VLiv
 #	PLivTCOH
@@ -2493,7 +2496,7 @@ Dynamics{
 #	RAMetLiv1
 #	RAMetLng
 # Temporary variables assigned:
-#	CVBodTCOH
+#	CVBodTCOG
 #	CVLivTCOH
 #	CTCOH
 #	RAMetTCOHTCA
@@ -2504,7 +2507,7 @@ Dynamics{
 #******************************************************************************
 #**** Blood (venous=arterial) *************************************************
 # Venous Concentrations (mg/L)
-	CVBodTCOH = ABodTCOH / VBodTCOH / PBodTCOH;
+	CVBodTCOH = ABodTCOH / VBod / PBodTCOH;
 
 	CVLivTCOH = ALivTCOH / VLiv / PLivTCOH;
 	CVKidTCOH = AKidTCOH / VKid / PKidTCOH; #(v221)
@@ -2728,7 +2731,7 @@ Dynamics{
 #	TCOGUrnSat
 #	UrnMissing
 # Other State Variables and Global Parameters:
-#	VBodTCOH
+#	VBodTCOG
 #	VLiv
 #	PBodTCOG
 #	PLivTCOG
@@ -2751,7 +2754,7 @@ Dynamics{
 #******************************************************************************
 #**** Blood (venous=arterial) *************************************************
 # Venous Concentrations (mg/L)
-	CVBodTCOG = ABodTCOG / VBodTCOH / PBodTCOG;
+	CVBodTCOG = ABodTCOG / VBodTCOG / PBodTCOG;
 	CVLivTCOG = ALivTCOG / VLiv / PLivTCOG;
 	CTCOG = (QBod * CVBodTCOG + QGutLiv * CVLivTCOG)/QCnow;
 #**** Body ********************************************************************
@@ -3192,7 +3195,7 @@ TotTCAProd =  (FracTCA*StochTCATCE*(AMetLiv1 + FracLungSys*AMetLng)) + #(vrisk)
 #       VPlas = FracPlas * VBld;
 #	VBod = VFat + VGut + VRap + VTB + VSlw - VBld; 
 #		# for TCA -- body without liver or blood
-#	VBodTCOH = VFat + VGut + VRap + VTB + VSlw; 
+#	VBodTCOG = VFat + VGut + VRap + VTB + VSlw; 
 #		# for TCOH and TCOG -- body without liver
 #
 ## Revised Sampling of Flows 
@@ -3375,7 +3378,7 @@ CalcOutputs{
 	#  Concentrations are in TCOH-equivalents 
 	CTCOG = (CTCOG < 1.0e-15 ? 1.0e-15 : CTCOG); 
 	CTCOGTCOH = StochTCOHGluc*CTCOG; 
-	CBodTCOGTCOH = (ABodTCOG < 1.0e-15 ? 1.0e-15 : StochTCOHGluc*ABodTCOG/VBodTCOH); 
+	CBodTCOGTCOH = (ABodTCOG < 1.0e-15 ? 1.0e-15 : StochTCOHGluc*ABodTCOG/VBodTCOG); 
 	CKidTCOGTCOH = CBodTCOGTCOH;
 	CLivTCOGTCOH = (ALivTCOG < 1.0e-15 ? 1.0e-15 : StochTCOHGluc*ALivTCOG/VLiv); 
 	CLungTCOGTCOH = CBodTCOGTCOH;
@@ -3426,6 +3429,7 @@ CalcOutputs{
 	CKidMole = CKid / MWTCE * 1000; # #(v220) 
 	CBrnMole = CBrn / MWTCE * 1000; # #(v221) 
 	CLngMole = CLng / MWTCE * 1000; # #(v221) 
+	
 	CBldTCAMole = CBldTCA / MWTCA * 1000; #(v220) (nmol/ml)
 	CLivTCAMole = CLivTCA / MWTCA * 1000; #(v220)
 	CKidTCAMole = CKidTCA / MWTCA * 1000; #(v221)
@@ -3433,6 +3437,8 @@ CalcOutputs{
 	CLngTCAMole = CLngTCA / MWTCA * 1000; #(v221)
 	CPlasTCAMole = (CPlasTCAMole < 1.0e-15 ? 1.0e-15 : CPlasTCAMole);
 	CPlasTCAFreeMole = (CPlasTCAFreeMole < 1.0e-15 ? 1.0e-15 : CPlasTCAFreeMole);
+	
+	CBldTCOHMole = CTCOH / MWTCOH * 1000; #(v220)
 	CTotTCOHMole = TotCTCOH / MWTCOH * 1000; #(v220)
 	CLivTCOHMole = CLivTCOH / MWTCOH * 1000; #(v220)
 	CKidTCOHMole = CKidTCOH / MWTCOH * 1000; #(v221)
