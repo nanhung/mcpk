@@ -16,9 +16,10 @@ Level { # Population Level
 lnTp = -3.401;
 lnCYP_Km = 4.867;
 lnCYP_VmaxC = -2.;
-lnSULT_Km_apap = 5.703;
+#lnSULT_Km_apap = 5.703;
 lnSULT_Ki = 6.2653;
 lnSULT_Km_paps = -0.6931472;
+lnUGT_Km = 8.6995;
 lnUGT_Ki = 10.9682;
 lnUGT_Km_GA = -0.6931472;
 lnKm_AG = 9.903;
