@@ -2131,7 +2131,7 @@ Dynamics{
  	QRap = QCnow - QFat - QGut - QLiv - QSlw - QKid - QBrn - QLng; #(v221)
 		##		#(v1b)#(v1c) don't subtract off TB
 	QBod = QCnow - QGutLiv - QKid - QBrn - QLng; # For TCA, TCOH #(v221)
-
+	
   #QFatSC = QFat/QCnow; # (vrisk3) #Scaled fat blood flow
   #QGutSC = QGut/QCnow; # (vrisk3) #Scaled gut blood flow
   #QLivSC = QLiv/QCnow; # (vrisk3) #Scaled liver blood flow
@@ -2754,9 +2754,12 @@ Dynamics{
 #******************************************************************************
 #**** Blood (venous=arterial) *************************************************
 # Venous Concentrations (mg/L)
+
+    QBodTCOG = QBod + QKid + QBrn + QLng;
+
 	CVBodTCOG = ABodTCOG / VBodTCOG / PBodTCOG;
 	CVLivTCOG = ALivTCOG / VLiv / PLivTCOG;
-	CTCOG = (QBod * CVBodTCOG + QGutLiv * CVLivTCOG)/QCnow;
+	CTCOG = (QBodTCOG * CVBodTCOG + QGutLiv * CVLivTCOG)/QCnow;
 #**** Body ********************************************************************
 # Amount of TCOG in body
 	RUrnTCOG = kUrnTCOG * ABodTCOG;
