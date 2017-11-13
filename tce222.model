@@ -2763,7 +2763,7 @@ Dynamics{
 #**** Body ********************************************************************
 # Amount of TCOG in body
 	RUrnTCOG = kUrnTCOG * ABodTCOG;
-    dt(ABodTCOG) = QBod * (CTCOG - CVBodTCOG) - RUrnTCOG;
+    dt(ABodTCOG) = QBodTCOG * (CTCOG - CVBodTCOG) - RUrnTCOG;
 
 #**** Liver *******************************************************************
 # Amount of TCOG in liver (mg)
