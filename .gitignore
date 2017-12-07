@@ -5,14 +5,4 @@
 *.png
 *.pdf
 *.dat
-mcsim.apap.pbpk_v2
-mcsim.tce220
-mcsim.tce221
-mcsim.tce222
-mcsim.tce001
-mcsim.tce002
-mcsim.tce003
-mcsim.tce004
-mcsim.acat2cpt_v2
-mcsim.acat2cpt_v1
-mcsim.acat2cpt_v2.1
+mcsim.*

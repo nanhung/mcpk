@@ -1,23 +1,29 @@
 # Check Massbalance
 OutputFile ("acat2cpt_MB.out");
 
-Integrate (Lsodes, 1e-7, 1e-9, 1);
+Integrate (Lsodes, 1e-6, 1e-6, 1);
+
+
+#-------------------------------------
+# Substance-specific parameters
+#-------------------------------------
+
+# Dosage forms (0/1) switches
+#G_immediate_d = 1;     # immediate release, dissolved (default)
+#G_immediate_u = 1;     # immediate release, undissolved
+#G_delayed_d = 1;       # delayed release,   dissolved
+#G_delayed_u = 1;       # delayed release,   undissolved
 
 Simulation {
 
-# Dosage forms (0/1) switches
-G_immediate_d = 0;     # immediate release, dissolved (default)
-G_immediate_u = 1;     # immediate release, undissolved
-G_delayed_d = 0;       # delayed release,   dissolved
-G_delayed_u = 0;       # delayed release,   undissolved
-
+  BDM = 65;
 
 # Dosing (Total dose = 1776.1 uM)
 # Use Oral_dose_rate for immediate release
-Oral_dose_rate = NDoses(2, 17761 0, 0 0.1); #1.76811
+  Oral_dose_rate = NDoses(2, 17761 0, 0 0.1);
 
-# Use PO_dose for delay release
-#PO_dose = PerExp (1776.1, 10, 0, 1e-8);
+# Dosing (10000 micromoles per hour during 0.0125 hours)
+  # PO_dose = 125;
 
 PrintStep ( Q_total , 0, 30, 1);	
 }
