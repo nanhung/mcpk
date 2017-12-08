@@ -1,7 +1,7 @@
 Integrate(Lsodes, 1.0e-5, 3.09e-7, 1);
 MCMC ("acat2cpt30.c03.out", 
 "","",
-40000, 0, 40, 40000, 3333); 
+100000, 0, 100, 100000, 3333); 
 
 Level { # Population Level
 
@@ -70,7 +70,7 @@ Distrib (V_central, Uniform, 0.1, 10);
 Distrib (V_periph, Uniform, 1, 10);
 
 # Michaelis-Menten Vmax (micromol/min/mg microsomal proteins)
-Distrib(Vmax_vitro, Uniform, 0.0001, 1); # Assume
+Distrib(Vmax_vitro, Uniform, 0.0001, 10000); # Assume
 
 # Michaelis-Menten Km (microM)
 Distrib(Km_vitro, Uniform, 100, 1000); # theophylline reference
@@ -149,7 +149,7 @@ Distrib (Fu_met_liver, TruncLogNormal_v, Fu_met_liver, Vr_Fu_met_liver, 0, 1);  
 
 Distrib (V_central, TruncLogNormal_v, V_central, Vr_V_central, 0.1, 10);
 Distrib (V_periph, TruncLogNormal_v, V_periph, Vr_V_periph, 1, 10);
-Distrib (Vmax_vitro, TruncLogNormal_v, Vmax_vitro, Vr_Vmax_vitro, 0.0001, 1);
+Distrib (Vmax_vitro, TruncLogNormal_v, Vmax_vitro, Vr_Vmax_vitro, 0.0001, 10000);
 Distrib (Km_vitro, TruncLogNormal_v, Km_vitro, Vr_Km_vitro, 100, 1000);
 Distrib (Kelim, TruncLogNormal_v, Kelim, Vr_Kelim, 0.0001, 1);
 Distrib (Kc2p, TruncLogNormal_v, Kc2p, Vr_Kc2p, 0.001, 10);
