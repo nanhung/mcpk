@@ -1,7 +1,7 @@
 Integrate(Lsodes, 1.0e-5, 3.09e-7, 1);
 MCMC ("acat2cpt30.c03.out", 
 "","",
-10000, 0, 10, 10000, 3333); 
+100000, 0, 10, 100000, 3333); 
 
 Level { # Population Level
 
