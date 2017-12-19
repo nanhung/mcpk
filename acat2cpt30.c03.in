@@ -1,5 +1,5 @@
 Integrate(Lsodes, 1.0e-5, 3.09e-7, 1);
-MCMC ("acat2cpt30.c03.out", 
+MCMC ("acat2cpt30.c03.out", # Immediate dissolve
 "","",
 100000, 0, 100, 100000, 3333); 
 
@@ -13,8 +13,8 @@ Level { # Population Level
 MM = 180.17; #theoph
 Mol_vol = 120; 
 
-G_immediate_d = 0;    #(v2)
-G_immediate_u = 1;    #(v2)
+G_immediate_d = 1;    #(v2)
+G_immediate_u = 0;    #(v2)
 G_delayed_d  = 0;     #(v2)
 G_delayed_u  = 0;     #(v2)
 
