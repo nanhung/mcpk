@@ -10,8 +10,8 @@
 #BSUB -N                        ## Send email on job begin (-B) and end (-N)
 ##BSUB -P 082803364811          ## set account
 
-./mcsim.tce300 tce300.c01.in & 
-./mcsim.tce300 tce300.c02.in & 
-./mcsim.tce300 tce300.c03.in & 
-./mcsim.tce300 tce300.c04.in
+./mcsim.tce300 tce220.c01.in & 
+./mcsim.tce300 tce220.c02.in & 
+./mcsim.tce300 tce220.c03.in & 
+./mcsim.tce300 tce220.c04.in
 wait

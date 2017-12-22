@@ -1,5 +1,5 @@
 Integrate(Lsodes, 1.0e-5, 3.09e-7, 1);
-MCMC ("acat2cpt30.c03.out", # Immediate dissolve
+MCMC ("acat2cpt30.c03.out",  # Immediate dissolve
 "","",
 100000, 0, 100, 100000, 3333); 
 
@@ -34,54 +34,53 @@ f_Abs_colon = 0;
 Distrib (G_Radius Uniform, 1, 50); 
 
 # Powder density (g/ml)
-Distrib (G_Density Uniform	0.1, 2.0); 
+Distrib (G_Density Uniform	1.0, 2.0); 
 
 # Precipitation rate (1/h)
 Distrib (K_precip Uniform 1.38e-4, 1.38e-3); 
 
 # Excretion over absorption rate constant ratios
-Distrib (Ke_over_a_epit, Uniform, 0.0001, 1); 
-Distrib (Ke_over_a_tiss, Uniform, 0.0001, 1); 
+Distrib (Ke_over_a_epit, LogUniform, 0.01, 1); 
+Distrib (Ke_over_a_tiss, LogUniform, 0.01, 1); 
 
 # Effective permeability of g.i. tract epithelia
-Distrib (Peff, Uniform, 0.001, 10); # theophylline
+Distrib (Peff, LogUniform, 0.01, 1); # theophylline
 
 # Tissue / blood partition coefficients
-Distrib (PC_stom,  Uniform, 0.1, 10);
-Distrib (PC_duod,  Uniform, 0.1, 10);
-Distrib (PC_jeju,  Uniform, 0.1, 10);
-Distrib (PC_ileum, Uniform, 0.1, 10);
-Distrib (PC_cecum, Uniform, 0.1, 10);
-Distrib (PC_colon, Uniform, 0.1, 10);
-Distrib (PC_liver, Uniform, 0.1, 10); #(v3)
+Distrib (PC_stom,  LogUniform, 0.1, 10);
+Distrib (PC_duod,  LogUniform, 0.1, 10);
+Distrib (PC_jeju,  LogUniform, 0.1, 10);
+Distrib (PC_ileum, LogUniform, 0.1, 10);
+Distrib (PC_cecum, LogUniform, 0.1, 10);
+Distrib (PC_colon, LogUniform, 0.1, 10);
+Distrib (PC_liver, LogUniform, 0.1, 10); #(v3)
 
 # Fractions unbound
-Distrib (Fu_plasma,  Uniform, 0, 1); 
-Distrib (Fu_met_stom,  Uniform, 0, 1); 
-Distrib (Fu_met_duod,  Uniform, 0, 1); 
-Distrib (Fu_met_jeju,  Uniform, 0, 1); 
-Distrib (Fu_met_ileum, Uniform, 0, 1); 
-Distrib (Fu_met_cecum, Uniform, 0, 1); 
-Distrib (Fu_met_colon, Uniform, 0, 1); 
-Distrib (Fu_met_liver, Uniform, 0, 1); #(v3)
+Distrib (Fu_plasma,  Uniform, 0., 1); 
+Distrib (Fu_met_stom,  Uniform, 0., 1); 
+Distrib (Fu_met_duod,  Uniform, 0., 1); 
+Distrib (Fu_met_jeju,  Uniform, 0., 1); 
+Distrib (Fu_met_ileum, Uniform, 0., 1); 
+Distrib (Fu_met_cecum, Uniform, 0., 1); 
+Distrib (Fu_met_colon, Uniform, 0., 1); 
+Distrib (Fu_met_liver, Uniform, 0., 1); #(v3)
 
 # Volumes (L)
-Distrib (V_central, Uniform, 0.1, 10);
-Distrib (V_periph, Uniform, 1, 10);
+Distrib (V_central, LogUniform, 0.1, 10);
+Distrib (V_periph, LogUniform, 1, 10);
 
 # Michaelis-Menten Vmax (micromol/min/mg microsomal proteins)
-Vmax_vitro = 0;
-#Distrib(Vmax_vitro, Uniform, 0.000001, 1); # Assume
+Distrib(Vmax_vitro, LogUniform, 0.0001, 1); # Assumed
 
 # Michaelis-Menten Km (microM)
 Distrib(Km_vitro, Uniform, 100, 1000); # theophylline reference
 
 # Elimination rate constant from central (1/h)
-Distrib(Kelim, Uniform, 0.0001, 1);
+Distrib(Kelim, LogUniform, 0.0001, 1) #httk
 
 # Transfer rate constants between central and peripheral compartments (1/h)
-Distrib(Kc2p, Uniform, 0.001, 10);
-Distrib(Kp2c, Uniform, 0.001, 10);
+Distrib(Kc2p, LogUniform, 0.001, 10) #httk
+Distrib(Kp2c, LogUniform, 0.001, 10) #httk
 	
 # variances inter individuelles
 
