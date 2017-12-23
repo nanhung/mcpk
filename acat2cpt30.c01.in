@@ -1,7 +1,7 @@
 Integrate(Lsodes, 1.0e-5, 3.09e-7, 1);
 MCMC ("acat2cpt30.c01.out",  # Immediate dissolve
 "","",
-100000, 0, 100, 100000, 1111); 
+100000, 0, 20, 100000, 1111); 
 
 Level { # Population Level
 
@@ -76,7 +76,7 @@ Distrib(Vmax_vitro, LogUniform, 0.0001, 1); # Assumed
 Distrib(Km_vitro, Uniform, 100, 1000); # theophylline reference
 
 # Elimination rate constant from central (1/h)
-Distrib(Kelim, LogUniform, 0.0001, 1) #httk
+Distrib(Kelim, LogUniform, 1e-9, 1e-6) #httk
 
 # Transfer rate constants between central and peripheral compartments (1/h)
 Distrib(Kc2p, LogUniform, 0.001, 10) #httk

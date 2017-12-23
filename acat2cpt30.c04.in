@@ -1,7 +1,7 @@
 Integrate(Lsodes, 1.0e-5, 3.09e-7, 1);
 MCMC ("acat2cpt30.c04.out",  # Immediate dissolve
 "","",
-100000, 0, 100, 100000, 4444); 
+100000, 0, 20, 100000, 4444); 
 
 Level { # Population Level
 
@@ -70,7 +70,7 @@ Distrib (V_central, LogUniform, 0.1, 10);
 Distrib (V_periph, LogUniform, 1, 10);
 
 # Michaelis-Menten Vmax (micromol/min/mg microsomal proteins)
-Distrib(Vmax_vitro, LogUniform, 0.0001, 1); # Assumed
+Distrib(Vmax_vitro, LogUniform, 1e-9, 1e-6); # Assumed
 
 # Michaelis-Menten Km (microM)
 Distrib(Km_vitro, Uniform, 100, 1000); # theophylline reference
