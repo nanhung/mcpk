@@ -70,13 +70,13 @@ Distrib (V_central, LogUniform, 0.1, 10);
 Distrib (V_periph, LogUniform, 1, 10);
 
 # Michaelis-Menten Vmax (micromol/min/mg microsomal proteins)
-Distrib(Vmax_vitro, LogUniform, 0.0001, 1); # Assumed
+Distrib(Vmax_vitro, LogUniform, 1e-9, 1e-6); # Assumed
 
 # Michaelis-Menten Km (microM)
 Distrib(Km_vitro, Uniform, 100, 1000); # theophylline reference
 
 # Elimination rate constant from central (1/h)
-Distrib(Kelim, LogUniform, 1e-9, 1e-6) #httk
+Distrib(Kelim, LogUniform, 0.0001, 1) #httk
 
 # Transfer rate constants between central and peripheral compartments (1/h)
 Distrib(Kc2p, LogUniform, 0.001, 10) #httk
@@ -110,7 +110,7 @@ Distrib (Vr_Fu_met_liver, InvGamma, 2.25, 0.3125); #(v3)
 
 Distrib (Vr_V_central, InvGamma, 2.25, 0.3125);
 Distrib (Vr_V_periph, InvGamma, 2.25, 0.3125);
-#Distrib (Vr_Vmax_vitro, InvGamma, 2.25, 0.3125);
+Distrib (Vr_Vmax_vitro, InvGamma, 2.25, 0.3125);
 Distrib (Vr_Km_vitro, InvGamma, 2.25, 0.3125);
 Distrib (Vr_Kelim, InvGamma, 2.25, 0.3125);
 Distrib (Vr_Kc2p, InvGamma, 2.25, 0.3125);
@@ -149,7 +149,7 @@ Distrib (Fu_met_liver, TruncLogNormal_v, Fu_met_liver, Vr_Fu_met_liver, 0, 1);  
 
 Distrib (V_central, TruncLogNormal_v, V_central, Vr_V_central, 0.1, 10);
 Distrib (V_periph, TruncLogNormal_v, V_periph, Vr_V_periph, 1, 10);
-#Distrib (Vmax_vitro, TruncLogNormal_v, Vmax_vitro, Vr_Vmax_vitro, 0.000001, 1);
+Distrib (Vmax_vitro, TruncLogNormal_v, Vmax_vitro, Vr_Vmax_vitro, 1e-9, 1e-6);
 Distrib (Km_vitro, TruncLogNormal_v, Km_vitro, Vr_Km_vitro, 100, 1000);
 Distrib (Kelim, TruncLogNormal_v, Kelim, Vr_Kelim, 0.0001, 1);
 Distrib (Kc2p, TruncLogNormal_v, Kc2p, Vr_Kc2p, 0.001, 10);
