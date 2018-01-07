@@ -1,7 +1,7 @@
-Integrate(Lsodes, 1.0e-5, 3.09e-7, 1);
+Integrate(Lsodes, 1e-7, 1e-9, 1);
 MCMC ("acat2cpt21.c04.out", 
 "","",
-100000, 0, 100, 100000, 4444); # for sensitive parameters only
+100000, 0, 100, 100000, 4444); 
 
 Level { # Population Level
 
@@ -13,17 +13,10 @@ Level { # Population Level
 MM = 180.17; #theoph
 Mol_vol = 120; 
 
-G_immediate_d = 0;    #(v2)
-G_immediate_u = 1;    #(v2)
+G_immediate_d = 1;    #(v2)
+G_immediate_u = 0;    #(v2)
 G_delayed_d  = 0;     #(v2)
 G_delayed_u  = 0;     #(v2)
-
-# Weibull delayed release parameters
-Weibull_slope = 1;
-
-# Solubility factors
-SFA = 100; #(v2)
-SFB = 50; #(v2)
 
 # Absorption on(1)/off(0) switches
 f_Abs_stom = 0;
@@ -33,71 +26,73 @@ f_Abs_ileum = 0;
 f_Abs_cecum = 0;
 f_Abs_colon = 0;
 
-# Intrinsic (instantaneous) water solubility (microg/L)
-lnSolubilityC = 0.0;
-
 #-------------------------------------
 # Substance-specific parameters (tested)
 #-------------------------------------
 
 # Weibull delayed release parameters
-Distrib (Weibull_scale, Uniform, 0.1, 1); #(v2)
-Distrib (Weibull_lag, Uniform, 0.01, 1); #(v2)
+#Distrib (Weibull_scale, Uniform, 0.1, 1); #(v2)
+#Distrib (Weibull_lag, Uniform, 0.01, 1); #(v2)
 
 # Galenic radius (microm)
-Distrib (G_Radius Uniform, 5, 30); #(v2)
+Distrib (G_Radius Uniform, 1, 50); 
+
+# Powder density (g/ml)
+Distrib (G_Density Uniform	1.0, 2.0); 
 
 # Precipitation rate (1/h)
-Distrib (K_precip Uniform 1.38e-4, 1.38e-3); #(v2)
+Distrib (K_precip Uniform 1.38e-4, 1.38e-3); 
 
 # Excretion over absorption rate constant ratios
-Distrib (Ke_over_a_epit, Uniform, 0.01, 1); #(v2)
-Distrib (Ke_over_a_tiss, Uniform, 0.01, 1); #(v2)
+Distrib (Ke_over_a_epit, LogUniform, 0.01, 1); 
+Distrib (Ke_over_a_tiss, LogUniform, 0.01, 1); 
 
 # Effective permeability of g.i. tract epithelia
-Distrib (Peff, Uniform, 0.01, 1); # theophylline
+Distrib (Peff, LogUniform, 0.01, 1); # theophylline
 
 # Tissue / blood partition coefficients
-Distrib (PC_stom,  Uniform, 0.1, 10);
-Distrib (PC_duod,  Uniform, 0.1, 10);
-Distrib (PC_jeju,  Uniform, 0.1, 10);
-Distrib (PC_ileum, Uniform, 0.1, 10);
-Distrib (PC_cecum, Uniform, 0.1, 10);
-Distrib (PC_colon, Uniform, 0.1, 10);
+Distrib (PC_stom,  LogUniform, 0.1, 10);
+Distrib (PC_duod,  LogUniform, 0.1, 10);
+Distrib (PC_jeju,  LogUniform, 0.1, 10);
+Distrib (PC_ileum, LogUniform, 0.1, 10);
+Distrib (PC_cecum, LogUniform, 0.1, 10);
+Distrib (PC_colon, LogUniform, 0.1, 10);
+#Distrib (PC_liver, LogUniform, 0.1, 10); #(v3)
 
 # Fractions unbound
-Distrib (Fu_plasma,  Uniform, 0.01, 1); #(v2)
-
-Distrib (Fu_met_stom,  Uniform, 0.01, 1); #(v2)
-Distrib (Fu_met_duod,  Uniform, 0.01, 1); #(v2)
-Distrib (Fu_met_jeju,  Uniform, 0.01, 1); #(v2)
-Distrib (Fu_met_ileum, Uniform, 0.01, 1); #(v2)
-Distrib (Fu_met_cecum, Uniform, 0.01, 1); #(v2)
-Distrib (Fu_met_colon, Uniform, 0.01, 1); #(v2)
+Distrib (Fu_plasma,  LogUniform, 0.01, 1); 
+Distrib (Fu_met_stom,  LogUniform, 0.01, 1); 
+Distrib (Fu_met_duod,  LogUniform, 0.01, 1); 
+Distrib (Fu_met_jeju,  LogUniform, 0.01, 1); 
+Distrib (Fu_met_ileum, LogUniform, 0.01, 1); 
+Distrib (Fu_met_cecum, LogUniform, 0.01, 1); 
+Distrib (Fu_met_colon, LogUniform, 0.01, 1); 
+#Distrib (Fu_met_liver, LogUniform, 0.01, 1); #(v3)
 
 # Volumes (L)
-Distrib (V_central, Uniform, 0.1, 10);
-Distrib (V_periph, Uniform, 1, 10);
+Distrib (V_central, LogUniform, 0.1, 8);
+Distrib (V_periph, LogUniform, 0.1, 8);
 
 # Michaelis-Menten Vmax (micromol/min/mg microsomal proteins)
-Distrib(Vmax_vitro, Uniform, 0.1, 1); # Assume
+#Vmax_vitro = 0;
+Distrib(Vmax_vitro, LogUniform, 1e-13, 1e-7); # Assumed
 
 # Michaelis-Menten Km (microM)
 Distrib(Km_vitro, Uniform, 100, 1000); # theophylline reference
 
 # Elimination rate constant from central (1/h)
-Distrib(Kmet, Uniform, 0.01, 1) #httk
+Distrib(Kmet, LogUniform, 0.01, 1) #httk
 
 # Transfer rate constants between central and peripheral compartments (1/h)
-Distrib(Kc2p, Uniform, 0.1, 10) #httk
-Distrib(Kp2c, Uniform, 1, 10) #httk
+Distrib(Kc2p, LogUniform, 0.1, 10); #httk
+Distrib(Kp2c, LogUniform, 0.1, 10);	#httk
 	
 # variances inter individuelles
 
-Distrib (Vr_Weibull_scale, InvGamma, 2.25, 0.3125);
-Distrib (Vr_Weibull_lag, InvGamma, 2.25, 0.3125);
+#Distrib (Vr_Weibull_scale, InvGamma, 2.25, 0.3125);
+#Distrib (Vr_Weibull_lag, InvGamma, 2.25, 0.3125);
 Distrib (Vr_G_Radius, InvGamma, 2.25, 0.3125);
-
+Distrib (Vr_G_Density, InvGamma, 2.25, 0.3125);
 Distrib (Vr_K_precip, InvGamma, 2.25, 0.3125);
 Distrib (Vr_Ke_over_a_epit, InvGamma, 2.25, 0.3125);
 Distrib (Vr_Ke_over_a_tiss, InvGamma, 2.25, 0.3125);
@@ -130,20 +125,23 @@ Likelihood(Data(lnC_central), Normal_v, Prediction(lnC_central), Ve_lnC_central)
 
 Level { # Individuals
 
-Distrib (Weibull_scale, TruncLogNormal_v, Weibull_scale, Vr_Weibull_scale 0.1, 1);
-Distrib (Weibull_lag, TruncLogNormal_v, Weibull_lag, Vr_Weibull_lag  0.01, 1);
-Distrib (G_Radius, TruncLogNormal_v, G_Radius, Vr_G_Radius 5, 30);
-
+#Distrib (Weibull_scale, TruncLogNormal_v, Weibull_scale, Vr_Weibull_scale 0.1, 1);
+#Distrib (Weibull_lag, TruncLogNormal_v, Weibull_lag, Vr_Weibull_lag  0.01, 1);
+Distrib (G_Radius, TruncLogNormal_v, G_Radius, Vr_G_Radius 1, 50);
+Distrib (G_Density, TruncLogNormal_v, G_Density, Vr_G_Density 1.0, 2.0);
 Distrib (K_precip, TruncLogNormal_v, K_precip, Vr_K_precip 1.38e-4, 1.38e-3);
 Distrib (Ke_over_a_epit, TruncLogNormal_v, Ke_over_a_epit, Vr_Ke_over_a_epit, 0.01, 1);
 Distrib (Ke_over_a_tiss, TruncLogNormal_v, Ke_over_a_tiss, Vr_Ke_over_a_tiss, 0.01, 1);
 Distrib (Peff, TruncLogNormal_v, Peff, Vr_Peff, 0.01, 1);
+
 Distrib (PC_stom, TruncLogNormal_v, PC_stom, Vr_PC_stom, 0.1, 10);
 Distrib (PC_duod, TruncLogNormal_v, PC_duod, Vr_PC_duod, 0.1, 10);
 Distrib (PC_jeju, TruncLogNormal_v, PC_jeju, Vr_PC_jeju, 0.1, 10);
 Distrib (PC_ileum, TruncLogNormal_v, PC_ileum, Vr_PC_ileum, 0.1, 10);
 Distrib (PC_cecum, TruncLogNormal_v, PC_cecum, Vr_PC_cecum, 0.1, 10);
 Distrib (PC_colon, TruncLogNormal_v, PC_colon, Vr_PC_colon, 0.1, 10);
+#Distrib (PC_liver, TruncLogNormal_v, PC_liver, Vr_PC_liver, 0.1, 10); #(v3)
+
 Distrib (Fu_plasma, TruncLogNormal_v, Fu_plasma, Vr_Fu_plasma, 0.01, 1);
 Distrib (Fu_met_stom, TruncLogNormal_v, Fu_met_stom, Vr_Fu_met_stom, 0.01, 1);
 Distrib (Fu_met_duod, TruncLogNormal_v, Fu_met_duod, Vr_Fu_met_duod, 0.01, 1);
@@ -151,13 +149,15 @@ Distrib (Fu_met_jeju, TruncLogNormal_v, Fu_met_jeju, Vr_Fu_met_jeju, 0.01, 1);
 Distrib (Fu_met_ileum, TruncLogNormal_v, Fu_met_ileum, Vr_Fu_met_ileum, 0.01, 1);
 Distrib (Fu_met_cecum, TruncLogNormal_v, Fu_met_cecum, Vr_Fu_met_cecum, 0.01, 1);
 Distrib (Fu_met_colon, TruncLogNormal_v, Fu_met_colon, Vr_Fu_met_colon, 0.01, 1);
-Distrib (V_central, TruncLogNormal_v, V_central, Vr_V_central, 0.1, 10);
-Distrib (V_periph, TruncLogNormal_v, V_periph, Vr_V_periph, 1, 10);
-Distrib (Vmax_vitro, TruncLogNormal_v, Vmax_vitro, Vr_Vmax_vitro, 0.1, 1);
+#Distrib (Fu_met_liver, TruncLogNormal_v, Fu_met_liver, Vr_Fu_met_liver, 0.01, 1);  #(v3)
+
+Distrib (V_central, TruncLogNormal_v, V_central, Vr_V_central, 0.1, 8);
+Distrib (V_periph, TruncLogNormal_v, V_periph, Vr_V_periph, 0.1, 8);
+Distrib (Vmax_vitro, TruncLogNormal_v, Vmax_vitro, Vr_Vmax_vitro, 1e-13, 1e-7);
 Distrib (Km_vitro, TruncLogNormal_v, Km_vitro, Vr_Km_vitro, 100, 1000);
 Distrib (Kmet, TruncLogNormal_v, Kmet, Vr_Kmet, 0.01, 1);
 Distrib (Kc2p, TruncLogNormal_v, Kc2p, Vr_Kc2p, 0.1, 10);
-Distrib (Kp2c, TruncLogNormal_v, Kp2c, Vr_Kp2c, 1, 10);
+Distrib (Kp2c, TruncLogNormal_v, Kp2c, Vr_Kp2c, 0.1, 10);
 
 Level { # Subject 1
 #-----------------

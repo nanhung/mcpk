@@ -397,7 +397,7 @@ Vr_lnSolubilityC;
 Vr_Weibull_scale;
 Vr_Weibull_lag;
 Vr_G_Radius;
-Vr_lnG_DensityC;
+Vr_G_Density;
 Vr_K_precip;
 Vr_Ke_over_a_epit;
 Vr_Ke_over_a_tiss;
