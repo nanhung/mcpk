@@ -1,6 +1,6 @@
 Integrate(Lsodes, 1e-7, 1e-11, 1);
-MCMC ("acat2cpt30.c01.out",  # Immediate dissolve
-"","",
+MCMC ("acat2cpt30.c01-2.out",  # Immediate dissolve
+"acat2cpt30.c01.out","",
 100000, 0, 20, 100000, 1111); 
 
 Level { # Population Level
