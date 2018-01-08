@@ -34,6 +34,7 @@ VBLVC= 0.0557; lnVBLVC = log(0.0557);         # Venous Blood.
 VSC = 0.185; lnVSC = log(0.185);            # Slowly Perfused
 VRC = 0.0765; lnVRC = log(0.0765);           # Rapidly Perfused (1- everything else)
 
+
 # Fractional blood flows (fraction of cardiac output).
 QFC  = 0.052; lnQFC = log(0.052);           # Fat. **
 QKC  = 0.175; lnQKC = log(0.175);          # Kidney.
@@ -42,6 +43,7 @@ QLBC = 0.046; lnQLBC = log(0.046);          # Hepatic artery. **
 QMC  = 0.191; lnQMC = log(0.191);          # Muscle
 QSC = 0.14; lnQSC = log(0.14);           # Slowly Perfused
 QRC = 0.215; lnQRC = log(0.215);           # Rapidly Perfused (1 -  everything else)
+
 
 # Chemical Specific Transport Params
 #-----------------------------------
@@ -197,26 +199,6 @@ M_lnIVDose_APAP; M_lnVar_IVDose_APAP;
 M_BW; M_lnBW;
 M_fa; M_lnfa;
 
-#
-M_lnQCC;
-#
-M_lnVFC;
-M_lnVKC;
-M_lnVGC;
-M_lnVLC;
-M_lnVMC;
-M_lnVBLAC;
-M_lnVBLVC;
-M_lnVSC;
-M_lnVRC;
-M_lnQFC;
-M_lnQKC;
-M_lnQGC;
-M_lnQLBC;
-M_lnQMC;
-M_lnQSC;
-M_lnQRC;
-
 # Chemical Specific Transport Params
 #-----------------------------------
 M_kSG_Vm; M_lnkSG_Vm;
@@ -224,7 +206,6 @@ M_kSG_Km; M_lnkSG_Km;
 M_Tg;     M_lnTg;
 M_Tp;     M_lnTp;
 
-#
 M_CLC_APAP; M_lnCLC_APAP; # Total APAP blood clearance (L/hr/kg)
 M_CLC_AS; M_lnCLC_AS;       # Total AS blood clearance (L/hr/kg)
 M_CLC_AG; M_lnCLC_AG;      # Total AG blood clearance (L/hr/kg)
@@ -303,27 +284,6 @@ M_Km_AS; M_lnKm_AS;
 #----------------------
 Var_BW; Var_lnBW;
 Var_fa; Var_lnfa;
-
-#
-Var_lnQCC;
-#
-Var_lnVFC;
-Var_lnVKC;
-Var_lnVGC;
-Var_lnVLC;
-Var_lnVMC;
-Var_lnVBLAC;
-Var_lnVBLVC;
-Var_lnVSC;
-Var_lnVRC;
-Var_lnQFC;
-Var_lnQKC;
-Var_lnQGC;
-Var_lnQLBC;
-Var_lnQMC;
-Var_lnQSC;
-Var_lnQRC;
-
 
 # Chemical Specific Transport Params
 #-----------------------------------
