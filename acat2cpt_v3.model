@@ -220,12 +220,12 @@ Weibull_lag = 0;
 # K_release; # not use in the model
 
 # Galenic radius (microm)
-G_Radius  = 25.0; # Assumed
+G_Radius  = 25.0; lnG_Radius = log(25.0); # Assumed
 
 # Powder density (Hancock et al., 2003) (g/ml) 
 # "The Relative Densities of Pharmaceutical Powders, Blends,Dry Granulations,and Immediate-Release Tablets"
 # Possible range was 0.2 - 2.8
-G_Density = 1.47; # EPA
+G_Density = 1.47; lnG_Density = log(1.47); # EPA
 
 # Solute molal volume at normal boiling point (ml/mole) (about twice MM...)
 Mol_vol = 120; #(ref Smith et al., 2001)
@@ -238,56 +238,56 @@ Solubility = 7.36e6;
 # According to "Approaches for measuring intestinal precipitation rates of oral drugs"
 # Precipitation rate half‐lifes varied between 500 and 5000 seconds
 # The range of K_precip might be 1.38e-4 (exp(-8.89)) to 1.38e-3 (exp(-6.58)) 
-K_precip = 1.38e-3;
+K_precip = 1.38e-3; lnK_precip = log(1.38e-3);
 
 # Excretion over absorption rate constant ratios (Assumed)
-Ke_over_a_epit = 0.5; # between lumen and epithelium
-Ke_over_a_tiss = 0.5; # between epithelium and tissue
+Ke_over_a_epit = 0.5; lnKe_over_a_epit = log(0.5); # between lumen and epithelium
+Ke_over_a_tiss = 0.5; lnKe_over_a_tiss = log(0.5); # between epithelium and tissue
 
 # Effective permeability of g.i. tract epithelia
-Peff = 0.7; # ref (Yang et al., 2014)
+Peff = 0.7; lnPeff = log(0.7); # ref (Yang et al., 2014)
 
 # Tissue / blood partition coefficients # Assumed
 # PC_periph  = 1; no used
 # PC_central = 1; no used
-PC_stom    = 1;
-PC_duod    = 1;
-PC_jeju    = 1;
-PC_ileum   = 1;
-PC_cecum   = 1;
-PC_colon   = 1;
-PC_liver   = 1;
+PC_stom    = 1; lnPC_stom = log(1);
+PC_duod    = 1; lnPC_duod = log(1);
+PC_jeju    = 1; lnPC_jeju = log(1);
+PC_ileum   = 1; lnPC_ileum = log(1);
+PC_cecum   = 1; lnPC_cecum = log(1);
+PC_colon   = 1; lnPC_colon = log(1);
+PC_liver   = 1; lnPC_liver = log(1);
 
 # Plasma / blood concentration ratio
 Ratio_BP = 1.0; # Assumed
 
 # Fractions unbound # Assumed
-Fu_plasma = 1.0;
+Fu_plasma = 1.0; lnFu_plasma = log(1.0);
 
-Fu_met_stom  = 1.0; # to stomach in vitro metabolic system (e.g. microsomes)
-Fu_met_duod  = 1.0; # etc.
-Fu_met_jeju  = 1.0;
-Fu_met_ileum = 1.0;
-Fu_met_cecum = 1.0;
-Fu_met_colon = 1.0;
-Fu_met_liver = 1.0;
+Fu_met_stom  = 1.0; lnFu_met_stom = log(1.0); # to stomach in vitro metabolic system (e.g. microsomes)
+Fu_met_duod  = 1.0; lnFu_met_duod = log(1.0);
+Fu_met_jeju  = 1.0; lnFu_met_jeju = log(1.0);
+Fu_met_ileum = 1.0; lnFu_met_ileum = log(1.0);
+Fu_met_cecum = 1.0; lnFu_met_cecum = log(1.0);
+Fu_met_colon = 1.0; lnFu_met_colon = log(1.0);
+Fu_met_liver = 1.0; lnFu_met_liver = log(1.0);
 
 # Volumes (L)
-V_central = 1.0; # Estimated from httk
-V_periph  = 1.0; # Assumed 
+V_central = 1.0; lnV_central = log(1.0); 
+V_periph  = 1.0; lnV_periph = log(1.0); 
 
 # Gut Michaelis-Menten Vmax (micromol/min/mg microsomal proteins)
-Vmax_vitro = 1.0; # Assumed
+Vmax_vitro = 1.0; lnVmax_vitro = log(1.0); # Assumed
 
 # Gut Michaelis-Menten Km (ref Khojasteh et al., 2011) (microM)
-Km_vitro = 200;
+Km_vitro = 200; lnKm_vitro = log(200);
 
 # Elimination rate constant from central (1/h)
-Kelim = 0.05; # Estimated from httk
+Kelim = 0.05; lnKelim = log(0.05); # Estimated from httk
 
 # Transfer rate constants between central and peripheral compartments (1/h)
-Kc2p = 0.97; # Estimated from httk
-Kp2c = 2.17; # Estimated from httk
+Kc2p = 0.97; lnKc2p = log(0.97); # Estimated from httk
+Kp2c = 2.17; lnKp2c = log(2.17); # Estimated from httk
 
 
 #-------------------------------------------
@@ -440,6 +440,40 @@ Ve_lnC_central;
 
 
 Initialize {
+
+
+G_Radius = exp(lnG_Radius);
+G_Density = exp(lnG_Density);
+K_precip = exp(lnK_precip);
+Ke_over_a_epit = exp(lnKe_over_a_epit);
+Ke_over_a_tiss = exp(lnKe_over_a_tiss);	
+Peff = exp(lnPeff);
+
+PC_stom = exp(lnPC_stom);
+PC_duod = exp(lnPC_duod);
+PC_jeju = exp(lnPC_jeju);	
+PC_ileum = exp(lnPC_ileum);
+PC_cecum = exp(lnPC_cecum);
+PC_colon = exp(lnPC_colon);
+PC_liver = exp(lnPC_liver); #(v3)
+
+Fu_plasma = exp(lnFu_plasma);
+
+Fu_met_stom = exp(lnFu_met_stom);
+Fu_met_duod = exp(lnFu_met_duod);
+Fu_met_jeju = exp(lnFu_met_jeju);
+Fu_met_ileum= exp(lnFu_met_ileum);
+Fu_met_cecum = exp(lnFu_met_cecum);
+Fu_met_colon = exp(lnFu_met_colon);
+Fu_met_liver = exp(lnFu_met_liver); #(v3)
+
+V_central = exp(lnV_central);
+V_periph = exp(lnV_periph);
+Vmax_vitro = exp(lnVmax_vitro);
+Km_vitro = exp(lnKm_vitro);
+Kelim = exp(lnKelim);
+Kc2p = exp(lnKc2p);
+Kp2c = exp(lnKp2c);	
 
   # Total blood flow
   F_total = sc_F_total * pow(BDM, 0.75);
