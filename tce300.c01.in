@@ -8,7 +8,7 @@
 #Added Branford individual data in other strains
 #TCA and DCA have background subtracted
 
-Integrate(Lsodes, 1e-8, 1e-9, 1)
+Integrate(Lsodes, 0.3e-8, 1e-11 , 1)
 MCMC ("tce300.c01.out",
 "","",
 800000, 0, 20, 800000, 1111);
@@ -23,6 +23,8 @@ MCMC ("tce300.c01.out",
 # Non-B6C3F1 strain data in their own group
 
 # narrow down PC_TCOG range ? Work!
+# test all? fail
+# fix previously 14 fixed parameter
 
 Level { #Population level
 
@@ -33,26 +35,26 @@ lnVMaxKidDCVGC = -30; # Remove kidney GSH conjugation (not identifiable)
 lnClKidDCVGC = -30; # Remove kidney GSH conjugation (not identifiable)
 
 
-###### POPULATION MEANS (45+11)
+###### POPULATION MEANS (45+11) 
 
 Distrib(	M_lnQCC	TruncNormal	0.0	0.2	-0.8	0.8	);
 Distrib(	M_lnVPRC	TruncNormal	0.0	0.2	-0.8	0.8	);
 Distrib(	M_lnDRespC	Uniform			-6.909	2.303	);
 
-Distrib(	M_lnPBC	TruncNormal	0.0	0.25	-0.75	0.75	);
-Distrib(	M_lnPFatC	TruncNormal	0.0	0.3	-0.9	0.9	);
-Distrib(	M_lnPGutC	TruncNormal	0.0	0.4	-1.2	1.2	);
-Distrib(	M_lnPLivC	TruncNormal	0.0	0.4	-1.2	1.2	); 
-Distrib(	M_lnPRapC	TruncNormal	0.0	0.4	-1.2	1.2	);
-Distrib(	M_lnPRespC	TruncNormal	0.0	0.4	-1.2	1.2	);
-Distrib(	M_lnPKidC	TruncNormal	0.0	0.4	-1.2	1.2	);
-Distrib(	M_lnPSlwC	TruncNormal	0.0	0.4	-1.2	1.2	);
+#Distrib(	M_lnPBC	TruncNormal	0.0	0.25	-0.75	0.75	);
+#Distrib(	M_lnPFatC	TruncNormal	0.0	0.3	-0.9	0.9	);
+#Distrib(	M_lnPGutC	TruncNormal	0.0	0.4	-1.2	1.2	);
+#Distrib(	M_lnPLivC	TruncNormal	0.0	0.4	-1.2	1.2	); 
+#Distrib(	M_lnPRapC	TruncNormal	0.0	0.4	-1.2	1.2	);
+#Distrib(	M_lnPRespC	TruncNormal	0.0	0.4	-1.2	1.2	);
+#Distrib(	M_lnPKidC	TruncNormal	0.0	0.4	-1.2	1.2	);
+#Distrib(	M_lnPSlwC	TruncNormal	0.0	0.4	-1.2	1.2	);
 Distrib(	M_lnPBrnC	TruncNormal	0.0	0.4	-1.2	1.2	); #(v300)
 Distrib(	M_lnPLngC	TruncNormal	0.0	0.4	-1.2	1.2	); #(v300)
 							
 Distrib(	M_lnPRBCPlasTCAC	Uniform			-4.605	4.605	);
-Distrib(	M_lnPBodTCAC	TruncNormal	0.0	0.336	-1.008	1.008	);
-Distrib(	M_lnPLivTCAC	TruncNormal	0.0	0.336	-1.008	1.008	); 
+#Distrib(	M_lnPBodTCAC	TruncNormal	0.0	0.336	-1.008	1.008	);
+#Distrib(	M_lnPLivTCAC	TruncNormal	0.0	0.336	-1.008	1.008	); 
 Distrib(	M_lnPKidTCAC	TruncNormal	0.0	0.336	-1.008	1.008	); #(v300)
 Distrib(	M_lnPBrnTCAC	TruncNormal	0.0	0.336	-1.008	1.008	); #(v300)
 Distrib(	M_lnPLngTCAC	TruncNormal	0.0	0.336	-1.008	1.008	); #(v300)
@@ -60,14 +62,14 @@ Distrib(	M_lnPLngTCAC	TruncNormal	0.0	0.336	-1.008	1.008	); #(v300)
 Distrib(	M_lnkDissocC	TruncNormal	0.0	1.191	-3.573	3.573	);
 Distrib(	M_lnBMaxkDC	TruncNormal	0.0	0.495	-1.485	1.485	);
 
-Distrib(	M_lnPBodTCOHC	TruncNormal	0.0	0.336	-1.008	1.008	);
-Distrib(	M_lnPLivTCOHC	TruncNormal	0.0	0.336	-1.008	1.008	);
+#Distrib(	M_lnPBodTCOHC	TruncNormal	0.0	0.336	-1.008	1.008	);
+#Distrib(	M_lnPLivTCOHC	TruncNormal	0.0	0.336	-1.008	1.008	);
 Distrib(	M_lnPKidTCOHC	TruncNormal	0.0	0.336	-1.008	1.008	); #(v300)
 Distrib(	M_lnPBrnTCOHC	TruncNormal	0.0	0.336	-1.008	1.008	); #(v300)
 Distrib(	M_lnPLngTCOHC	TruncNormal	0.0	0.336	-1.008	1.008	); #(v300)
 
-Distrib(	M_lnPBodTCOGC	TruncNormal	0.0	0.336	-1.008	1.008	);
-Distrib(	M_lnPLivTCOGC	TruncNormal	0.0	0.336	-1.008	1.008	);
+#Distrib(	M_lnPBodTCOGC	TruncNormal	0.0	0.336	-1.008	1.008	);
+#Distrib(	M_lnPLivTCOGC	TruncNormal	0.0	0.336	-1.008	1.008	);
 Distrib(	M_lnPKidTCOGC	TruncNormal	0.0	0.336	-1.008	1.008	); #(v300)
 Distrib(	M_lnPBrnTCOGC	TruncNormal	0.0	0.336	-1.008	1.008	); #(v300)
 Distrib(	M_lnPLngTCOGC	TruncNormal	0.0	0.336	-1.008	1.008	); #(v300)
@@ -118,20 +120,20 @@ Distrib(	V_lnQCC	InvGamma	2.25	0.0500	);
 Distrib(	V_lnVPRC	InvGamma	2.25	0.0500	);
 Distrib(	V_lnDRespC	InvGamma	6	0.2000	);
 
-Distrib(	V_lnPBC	InvGamma	2.25	0.0781	);
-Distrib(	V_lnPFatC	InvGamma	2.25	0.1125	);
-Distrib(	V_lnPGutC	InvGamma	2.25	0.2000	);
-Distrib(	V_lnPLivC	InvGamma	2.25	0.2000	); 
-Distrib(	V_lnPRapC	InvGamma	2.25	0.2000	);
-Distrib(	V_lnPRespC	InvGamma	2.25	0.2000	);
-Distrib(	V_lnPKidC	InvGamma	2.25	0.2000	); 
-Distrib(	V_lnPSlwC	InvGamma	2.25	0.2000	);
+#Distrib(	V_lnPBC	InvGamma	2.25	0.0781	);
+#Distrib(	V_lnPFatC	InvGamma	2.25	0.1125	);
+#Distrib(	V_lnPGutC	InvGamma	2.25	0.2000	);
+#Distrib(	V_lnPLivC	InvGamma	2.25	0.2000	); 
+#Distrib(	V_lnPRapC	InvGamma	2.25	0.2000	);
+#Distrib(	V_lnPRespC	InvGamma	2.25	0.2000	);
+#Distrib(	V_lnPKidC	InvGamma	2.25	0.2000	); 
+#Distrib(	V_lnPSlwC	InvGamma	2.25	0.2000	);
 Distrib(	V_lnPBrnC	InvGamma	2.25	0.2000	); #(v300)
 Distrib(	V_lnPLngC	InvGamma	2.25	0.2000	); #(v300)
 					
 Distrib(	V_lnPRBCPlasTCAC	InvGamma	2.25	0.1411	);
-Distrib(	V_lnPBodTCAC	InvGamma	2.25	0.1411	);
-Distrib(	V_lnPLivTCAC	InvGamma	2.25	0.1411	);
+#Distrib(	V_lnPBodTCAC	InvGamma	2.25	0.1411	);
+#Distrib(	V_lnPLivTCAC	InvGamma	2.25	0.1411	);
 Distrib(	V_lnPKidTCAC	InvGamma	2.25	0.1411	); #(v300)
 Distrib(	V_lnPBrnTCAC	InvGamma	2.25	0.1411	); #(v300)
 Distrib(	V_lnPLngTCAC	InvGamma	2.25	0.1411	); #(v300)
@@ -139,14 +141,14 @@ Distrib(	V_lnPLngTCAC	InvGamma	2.25	0.1411	); #(v300)
 Distrib(	V_lnkDissocC	InvGamma	2.25	1.7731	);
 Distrib(	V_lnBMaxkDC	InvGamma	2.25	0.3063	);
 					
-Distrib(	V_lnPBodTCOHC	InvGamma	2.25	0.1411	);
-Distrib(	V_lnPLivTCOHC	InvGamma	2.25	0.1411	);
+#Distrib(	V_lnPBodTCOHC	InvGamma	2.25	0.1411	);
+#Distrib(	V_lnPLivTCOHC	InvGamma	2.25	0.1411	);
 Distrib(	V_lnPKidTCOHC	InvGamma	2.25	0.1411	); #(v300)
 Distrib(	V_lnPBrnTCOHC	InvGamma	2.25	0.1411	); #(v300)
 Distrib(	V_lnPLngTCOHC	InvGamma	2.25	0.1411	); #(v300)
 
-Distrib(	V_lnPBodTCOGC	InvGamma	2.25	0.1411	);
-Distrib(	V_lnPLivTCOGC	InvGamma	2.25	0.1411	);
+#Distrib(	V_lnPBodTCOGC	InvGamma	2.25	0.1411	);
+#Distrib(	V_lnPLivTCOGC	InvGamma	2.25	0.1411	);
 Distrib(	V_lnPKidTCOGC	InvGamma	2.25	0.1411	); #(v300)
 Distrib(	V_lnPBrnTCOGC	InvGamma	2.25	0.1411	); #(v300)
 Distrib(	V_lnPLngTCOGC	InvGamma	2.25	0.1411	); #(v300)
@@ -351,20 +353,20 @@ Distrib(	lnQCC	TruncNormal_v	M_lnQCC	V_lnQCC	-0.8	0.8	);
 Distrib(	lnVPRC	TruncNormal_v	M_lnVPRC	V_lnVPRC	-0.8	0.8	);
 Distrib(	lnDRespC	TruncNormal_v	M_lnDRespC	V_lnDRespC	-6.909	2.303	);
 
-Distrib(	lnPBC	TruncNormal_v	M_lnPBC	V_lnPBC	-0.75	0.75	);
-Distrib(	lnPFatC	TruncNormal_v	M_lnPFatC	V_lnPFatC	-0.9	0.9	);
-Distrib(	lnPGutC	TruncNormal_v	M_lnPGutC	V_lnPGutC	-1.2	1.2	);
-Distrib(	lnPLivC	TruncNormal_v	M_lnPLivC	V_lnPLivC	-1.2	1.2	); 
-Distrib(	lnPRapC	TruncNormal_v	M_lnPRapC	V_lnPRapC	-1.2	1.2	);
-Distrib(	lnPRespC	TruncNormal_v	M_lnPRespC	V_lnPRespC	-1.2	1.2	);
-Distrib(	lnPKidC	TruncNormal_v	M_lnPKidC	V_lnPKidC	-1.2	1.2	); 
-Distrib(	lnPSlwC	TruncNormal_v	M_lnPSlwC	V_lnPSlwC	-1.2	1.2	);
+#Distrib(	lnPBC	TruncNormal_v	M_lnPBC	V_lnPBC	-0.75	0.75	);
+#Distrib(	lnPFatC	TruncNormal_v	M_lnPFatC	V_lnPFatC	-0.9	0.9	);
+#Distrib(	lnPGutC	TruncNormal_v	M_lnPGutC	V_lnPGutC	-1.2	1.2	);
+#Distrib(	lnPLivC	TruncNormal_v	M_lnPLivC	V_lnPLivC	-1.2	1.2	); 
+#Distrib(	lnPRapC	TruncNormal_v	M_lnPRapC	V_lnPRapC	-1.2	1.2	);
+#Distrib(	lnPRespC	TruncNormal_v	M_lnPRespC	V_lnPRespC	-1.2	1.2	);
+#Distrib(	lnPKidC	TruncNormal_v	M_lnPKidC	V_lnPKidC	-1.2	1.2	); 
+#Distrib(	lnPSlwC	TruncNormal_v	M_lnPSlwC	V_lnPSlwC	-1.2	1.2	);
 Distrib(	lnPBrnC	TruncNormal_v	M_lnPBrnC	V_lnPBrnC	-1.2	1.2	); #(v300)
 Distrib(	lnPLngC	TruncNormal_v	M_lnPLngC	V_lnPLngC	-1.2	1.2	); #(v300)
 							
 Distrib(	lnPRBCPlasTCAC	TruncNormal_v	M_lnPRBCPlasTCAC	V_lnPRBCPlasTCAC	-4.605	4.605	);
-Distrib(	lnPBodTCAC	TruncNormal_v	M_lnPBodTCAC	V_lnPBodTCAC	-1.008	1.008	);
-Distrib(	lnPLivTCAC	TruncNormal_v	M_lnPLivTCAC	V_lnPLivTCAC	-1.008	1.008	); 
+#Distrib(	lnPBodTCAC	TruncNormal_v	M_lnPBodTCAC	V_lnPBodTCAC	-1.008	1.008	);
+#Distrib(	lnPLivTCAC	TruncNormal_v	M_lnPLivTCAC	V_lnPLivTCAC	-1.008	1.008	); 
 Distrib(	lnPKidTCAC	TruncNormal_v	M_lnPKidTCAC	V_lnPKidTCAC	-1.008	1.008	); #(v300)			
 Distrib(	lnPBrnTCAC	TruncNormal_v	M_lnPBrnTCAC	V_lnPBrnTCAC	-1.008	1.008	); #(v300)
 Distrib(	lnPLngTCAC	TruncNormal_v	M_lnPLngTCAC	V_lnPLngTCAC	-1.008	1.008	); #(v300)
@@ -372,15 +374,15 @@ Distrib(	lnPLngTCAC	TruncNormal_v	M_lnPLngTCAC	V_lnPLngTCAC	-1.008	1.008	); #(v3
 Distrib(	lnkDissocC	TruncNormal_v	M_lnkDissocC	V_lnkDissocC	-3.573	3.573	);
 Distrib(	lnBMaxkDC	TruncNormal_v	M_lnBMaxkDC	V_lnBMaxkDC	-1.485	1.485	);
 							
-Distrib(	lnPBodTCOHC	TruncNormal_v	M_lnPBodTCOHC	V_lnPBodTCOHC	-1.008	1.008	);
-Distrib(	lnPLivTCOHC	TruncNormal_v	M_lnPLivTCOHC	V_lnPLivTCOHC	-1.008	1.008	);
+#Distrib(	lnPBodTCOHC	TruncNormal_v	M_lnPBodTCOHC	V_lnPBodTCOHC	-1.008	1.008	);
+#Distrib(	lnPLivTCOHC	TruncNormal_v	M_lnPLivTCOHC	V_lnPLivTCOHC	-1.008	1.008	);
 Distrib(	lnPKidTCOHC	TruncNormal_v	M_lnPKidTCOHC	V_lnPKidTCOHC	-1.008	1.008	); #(v300)
 Distrib(	lnPBrnTCOHC	TruncNormal_v	M_lnPBrnTCOHC	V_lnPBrnTCOHC	-1.008	1.008	); #(v300)
 Distrib(	lnPLngTCOHC	TruncNormal_v	M_lnPLngTCOHC	V_lnPLngTCOHC	-1.008	1.008	); #(v300)
 
 
-Distrib(	lnPBodTCOGC	TruncNormal_v	M_lnPBodTCOGC	V_lnPBodTCOGC	-1.008	1.008	);
-Distrib(	lnPLivTCOGC	TruncNormal_v	M_lnPLivTCOGC	V_lnPLivTCOGC	-1.008	1.008	);
+#Distrib(	lnPBodTCOGC	TruncNormal_v	M_lnPBodTCOGC	V_lnPBodTCOGC	-1.008	1.008	);
+#Distrib(	lnPLivTCOGC	TruncNormal_v	M_lnPLivTCOGC	V_lnPLivTCOGC	-1.008	1.008	);
 Distrib(	lnPKidTCOGC	TruncNormal_v	M_lnPKidTCOGC	V_lnPKidTCOGC	-1.008	1.008	); #(v300)
 Distrib(	lnPBrnTCOGC	TruncNormal_v	M_lnPBrnTCOGC	V_lnPBrnTCOGC	-1.008	1.008	); #(v300)
 Distrib(	lnPLngTCOGC	TruncNormal_v	M_lnPLngTCOGC	V_lnPLngTCOGC	-1.008	1.008	); #(v300)												
