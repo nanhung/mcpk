@@ -1,7 +1,7 @@
 Integrate(Lsodes, 1.0e-5, 3.09e-7, 1);
-MCMC("apap20d.c05.out", # c05-08 exchange lnCYP_VmaxC and PS_APAP
+MCMC("apap20d.c07.out", # c05-08 exchange lnCYP_VmaxC and PS_APAP
 "", "", 
-300000, 0, 300, 300000, 5555); # Full calibration
+300000, 0, 300, 300000, 7777); # Full calibration
 
 
 Level { # Population Level
