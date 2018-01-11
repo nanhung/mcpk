@@ -5,14 +5,14 @@
 #BSUB -R "span[ptile=1]"    ## request 1 core per node.
 #BSUB -R "rusage[mem=64]"	## reserves 64MB per process/CPU for the job 
 #BSUB -M 64			        ## sets to 64MB as the per process enforceable memory limit.
-#BSUB -o apap20d.0111.%J    ## directs the job's standard output (%J is jobid)
+#BSUB -o apap10d.0111.%J    ## directs the job's standard output (%J is jobid)
 ##BSUB -P 082803364811      ## set account
 #BSUB -u nhsieh@cvm.tamu.edu      ## send all emails to email_address
 #BSUB -N                          ## Send email on job begin (-B) and end (-N)
 
-time ./mcsim.apap.pbpk_v2 apap20d.c05.in & 
-time ./mcsim.apap.pbpk_v2 apap20d.c06.in & 
-time ./mcsim.apap.pbpk_v2 apap20d.c07.in & 
-time ./mcsim.apap.pbpk_v2 apap20d.c08.in 
+time ./mcsim.apap.pbpk_v2 apap10d.c01.in & 
+time ./mcsim.apap.pbpk_v2 apap10d.c02.in & 
+time ./mcsim.apap.pbpk_v2 apap10d.c03.in & 
+time ./mcsim.apap.pbpk_v2 apap10d.c04.in 
 
 wait
