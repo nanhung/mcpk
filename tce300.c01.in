@@ -24,7 +24,7 @@ MCMC ("tce300.c01.out",
 
 # narrow down PC_TCOG range ? Work!
 # test all? fail
-# fix previously 14 fixed parameter
+# fix previously 14 fixed parameter & reduce integrate
 
 Level { #Population level
 
