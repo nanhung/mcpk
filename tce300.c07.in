@@ -8,7 +8,7 @@
 #Added Branford individual data in other strains
 #TCA and DCA have background subtracted
 
-Integrate(Lsodes, 1e-8, 1e-10 , 1)
+Integrate(Lsodes, 1e-5, 1e-8, 1)
 MCMC ("tce300.c07.out",
 "","",
 800000, 0, 20, 800000, 3333);
