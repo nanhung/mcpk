@@ -65,14 +65,14 @@ Distrib(Var_lnSULT_Km_apap, InvGamma, 2.25, 0.3125);
 #Distrib(Var_lnSULT_Km_paps, InvGamma, 2.25, 0.3125);
 Distrib(Var_lnSULT_VmaxC, InvGamma, 2.25, 0.3125);
 
-#Distrib(Var_lnUGT_Km, InvGamma, 2.25, 0.3125);
+Distrib(Var_lnUGT_Km, InvGamma, 2.25, 0.3125);
 #Distrib(Var_lnUGT_Ki, InvGamma, 2.25, 0.3125);
 #Distrib(Var_lnUGT_Km_GA, InvGamma, 2.25, 0.3125);
 Distrib(Var_lnUGT_VmaxC, InvGamma, 2.25, 0.3125);
 
-#Distrib(Var_lnKm_AG, InvGamma, 2.25, 0.3125);
+Distrib(Var_lnKm_AG, InvGamma, 2.25, 0.3125);
 Distrib(Var_lnVmax_AG, InvGamma, 2.25, 0.3125);
-#Distrib(Var_lnKm_AS, InvGamma, 2.25, 0.3125);
+Distrib(Var_lnKm_AS, InvGamma, 2.25, 0.3125);
 Distrib(Var_lnVmax_AS, InvGamma, 2.25, 0.3125);
 
 Distrib(Var_lnkGA_syn, InvGamma, 2.25, 0.3125);
@@ -112,14 +112,14 @@ Distrib(lnSULT_Km_apap, TruncNormal_v, M_lnSULT_Km_apap, Var_lnSULT_Km_apap, 4.2
 #Distrib(lnSULT_Km_paps, TruncNormal_v, M_lnSULT_Km_paps, Var_lnSULT_Km_paps, -3., 0.);
 Distrib(lnSULT_VmaxC, TruncNormal_v, M_lnSULT_VmaxC, Var_lnSULT_VmaxC, 0, 15.); 
 
-#Distrib(lnUGT_Km, TruncNormal_v, M_lnUGT_Km, Var_lnUGT_Km, 7.6009, 9.3926);
+Distrib(lnUGT_Km, TruncNormal_v, M_lnUGT_Km, Var_lnUGT_Km, 7.6009, 9.3926);
 #Distrib(lnUGT_Ki, TruncNormal_v, M_lnUGT_Ki, Var_lnUGT_Ki, 9.998, 11.451);
 #Distrib(lnUGT_Km_GA, TruncNormal_v, M_lnUGT_Km_GA, Var_lnUGT_Km_GA, -3., 0.);
 Distrib(lnUGT_VmaxC, TruncNormal_v, M_lnUGT_VmaxC, Var_lnUGT_VmaxC, 0, 15.);
 
-#Distrib(lnKm_AG, TruncNormal_v, M_lnKm_AG, Var_lnKm_AG, 8.071, 10.513);
+Distrib(lnKm_AG, TruncNormal_v, M_lnKm_AG, Var_lnKm_AG, 8.071, 10.513);
 Distrib(lnVmax_AG, TruncNormal_v,  M_lnVmax_AG, Var_lnVmax_AG, 7., 15.);
-#Distrib(lnKm_AS, TruncNormal_v, M_lnKm_AS, Var_lnKm_AS, 8.974, 10.5427);
+Distrib(lnKm_AS, TruncNormal_v, M_lnKm_AS, Var_lnKm_AS, 8.974, 10.5427);
 Distrib(lnVmax_AS, TruncNormal_v, M_lnVmax_AS, Var_lnVmax_AS, 7., 15.);
 
 Distrib(lnkGA_syn, TruncNormal_v, M_lnkGA_syn, Var_lnkGA_syn, 0, 13.);
