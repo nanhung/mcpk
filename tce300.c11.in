@@ -23,7 +23,7 @@ MCMC ("tce300.c11.out",
 # Non-B6C3F1 strain data in their own group
 
 # narrow down PC_TCOG range ? Work!
-# test all Integrate(Lsodes, 1e-5, 1e-6, 1)?
+# test all Integrate(Lsodes, 1e-5, 1e-6, 1)? Converge fail
 
 Level { #Population level
 
