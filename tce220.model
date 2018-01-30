@@ -47,7 +47,7 @@ States = {
 ##-- DCA in body
         ADCA,	        # Amount in central compartment#(v2.0)
         ADCAper,	# Amount in peripheral compartment#(v2.0)
-#(v1e)  AElimDCA,	# Amount eliminated#(v2.0)
+        AElimDCA,	# Amount eliminated#(v2.0)
 #	
 ##-- TCA in the body
 #(v1e)	AOTCA,
@@ -98,8 +98,8 @@ States = {
 	AMetKid,#(vrisk)
 	AMetTCOHTCA,	# Amount of TCOH metabolized to TCA#(vrisk)
 #(v1e)	AMetTCOHGluc,	# Amount of TCOH glucuronidated
-#(v1e)	AMetTCOHOther,
-#(v1e)	AMetTCA,	# Amount of TCA metabolized
+	AMetTCOHOther,
+    AMetTCA,	# Amount of TCA metabolized
 ##-- Other Dose metrics
 #(v1d)	AUCCBld,	#
 #(v1d)	AUCCLiv,	#
@@ -114,6 +114,7 @@ States = {
 #(v1d)	AUCPlasTCAFree,#
 #(v1d)	AUCPlasTCA 	#
 };
+
 
 #******************************************************************************
 #***                  Input Variable Specifications                         ***
@@ -231,12 +232,17 @@ TotCTCOH,	# mouse, human - TCOH+TCOG Concentration (in TCOH-equiv)
 TotCTCOHcomp,	# ONLY FOR COMPARISON WITH HACK
 ATCOG,		# ONLY FOR COMPARISON WITH HACK
 #QPsamp,	# human - sampled value of alveolar ventilation rate
-
 	AMetOX,		# Amount of TCE oxidized #(vrisk)
 	AMetGSH,	# Amount of TCE conjugated #(vrisk)
 	TotTCAProd,	# Amount TCA produced in mg TCA #(vrisk)
 	TotDCAProd,	# Amount DCA produced in mg DCA #(vrisk)
 
+AtotTCA,
+AtotTCOH,
+AtotTCOG,
+AtotDCA,
+AtotTCE,
+Atotal,     # Check mass balance
 
 ## PARAMETERS #(vrisk3)
   #QCnow, # (vrisk3) #Cardiac output (L/hr)
@@ -2061,6 +2067,9 @@ Dynamics{
 # Dynamics for blood
     dt(ABld) = (QFat*CVFat + QGutLiv*CVLiv + QSlw*CVSlw + # Comment out for #(v1a)#(v1c)
 		QRap*CVRap + QKid*CVKid + kIV) - CVen * QCnow; #(v1.2)(v1b)
+		
+
+		
 #(v1.2)		QRap*CVRap + QTB*CVTB + QKid*CVKid + kIV) - CVen * QCnow;# Comment out for #(v1a)#(v1c)
 
 #****Gas exchange *************************************************************
@@ -2128,7 +2137,8 @@ Dynamics{
 # Amount of TCE in fat tissue (mg)
     dt(AFat) = QFat*(CArt - CVFat);
 # Amount of TCE in gut compartment (mg)
-    dt(AGut) = (QGut * (CArt - CVGut)) + RAO;
+#    dt(AGut) = (QGut * (CArt - CVGut)) + RAO;
+dt(AGut) = RAO;
 
 #**** Liver *******************************************************************
 # Rate of TCE oxidation by P450 to TCA, TCOH, and other (DCA) in liver (mg/hr)
@@ -2208,11 +2218,11 @@ Dynamics{
 # Amount of TCOH-Gluc recirculated (mg)
 	RARecircTCOG = kEHR * ABileTCOG;
 # Amount of TCOH in liver (mg)
-    dt(ALivTCOH) = kPOTCOH + QGutLiv * (CTCOH - CVLivTCOH) 
-		- RAMetTCOH - RAMetTCOHTCA - RAMetTCOHGluc 
+    dt(ALivTCOH) = kPOTCOH + QGutLiv * (CTCOH - CVLivTCOH)
 		+ ((1.0 - FracOther - FracTCA) * StochTCOHTCE * 
-		(RAMetLiv1 + FracLungSys*RAMetLng)) #(v1.2)
-		+ (StochTCOHGluc * RARecircTCOG); 
+		(RAMetLiv1 + FracLungSys*RAMetLng)) #(v1.2)#
+		+ (StochTCOHGluc * RARecircTCOG)
+		- RAMetTCOH - RAMetTCOHTCA - RAMetTCOHGluc; 
 
 #(v2.0)
 #******************************************************************************
@@ -2604,6 +2614,7 @@ Dynamics{
 		##	ARap + ASlw + AFat + AGut + ALiv + ATB + AKid; #(v1a)
 		##	ARap + ASlw + AFat + AGut + ALiv + AKid + ABld;#(v1b)
 		##	ARap + ASlw + AFat + AGut + ALiv + AKid;#(v1c)
+
 # Total metabolized
     dt(AMetLng) = RAMetLng; #(vrisk)
     dt(AMetLiv1) = RAMetLiv1; #(vrisk)
@@ -2626,7 +2637,7 @@ Dynamics{
 #**** Mass Balance for DCA ****************************************************
 #(v1e)	TotDCAIn = FracOther * StochDCATCE * (AMetLiv1 + FracLungSys*AMetLng);#(v2.0)
 # Amount of DCA eliminated (mg)#(v2.0)
-#(v1e)    dt(AElimDCA) = kClearDCA * ADCA;#(v2.0)
+    dt(AElimDCA) = kClearDCA * ADCA;#(v2.0)
 #(v1e)	MassBalDCA = TotDCAIn - ADCA - ADCAper - AElimDCA;#(v2.0)
 TotDCAProd = (FracOther * StochDCATCE * #(vrisk)
     	     (AMetLiv1 + FracLungSys*AMetLng));#(vrisk)
@@ -2644,7 +2655,7 @@ TotDCAProd = (FracOther * StochDCATCE * #(vrisk)
 # Total metabolism of TCOH
     dt(AMetTCOHTCA) = RAMetTCOHTCA; #(vrisk)
 #(v1e)    dt(AMetTCOHGluc) = RAMetTCOHGluc;
-#(v1e)    dt(AMetTCOHOther) = RAMetTCOH; 
+    dt(AMetTCOHOther) = RAMetTCOH; 
 #(v1e)	TotMetabTCOH = AMetTCOHTCA + AMetTCOHGluc + AMetTCOHOther;
 # Mass balance
 #(v1e)	MassBalTCOH = TotTCOHIn - TotTissueTCOH - TotMetabTCOH;
@@ -2659,7 +2670,7 @@ TotTCAProd =  (FracTCA*StochTCATCE*(AMetLiv1 + FracLungSys*AMetLng)) + #(vrisk)
 #(v1e)	TotTissueTCA = APlasTCA + ABodTCA + ALivTCA;
 	## TotTissueTCA = ABodTCA + ALivTCA; #(v1h)
 # Total metabolism of TCA
-#(v1e)    dt(AMetTCA) = RAMetTCA;
+    dt(AMetTCA) = RAMetTCA;
 # Mass balance
 #(v1e)	TCADiff = TotTCAIn - TotTissueTCA - AMetTCA;
 #(v1e)	MassBalTCA = TCADiff - AUrnTCA;
@@ -3002,6 +3013,15 @@ CalcOutputs{
 #**** Dose Metrics ************************************************************
 # Oxidation/BW
 #(v1d)	AMetLiv1BW = AMetLiv1 / BW; 
+
+AtotTCA = AStomTCA+APlasTCA+ABodTCA+ALivTCA+AUrnTCA+AMetTCA;
+AtotTCOH = AStomTCOH+ABodTCOH+ALivTCOH+AMetTCOHOther;
+AtotTCOG = ABodTCOG+ALivTCOG+ABileTCOG+AUrnTCOG;
+AtotDCA = ADCA + ADCAper + AElimDCA;
+AtotTCE = ABld + AStom + ADuod + ARap + ASlw + AFat + AGut;
+#+ ALiv + AKid;
+Atotal = AtotTCE + AtotTCA + AtotTCOH + AtotTCOG + AtotDCA; 
+
 
 AMetOX = AMetLiv1 + AMetLng;#(vrisk)
 AMetGSH = AMetLiv2 + AMetKid;#(vrisk)
