@@ -1,7 +1,7 @@
 # Check Massbalance
 OutputFile ("massbalance.out");
 
-Integrate (Lsodes, 1e-6, 1e-6, 1);
+Integrate (Lsodes, 1e-9, 1e-9, 1);
 
 Simulation { # 1:
 
@@ -12,14 +12,18 @@ Male =  1 ;
 BWmeas =  0.0275 ;
 
 # Exposure/Dosing
-PDose = NDoses(2, 1 0 , 0 0.01 );
+#Conc = NDoses(2, 110 0 , 0 4 );
+#PDose = NDoses(2, 1 0 , 0 0.01 );
 #IVDoseTCA = NDoses(2, 1 0 , 0 0.01 );
 #PODoseTCA = NDoses(2, 0 0 , 0 0.01 );
 #PODoseTCOH = NDoses(2, 1 0 , 0 0.01 );
 #IVDoseTCOH = NDoses(2, 1 0 , 0 0.01 );
 TChng =  0.01 ;
 
-PrintStep (AGut, 0.1, 36, 0.5);
+
+PrintStep (ABodTCA, ABodTCOH, 0.1, 36, 0.5);
+#PrintStep (AStom, ADuod, AGut, ABld, 0.1, 36, 0.5);
+#AFat, ALiv, AKid, ARap, ASlw, ABld
 PrintStep (AtotTCE, 0.1, 36, 0.5);
 
 }
