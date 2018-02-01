@@ -242,7 +242,7 @@ ATCOG,		# ONLY FOR COMPARISON WITH HACK
     TotTCOHIn,
     TotMetabTCOH,
 TotTCE,
-AtotTCA,
+TotTCA,
 AtotTCOG,
 
 ## PARAMETERS #(vrisk3)
@@ -2655,7 +2655,7 @@ CalcOutputs{
 
 TotTCE = AExhResp + AInhResp + AResp + ACh + ALiv + AKid + ARap + ASlw +AStom + ADuod + AGut + AFat + ABld+
             AExh+AMetLng+AMetKid+AMetLiv1+AMetLiv2; # equal to total dose
-AtotTCA = AUrnTCA + AMetTCA;
+TotTCA = AUrnTCA + AMetTCA;
 AtotTCOG = ARecircTCOG + AUrnTCOG;
 
 AMetOX = AMetLiv1 + AMetLng;#(vrisk)

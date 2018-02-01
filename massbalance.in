@@ -21,12 +21,13 @@ PDose = NDoses(2, 1 0 , 0 0.01 );
 
 TChng =  0.01 ;
 
-PrintStep (AO, AOTCA, AOTCOH, 0.1, 36, 0.5);
+PrintStep (AO, AOTCA, AOTCOH, 0.1, 120, 0.5);
 #PrintStep (AExh, AMetLng, AMetKid, AMetLiv1, AMetLiv2, 0.1, 36, 0.5);
-PrintStep (TotTCE, 0.1, 36, 0.5);
-PrintStep (AElimDCA, TotDCAProd, 0.1, 36, 0.5);
+PrintStep (TotTCE, 0.1, 120, 0.5);
+PrintStep (AElimDCA, TotDCAProd, 0.1, 120, 0.5);
+PrintStep (TotTCAProd, TotTCA, 0.1, 120, 0.5);
+
 #PrintStep (AtotOX, AMetOX, 0.1, 36, 0.5);
-#PrintStep (TotTCAProd, AtotTCA , 0.1, 36, 0.5);
 #PrintStep (TotTCOGIn, AtotTCOG, 0.1, 36, 0.5);
 #PrintStep (TotTCOHIn, TotMetabTCOH, 0.1, 36, 0.5);
 #PrintStep (ADCVGIn, AMetDCVG, 0.1, 36, 0.5);

@@ -106,7 +106,7 @@ States = {
 	AMetTCOHTCA,	# Amount of TCOH metabolized to TCA#(vrisk)
 #(v1e)	AMetTCOHGluc,	# Amount of TCOH glucuronidated
 #(v1e)	AMetTCOHOther,
-#(v1e)	AMetTCA,	# Amount of TCA metabolized
+	AMetTCA,	# Amount of TCA metabolized
 ##-- Other Dose metrics
 #(v1d)	AUCCBld,	#
 #(v1d)	AUCCLiv,	#
@@ -269,6 +269,7 @@ ATCOG,		# ONLY FOR COMPARISON WITH HACK
 	TotTCAProd,	# Amount TCA produced in mg TCA #(vrisk)
 	TotDCAProd,	# Amount DCA produced in mg DCA #(vrisk)
     TotTCE, #(v3.0)
+    TotTCA, #(v3.0)
 
 ## PARAMETERS #(vrisk3)
   #QCnow, # (vrisk3) #Cardiac output (L/hr)
@@ -2635,18 +2636,19 @@ Dynamics{
 	a = kDissoc+BMax-CPlasTCAMole;
 	b = 4.0*kDissoc*CPlasTCAMole;
 	c = (b < 0.01*a*a ? b/2.0/a : sqrt(a*a+b)-a);
-	CPlasTCAFreeMole = 0.5*c;
+#	CPlasTCAFreeMole = 0.5*c;
+    CPlasTCAFreeMole = (APlasTCA > 0 ? 0.5*c : 0); #(v3.0)
 # Concentration of free TCA in plasma (mg/L)
 	CPlasTCAFree = (CPlasTCAFreeMole * MWTCA) / 1000.0;
 	#APlasTCAFree = CPlasTCAFree * VPlas;
 # Concentration of bound TCA in plasma (mg/L)
 	CPlasTCABnd = (CPlasTCA<CPlasTCAFree ? 0 : CPlasTCA-CPlasTCAFree);
 # Concentration in body and liver, kidney, brain, lung
-	CBodTCA = (ABodTCA<0 ? 0 : ABodTCA/VBod);
-	CLivTCA = (ALivTCA<1.0e-15 ? 1.0e-15 : ALivTCA/VLiv);
-	CKidTCA = (AKidTCA<1.0e-15 ? 1.0e-15 : AKidTCA/VKid); #(v3.0)
-	CBrnTCA = (ABrnTCA<1.0e-15 ? 1.0e-15 : ABrnTCA/VBrn); #(v3.0)
-	CLngTCA = (ALngTCA<1.0e-15 ? 1.0e-15 : ALngTCA/VLng); #(v3.0)
+	CBodTCA = (ABodTCA > 0 ? ABodTCA/VBod : 0);
+	CLivTCA = (ALivTCA > 0 ? ALivTCA/VLiv : 0);
+	CKidTCA = (AKidTCA > 0 ? AKidTCA/VKid : 0); #(v3.0)
+	CBrnTCA = (ABrnTCA > 0 ? ABrnTCA/VBrn : 0); #(v3.0)
+	CLngTCA = (ALngTCA > 0 ? ALngTCA/VLng : 0); #(v3.0)
 	
 # Total concentration in venous plasma (free+bound)
 	CVBodTCAFree = (CBodTCA / PBodTCA);	# free in equilibrium
@@ -2691,13 +2693,12 @@ Dynamics{
 # Rate of metabolism of TCA
 	RAMetTCA = kMetTCA * ALivTCA;
 # Dynamics for amount of TCA in the liver (mg)
-    dt(ALivTCA) = kPOTCA + QGutLivPlas*(CPlasTCAFree - CVLivTCAFree) 
-			- RAMetTCA + (FracTCA * StochTCATCE * 
-			(RAMetLiv1 + FracLungSys*RAMetLng)) #(v1.2)
-			+ (StochTCATCOH * RAMetTCOHTCA); 
-#    dt(ALivTCA) = kPOTCA + QGutLivPlas*(CPlasTCA - CVLivTCA) #(v1g)
-#			- RAMetTCA + (FracTCA * StochTCATCE * RAMetLiv1) #(v1g)
-#			+ (StochTCATCOH * RAMetTCOHTCA); #(v1g)
+    dt(ALivTCA) = kPOTCA 
+			+ (FracTCA * StochTCATCE * (RAMetLiv1 + FracLungSys*RAMetLng)) #(v1.2)
+			+ (StochTCATCOH * RAMetTCOHTCA)
+			+ QGutLivPlas*(CPlasTCAFree - CVLivTCAFree) 
+			- RAMetTCA ; 
+
 
 #**** Urine *******************************************************************
 # Dynamics for amount of TCA in urine (mg)
@@ -3077,7 +3078,7 @@ TotTCAProd =  (FracTCA*StochTCATCE*(AMetLiv1 + FracLungSys*AMetLng)) + #(vrisk)
 #(v1e)	TotTissueTCA = APlasTCA + ABodTCA + ALivTCA;
 	## TotTissueTCA = ABodTCA + ALivTCA; #(v1h)
 # Total metabolism of TCA
-#(v1e)    dt(AMetTCA) = RAMetTCA;
+    dt(AMetTCA) = RAMetTCA;
 # Mass balance
 #(v1e)	TCADiff = TotTCAIn - TotTissueTCA - AMetTCA;
 #(v1e)	MassBalTCA = TCADiff - AUrnTCA;
@@ -3433,7 +3434,8 @@ CalcOutputs{
 	CBrnTCAMole = CBrnTCA / MWTCA * 1000; #(v3.0)
 	CLngTCAMole = CLngTCA / MWTCA * 1000; #(v3.0)
 	CPlasTCAMole = (CPlasTCAMole < 1.0e-15 ? 1.0e-15 : CPlasTCAMole);
-	CPlasTCAFreeMole = (CPlasTCAFreeMole < 1.0e-15 ? 1.0e-15 : CPlasTCAFreeMole);
+	#CPlasTCAFreeMole = (CPlasTCAFreeMole < 1.0e-15 ? 1.0e-15 : CPlasTCAFreeMole);
+	CPlasTCAFreeMole = (CPlasTCAFreeMole > 0 ? CPlasTCAFreeMole : 0); #(v3.0)
 	
 	CBldTCOHMole = CTCOH / MWTCOH * 1000; #(v3.0)
 	CTotTCOHMole = TotCTCOH / MWTCOH * 1000; #(v3.0)
@@ -3479,6 +3481,7 @@ CalcOutputs{
 AMetOX = AMetLiv1 + AMetLng;#(vrisk)
 AMetGSH = AMetLiv2 + AMetKid;#(vrisk)
 TotTCE =  AExh + AMetGSH + AMetOX;
+TotTCA = AUrnTCA + AMetTCA;
 
 }
 End.
