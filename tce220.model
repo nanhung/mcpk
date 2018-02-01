@@ -243,7 +243,7 @@ ATCOG,		# ONLY FOR COMPARISON WITH HACK
     TotMetabTCOH,
 TotTCE,
 TotTCA,
-AtotTCOG,
+TotTCOG,
 
 ## PARAMETERS #(vrisk3)
   #QCnow, # (vrisk3) #Cardiac output (L/hr)
@@ -2656,7 +2656,7 @@ CalcOutputs{
 TotTCE = AExhResp + AInhResp + AResp + ACh + ALiv + AKid + ARap + ASlw +AStom + ADuod + AGut + AFat + ABld+
             AExh+AMetLng+AMetKid+AMetLiv1+AMetLiv2; # equal to total dose
 TotTCA = AUrnTCA + AMetTCA;
-AtotTCOG = ARecircTCOG + AUrnTCOG;
+TotTCOG = ARecircTCOG + AUrnTCOG;
 
 AMetOX = AMetLiv1 + AMetLng;#(vrisk)
 AMetGSH = AMetLiv2 + AMetKid;#(vrisk)

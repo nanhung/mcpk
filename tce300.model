@@ -59,7 +59,7 @@ States = {
 	ABrnTCOG,
 	ALngTCOG,
      	ABileTCOG,	# Amount of TCOG in bile (incl. gut)
-#(v1e)	ARecircTCOG,
+     	ARecircTCOG,
 ##-- TCOG excreted
 	AUrnTCOG,	# Amount of TCOG excreted in urine
 	AUrnTCOG_sat,	# Amount of TCOG excreted that during times that had
@@ -104,8 +104,8 @@ States = {
 	AMetLng,	# Amount metabolized in the lung#(vrisk)
 	AMetKid,#(vrisk)
 	AMetTCOHTCA,	# Amount of TCOH metabolized to TCA#(vrisk)
-#(v1e)	AMetTCOHGluc,	# Amount of TCOH glucuronidated
-#(v1e)	AMetTCOHOther,
+	AMetTCOHGluc,	# Amount of TCOH glucuronidated
+	AMetTCOHOther,
 	AMetTCA,	# Amount of TCA metabolized
 ##-- Other Dose metrics
 #(v1d)	AUCCBld,	#
@@ -270,6 +270,11 @@ ATCOG,		# ONLY FOR COMPARISON WITH HACK
 	TotDCAProd,	# Amount DCA produced in mg DCA #(vrisk)
     TotTCE, #(v3.0)
     TotTCA, #(v3.0)
+    TotTCOGIn,
+    TotTCOG, #(v3.0)
+    TotTCOHIn,
+    TotMetabTCOH,
+    
 
 ## PARAMETERS #(vrisk3)
   #QCnow, # (vrisk3) #Cardiac output (L/hr)
@@ -2520,7 +2525,8 @@ Dynamics{
     dt(ABrnTCOH) = QBrn * (CTCOH - CVBrnTCOH);
 
 # Amount of TCOH in lung
-    dt(ALngTCOH) = QLng * (CTCOH - CVLngTCOH);
+    dt(ALngTCOH) = QLng * (CTCOH - CVLngTCOH)
+                    + ((1.0 - FracOther - FracTCA) * StochTCOHTCE * (FracLungSys*RAMetLng)); #(v3.0)
 
 
 #**** Liver *******************************************************************
@@ -2536,8 +2542,7 @@ Dynamics{
 # Amount of TCOH in liver (mg)
     dt(ALivTCOH) = kPOTCOH + QGutLiv * (CTCOH - CVLivTCOH) 
 		- RAMetTCOH - RAMetTCOHTCA - RAMetTCOHGluc 
-		+ ((1.0 - FracOther - FracTCA) * StochTCOHTCE * 
-		(RAMetLiv1 + FracLungSys*RAMetLng)) #(v1.2)
+		+ (1.0 - FracOther - FracTCA) * StochTCOHTCE * RAMetLiv1 #(v3.0)
 		+ (StochTCOHGluc * RARecircTCOG); 
 
 #(v2.0)
@@ -3028,7 +3033,7 @@ Dynamics{
     dt(AMetLiv2) = RAMetLiv2; #(vrisk)
     dt(AMetKid) = RAMetKid; #(vrisk)
 	ATotMetLiv = AMetLiv1 + AMetLiv2; 
-	#TotMetab = AMetLng + ATotMetLiv + AMetKid;
+	TotMetab = AMetLng + ATotMetLiv + AMetKid;
 # Amount of TCE excreted in feces (mg)
 #(v1e)	RAExc = kTD * ADuod;
 #(v1e)    dt(AExc) = RAExc;
@@ -3052,19 +3057,19 @@ TotDCAProd = (FracOther * StochDCATCE * #(vrisk)
 
 #**** Mass Balance for TCOH ***************************************************
 # Total production/intake of TCOH
-#(v1e)    dt(ARecircTCOG) = RARecircTCOG;
+    dt(ARecircTCOG) = RARecircTCOG;
     dt(AOTCOH) = kPOTCOH;
-#(v1e)	TotTCOHIn = AOTCOH + IVDoseTCOH * BW
-#(v1e)		+ ((1.0 - FracOther - FracTCA) * StochTCOHTCE * 
-#(v1e)		(AMetLiv1 + FracLungSys*AMetLng)) 
-#(v1e)		+ (StochTCOHGluc * ARecircTCOG);
+	TotTCOHIn = AOTCOH + IVDoseTCOH * BW
+		+ ((1.0 - FracOther - FracTCA) * StochTCOHTCE * 
+		(AMetLiv1 + FracLungSys*AMetLng)) 
+		+ (StochTCOHGluc * ARecircTCOG);
 # Total in tissues
 #(v1e)	TotTissueTCOH = ABodTCOH + ALivTCOH;
 # Total metabolism of TCOH
     dt(AMetTCOHTCA) = RAMetTCOHTCA; #(vrisk)
-#(v1e)    dt(AMetTCOHGluc) = RAMetTCOHGluc;
-#(v1e)    dt(AMetTCOHOther) = RAMetTCOH; 
-#(v1e)	TotMetabTCOH = AMetTCOHTCA + AMetTCOHGluc + AMetTCOHOther;
+    dt(AMetTCOHGluc) = RAMetTCOHGluc;
+    dt(AMetTCOHOther) = RAMetTCOH; 
+	TotMetabTCOH = AMetTCOHTCA + AMetTCOHGluc + AMetTCOHOther;
 # Mass balance
 #(v1e)	MassBalTCOH = TotTCOHIn - TotTissueTCOH - TotMetabTCOH;
 
@@ -3085,7 +3090,7 @@ TotTCAProd =  (FracTCA*StochTCATCE*(AMetLiv1 + FracLungSys*AMetLng)) + #(vrisk)
 
 #**** Mass Balance for TCOG ***************************************************
 # Total production of TCOG
-#(v1e)	TotTCOGIn = StochGlucTCOH * AMetTCOHGluc;
+	TotTCOGIn = StochGlucTCOH * AMetTCOHGluc;
 # Total in tissues
 #(v1e)	TotTissueTCOG = ABodTCOG + ALivTCOG + ABileTCOG;
 # Mass balance
@@ -3479,8 +3484,9 @@ CalcOutputs{
 #(v1d)	AMetLiv1BW = AMetLiv1 / BW; 
 AMetOX = AMetLiv1 + AMetLng;#(vrisk)
 AMetGSH = AMetLiv2 + AMetKid;#(vrisk)
-TotTCE =  AExh + AMetGSH + AMetOX;
-TotTCA = AUrnTCA + AMetTCA;
+TotTCE =  AExh + AMetGSH + AMetOX; #(v3.0)
+TotTCA = AUrnTCA + AMetTCA; #(v3.0)
+TotTCOG = ARecircTCOG + AUrnTCOG; #(v3.0)
 
 }
 End.
