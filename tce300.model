@@ -2636,8 +2636,7 @@ Dynamics{
 	a = kDissoc+BMax-CPlasTCAMole;
 	b = 4.0*kDissoc*CPlasTCAMole;
 	c = (b < 0.01*a*a ? b/2.0/a : sqrt(a*a+b)-a);
-#	CPlasTCAFreeMole = 0.5*c;
-    CPlasTCAFreeMole = (APlasTCA > 0 ? 0.5*c : 0); #(v3.0)
+	CPlasTCAFreeMole = 0.5*c;
 # Concentration of free TCA in plasma (mg/L)
 	CPlasTCAFree = (CPlasTCAFreeMole * MWTCA) / 1000.0;
 	#APlasTCAFree = CPlasTCAFree * VPlas;
@@ -2645,10 +2644,10 @@ Dynamics{
 	CPlasTCABnd = (CPlasTCA<CPlasTCAFree ? 0 : CPlasTCA-CPlasTCAFree);
 # Concentration in body and liver, kidney, brain, lung
 	CBodTCA = (ABodTCA > 0 ? ABodTCA/VBod : 0);
-	CLivTCA = (ALivTCA > 0 ? ALivTCA/VLiv : 0);
-	CKidTCA = (AKidTCA > 0 ? AKidTCA/VKid : 0); #(v3.0)
-	CBrnTCA = (ABrnTCA > 0 ? ABrnTCA/VBrn : 0); #(v3.0)
-	CLngTCA = (ALngTCA > 0 ? ALngTCA/VLng : 0); #(v3.0)
+	CLivTCA = (ALivTCA<1.0e-15 ? 1.0e-15 : ALivTCA/VLiv);
+	CKidTCA = (AKidTCA<1.0e-15 ? 1.0e-15 : AKidTCA/VKid); #(v3.0)
+	CBrnTCA = (ABrnTCA<1.0e-15 ? 1.0e-15 : ABrnTCA/VBrn); #(v3.0)
+	CLngTCA = (ALngTCA<1.0e-15 ? 1.0e-15 : ALngTCA/VLng); #(v3.0)
 	
 # Total concentration in venous plasma (free+bound)
 	CVBodTCAFree = (CBodTCA / PBodTCA);	# free in equilibrium
@@ -2680,7 +2679,8 @@ Dynamics{
 	dt(ABrnTCA) = QBrnPlas * (CPlasTCAFree - CVBrnTCAFree); #(v3.0)
 
 # Dynamics for amount of TCA in lung (mg)
-	dt(ALngTCA) = QLngPlas * (CPlasTCAFree - CVLngTCAFree); #(v3.0)
+	dt(ALngTCA) = QLngPlas * (CPlasTCAFree - CVLngTCAFree)
+    	        + (FracTCA * StochTCATCE * (FracLungSys*RAMetLng)); #(v3.0)
 
 #**** Body ********************************************************************
 # Dynamics for amount of TCA in the body (mg)
@@ -2694,10 +2694,10 @@ Dynamics{
 	RAMetTCA = kMetTCA * ALivTCA;
 # Dynamics for amount of TCA in the liver (mg)
     dt(ALivTCA) = kPOTCA 
-			+ (FracTCA * StochTCATCE * (RAMetLiv1 + FracLungSys*RAMetLng)) #(v1.2)
+			+ (FracTCA * StochTCATCE * RAMetLiv1)
 			+ (StochTCATCOH * RAMetTCOHTCA)
 			+ QGutLivPlas*(CPlasTCAFree - CVLivTCAFree) 
-			- RAMetTCA ; 
+			- RAMetTCA; #(v3.0)
 
 
 #**** Urine *******************************************************************
@@ -3434,8 +3434,7 @@ CalcOutputs{
 	CBrnTCAMole = CBrnTCA / MWTCA * 1000; #(v3.0)
 	CLngTCAMole = CLngTCA / MWTCA * 1000; #(v3.0)
 	CPlasTCAMole = (CPlasTCAMole < 1.0e-15 ? 1.0e-15 : CPlasTCAMole);
-	#CPlasTCAFreeMole = (CPlasTCAFreeMole < 1.0e-15 ? 1.0e-15 : CPlasTCAFreeMole);
-	CPlasTCAFreeMole = (CPlasTCAFreeMole > 0 ? CPlasTCAFreeMole : 0); #(v3.0)
+	CPlasTCAFreeMole = (CPlasTCAFreeMole < 1.0e-15 ? 1.0e-15 : CPlasTCAFreeMole);
 	
 	CBldTCOHMole = CTCOH / MWTCOH * 1000; #(v3.0)
 	CTotTCOHMole = TotCTCOH / MWTCOH * 1000; #(v3.0)
