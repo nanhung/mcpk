@@ -30,6 +30,8 @@ PrintStep (AO, AOTCA, AOTCOH, 0.1, 240, 2);
 #PrintStep (TotTCOHIn, TotMetabTCOH, 0.1, 240, 2);
 PrintStep (ADCVGIn, AMetDCVG, 0.1, 240, 2);
 #PrintStep (ADCVCIn, AElimDCVC, 0.1, 36, 0.5);
+PrintStep (ADCVCIn, AMetDCVC, 0.1, 240, 2);
+PrintStep (ANDCVCIn, AElimNDCVC, 0.1, 240, 2);
 }
 
 

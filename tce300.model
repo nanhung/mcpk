@@ -77,21 +77,23 @@ States = {
 	AMetDCVG,
 
 ##-- DCVC
+    ADCVCIn,
 	ABodDCVC,	# Amount of DCVC in body (v3.0)
 	ABldDCVC,	#(v3.0) 
 	ALivDCVC,   #(v3.0)
 	AKidDCVC,   #(v3.0)
 	ABrnDCVC,   #(v3.0)
 	ALngDCVC,   #(v3.0)
-
+    AMetDCVC,
 ##-- NAcDCVC
+    ANDCVCIn, #(v3.0)
 	ABodNDCVC,	# Amount of NAcDCVC in body (v3.0)
 	ABldNDCVC,	#(v3.0) 
 	ALivNDCVC,   #(v3.0)
 	AKidNDCVC,   #(v3.0)
 	ABrnNDCVC,   #(v3.0)
 	ALngNDCVC,   #(v3.0)
-
+    AElimNDCVC,  #(v3.0)
 ##-- DCVC in body
 #(v2.0) deleted ABioactDCVC,
 ##-- DCVC eliminated#(v2.0)
@@ -2896,15 +2898,16 @@ Dynamics{
 
 #**** Body ********************************************************************
 # Dynamics for amount of NAcDCVC in the body (mg)
-	dt(ABodNDCVC) = QBod * (CBldDCVC - CVBodNDCVC);
-	dt(ABrnNDCVC) = QBrn * (CBldDCVC - CVBrnNDCVC);
-	dt(ALngNDCVC) = QLng * (CBldDCVC - CVLngNDCVC);
+	dt(ABodNDCVC) = QBod * (CBldNDCVC - CVBodNDCVC);
+	dt(ABrnNDCVC) = QBrn * (CBldNDCVC - CVBrnNDCVC);
+	dt(ALngNDCVC) = QLng * (CBldNDCVC - CVLngNDCVC);
 
 # Dynamics for amount of NAcDCVC in the kidney (mg)
     dt(AKidNDCVC) = QKid * (CBldNDCVC - CVKidNDCVC);
 
 # Rate of metabolism of DCVC to NAcDCVC in liver
-	dt(ALivNDCVC) = RAMetDCVC * StochN + QGutLiv * (CBldNDCVC - CVLivNDCVC)
+	dt(ALivNDCVC) = RAMetDCVC * StochN
+	                + QGutLiv * (CBldNDCVC - CVLivNDCVC)
 	                - kNDCVC * ALivNDCVC; 
 
 #******************************************************************************
@@ -3108,14 +3111,23 @@ TotTCAProd =  (FracTCA*StochTCATCE*(AMetLiv1 + FracLungSys*AMetLng)) + #(vrisk)
 
 #**** Mass Balance for DCVC ***************************************************
 # Total production of DCVC
-#(v1e)    dt(ADCVCIn) = RAMetDCVG * MWDCVC  
-#(v1e)		+ RAMetKid * FracKidDCVC * StochDCVCTCE;
+    dt(ADCVCIn) = RAMetDCVG * StochDCVCDCVG
+		+ RAMetKid * FracKidDCVC * StochDCVCTCE;
 # Rate of DCVC eliminated (mg)#(v2.0)
 #(v1e)	RAElimDCVC = kElimDCVC * ADCVC;#(v2.0)
 # Dynamics for amount of DCVC eliminated (mg)#(v2.0)
 #(v1e)      dt(AElimDCVC) = RAElimDCVC;#(v2.0)
+# Metabolism of DCVC #(v3.0)
+      dt(AMetDCVC) = RAMetDCVC;#(v3.0)
+
 # Mass balance#(v2.0)
 #(v1e)	MassBalDCVC = ADCVCIn - ADCVC - AElimDCVC;#(v2.0)
+
+#**** Mass Balance for NAcDCVC ***********************************************
+# Total production of DCVC
+    dt(ANDCVCIn) = RAMetDCVC * StochN; #(v3.0)
+    # Elimination of DCVC 
+    dt(AElimNDCVC) = kNDCVC * ALivNDCVC; #(v3.0)
 
 #******************************************************************************
 #***                       Dynamic Outputs                                  ***
