@@ -7,7 +7,7 @@ States = {
 	AStom,		# Amount of TCE in stomach
 	ADuod,		# oral gavage absorption -- mice and rats only
 #(v1e)	AExc,		# excreted in feces from gavage -- mice and rats only
-#(v1e)	AO, 		# total absorbed
+	AO, 		# total absorbed
 	InhDose,	# Amount inhaled 
 ##-- TCE in the body
 	ARap,		# Amount in rapidly perfused tissues
@@ -26,10 +26,10 @@ States = {
 ##-- DCA in body
         ADCA,	        # Amount in central compartment#(v2.0)
         ADCAper,	# Amount in peripheral compartment#(v2.0)
-#(v1e)  AElimDCA,	# Amount eliminated#(v2.0)
+  AElimDCA,	# Amount eliminated#(v2.0)
 #	
 ##-- TCA in the body
-#(v1e)	AOTCA,
+	AOTCA,
 	AStomTCA,	# Amount of TCA in stomach
 	APlasTCA,	# Amount of TCA in plasma #comment out for #(v1h)
 	ABodTCA,	# Amount of TCA in lumped body compartment
@@ -44,7 +44,7 @@ States = {
 	AUrnTCA_collect,# Cumulative Amount of TCA excreted in urine during
 			# collection times (for intermittent collection) 
 ##-- TCOH in body
-#(v1e)	AOTCOH,
+	AOTCOH,
 	AStomTCOH,	# Amount of TCOH in stomach
 	ABodTCOH, 	# Amount of TCOH in lumped body compartment
 	ALivTCOH, 	# Amount of TCOH in liver
@@ -268,7 +268,7 @@ ATCOG,		# ONLY FOR COMPARISON WITH HACK
 	AMetGSH,	# Amount of TCE conjugated #(vrisk)
 	TotTCAProd,	# Amount TCA produced in mg TCA #(vrisk)
 	TotDCAProd,	# Amount DCA produced in mg DCA #(vrisk)
-
+    TotTCE, #(v3.0)
 
 ## PARAMETERS #(vrisk3)
   #QCnow, # (vrisk3) #Cardiac output (L/hr)
@@ -3012,7 +3012,7 @@ Dynamics{
 	RInhDose = QM * CInh;
     dt(InhDose) = RInhDose;
 # Amount of TCE absorbed (mg)
-#(v1e)    dt(AO) = RAO;
+    dt(AO) = RAO;
 # Total dose
 #(v1e)	TotDose = InhDose + AO + IVDose * BW;
 # Total in tissues
@@ -3026,8 +3026,8 @@ Dynamics{
     dt(AMetLiv1) = RAMetLiv1; #(vrisk)
     dt(AMetLiv2) = RAMetLiv2; #(vrisk)
     dt(AMetKid) = RAMetKid; #(vrisk)
-#(v1e)	ATotMetLiv = AMetLiv1 + AMetLiv2; 
-#(v1e)	TotMetab = AMetLng + ATotMetLiv + AMetKid;
+	ATotMetLiv = AMetLiv1 + AMetLiv2; 
+	#TotMetab = AMetLng + ATotMetLiv + AMetKid;
 # Amount of TCE excreted in feces (mg)
 #(v1e)	RAExc = kTD * ADuod;
 #(v1e)    dt(AExc) = RAExc;
@@ -3039,11 +3039,12 @@ Dynamics{
 #(v1e)	TCEDiff = TotDose - TotTissue - TotMetab;
 #(v1e)	MassBalTCE = TCEDiff - AExc - AExh;
 
+
 #(v2.0)
 #**** Mass Balance for DCA ****************************************************
 #(v1e)	TotDCAIn = FracOther * StochDCATCE * (AMetLiv1 + FracLungSys*AMetLng);#(v2.0)
 # Amount of DCA eliminated (mg)#(v2.0)
-#(v1e)    dt(AElimDCA) = kClearDCA * ADCA;#(v2.0)
+    dt(AElimDCA) = kClearDCA * ADCA;#(v2.0)
 #(v1e)	MassBalDCA = TotDCAIn - ADCA - ADCAper - AElimDCA;#(v2.0)
 TotDCAProd = (FracOther * StochDCATCE * #(vrisk)
     	     (AMetLiv1 + FracLungSys*AMetLng));#(vrisk)
@@ -3051,7 +3052,7 @@ TotDCAProd = (FracOther * StochDCATCE * #(vrisk)
 #**** Mass Balance for TCOH ***************************************************
 # Total production/intake of TCOH
 #(v1e)    dt(ARecircTCOG) = RARecircTCOG;
-#(v1e)    dt(AOTCOH) = kPOTCOH;
+    dt(AOTCOH) = kPOTCOH;
 #(v1e)	TotTCOHIn = AOTCOH + IVDoseTCOH * BW
 #(v1e)		+ ((1.0 - FracOther - FracTCA) * StochTCOHTCE * 
 #(v1e)		(AMetLiv1 + FracLungSys*AMetLng)) 
@@ -3068,7 +3069,7 @@ TotDCAProd = (FracOther * StochDCATCE * #(vrisk)
 
 #**** Mass Balance for TCA ****************************************************
 # Total production/intake of TCA
-#(v1e)    dt(AOTCA) = kPOTCA;
+    dt(AOTCA) = kPOTCA;
 #(v1e)	TotTCAIn = AOTCA + IVDoseTCA * BW
 TotTCAProd =  (FracTCA*StochTCATCE*(AMetLiv1 + FracLungSys*AMetLng)) + #(vrisk)
 		(StochTCATCOH*AMetTCOHTCA);#(vrisk)#(vrisk)
@@ -3475,9 +3476,9 @@ CalcOutputs{
 #**** Dose Metrics ************************************************************
 # Oxidation/BW
 #(v1d)	AMetLiv1BW = AMetLiv1 / BW; 
-
 AMetOX = AMetLiv1 + AMetLng;#(vrisk)
 AMetGSH = AMetLiv2 + AMetKid;#(vrisk)
+TotTCE =  AExh + AMetGSH + AMetOX;
 
 }
 End.

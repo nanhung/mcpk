@@ -241,7 +241,7 @@ ATCOG,		# ONLY FOR COMPARISON WITH HACK
     TotTCOGIn,
     TotTCOHIn,
     TotMetabTCOH,
-AtotTCE,
+TotTCE,
 AtotTCA,
 AtotTCOG,
 
@@ -2653,7 +2653,7 @@ CalcOutputs{
 # Oxidation/BW
 #(v1d)	AMetLiv1BW = AMetLiv1 / BW; 
 
-AtotTCE = AExhResp + AInhResp + AResp + ACh + ALiv + AKid + ARap + ASlw +AStom + ADuod + AGut + AFat + ABld+
+TotTCE = AExhResp + AInhResp + AResp + ACh + ALiv + AKid + ARap + ASlw +AStom + ADuod + AGut + AFat + ABld+
             AExh+AMetLng+AMetKid+AMetLiv1+AMetLiv2; # equal to total dose
 AtotTCA = AUrnTCA + AMetTCA;
 AtotTCOG = ARecircTCOG + AUrnTCOG;
