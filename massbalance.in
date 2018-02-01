@@ -20,7 +20,7 @@ PDose = NDoses(2, 1 0 , 0 0.01 );
 #IVDoseTCOH = NDoses(2, 1 0 , 0 0.01 );
 TChng =  0.01 ;
 
-PrintStep (AO, AOTCA, 0.1, 36, 0.5);
+PrintStep (AO, AOTCA, ATCOH, 0.1, 36, 0.5);
 #PrintStep (AExh, AMetLng, AMetKid, AMetLiv1, AMetLiv2, 0.1, 36, 0.5);
 #PrintStep (AtotOX, AMetOX, 0.1, 36, 0.5);
 PrintStep (AtotGSH, AMetGSH, 0.1, 36, 0.5);
