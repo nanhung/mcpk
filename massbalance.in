@@ -23,12 +23,13 @@ TChng =  0.01 ;
 PrintStep (AO, AOTCA, AOTCOH, 0.1, 36, 0.5);
 #PrintStep (AExh, AMetLng, AMetKid, AMetLiv1, AMetLiv2, 0.1, 36, 0.5);
 #PrintStep (AtotOX, AMetOX, 0.1, 36, 0.5);
-PrintStep (AtotGSH, AMetGSH, 0.1, 36, 0.5);
 PrintStep (AElimDCA, TotDCAProd, 0.1, 36, 0.5);
 PrintStep (TotTCAProd, AtotTCA , 0.1, 36, 0.5);
 PrintStep (TotTCOGIn, AtotTCOG, 0.1, 36, 0.5);
+PrintStep (TotTCOHIn, TotMetabTCOH, 0.1, 36, 0.5);
+PrintStep (ADCVGIn, AMetDCVG, 0.1, 36, 0.5);
+PrintStep (ADCVCIn, AElimDCVC, 0.1, 36, 0.5);
 PrintStep (AtotTCE, 0.1, 36, 0.5);
-
 
 }
 

@@ -80,12 +80,11 @@ States = {
 	AUrnTCOG_collect,# Cumulative Amount of TCA excreted in urine during
 			# collection times (for intermittent collection) 	
 ##-- DCVG in body
-#(v1e)	ADCVGIn,
-	ADCVG,
-#	ADCVGmol,	# Amount of DCVG in body in mmoles 
-#(v1e)	AMetDCVG,
+    ADCVGIn,
+	ADCVGmol,	# Amount of DCVG in body in mmoles 
+	AMetDCVG,
 ##-- DCVC in body
-#(v1e)	ADCVCIn,
+	ADCVCIn,
         ADCVC,		# Amount of DCVC in body
 #(v2.0) deleted ABioactDCVC,
 ##-- DCVC eliminated#(v2.0)
@@ -101,7 +100,7 @@ States = {
 	AMetKid,#(vrisk)
 	AMetTCOHTCA,	# Amount of TCOH metabolized to TCA#(vrisk)
 	AMetTCOHGluc,	# Amount of TCOH glucuronidated
-#(v1e)	AMetTCOHOther,
+	AMetTCOHOther,
 	AMetTCA,	# Amount of TCA metabolized
 ##-- Other Dose metrics
 #(v1d)	AUCCBld,	#
@@ -240,12 +239,12 @@ ATCOG,		# ONLY FOR COMPARISON WITH HACK
 	TotTCAProd,	# Amount TCA produced in mg TCA #(vrisk)
 	TotDCAProd,	# Amount DCA produced in mg DCA #(vrisk)
     TotTCOGIn,
+    TotTCOHIn,
+    TotMetabTCOH,
 AtotTCE,
 AtotTCA,
 AtotTCOG,
 
-AtotOX, 
-AtotGSH,
 ## PARAMETERS #(vrisk3)
   #QCnow, # (vrisk3) #Cardiac output (L/hr)
   #QP, # (vrisk3) #Alveolar ventilation (L/hr)
@@ -2204,37 +2203,12 @@ Dynamics{
 #******************************************************************************
 #***                       DCVG Sub-model                                   ***
 #******************************************************************************
-# State Variables with dynamics: 
-#	ADCVGmol
-# Input Variables: 
-#	none
-# Other State Variables and Global Parameters:
-#	kDCVG
-#	FracKidDCVC	# Fraction of kidney DCVG going to DCVC in first pass
-#	VDCVG
-# Temporary variables used:
-#	RAMetLiv2
-#	RAMetKid
-# Temporary variables assigned:
-#	RAMetDCVGmol
-#	CDCVGmol
-# Notes:
-#	Assume negligible GGT activity in liver as compared to kidney,
-#	supported by in vitro data on GGT (even accounting for 5x 
-#	greater liver mass relative to kidney mass), as well as lack
-#	of DCVC detected in blood.
-#	Need to account for "first pass" in kidney (TCE->DCVG->DCVC 
-#	without systemic circulation).  
-#******************************************************************************
 # Rate of metabolism of DCVG to DCVC
-#	RAMetDCVGmol = kDCVG * ADCVGmol;
-    RAMetDCVG = kDCVG * ADCVG;
+	RAMetDCVGmol = kDCVG * ADCVGmol;
 # Dynamics for DCVG in blood
-#    dt(ADCVGmol) = (RAMetLiv2 + RAMetKid*(1-FracKidDCVC)) / MWTCE - RAMetDCVGmol;
-    dt(ADCVG) = (RAMetLiv2 + RAMetKid*(1-FracKidDCVC))- RAMetDCVG;
+    dt(ADCVGmol) = (RAMetLiv2 + RAMetKid*(1-FracKidDCVC)) / MWTCE - RAMetDCVGmol;
 # Concentration of DCVG in blood (in mmoles/l)
-#	CDCVGmol = ADCVGmol / VDCVG;
-	CDCVG = ADCVG / VDCVG;
+	CDCVGmol = ADCVGmol / VDCVG;
 #******************************************************************************
 #***                       DCVC Sub-model                                   ***
 #******************************************************************************
@@ -2255,8 +2229,7 @@ Dynamics{
 # Notes:#(v2.0)
 #******************************************************************************
 # Amount of DCVC in body (mg) #(v2.0)
-#    dt(ADCVC) = RAMetDCVGmol * MWDCVC
-     dt(ADCVC) = RAMetDCVG
+    dt(ADCVC) = RAMetDCVGmol * MWDCVC
 		+ RAMetKid * FracKidDCVC
 		- kElimDCVC * ADCVC;#(v2.0)
 # Concentration of DCVG in blood (in mmoles/l)#(v2.0)
@@ -2311,17 +2284,17 @@ TotDCAProd = (FracOther * StochDCATCE * #(vrisk)
 # Total production/intake of TCOH
     dt(ARecircTCOG) = RARecircTCOG;
     dt(AOTCOH) = kPOTCOH;
-#(v1e)	TotTCOHIn = AOTCOH + IVDoseTCOH * BW
-#(v1e)		+ ((1.0 - FracOther - FracTCA) * StochTCOHTCE * 
-#(v1e)		(AMetLiv1 + FracLungSys*AMetLng)) 
-#(v1e)		+ (StochTCOHGluc * ARecircTCOG);
+	TotTCOHIn = AOTCOH + IVDoseTCOH * BW
+		+ ((1.0 - FracOther - FracTCA) * StochTCOHTCE * 
+		(AMetLiv1 + FracLungSys*AMetLng)) 
+		+ (StochTCOHGluc * ARecircTCOG);
 # Total in tissues
 #(v1e)	TotTissueTCOH = ABodTCOH + ALivTCOH;
 # Total metabolism of TCOH
     dt(AMetTCOHTCA) = RAMetTCOHTCA; #(vrisk)
     dt(AMetTCOHGluc) = RAMetTCOHGluc;
-#(v1e)    dt(AMetTCOHOther) = RAMetTCOH; 
-#(v1e)	TotMetabTCOH = AMetTCOHTCA + AMetTCOHGluc + AMetTCOHOther;
+    dt(AMetTCOHOther) = RAMetTCOH; 
+	TotMetabTCOH = AMetTCOHTCA + AMetTCOHGluc + AMetTCOHOther;
 # Mass balance
 #(v1e)	MassBalTCOH = TotTCOHIn - TotTissueTCOH - TotMetabTCOH;
 
@@ -2350,16 +2323,16 @@ TotTCAProd =  (FracTCA*StochTCATCE*(AMetLiv1 + FracLungSys*AMetLng)) + #(vrisk)
 
 #**** Mass Balance for DCVG ***************************************************
 # Total production of DCVG
-#(v1e)    dt(ADCVGIn) = (RAMetLiv2 + RAMetKid*(1-FracKidDCVC)) / MWTCE;
+   dt(ADCVGIn) = (RAMetLiv2 + RAMetKid*(1-FracKidDCVC)) / MWTCE;
 # Metabolism of DCVG
-#(v1e)    dt(AMetDCVG) = RAMetDCVGmol;
+   dt(AMetDCVG) = RAMetDCVGmol;
 # Mass balance
 #(v1e)	MassBalDCVG = ADCVGIn - ADCVGmol - AMetDCVG;
 
 #**** Mass Balance for DCVC ***************************************************
 # Total production of DCVC
-#(v1e)    dt(ADCVCIn) = RAMetDCVGmol * MWDCVC  
-#(v1e)		+ RAMetKid * FracKidDCVC * StochDCVCTCE;
+    dt(ADCVCIn) = RAMetDCVGmol * MWDCVC  
+		+ RAMetKid * FracKidDCVC * StochDCVCTCE;
 # Rate of DCVC eliminated (mg)#(v2.0)
 	RAElimDCVC = kElimDCVC * ADCVC;#(v2.0)
 # Dynamics for amount of DCVC eliminated (mg)#(v2.0)
@@ -2682,9 +2655,7 @@ CalcOutputs{
 
 AtotTCE = AExhResp + AInhResp + AResp + ACh + ALiv + AKid + ARap + ASlw +AStom + ADuod + AGut + AFat + ABld+
             AExh+AMetLng+AMetKid+AMetLiv1+AMetLiv2; # equal to total dose
-AtotGSH = ADCVG+ADCVC+AElimDCVC; # equal to AMetGSH
 AtotTCA = AUrnTCA + AMetTCA;
-AtotOX = AUrnTCA + AMetTCA + AUrnTCOG+AElimDCA; # equal to AMetOX
 AtotTCOG = ARecircTCOG + AUrnTCOG;
 
 AMetOX = AMetLiv1 + AMetLng;#(vrisk)
