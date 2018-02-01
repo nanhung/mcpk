@@ -72,7 +72,7 @@ States = {
 	ABodTCOG, 	# Amount of TCOG in lumped body compartment
 	ALivTCOG, 	# Amount of TCOG in liver
      	ABileTCOG,	# Amount of TCOG in bile (incl. gut)
-#(v1e)	ARecircTCOG,
+	ARecircTCOG,
 ##-- TCOG excreted
 	AUrnTCOG,	# Amount of TCOG excreted in urine
 	AUrnTCOG_sat,	# Amount of TCOG excreted that during times that had
@@ -100,7 +100,7 @@ States = {
 	AMetLng,	# Amount metabolized in the lung#(vrisk)
 	AMetKid,#(vrisk)
 	AMetTCOHTCA,	# Amount of TCOH metabolized to TCA#(vrisk)
-#(v1e)	AMetTCOHGluc,	# Amount of TCOH glucuronidated
+	AMetTCOHGluc,	# Amount of TCOH glucuronidated
 #(v1e)	AMetTCOHOther,
 	AMetTCA,	# Amount of TCA metabolized
 ##-- Other Dose metrics
@@ -239,9 +239,11 @@ ATCOG,		# ONLY FOR COMPARISON WITH HACK
 	AMetGSH,	# Amount of TCE conjugated #(vrisk)
 	TotTCAProd,	# Amount TCA produced in mg TCA #(vrisk)
 	TotDCAProd,	# Amount DCA produced in mg DCA #(vrisk)
-
+    TotTCOGIn,
 AtotTCE,
 AtotTCA,
+AtotTCOG,
+
 AtotOX, 
 AtotGSH,
 ## PARAMETERS #(vrisk3)
@@ -2262,110 +2264,7 @@ Dynamics{
 #******************************************************************************
 #***                       Total Mass Balance                               ***
 #******************************************************************************
-# State Variables with dynamics: 
-#	InhDose
-#	AO
-#	AExc
-#	AMetLng
-#	AMetLiv1
-#	AMetLiv2
-#	AMetKid
-#	AExh
-#	ARecircTCOG
-#	AOTCOH
-#	AMetTCOHTCA
-#	AMetTCOHGluc
-#	AMetTCOHOther
-#	AOTCA
-#	AMetTCA
-#	ADCVGIn
-#	AMetDCVG
-#	ADCVCIn
-# Input Variables: 
-#	IVDose
-#	IVDoseTCA
-#	IVDOseTCOH
-# Other State Variables and Global Parameters:
-#	BW
-#	AStom
-#	ADuod
-#	ARap
-#	ASlw
-#	AFat
-#	AGut
-#	ALiv
-#	ATB
-#	AKid
-#	ABld
-#	FracOther
-#	FracTCA
-#	StochTCOHTCE
-#	StochTCOHGluc
-#	ABodTCOH
-#	ALivTCOH
-#	StochTCATCE
-#	StochTCATCOH
-#	APlasTCA
-#	ABodTCA
-#	ALivTCA
-#	AUrnTCA
-#	StochGlucTCOH
-#	ABodTCOG
-#	ALivTCOG
-#	ABileTCOG
-#	AUrnTCOG
-#	FracKidDCVC
-#	MWTCE
-#	ADCVGmol
-#	MWDCVC
-#	StochDCVCTCE
-#	kKidBioact
-#	ADCVC
-# Temporary variables used:
-#	QP
-#	QM
-#	CInh
-#	CMixExh
-#	RAO
-#	RInhDose
-#	kPOTCA
-#	kPOTCOH
-#	RAMetLng
-#	RAMetLiv1
-#	RAMetLiv2
-#	RAMetKid
-#	CAlv
-#	RARecircTCOG
-#	RAMetTCOHTCA
-#	RAMetTCOHGluc
-#	RAMetTCOH
-#	RAMetTCA
-#	RAMetDCVGmol
-# Temporary variables assigned:
-#	RInhDose
-#	TotDose
-#	TotTissue
-#	ATotMetLiv
-#	TotMetab
-#	RAExc - rate of fecal excretion
-#	RAExh
-#	TCEDiff
-#	MassBalTCE
-#	TotTCOHIn
-#	TotTIssueTCOH
-#	TotMetabTCOH
-#	MassBalTCOH
-#	TotTCAIn
-#	TotTissueTCA
-#	TCADiff
-#	MassBalTCA
-#	TotTCOGIn
-#	TotTissueTCOG
-#	MassBalTCOG
-#	MassBalDCVG
-#	MassBalDCVC
-# Notes:
-#******************************************************************************
+
 #**** Mass Balance for TCE ****************************************************
 # Total intake from inhalation (mg)
 #(v1.2)	RInhDose = QP * CInh;
@@ -2410,7 +2309,7 @@ TotDCAProd = (FracOther * StochDCATCE * #(vrisk)
 
 #**** Mass Balance for TCOH ***************************************************
 # Total production/intake of TCOH
-#(v1e)    dt(ARecircTCOG) = RARecircTCOG;
+    dt(ARecircTCOG) = RARecircTCOG;
 #(v1e)    dt(AOTCOH) = kPOTCOH;
 #(v1e)	TotTCOHIn = AOTCOH + IVDoseTCOH * BW
 #(v1e)		+ ((1.0 - FracOther - FracTCA) * StochTCOHTCE * 
@@ -2420,7 +2319,7 @@ TotDCAProd = (FracOther * StochDCATCE * #(vrisk)
 #(v1e)	TotTissueTCOH = ABodTCOH + ALivTCOH;
 # Total metabolism of TCOH
     dt(AMetTCOHTCA) = RAMetTCOHTCA; #(vrisk)
-#(v1e)    dt(AMetTCOHGluc) = RAMetTCOHGluc;
+    dt(AMetTCOHGluc) = RAMetTCOHGluc;
 #(v1e)    dt(AMetTCOHOther) = RAMetTCOH; 
 #(v1e)	TotMetabTCOH = AMetTCOHTCA + AMetTCOHGluc + AMetTCOHOther;
 # Mass balance
@@ -2443,7 +2342,7 @@ TotTCAProd =  (FracTCA*StochTCATCE*(AMetLiv1 + FracLungSys*AMetLng)) + #(vrisk)
 
 #**** Mass Balance for TCOG ***************************************************
 # Total production of TCOG
-#(v1e)	TotTCOGIn = StochGlucTCOH * AMetTCOHGluc;
+	TotTCOGIn = StochGlucTCOH * AMetTCOHGluc;
 # Total in tissues
 #(v1e)	TotTissueTCOG = ABodTCOG + ALivTCOG + ABileTCOG;
 # Mass balance
@@ -2786,6 +2685,7 @@ AtotTCE = AExhResp + AInhResp + AResp + ACh + ALiv + AKid + ARap + ASlw +AStom +
 AtotGSH = ADCVG+ADCVC+AElimDCVC; # equal to AMetGSH
 AtotTCA = AUrnTCA + AMetTCA;
 AtotOX = AUrnTCA + AMetTCA + AUrnTCOG+AElimDCA; # equal to AMetOX
+AtotTCOG = ARecircTCOG + AUrnTCOG;
 
 AMetOX = AMetLiv1 + AMetLng;#(vrisk)
 AMetGSH = AMetLiv2 + AMetKid;#(vrisk)

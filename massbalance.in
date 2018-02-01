@@ -26,6 +26,7 @@ PrintStep (AO, AOTCA, 0.1, 36, 0.5);
 PrintStep (AtotGSH, AMetGSH, 0.1, 36, 0.5);
 PrintStep (AElimDCA, TotDCAProd, 0.1, 36, 0.5);
 PrintStep (TotTCAProd, AtotTCA , 0.1, 36, 0.5);
+PrintStep (TotTCOGIn, AtotTCOG, 0.1, 36, 0.5);
 PrintStep (AtotTCE, 0.1, 36, 0.5);
 
 
