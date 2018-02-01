@@ -49,7 +49,7 @@ States = {
 ##-- DCA in body
         ADCA,	        # Amount in central compartment#(v2.0)
         ADCAper,	# Amount in peripheral compartment#(v2.0)
-#(v1e)  AElimDCA,	# Amount eliminated#(v2.0)
+  AElimDCA,	# Amount eliminated#(v2.0)
 #	
 ##-- TCA in the body
 #(v1e)	AOTCA,
@@ -81,14 +81,15 @@ States = {
 			# collection times (for intermittent collection) 	
 ##-- DCVG in body
 #(v1e)	ADCVGIn,
-	ADCVGmol,	# Amount of DCVG in body in mmoles 
+	ADCVG,
+#	ADCVGmol,	# Amount of DCVG in body in mmoles 
 #(v1e)	AMetDCVG,
 ##-- DCVC in body
 #(v1e)	ADCVCIn,
         ADCVC,		# Amount of DCVC in body
 #(v2.0) deleted ABioactDCVC,
 ##-- DCVC eliminated#(v2.0)
-#(v1e) 	AElimDCVC,	# Amount of DCVC eliminated#(v2.0)
+ 	AElimDCVC,	# Amount of DCVC eliminated#(v2.0)
 ##-- Other states for TCE
 	ACh, 		# Amount in closed chamber -- mice and rats only
 	AExh, 		# Amount exhaled
@@ -239,7 +240,9 @@ ATCOG,		# ONLY FOR COMPARISON WITH HACK
 	TotTCAProd,	# Amount TCA produced in mg TCA #(vrisk)
 	TotDCAProd,	# Amount DCA produced in mg DCA #(vrisk)
 
-AtotTCE, 
+AtotTCE,
+AtotOX, 
+AtotGSH,
 ## PARAMETERS #(vrisk3)
   #QCnow, # (vrisk3) #Cardiac output (L/hr)
   #QP, # (vrisk3) #Alveolar ventilation (L/hr)
@@ -587,8 +590,8 @@ lnFracTCAC	= 0.0;	# Ratio of TCA to TCOH
 lnVMaxDCVGC	= 0.0;	# Scaled by liver weight and species-specific central estimates
 lnClDCVGC	= 0.0;	# Scaled to species-specific central estimates
 lnKMDCVGC	= 0.0;	# Scaled to species-specific central estimates
-lnVMaxKidDCVGC	= 0.0;	# Scaled by kidney weight and species-specific central estimates
-lnClKidDCVGC	= 0.0;	# Scaled to species-specific central estimates
+lnVMaxKidDCVGC	= -30.0;	# Scaled by kidney weight and species-specific central estimates
+lnClKidDCVGC	= -30.0;	# Scaled to species-specific central estimates
 lnKMKidDCVGC	= 0.0;	# Scaled to species-specific central estimates
 #(v1.2) lnClClaraC	= 0.0;	# Scaled by BW^0.75
 lnVMaxLungLivC	= 0.0;	#(v1.2) Ratio of lung Vmax to liver Vmax,
@@ -634,7 +637,7 @@ lnkEHRC	= 0.0;	# Scaled by BW^-0.25
 lnkUrnTCOGC	= 0.0;	# Scaled by (blood volume)^-1 and species-specific central estimates
 
 # DCVG metabolism
-lnFracKidDCVCC	= 0.0;	# Ratio of "directly" to DCVC to systemic DCVG
+lnFracKidDCVCC	= 10.0;	# Ratio of "directly" to DCVC to systemic DCVG
 lnkDCVGC	= 0.0;	# Scaled by BW^-0.25
 
 # DCVC metabolism
@@ -1851,8 +1854,6 @@ Dynamics{
     dt(ABld) = (QFat*CVFat + QGutLiv*CVLiv + QSlw*CVSlw + # Comment out for #(v1a)#(v1c)
 		QRap*CVRap + QKid*CVKid + kIV) - CVen * QCnow; #(v1.2)(v1b)
 		
-#(v1.2)		QRap*CVRap + QTB*CVTB + QKid*CVKid + kIV) - CVen * QCnow;# Comment out for #(v1a)#(v1c)
-
 #****Gas exchange *************************************************************
 #****Respiratory Metabolism****************************************************
     QM = QP/0.7;	# Minute-volume
@@ -1872,9 +1873,15 @@ Dynamics{
 	#(v1.2) Correction factor for exhaled air to account for
 	# absorption/desorption/metabolism in respiratory tissue
 	# = 1 if DResp = 0
+#(v1.2)        CAlv = CArt_tmp / PB;
+	#(v1.2) Correction factor for exhaled air to account for
+	# absorption/desorption/metabolism in respiratory tissue
+	# = 1 if DResp = 0
 	ExhFactor_den = (QP * CArt_tmp / PB + (QM-QP)*CInhResp);
 	ExhFactor = (ExhFactor_den > 0) ? (
 		QM * CMixExh / ExhFactor_den) : 1;
+	#(v1.2) End-exhaled breath (corrected for absorption/
+	#	desorption/metabolism in respiratory tissue)
 	#(v1.2) End-exhaled breath (corrected for absorption/
 	#	desorption/metabolism in respiratory tissue)
 	CAlv = CArt_tmp / PB * ExhFactor;
@@ -1976,9 +1983,9 @@ Dynamics{
 	RARecircTCOG = kEHR * ABileTCOG;
 # Amount of TCOH in liver (mg)
     dt(ALivTCOH) = kPOTCOH + QGutLiv * (CTCOH - CVLivTCOH) 
-#		- RAMetTCOH - RAMetTCOHTCA - RAMetTCOHGluc 
-#		+ ((1.0 - FracOther - FracTCA) * StochTCOHTCE * 
-#		(RAMetLiv1 + FracLungSys*RAMetLng)) #(v1.2)
+		- RAMetTCOH - RAMetTCOHTCA - RAMetTCOHGluc 
+		+ ((1.0 - FracOther - FracTCA) * StochTCOHTCE * 
+		(RAMetLiv1 + FracLungSys*RAMetLng)) #(v1.2)
 		+ (StochTCOHGluc * RARecircTCOG); 
 
 #(v2.0)
@@ -2007,9 +2014,13 @@ Dynamics{
 #******************************************************************************
 # Amount of DCA in central compartment (mg)
     dt(ADCA) = DCABgd * BW / 24 + #(v2.0) DCA background in mg/kg/d
+    	     RAMetLiv1 + RAMetLng - (kClearDCA * ADCA) -
+     	     kDCAcen_per * ADCA + kDCAper_cen * ADCAper;
+
+#    dt(ADCA) = DCABgd * BW / 24 + #(v2.0) DCA background in mg/kg/d
 #		(FracOther * StochDCATCE * 
 #    	     (RAMetLiv1 + FracLungSys*RAMetLng)) - (kClearDCA * ADCA) -
-     	     kDCAcen_per * ADCA + kDCAper_cen * ADCAper;
+#     	     kDCAcen_per * ADCA + kDCAper_cen * ADCAper;
 # Amount of DCA in peripheral compartment (mg)
     dt(ADCAper) = kDCAcen_per * ADCA - kDCAper_cen * ADCAper;
 # Concentration of DCA in blood (in mmoles/l)
@@ -2101,9 +2112,8 @@ Dynamics{
 # Rate of urinary excretion of TCA
 	RUrnTCA = kUrnTCA * APlasTCAFree;
 # Dynamics for amount of total (free+bound) TCA in plasma (mg)
-dt(APlasTCA) = kIVTCA
-#    dt(APlasTCA) = kIVTCA + (QBodPlas*CVBodTCA) + (QGutLivPlas*CVLivTCA) # comment out for #(v1h)
-#			- (QCPlas * CPlasTCA) - RUrnTCA; # comment out for #(v1h)
+    dt(APlasTCA) = kIVTCA + (QBodPlas*CVBodTCA) + (QGutLivPlas*CVLivTCA) # comment out for #(v1h)
+			- (QCPlas * CPlasTCA) - RUrnTCA; # comment out for #(v1h)
 
 #**** Body ********************************************************************
 # Dynamics for amount of TCA in the body (mg)
@@ -2116,14 +2126,10 @@ dt(APlasTCA) = kIVTCA
 # Rate of metabolism of TCA
 	RAMetTCA = kMetTCA * ALivTCA;
 # Dynamics for amount of TCA in the liver (mg)
-    dt(ALivTCA) = kPOTCA;
-#    dt(ALivTCA) = kPOTCA + QGutLivPlas*(CPlasTCAFree - CVLivTCAFree) 
-#			- RAMetTCA + (FracTCA * StochTCATCE * 
-#			(RAMetLiv1 + FracLungSys*RAMetLng)) #(v1.2)
-#			+ (StochTCATCOH * RAMetTCOHTCA); 
-#    dt(ALivTCA) = kPOTCA + QGutLivPlas*(CPlasTCA - CVLivTCA) #(v1g)
-#			- RAMetTCA + (FracTCA * StochTCATCE * RAMetLiv1) #(v1g)
-#			+ (StochTCATCOH * RAMetTCOHTCA); #(v1g)
+    dt(ALivTCA) = kPOTCA + QGutLivPlas*(CPlasTCAFree - CVLivTCAFree) 
+			- RAMetTCA + (FracTCA * StochTCATCE * 
+			(RAMetLiv1 + FracLungSys*RAMetLng)) #(v1.2)
+			+ (StochTCATCOH * RAMetTCOHTCA); 
 
 #**** Urine *******************************************************************
 # Dynamics for amount of TCA in urine (mg)
@@ -2222,14 +2228,14 @@ dt(APlasTCA) = kIVTCA
 #	without systemic circulation).  
 #******************************************************************************
 # Rate of metabolism of DCVG to DCVC
-	RAMetDCVGmol = kDCVG * ADCVGmol;
+#	RAMetDCVGmol = kDCVG * ADCVGmol;
+    RAMetDCVG = kDCVG * ADCVG;
 # Dynamics for DCVG in blood
-#    dt(ADCVGmol) = (RAMetLiv2 + RAMetKid*(1-FracKidDCVC)) / MWTCE 
-     dt(ADCVGmol) = ((1-FracKidDCVC)) / MWTCE
-		- RAMetDCVGmol;
+#    dt(ADCVGmol) = (RAMetLiv2 + RAMetKid*(1-FracKidDCVC)) / MWTCE - RAMetDCVGmol;
+    dt(ADCVG) = (RAMetLiv2 + RAMetKid*(1-FracKidDCVC))- RAMetDCVG;
 # Concentration of DCVG in blood (in mmoles/l)
-	CDCVGmol = ADCVGmol / VDCVG;
-
+#	CDCVGmol = ADCVGmol / VDCVG;
+	CDCVG = ADCVG / VDCVG;
 #******************************************************************************
 #***                       DCVC Sub-model                                   ***
 #******************************************************************************
@@ -2250,9 +2256,9 @@ dt(APlasTCA) = kIVTCA
 # Notes:#(v2.0)
 #******************************************************************************
 # Amount of DCVC in body (mg) #(v2.0)
-    dt(ADCVC) = RAMetDCVGmol * MWDCVC  
-#		+ RAMetKid * FracKidDCVC * StochDCVCTCE
-		+ FracKidDCVC * StochDCVCTCE
+#    dt(ADCVC) = RAMetDCVGmol * MWDCVC
+     dt(ADCVC) = RAMetDCVG
+		+ RAMetKid * FracKidDCVC
 		- kElimDCVC * ADCVC;#(v2.0)
 # Concentration of DCVG in blood (in mmoles/l)#(v2.0)
 	CDCVCmol = ADCVC / MWDCVC / VDCVC;#(v2.0)
@@ -2400,7 +2406,7 @@ dt(APlasTCA) = kIVTCA
 #**** Mass Balance for DCA ****************************************************
 #(v1e)	TotDCAIn = FracOther * StochDCATCE * (AMetLiv1 + FracLungSys*AMetLng);#(v2.0)
 # Amount of DCA eliminated (mg)#(v2.0)
-#(v1e)    dt(AElimDCA) = kClearDCA * ADCA;#(v2.0)
+    dt(AElimDCA) = kClearDCA * ADCA;#(v2.0)
 #(v1e)	MassBalDCA = TotDCAIn - ADCA - ADCAper - AElimDCA;#(v2.0)
 TotDCAProd = (FracOther * StochDCATCE * #(vrisk)
     	     (AMetLiv1 + FracLungSys*AMetLng));#(vrisk)
@@ -2459,9 +2465,9 @@ TotTCAProd =  (FracTCA*StochTCATCE*(AMetLiv1 + FracLungSys*AMetLng)) + #(vrisk)
 #(v1e)    dt(ADCVCIn) = RAMetDCVGmol * MWDCVC  
 #(v1e)		+ RAMetKid * FracKidDCVC * StochDCVCTCE;
 # Rate of DCVC eliminated (mg)#(v2.0)
-#(v1e)	RAElimDCVC = kElimDCVC * ADCVC;#(v2.0)
+	RAElimDCVC = kElimDCVC * ADCVC;#(v2.0)
 # Dynamics for amount of DCVC eliminated (mg)#(v2.0)
-#(v1e)      dt(AElimDCVC) = RAElimDCVC;#(v2.0)
+      dt(AElimDCVC) = RAElimDCVC;#(v2.0)
 # Mass balance#(v2.0)
 #(v1e)	MassBalDCVC = ADCVCIn - ADCVC - AElimDCVC;#(v2.0)
 
@@ -2779,8 +2785,9 @@ CalcOutputs{
 #(v1d)	AMetLiv1BW = AMetLiv1 / BW; 
 
 AtotTCE = AExhResp + AInhResp + AResp + ACh + ALiv + AKid + ARap + ASlw +AStom + ADuod + AGut + AFat + ABld+
-            AExh+AMetLng+AMetKid+AMetLiv1+AMetLiv2;
-#AExhResp + AInhResp + AResp + AExh + ACh + AMetLng + ALiv + AKid + ARap + ASlw +AStom + ADuod + AGut + AFat + ABld
+            AExh+AMetLng+AMetKid+AMetLiv1+AMetLiv2; # equal to total dose
+AtotGSH = ADCVG+ADCVC+AElimDCVC; # equal to AMetGSH
+AtotOX = AUrnTCA + AUrnTCOG+AElimDCA; # equal to AMetOX
 
 AMetOX = AMetLiv1 + AMetLng;#(vrisk)
 AMetGSH = AMetLiv2 + AMetKid;#(vrisk)
