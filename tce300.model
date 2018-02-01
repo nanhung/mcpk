@@ -67,12 +67,14 @@ States = {
 	AUrnTCOG_collect,# Cumulative Amount of TCA excreted in urine during
 			# collection times (for intermittent collection) 	
 ##-- DCVG
+    ADCVGIn,
 	ABodDCVG,	# Amount of DCVG in body (v3.0)
 	ABldDCVG,	#(v3.0) 
 	ALivDCVG,   #(v3.0)
 	AKidDCVG,   #(v3.0)
 	ABrnDCVG,   #(v3.0)
 	ALngDCVG,   #(v3.0)
+	AMetDCVG,
 
 ##-- DCVC
 	ABodDCVC,	# Amount of DCVC in body (v3.0)
@@ -2820,14 +2822,14 @@ Dynamics{
 	RAMetDCVG = kDCVG * ALivDCVG;
 
 # Dynamics for amount of DCVG in the liver (mg)
-	dt(ALivDCVG) = QGutLiv * (CBldDCVG - CVLivDCVG)
-	+ StochDCVGTCE * RAMetLiv2 - RAMetDCVG; 
-
+	dt(ALivDCVG) =  StochDCVGTCE * RAMetLiv2 
+	    + QGutLiv * (CBldDCVG - CVLivDCVG)
+	    - RAMetDCVG;
+	
 # Dynamics for amount of DCVG in the kidney (mg)
-    dt(AKidDCVG) = QKid * (CBldDCVG - CVKidDCVG)
-    + StochDCVGTCE * RAMetKid*(1-FracKidDCVC);
-
-
+    dt(AKidDCVG) = QKid * (CBldDCVG - CVKidDCVG) 
+                    + StochDCVGTCE * RAMetKid*(1-FracKidDCVC);
+   
 #******************************************************************************
 #***                       DCVC Sub-model                                   ***
 #******************************************************************************
@@ -3032,8 +3034,8 @@ Dynamics{
     dt(AMetLiv1) = RAMetLiv1; #(vrisk)
     dt(AMetLiv2) = RAMetLiv2; #(vrisk)
     dt(AMetKid) = RAMetKid; #(vrisk)
-	ATotMetLiv = AMetLiv1 + AMetLiv2; 
-	TotMetab = AMetLng + ATotMetLiv + AMetKid;
+#	ATotMetLiv = AMetLiv1 + AMetLiv2; 
+#	TotMetab = AMetLng + ATotMetLiv + AMetKid;
 # Amount of TCE excreted in feces (mg)
 #(v1e)	RAExc = kTD * ADuod;
 #(v1e)    dt(AExc) = RAExc;
@@ -3098,9 +3100,9 @@ TotTCAProd =  (FracTCA*StochTCATCE*(AMetLiv1 + FracLungSys*AMetLng)) + #(vrisk)
 
 #**** Mass Balance for DCVG ***************************************************
 # Total production of DCVG
-#(v1e)    dt(ADCVGIn) = (RAMetLiv2 + RAMetKid*(1-FracKidDCVC)) / MWTCE;
+    dt(ADCVGIn) = StochDCVGTCE * (RAMetLiv2 + RAMetKid*(1-FracKidDCVC));
 # Metabolism of DCVG
-#(v1e)    dt(AMetDCVG) = RAMetDCVG;
+    dt(AMetDCVG) = RAMetDCVG;
 # Mass balance
 #(v1e)	MassBalDCVG = ADCVGIn - ADCVGmol - AMetDCVG;
 

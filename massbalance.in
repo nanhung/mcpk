@@ -1,5 +1,5 @@
 # Check Massbalance
-OutputFile ("massbalance1.out");
+OutputFile ("massbalance3.out");
 
 Integrate (Lsodes, 1e-9, 1e-9, 1);
 
@@ -23,12 +23,12 @@ TChng =  0.01 ;
 
 PrintStep (AO, AOTCA, AOTCOH, 0.1, 240, 2);
 #PrintStep (AExh, AMetLng, AMetKid, AMetLiv1, AMetLiv2, 0.1, 36, 0.5);
-PrintStep (TotTCE, 0.1, 240, 2);
-PrintStep (AElimDCA, TotDCAProd, 0.1, 240, 2);
-PrintStep (TotTCAProd, TotTCA, 0.1, 240, 2);
-PrintStep (TotTCOGIn, TotTCOG, 0.1, 240, 2);
-PrintStep (TotTCOHIn, TotMetabTCOH, 0.1, 240, 2);
-#PrintStep (ADCVGIn, AMetDCVG, 0.1, 36, 0.5);
+#PrintStep (TotTCE, 0.1, 240, 2);
+#PrintStep (AElimDCA, TotDCAProd, 0.1, 240, 2);
+#PrintStep (TotTCAProd, TotTCA, 0.1, 240, 2);
+#PrintStep (TotTCOGIn, TotTCOG, 0.1, 240, 2);
+#PrintStep (TotTCOHIn, TotMetabTCOH, 0.1, 240, 2);
+PrintStep (ADCVGIn, AMetDCVG, 0.1, 240, 2);
 #PrintStep (ADCVCIn, AElimDCVC, 0.1, 36, 0.5);
 }
 
