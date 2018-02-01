@@ -2785,7 +2785,7 @@ AtotTCE = AExhResp + AInhResp + AResp + ACh + ALiv + AKid + ARap + ASlw +AStom +
             AExh+AMetLng+AMetKid+AMetLiv1+AMetLiv2; # equal to total dose
 AtotGSH = ADCVG+ADCVC+AElimDCVC; # equal to AMetGSH
 AtotTCA = AUrnTCA + AMetTCA;
-#AtotOX = AUrnTCA + AMetTCA + AUrnTCOG+AElimDCA; # equal to AMetOX
+AtotOX = AUrnTCA + AMetTCA + AUrnTCOG+AElimDCA; # equal to AMetOX
 
 AMetOX = AMetLiv1 + AMetLng;#(vrisk)
 AMetGSH = AMetLiv2 + AMetKid;#(vrisk)
