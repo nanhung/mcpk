@@ -29,7 +29,7 @@ States = {
 	AStom,		# Amount of TCE in stomach
 	ADuod,		# oral gavage absorption -- mice and rats only
 #(v1e)	AExc,		# excreted in feces from gavage -- mice and rats only
-#(v1e)	AO, 		# total absorbed
+	AO, 		# total absorbed
 	InhDose,	# Amount inhaled 
 ##-- TCE in the body
 	ARap,		# Amount in rapidly perfused tissues
@@ -52,7 +52,7 @@ States = {
   AElimDCA,	# Amount eliminated#(v2.0)
 #	
 ##-- TCA in the body
-#(v1e)	AOTCA,
+	AOTCA,
 	AStomTCA,	# Amount of TCA in stomach
 	APlasTCA,	# Amount of TCA in plasma #comment out for #(v1h)
 	ABodTCA,	# Amount of TCA in lumped body compartment
@@ -102,7 +102,7 @@ States = {
 	AMetTCOHTCA,	# Amount of TCOH metabolized to TCA#(vrisk)
 #(v1e)	AMetTCOHGluc,	# Amount of TCOH glucuronidated
 #(v1e)	AMetTCOHOther,
-#(v1e)	AMetTCA,	# Amount of TCA metabolized
+	AMetTCA,	# Amount of TCA metabolized
 ##-- Other Dose metrics
 #(v1d)	AUCCBld,	#
 #(v1d)	AUCCLiv,	#
@@ -241,6 +241,7 @@ ATCOG,		# ONLY FOR COMPARISON WITH HACK
 	TotDCAProd,	# Amount DCA produced in mg DCA #(vrisk)
 
 AtotTCE,
+AtotTCA,
 AtotOX, 
 AtotGSH,
 ## PARAMETERS #(vrisk3)
@@ -2014,13 +2015,9 @@ Dynamics{
 #******************************************************************************
 # Amount of DCA in central compartment (mg)
     dt(ADCA) = DCABgd * BW / 24 + #(v2.0) DCA background in mg/kg/d
-    	     RAMetLiv1 + RAMetLng - (kClearDCA * ADCA) -
+		(FracOther * StochDCATCE * 
+    	     (RAMetLiv1 + FracLungSys*RAMetLng)) - (kClearDCA * ADCA) -
      	     kDCAcen_per * ADCA + kDCAper_cen * ADCAper;
-
-#    dt(ADCA) = DCABgd * BW / 24 + #(v2.0) DCA background in mg/kg/d
-#		(FracOther * StochDCATCE * 
-#    	     (RAMetLiv1 + FracLungSys*RAMetLng)) - (kClearDCA * ADCA) -
-#     	     kDCAcen_per * ADCA + kDCAper_cen * ADCAper;
 # Amount of DCA in peripheral compartment (mg)
     dt(ADCAper) = kDCAcen_per * ADCA - kDCAper_cen * ADCAper;
 # Concentration of DCA in blood (in mmoles/l)
@@ -2375,7 +2372,7 @@ Dynamics{
 	RInhDose = QM * CInh;
     dt(InhDose) = RInhDose;
 # Amount of TCE absorbed (mg)
-#(v1e)    dt(AO) = RAO;
+    dt(AO) = RAO;
 # Total dose
 #(v1e)	TotDose = InhDose + AO + IVDose * BW;
 # Total in tissues
@@ -2431,7 +2428,7 @@ TotDCAProd = (FracOther * StochDCATCE * #(vrisk)
 
 #**** Mass Balance for TCA ****************************************************
 # Total production/intake of TCA
-#(v1e)    dt(AOTCA) = kPOTCA;
+    dt(AOTCA) = kPOTCA;
 #(v1e)	TotTCAIn = AOTCA + IVDoseTCA * BW
 TotTCAProd =  (FracTCA*StochTCATCE*(AMetLiv1 + FracLungSys*AMetLng)) + #(vrisk)
 		(StochTCATCOH*AMetTCOHTCA);#(vrisk)#(vrisk)
@@ -2439,7 +2436,7 @@ TotTCAProd =  (FracTCA*StochTCATCE*(AMetLiv1 + FracLungSys*AMetLng)) + #(vrisk)
 #(v1e)	TotTissueTCA = APlasTCA + ABodTCA + ALivTCA;
 	## TotTissueTCA = ABodTCA + ALivTCA; #(v1h)
 # Total metabolism of TCA
-#(v1e)    dt(AMetTCA) = RAMetTCA;
+    dt(AMetTCA) = RAMetTCA;
 # Mass balance
 #(v1e)	TCADiff = TotTCAIn - TotTissueTCA - AMetTCA;
 #(v1e)	MassBalTCA = TCADiff - AUrnTCA;
@@ -2787,7 +2784,8 @@ CalcOutputs{
 AtotTCE = AExhResp + AInhResp + AResp + ACh + ALiv + AKid + ARap + ASlw +AStom + ADuod + AGut + AFat + ABld+
             AExh+AMetLng+AMetKid+AMetLiv1+AMetLiv2; # equal to total dose
 AtotGSH = ADCVG+ADCVC+AElimDCVC; # equal to AMetGSH
-AtotOX = AUrnTCA + AUrnTCOG+AElimDCA; # equal to AMetOX
+AtotTCA = AUrnTCA + AMetTCA;
+#AtotOX = AUrnTCA + AMetTCA + AUrnTCOG+AElimDCA; # equal to AMetOX
 
 AMetOX = AMetLiv1 + AMetLng;#(vrisk)
 AMetGSH = AMetLiv2 + AMetKid;#(vrisk)

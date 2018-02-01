@@ -20,13 +20,15 @@ PDose = NDoses(2, 1 0 , 0 0.01 );
 #IVDoseTCOH = NDoses(2, 1 0 , 0 0.01 );
 TChng =  0.01 ;
 
-
+PrintStep (AO, AOTCA, 0.1, 36, 0.5);
 #PrintStep (AExhResp, AInhResp, AResp, ACh, ABld, 0.1, 36, 0.5);
 #PrintStep (ALiv, AKid, ARap, ASlw, AStom, ADuod, AGut, AFat, ABld, 0.1, 36, 0.5);
 #PrintStep (AExh, AMetLng, AMetKid, AMetLiv1, AMetLiv2, 0.1, 36, 0.5);
-#PrintStep (AtotGSH, AMetGSH, 0.1, 36, 0.5);
-PrintStep (AElimDCA, AMetOX, 0.1, 36, 0.5);
-#PrintStep (AtotTCE, 0.1, 36, 0.5);
+#PrintStep (AtotOX, AMetOX, 0.1, 36, 0.5);
+PrintStep (AtotGSH, AMetGSH, 0.1, 36, 0.5);
+PrintStep (AElimDCA, TotDCAProd, 0.1, 36, 0.5);
+PrintStep (TotTCAProd, AtotTCA , 0.1, 36, 0.5);
+PrintStep (AtotTCE, 0.1, 36, 0.5);
 
 
 }
