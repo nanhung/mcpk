@@ -64,7 +64,7 @@ States = {
 	AUrnTCA_collect,# Cumulative Amount of TCA excreted in urine during
 			# collection times (for intermittent collection) 
 ##-- TCOH in body
-#(v1e)	AOTCOH,
+	AOTCOH,
 	AStomTCOH,	# Amount of TCOH in stomach
 	ABodTCOH, 	# Amount of TCOH in lumped body compartment
 	ALivTCOH, 	# Amount of TCOH in liver
@@ -2310,7 +2310,7 @@ TotDCAProd = (FracOther * StochDCATCE * #(vrisk)
 #**** Mass Balance for TCOH ***************************************************
 # Total production/intake of TCOH
     dt(ARecircTCOG) = RARecircTCOG;
-#(v1e)    dt(AOTCOH) = kPOTCOH;
+    dt(AOTCOH) = kPOTCOH;
 #(v1e)	TotTCOHIn = AOTCOH + IVDoseTCOH * BW
 #(v1e)		+ ((1.0 - FracOther - FracTCA) * StochTCOHTCE * 
 #(v1e)		(AMetLiv1 + FracLungSys*AMetLng)) 
