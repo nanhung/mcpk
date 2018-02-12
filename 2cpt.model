@@ -2,7 +2,7 @@
 # Two-compartment model with first-order absorption rate and 
 # linear elimination (metabolism or other route of elimination) 
 #
-# version 1
+# version 2
 #
 # Units: 
 # - time in hours
@@ -10,7 +10,10 @@
 # - masses of substances in micromoles
 # - concentrations of substances in microM
 #
-# Frederic Bois - Dec 2016
+# version 1 - Frederic Bois - Dec 2016
+# version 2 - Nan-Hung Hsieh - Dec 2016
+# Updated:
+# - Add IV and delay oral doses
 # ==============================================================================
 
 States  = {Q_central,       # Quantity in central compartment (micromoles)
@@ -18,45 +21,85 @@ States  = {Q_central,       # Quantity in central compartment (micromoles)
            Q_elim};         # ~        eliminated
 
 Outputs = {C_central,       # Concentration in central compartment (microM)
-           C_periph,        # ~                peripheral compartment
            Q_total};        # Total quantity for mass balance
 
-Inputs  = {Oral_input};     # Drug input in micromoles
+Inputs  = {Oral_dose_rate, IV_dose_rate, # immediate dose, in micromoles / h 
+           PO_dose};                     # delayed oral dose, in micromoles
 
+# Default parameter values
+# ========================
 
-# ------------------------
-# Parameters
-# ------------------------
+# Dosage forms: 0/1 switches, mutually exclusive,
+# only one on them should be set to 1
+G_immediate_d = 1; # immediate release, dissolved (default)
+G_delayed_d;       # delayed release,   dissolved
 
-# Oral input modeling
+# Administration lagtime, if needed (to use in an input function)
+Tlag;
 
-IngDose    = 0.0; # ingested input (micromoles)
-Period     = 0.0; # period of the exposure/no exposure cycle (h)
-Tlag       = 0.0; # Absorption lagtime (h)
-Ka         = 0.0; # Intestinal absorption rate constant (1/h)
-Oral_input = PerExp (IngDose, Period, Tlag, Ka);
+# Weibull delayed release parameters
+Weibull_slope = 1; # avoid division by zero
+Weibull_scale = 1; # avoid division by zero
+Weibull_lag = 0.01;
 
 # Elimination rate constant (1/h)
-Ke = 0;
+Ke = 0.05;
 
 # Volumes (L)
-V_central = 1;
-V_periph  = 1; 
+V_central = 0.3;
+V_periph  = 10; 
 
 # Transfer rate constants between compartments (1/h)
-Kc2p = 0;
-Kp2c = 0;
+Kc2p = 11;
+Kp2c = 5;
+
+# Statistical parameters
+# ========================
+# Variances inter individual
+Vr_Weibull_slope = 0.182; # factor 1.2
+Vr_Weibull_scale = 0.182; # factor 1.2
+Vr_Weibull_lag   = 0.182; # factor 1.2
+Vr_Ke            = 0.182; # factor 1.2
+Vr_V_central     = 0.182; # factor 1.2
+Vr_V_periph      = 0.182; # factor 1.2
+Vr_Kc2p          = 0.182; # factor 1.2 
+Vr_Kp2c          = 0.182; # factor 1.2
+
+# Variances intra individual
+Va_Weibull_slope = 0.182; # factor 1.2
+Va_Weibull_scale = 0.182; # factor 1.2
+Va_Weibull_lag   = 0.182; # factor 1.2
+Va_Ke            = 0.182; # factor 1.3  
+Va_V_central     = 0.182; # factor 1.2
+Va_V_periph      = 0.182; # factor 1.2
+Va_Kc2p          = 0.182; # factor 1.2
+Va_Kp2c         = 0.182; # factor 1.2
+
+#  Data Error (Ve_...)
+# ========================
+
+Ve_C_central    = 1.3;
 
 Dynamics {
+  # Delayed release modeling
+
+  # Weibull delayed release (see TNO intestinal models). This should be
+  # doable with a PerExp input...
+  Release_rate = PO_dose * Weibull_slope / Weibull_scale *
+                 pow((t - Weibull_lag) / Weibull_scale, Weibull_slope - 1) *
+                 exp(-pow((t - Weibull_lag) / Weibull_scale, Weibull_slope));
+
   dt (Q_elim)    = Ke * Q_central;
   dt (Q_periph)  = Kc2p * Q_central - Kp2c * Q_periph;
-  dt (Q_central) = Ka * Oral_input - dt(Q_elim) - dt(Q_periph);
+  dt (Q_central) = IV_dose_rate + 
+                    (G_immediate_d > 0.5 ? Oral_dose_rate : 
+                    (G_delayed_d > 0.5 ? Release_rate : 0.0)) - 
+                     dt(Q_elim) - dt(Q_periph);
 }
 
 CalcOutputs {
-  C_central = Q_central / V_central;
-  C_periph  = Q_periph  / V_periph;
-  Q_total   = Q_central + Q_periph + Q_elim;
+  C_central = (Q_central <= 0 ? 10E-30 : Q_central / V_central);
+  Q_total   = Q_central + Q_periph + Q_elim; # check mass balance
 }
 
 End.
