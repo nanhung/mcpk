@@ -12,8 +12,8 @@ Male =  1 ;
 BWmeas =  0.0275 ;
 
 # Exposure/Dosing
-Conc = NDoses(2, 110 0 , 0 4 );
-#PDose = NDoses(2, 1 0 , 0 0.01 );
+#Conc = NDoses(2, 110 0 , 0 4 );
+PDose = NDoses(2, 1 0 , 0 0.01 );
 #IVDoseTCA = NDoses(2, 1 0 , 0 0.01 );
 #PODoseTCA = NDoses(2, 1 0 , 0 0.01 );
 #IVDoseTCOH = NDoses(2, 1 0 , 0 0.01 );
