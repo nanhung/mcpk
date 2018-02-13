@@ -1,37 +1,17 @@
 # Check Massbalance
-OutputFile ("massbalance3.out");
-
-Integrate (Lsodes, 1e-9, 1e-9, 1);
+OutputFile ("massbalance.out");
+Integrate (Lsodes, 1e-9, 1e-10, 1);
 
 Simulation { # 1:
+    G_immediate = 1; # immediate release, dissolved (default)
+    G_delayed = 0;       # delayed release,   dissolved
+    
+    Kr = 0.1;  # Release rate
+    Ka = 5.0;  # Absortion rate
+    Period = 24.0; # period of the exposure/no exposure cycle (h)    
+    PO_dose = PerDose(1, Period, 0, 0.01);
 
-Species =  3 ;
-Male =  1 ;
-
-# Measured Covariates (if any)
-BWmeas =  0.0275 ;
-
-# Exposure/Dosing
-#Conc = NDoses(2, 110 0 , 0 4 );
-PDose = NDoses(2, 1 0 , 0 0.01 );
-#IVDoseTCA = NDoses(2, 1 0 , 0 0.01 );
-#PODoseTCA = NDoses(2, 1 0 , 0 0.01 );
-#IVDoseTCOH = NDoses(2, 1 0 , 0 0.01 );
-#PODoseTCOH = NDoses(2, 1 0 , 0 0.01 );
-
-TChng =  0.01 ;
-
-PrintStep (AO, AOTCA, AOTCOH, 0.1, 240, 2);
-#PrintStep (AExh, AMetLng, AMetKid, AMetLiv1, AMetLiv2, 0.1, 36, 0.5);
-PrintStep (TotTCE, 0.1, 240, 2);
-PrintStep (AElimDCA, TotDCAProd, 0.1, 240, 2);
-PrintStep (TotTCAProd, TotTCA, 0.1, 240, 2);
-PrintStep (TotTCOGIn, TotTCOG, 0.1, 240, 2);
-PrintStep (TotTCOHIn, TotMetabTCOH, 0.1, 240, 2);
-PrintStep (ADCVGIn, AMetDCVG, 0.1, 240, 2);
-#PrintStep (ADCVCIn, AElimDCVC, 0.1, 36, 0.5);
-PrintStep (ADCVCIn, AMetDCVC, 0.1, 240, 2);
-PrintStep (ANDCVCIn, AElimNDCVC, 0.1, 240, 2);
+    PrintStep (Q_total, 0, 96, 0.25);
 }
 
 
