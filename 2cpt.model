@@ -45,18 +45,25 @@ Period = 24.0; # period of the exposure/no exposure cycle (h)
 TChng = 0.01;
 
 # Rate constant (/h)
-Kr = 1.0;  # Release rate
-Ka = 1.0;  # Absortion rate
-Ke = 0.05; # Elimination rate 
+Kr;  # Release rate
+Ka;  # Absortion rate
+Ke; # Elimination rate 
+
+lnKr = log(1.0);  
+lnKa = log(1.0);  
+lnKe = log(0.05);  
 
 # Volumes (L)
 # https://sepia.unil.ch/pharmacology/index.php?id=90
-V_central = 0.3;
-V_periph  = 20; 
+V_central;
+lnV_central = log(0.3);
 
 # Transfer rate constants between compartments (1/h)
-Kc2p = 11;
-Kp2c = 5;
+Kc2p;
+Kp2c;
+
+lnKc2p = log(11);
+lnKp2c = log(5);
 
 # Statistical parameters
 # ========================
@@ -65,7 +72,6 @@ Vr_Kr            = 0.182; # factor 1.2
 Vr_Ka            = 0.182; # factor 1.2
 Vr_Ke            = 0.182; # factor 1.2
 Vr_V_central     = 0.182; # factor 1.2
-Vr_V_periph      = 0.182; # factor 1.2
 Vr_Kc2p          = 0.182; # factor 1.2 
 Vr_Kp2c          = 0.182; # factor 1.2
 
@@ -74,7 +80,6 @@ Va_Kr            = 0.182; # factor 1.2
 Va_Ka            = 0.182; # factor 1.2
 Va_Ke            = 0.182; # factor 1.2  
 Va_V_central     = 0.182; # factor 1.2
-Va_V_periph      = 0.182; # factor 1.2
 Va_Kc2p          = 0.182; # factor 1.2
 Va_Kp2c          = 0.182; # factor 1.2
 
@@ -82,6 +87,17 @@ Va_Kp2c          = 0.182; # factor 1.2
 # ========================
 
 Ve_C_central = 1.3;
+
+
+Initialize {
+Kr = exp(lnKr);
+Ka = exp(lnKa);
+V_central = exp(lnV_central);
+Kc2p = exp(lnKc2p);
+Kp2c = exp(lnKp2c);
+Ke = exp(lnKe);
+
+} # End of model scaling
 
 Dynamics {
 

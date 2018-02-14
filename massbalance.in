@@ -3,11 +3,11 @@ OutputFile ("massbalance.out");
 Integrate (Lsodes, 1e-9, 1e-10, 1);
 
 Simulation { # 1:
-    G_immediate = 1; # immediate release, dissolved (default)
-    G_delayed = 0;       # delayed release,   dissolved
+    G_immediate = 0; # immediate release, dissolved (default)
+    G_delayed = 1;       # delayed release,   dissolved
     
-    Kr = 0.1;  # Release rate
-    Ka = 5.0;  # Absortion rate
+    lnKr = -2.3;  # Release rate
+    lnKa = 1.6;  # Absortion rate
     Period = 24.0; # period of the exposure/no exposure cycle (h)    
     PO_dose = PerDose(1, Period, 0, 0.01);
 
