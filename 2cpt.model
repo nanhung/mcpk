@@ -18,13 +18,13 @@
 
 States  = {Q_central,       # Quantity in central compartment (micromoles)
            Q_periph,        # ~           peripheral compartment
-           Q_release,       # ~        to release
+           Q_to_release,       # ~        to release
            Q_gi,          # ~        in stomach (micromoles)
            Q_elim};         # ~        eliminated
 
 Outputs = {C_central,       # Concentration in central compartment (microM)
            Q_total,         # Total quantity for mass balance
-           lnQ_release,
+           lnQ_to_release,
            lnQ_gi,
            lnQ_periph,
            lnQ_elim,
@@ -108,8 +108,8 @@ Dynamics {
 
     PO_dose_rate = PO_dose / TChng; # PO dose rate (into stomach) (mg/hr)  
    
-  dt (Q_release) = (G_immediate > 0.5 ?  -1 : (G_delayed > 0.5 ? PO_dose_rate - Kr * Q_release : 0.0));
-  dt (Q_gi) = (G_immediate > 0.5 ? PO_dose_rate : (G_delayed > 0.5 ? Kr * Q_release : 0.0)) - Ka * Q_gi;
+  dt (Q_to_release) = (G_immediate > 0.5 ?  -1 : (G_delayed > 0.5 ? PO_dose_rate - Kr * Q_to_release : 0.0));
+  dt (Q_gi) = (G_immediate > 0.5 ? PO_dose_rate : (G_delayed > 0.5 ? Kr * Q_to_release : 0.0)) - Ka * Q_gi;
   dt (Q_elim) = Ke * Q_central;
   dt (Q_periph)  = Kc2p * Q_central - Kp2c * Q_periph;
   dt (Q_central) = IV_dose_rate +  Ka * Q_gi - 
@@ -118,8 +118,8 @@ Dynamics {
 
 CalcOutputs {
   C_central = (Q_central < 0 ? 0 : Q_central / V_central);
-  Q_total   = (G_immediate > 0.5 ? (Q_gi + Q_central + Q_periph + Q_elim) : (G_delayed > 0.5 ? Q_release + Q_gi + Q_central + Q_periph + Q_elim : 0.0)); # check mass balance
-  lnQ_release = (Q_release < 0 ? log(10E-30) : log(Q_release));
+  Q_total   = (G_immediate > 0.5 ? (Q_gi + Q_central + Q_periph + Q_elim) : (G_delayed > 0.5 ? Q_to_release + Q_gi + Q_central + Q_periph + Q_elim : 0.0)); # check mass balance
+  lnQ_to_release = (Q_to_release < 0 ? log(10E-30) : log(Q_to_release));
   lnQ_gi =  (Q_gi < 0 ? log(10E-30) : log(Q_gi));
   lnQ_periph = (Q_periph < 0 ? log(10E-30) : log(Q_periph));
   lnQ_elim =  (Q_elim < 0 ? log(10E-30) : log(Q_elim));
