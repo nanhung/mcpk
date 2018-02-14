@@ -108,7 +108,7 @@ Dynamics {
 
     PO_dose_rate = PO_dose / TChng; # PO dose rate (into stomach) (mg/hr)  
    
-  dt (Q_release) = PO_dose_rate - Kr * Q_release;
+  dt (Q_release) = (G_immediate > 0.5 ?  -1 : (G_delayed > 0.5 ? PO_dose_rate - Kr * Q_release : 0.0));
   dt (Q_gi) = (G_immediate > 0.5 ? PO_dose_rate : (G_delayed > 0.5 ? Kr * Q_release : 0.0)) - Ka * Q_gi;
   dt (Q_elim) = Ke * Q_central;
   dt (Q_periph)  = Kc2p * Q_central - Kp2c * Q_periph;
@@ -117,8 +117,8 @@ Dynamics {
 }
 
 CalcOutputs {
-  C_central = (Q_central < 0 ? 10E-30 : Q_central / V_central);
-  Q_total   = Q_gi + Q_central + Q_periph + Q_elim; # check mass balance
+  C_central = (Q_central < 0 ? 0 : Q_central / V_central);
+  Q_total   = (G_immediate > 0.5 ? (Q_gi + Q_central + Q_periph + Q_elim) : (G_delayed > 0.5 ? Q_release + Q_gi + Q_central + Q_periph + Q_elim : 0.0)); # check mass balance
   lnQ_release = (Q_release < 0 ? log(10E-30) : log(Q_release));
   lnQ_gi =  (Q_gi < 0 ? log(10E-30) : log(Q_gi));
   lnQ_periph = (Q_periph < 0 ? log(10E-30) : log(Q_periph));
