@@ -38,7 +38,7 @@ G_immediate = 1; # immediate release (default)
 G_delayed = 0;
 
 # 
-PO_dose = 1.0; # ingested input (mg)
+PO_dose; # ingested input (mg)
 
 Period = 24.0; # period of the exposure/no exposure cycle (h)
 
