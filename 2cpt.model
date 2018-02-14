@@ -24,7 +24,12 @@ States  = {Q_central,       # Quantity in central compartment (micromoles)
 
 Outputs = {C_central,       # Concentration in central compartment (microM)
            Q_total,         # Total quantity for mass balance
-           ln_C_central};        
+           lnQ_release,
+           lnQ_gi,
+           lnQ_periph,
+           lnQ_elim,
+           lnQ_total,
+           lnC_central};        
 
 Inputs  = {PO_dose,  # immediate dose, in micromoles / h 
            IV_dose_rate};
@@ -112,9 +117,14 @@ Dynamics {
 }
 
 CalcOutputs {
-  C_central = (Q_central <= 0 ? 10E-30 : Q_central / V_central);
-  Q_total   = Q_central + Q_periph + Q_elim; # check mass balance
-  ln_C_central = log(C_central);
+  C_central = (Q_central < 0 ? 10E-30 : Q_central / V_central);
+  Q_total   = Q_gi + Q_central + Q_periph + Q_elim; # check mass balance
+  lnQ_release = (Q_release < 0 ? log(10E-30) : log(Q_release));
+  lnQ_gi =  (Q_gi < 0 ? log(10E-30) : log(Q_gi));
+  lnQ_periph = (Q_periph < 0 ? log(10E-30) : log(Q_periph));
+  lnQ_elim =  (Q_elim < 0 ? log(10E-30) : log(Q_elim));
+  lnQ_total =  (Q_total < 0 ? log(10E-30) : log(Q_total));
+  lnC_central = log(C_central);
 }
 
 End.
