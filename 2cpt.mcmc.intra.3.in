@@ -10,7 +10,7 @@ Integrate (Lsodes, 1e-7, 1e-9, 1);
 #MCMC ("2cpt.mcmc.intra.1.out", "", "", 20000, 0, 10, 20000, 1111);
 #MCMC ("2cpt.mcmc.intra.1v.out", "2cpt.mcmc.intra.1.out", "", 20000, 1, 10, 20000, 1111); # validation
 #MCMC ("2cpt.mcmc.intra.2.out", "", "", 20000, 0, 10, 20000, 2222);
-MCMC ("2cpt.mcmc.intra.3.out", "", "", 20000, 0, 10, 20000, 3333);
+MCMC ("2cpt.mcmc.intra.3.out", "", "", 30000, 0, 10, 30000, 3333);
 #MCMC ("2cpt.mcmc.intra.4.out", "", "", 20000, 0, 10, 20000, 4444);
 
 

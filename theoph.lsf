@@ -10,8 +10,8 @@
 #BSUB -N                        ## Send email on job begin (-B) and end (-N)
 ##BSUB -P 082803364811          ## set account
 
-time ./mcsim.2cpt 2cpt.mcmc.inter.1.in & 
-time ./mcsim.2cpt 2cpt.mcmc.inter.2.in & 
-time ./mcsim.2cpt 2cpt.mcmc.inter.3.in & 
-time ./mcsim.2cpt 2cpt.mcmc.inter.4.in 
+time ./mcsim.2cpt 2cpt.mcmc.intra.1.in & 
+time ./mcsim.2cpt 2cpt.mcmc.intra.2.in & 
+time ./mcsim.2cpt 2cpt.mcmc.intra.3.in & 
+time ./mcsim.2cpt 2cpt.mcmc.intra.4.in 
 wait
