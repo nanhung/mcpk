@@ -72,26 +72,34 @@ lnKp2c = log(5);
 
 # Statistical parameters
 # ========================
+# Population mean
+M_lnKr; # factor 1.2
+M_lnKa; # factor 1.2
+M_lnKe; # factor 1.2
+M_lnV_central; # factor 1.2
+M_lnKc2p; # factor 1.2 
+M_lnKp2c; # factor 1.2
+
 # Variances inter individual
-Vr_Kr            = 0.182; # factor 1.2
-Vr_Ka            = 0.182; # factor 1.2
-Vr_Ke            = 0.182; # factor 1.2
-Vr_V_central     = 0.182; # factor 1.2
-Vr_Kc2p          = 0.182; # factor 1.2 
-Vr_Kp2c          = 0.182; # factor 1.2
+Vr_lnKr; # factor 1.2
+Vr_lnKa; # factor 1.2
+Vr_lnKe; # factor 1.2
+Vr_lnV_central; # factor 1.2
+Vr_lnKc2p; # factor 1.2 
+Vr_lnKp2c; # factor 1.2
 
 # Variances intra individual
-Va_Kr            = 0.182; # factor 1.2
-Va_Ka            = 0.182; # factor 1.2
-Va_Ke            = 0.182; # factor 1.2  
-Va_V_central     = 0.182; # factor 1.2
-Va_Kc2p          = 0.182; # factor 1.2
-Va_Kp2c          = 0.182; # factor 1.2
+Va_lnKr; # factor 1.2
+Va_lnKa; # factor 1.2
+Va_lnKe; # factor 1.2  
+Va_lnV_central; # factor 1.2
+Va_lnKc2p; # factor 1.2
+Va_lnKp2c; # factor 1.2
 
 #  Data Error (Ve_...)
 # ========================
 
-Ve_C_central = 1.3;
+Ve_lnC_central;
 
 
 Initialize {
