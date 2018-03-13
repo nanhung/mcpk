@@ -18,7 +18,7 @@ States = {A_lu,        # Quantity  (mg)
 Outputs = {A_total};    # Total quantity for mass balance
 
 
-Inputs = {IV_dose_rate};               # Quantity ingested (mg)
+Inputs = {IV_dose};               # Quantity ingested (mg)
 
 
 # Nominal parameter values
