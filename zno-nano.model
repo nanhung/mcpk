@@ -13,9 +13,19 @@ States = {A_lu,        # Quantity  (mg)
           A_ki,
           A_ven,
           A_art,
+          A_elim,
           A_ca};
 
-Outputs = {A_total};    # Total quantity for mass balance
+Outputs = {C_ven,
+           C_gi,
+           C_lu,
+           C_li,
+           C_ki,
+           C_sp,
+           C_br,
+           C_he,
+           C_ca,
+           A_total};    # Total quantity for mass balance
 
 
 Inputs = {IV_dose};               # Quantity ingested (mg)
@@ -54,7 +64,6 @@ Pct_M_ki = .016;
 Pct_M_ca = .706;
 
 # Percent blood flows to tissues
-Pct_Q_lu = 1.0;
 Pct_Q_gi = .188;
 Pct_Q_sp = .011;
 Pct_Q_li = .161;
@@ -124,7 +133,8 @@ Q_ca;
 Initialize {
 
 # Specify the compartment volumes (L)
-VTC  = V_ki+V_gi+V_li+V_art+V_ven+V_br+V_he+V_sp+V_lu+V_ca;
+VTC  = Pct_M_ki+Pct_M_gi+Pct_M_li+Pct_M_art+Pct_M_ven+
+        Pct_M_br+Pct_M_he+Pct_M_sp+Pct_M_lu+Pct_M_ca;
 V_ki = Pct_M_ki * BW / VTC; # Kidney
 V_gi = Pct_M_gi * BW / VTC; # GI
 V_li = Pct_M_li * BW / VTC; # Liver
@@ -140,7 +150,7 @@ V_ca = Pct_M_ca * BW / VTC; # Carcass
   QTC  = Pct_Q_sp + Pct_Q_li + Pct_Q_ki + Pct_Q_br + Pct_Q_gi + 
             Pct_Q_he + Pct_Q_ca;
     QC  = QCC * pow(BW,0.75);     
-    Q_lu = QCC; # Lung
+    Q_lu = QC; # Lung
     Q_sp = QC * Pct_Q_sp / QTC; # Spleen
     Q_ki = QC * Pct_Q_ki / QTC; # Kidney
     Q_gi = QC * Pct_Q_gi / QTC; # GI
@@ -187,20 +197,21 @@ Dynamics {
   
   IV_dose_rate = IV_dose / TChng;
   
-  dt (A_ven) = IV_dose_rate - (Q_sp*CV_sp + (Q_li + Q_gi)*CV_li + 
+  dt (A_ven) = IV_dose_rate + (Q_sp*CV_sp + (Q_li+Q_gi)*CV_li +
         Q_he*CV_he + Q_br*CV_br + Q_ki*CV_ki + Q_ca*CV_ca) - C_ven * QC;
  
   dt (A_art) = QC * (CV_lu - C_art); 
   dt (A_lu) = QC * (C_ven - CV_lu); 
  
-  dt (A_gi) = Q_gi * (C_ven - CV_gi) + C_li * (k_li / P_li) - C_gi * (k_gi / P_gi); 
-  dt (A_sp) = Q_sp * (C_ven - CV_sp);
-  dt (A_li) = (Q_li * C_ven + Q_gi * C_gi / P_gi - (Q_li + Q_gi) * C_li / P_li) / V_li - 
-                C_li * (k_li / P_li);
-  dt (A_he) = Q_he * (C_ven - CV_he);
-  dt (A_br) = Q_br * (C_ven - CV_br);
-  dt (A_ki) = Q_ki * (C_ven - CV_li) - C_ki * (k_ki / P_ki);  
-  dt (A_ca) = Q_ca * (C_ven - CV_ca);
+  dt (A_gi) = Q_gi * (C_art - CV_gi) - C_gi * (k_gi / P_gi); 
+  dt (A_sp) = Q_sp * (C_art - CV_sp);
+  dt (A_li) = Q_li * (C_art - CV_li) + Q_gi * (CV_gi- CV_li);
+  dt (A_he) = Q_he * (C_art - CV_he);
+  dt (A_br) = Q_br * (C_art - CV_br);
+  dt (A_ki) = Q_ki * (C_art - CV_ki) - C_ki * (k_ki / P_ki);  
+  dt (A_ca) = Q_ca * (C_art - CV_ca);
+  
+  dt (A_elim) = C_ki * (k_ki / P_ki) + C_gi * (k_gi / P_gi);
   
 } # End of Dynamics
 
@@ -212,9 +223,17 @@ Dynamics {
 #---------------------------------------------------------
 
 CalcOutputs {
-  A_total = A_art + A_ven + A_gi + A_sp + A_li + A_he + A_br + A_ki + A_ca + A_lu;
+  C_ven = (A_ven <= 0 ? 10E-30 : A_ven / V_ven);
+  C_gi = (A_ven <= 0 ? 10E-30 : A_gi / V_gi); 
+  C_sp = (A_ven <= 0 ? 10E-30 : A_sp / V_sp); 
+  C_li = (A_ven <= 0 ? 10E-30 : A_li / V_li); 
+  C_ki = (A_ven <= 0 ? 10E-30 : A_ki / V_ki); 
+  C_br = (A_ven <= 0 ? 10E-30 : A_br / V_br); 
+  C_lu = (A_ven <= 0 ? 10E-30 : A_lu / V_lu); 
+  C_he = (A_ven <= 0 ? 10E-30 : A_he / V_he); 
+  C_ca = (A_ven <= 0 ? 10E-30 : A_ca / V_ca);
+  A_total = A_art + A_ven + A_gi + A_sp + A_li + A_he + A_br + A_ki + A_ca + A_lu + A_elim;
 } # End of output calculation
-
 }
 
 End.

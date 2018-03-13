@@ -3,11 +3,9 @@ OutputFile ("massbalance.out");
 Integrate (Lsodes, 1e-9, 1e-10, 1);
 
 Simulation { # 1:
-
-    Period = 24.0; # period of the exposure/no exposure cycle (h)    
-    IV_dose = PerDose(1, Period, 0, 0.01);
-
-    PrintStep (A_total, 0, 96, 0.25);
+    TChng =  0.05 ;
+    IV_dose = NDoses(2, 100 0 , 0 0.05 );
+    PrintStep (A_total, C_ven, C_li, C_ki, C_gi, 0, 96, 0.25);
 }
 
 #Simulation { # 1:
