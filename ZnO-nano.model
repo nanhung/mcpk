@@ -1,0 +1,220 @@
+#------------------------------------------------------------------------------
+# ZnO-nano.model
+#------------------------------------------------------------------------------
+
+# States are quantities of PERC and metabolite formed, they can be output
+
+States = {A_lu,        # Quantity  (mg)
+          A_gi,        #   ...   in  (mg)
+          A_sp,        #   ...   in  (mg)
+          A_li,        #   ...   in  (mg)
+          A_he,
+          A_br,
+          A_ki,
+          A_ven,
+          A_art,
+          A_ca};
+
+Outputs = {A_total};    # Total quantity for mass balance
+
+
+Inputs = {IV_dose_rate};               # Quantity ingested (mg)
+
+
+# Nominal parameter values
+# ========================
+# Units:
+# Volumes: liter
+# Time:    minute
+# Vmax:    mg / minute
+# Km:      mg
+# Flows:   liter / minute
+
+# Exposure modeling
+# -----------------
+IV_dose; # intravenous input (mg)
+Period; # period of the exposure/no exposure cycle (h)
+TChng = 0.01;
+
+# Physiological and pharmacokinetic parameters
+# --------------------------------------------
+BW = 0.025; # kg
+QCC = 9.025; # L/hr
+
+# Percent mass of tissues with ranges shown
+Pct_M_art = .0243;
+Pct_M_ven = .0557;
+Pct_M_lu = .007;
+Pct_M_gi = .127;
+Pct_M_sp = .004;
+Pct_M_li = .059; 
+Pct_M_he = .007;
+Pct_M_br = .014;
+Pct_M_ki = .016;
+Pct_M_ca = .706;
+
+# Percent blood flows to tissues
+Pct_Q_lu = 1.0;
+Pct_Q_gi = .188;
+Pct_Q_sp = .011;
+Pct_Q_li = .161;
+Pct_Q_he = .060;
+Pct_Q_br = .030;
+Pct_Q_ki = .091;
+Pct_Q_ca = .459;
+
+# Tissue/blood partition coeficients
+P_li = 2.1;
+P_ki = 2.1;
+P_sp = 1.3;
+P_lu = 0.9;
+P_he = 0.2;
+P_gi = 1.7;
+P_br = 0.2;
+P_ca = 0.2;
+
+# Elimination rate
+k_gi = 0.07;
+k_li = 0.04;
+k_ki = 0.02;
+
+# Scaled parameters
+# -----------------
+# The following parameters are calculated from the above values in the Scale 
+# section before the start of each simulation.
+# They are left uninitialized here.
+
+VTC;
+V_lu;
+V_li;
+V_ki;
+V_sp;
+V_he;
+V_gi;
+V_br;
+V_ca;
+V_art;
+V_ven;
+
+QTC;
+QC;
+Q_lu;
+Q_sp;
+Q_li;
+Q_gi;
+Q_he;
+Q_br;
+Q_ki;
+Q_ca;
+
+#--------------------------------------------------------
+#                          Data Error (Ve_...)
+#--------------------------------------------------------
+
+
+
+#---------------------------------------------------------
+# Scale
+# Scale certain model parameters and resolve dependencies
+# between parameters. Generally the scaling involves a
+# change of units, or conversion from percentage to actual
+# units.
+#---------------------------------------------------------
+
+Initialize {
+
+# Specify the compartment volumes (L)
+VTC  = V_ki+V_gi+V_li+V_art+V_ven+V_br+V_he+V_sp+V_lu+V_ca;
+V_ki = Pct_M_ki * BW / VTC; # Kidney
+V_gi = Pct_M_gi * BW / VTC; # GI
+V_li = Pct_M_li * BW / VTC; # Liver
+V_art = Pct_M_art * BW / VTC; # Arterial
+V_ven = Pct_M_ven * BW / VTC; # Venous
+V_br = Pct_M_br * BW / VTC; # Brain
+V_he = Pct_M_he * BW / VTC; # Heart
+V_sp = Pct_M_sp * BW / VTC; # Spleen
+V_lu = Pct_M_lu * BW / VTC; # Lung
+V_ca = Pct_M_ca * BW / VTC; # Carcass
+
+# Cardiac Output and alveolar ventilation (L/hr) 
+  QTC  = Pct_Q_sp + Pct_Q_li + Pct_Q_ki + Pct_Q_br + Pct_Q_gi + 
+            Pct_Q_he + Pct_Q_ca;
+    QC  = QCC * pow(BW,0.75);     
+    Q_lu = QCC; # Lung
+    Q_sp = QC * Pct_Q_sp / QTC; # Spleen
+    Q_ki = QC * Pct_Q_ki / QTC; # Kidney
+    Q_gi = QC * Pct_Q_gi / QTC; # GI
+    Q_li = QC * Pct_Q_li / QTC; # Liver
+    Q_br = QC * Pct_Q_br / QTC; # Brain
+    Q_he = QC * Pct_Q_he / QTC; # Heart
+    Q_ca = QC * Pct_Q_ca / QTC; # Carcass
+
+} # End of model initialization
+
+
+#---------------------------------------------------------
+# Dynamics
+# Define the dynamics of the simulation. This section is
+# calculated with each integration step. It includes
+# specification of differential equations.
+#---------------------------------------------------------
+
+Dynamics {
+
+  # Concentration (mg/L)
+  C_ven = A_ven/V_ven;
+  C_art = A_art/V_art;
+  C_lu = A_lu/V_lu;
+  C_li = A_li/V_li;
+  C_sp = A_sp/V_sp;
+  C_gi = A_gi/V_gi;
+  C_he = A_he/V_he;
+  C_br = A_br/V_br;  
+  C_ki = A_ki/V_ki;
+  C_ca = A_ca/V_ca;
+
+  # Venous blood concentrations at the organ exit
+  CV_lu = C_lu / P_lu;
+  CV_gi = C_gi / P_gi;
+  CV_sp = C_sp / P_sp;
+  CV_li = C_li / P_li;
+  CV_he = C_he / P_he;
+  CV_br = C_br / P_br;
+  CV_ki = C_ki / P_ki;
+  CV_ca = C_ca / P_ca; 
+  
+  # Dynamics
+  
+  IV_dose_rate = IV_dose / TChng;
+  
+  dt (A_ven) = IV_dose_rate - (Q_sp*CV_sp + (Q_li + Q_gi)*CV_li + 
+        Q_he*CV_he + Q_br*CV_br + Q_ki*CV_ki + Q_ca*CV_ca) - C_ven * QC;
+ 
+  dt (A_art) = QC * (CV_lu - C_art); 
+  dt (A_lu) = QC * (C_ven - CV_lu); 
+ 
+  dt (A_gi) = Q_gi * (C_ven - CV_gi) + C_li * (k_li / P_li) - C_gi * (k_gi / P_gi); 
+  dt (A_sp) = Q_sp * (C_ven - CV_sp);
+  dt (A_li) = (Q_li * C_ven + Q_gi * C_gi / P_gi - (Q_li + Q_gi) * C_li / P_li) / V_li - 
+                C_li * (k_li / P_li);
+  dt (A_he) = Q_he * (C_ven - CV_he);
+  dt (A_br) = Q_br * (C_ven - CV_br);
+  dt (A_ki) = Q_ki * (C_ven - CV_li) - C_ki * (k_ki / P_ki);  
+  dt (A_ca) = Q_ca * (C_ven - CV_ca);
+  
+} # End of Dynamics
+
+
+#---------------------------------------------------------
+# CalcOutputs 
+# The following outputs are only calculated just before values
+# are saved.  They are not calculated with each integration step.
+#---------------------------------------------------------
+
+CalcOutputs {
+  A_total = A_art + A_ven + A_gi + A_sp + A_li + A_he + A_br + A_ki + A_ca + A_lu;
+} # End of output calculation
+
+}
+
+End.
