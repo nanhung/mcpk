@@ -4,8 +4,8 @@ Integrate (Lsodes, 1e-9, 1e-10, 1);
 
 Simulation { # 1:
     TChng =  0.05 ;
-    IV_dose = NDoses(2, 100 0 , 0 0.05 );
-    PrintStep (A_total, C_ven, C_li, C_ki, C_gi, 0, 96, 0.25);
+    IV_dose = NDoses(2, 0.12 0 , 0 0.05 );
+    PrintStep (A_total, A_fec, 0, 96, 0.25);
 }
 
 #Simulation { # 1:
