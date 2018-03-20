@@ -3,9 +3,11 @@ OutputFile ("massbalance.out");
 Integrate (Lsodes, 1e-9, 1e-10, 1);
 
 Simulation { # 1:
-    TChng =  0.05 ;
-    IV_dose = NDoses(2, 0.12 0 , 0 0.05 );
-    PrintStep (A_total, A_fec, 0, 96, 0.25);
+    Pct_M_ven = .0557;
+
+    TChng =  0.01 ;
+    IV_dose = NDoses(2, 0.12 0 , 0 0.01 );
+    PrintStep (A_total, A_ven, 0, 96, 0.25);
 }
 
 #Simulation { # 1:

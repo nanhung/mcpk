@@ -9,14 +9,13 @@
 #TCA and DCA have background subtracted
 
 Integrate(Lsodes, 1e-5, 0.3e-8 , 1)
-#MCMC ("tce200.c31.out","","", 50000, 0, 10, 50000, 1111);
-#MCMC ("tce200.c31v.out","tce200.c31v.out","", 50000, 1, 1, 50000, 1111);
+MCMC ("tce200.c31.out","","", 50000, 0, 10, 50000, 1111);
 #MCMC ("tce200.c32.out","","", 50000, 0, 10, 50000, 2222);
 #MCMC ("tce200.c33.out","","", 50000, 0, 10, 50000, 3333);
-MCMC ("tce200.c34.out","","", 50000, 0, 10, 50000, 4444);
+#MCMC ("tce200.c34.out","","", 50000, 0, 10, 50000, 4444);
+#MCMC ("tce200.c34v.out","tce200.c34.out","", 50000, 1, 1, 50000, 4444);
 #MCMC ("tce200.c35.out","","", 50000, 0, 10, 50000, 5555);
 #MCMC ("tce200.c36.out","","", 50000, 0, 10, 50000, 6666);
-
 
 # Fix following parameters at baseline values
 # All physiological parameters except QCC and VPR (DResp is not physiological)
@@ -26,8 +25,6 @@ MCMC ("tce200.c34.out","","", 50000, 0, 10, 50000, 4444);
 # Remove kidney GSH conjugation (not identifiable)
 # Shifted prior distribution for GSH conjugation
 # Non-B6C3F1 strain data in their own group
-
-# narrow down PC_TCOG range ? Work!
 
 Level { #Population level
 

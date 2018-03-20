@@ -15,15 +15,15 @@ States = {A_lu,        # Amount  (mg)
           A_fec,
           A_ca};
 
-Outputs = {C_ven,
-           C_gi,
-           C_lu,
-           C_li,
-           C_ki,
-           C_sp,
-           C_br,
-           C_he,
-           C_ca,
+Outputs = {lnC_ven,
+           lnC_gi,
+           lnC_lu,
+           lnC_li,
+           lnC_ki,
+           lnC_sp,
+           lnC_br,
+           lnC_he,
+           lnC_ca,
            A_total};    # Total quantity for mass balance
 
 
@@ -188,15 +188,15 @@ V_lnk_ki;
 # Data Error (Ve_...)
 #---------------------
 
-Ve_C_ven; 
-Ve_C_li; 
-Ve_C_gi; 
-Ve_C_lu;
-Ve_C_ki;
-Ve_C_sp;
-Ve_C_br;
-Ve_C_he;
-Ve_C_ca;
+Ve_lnC_ven; 
+Ve_lnC_li; 
+Ve_lnC_gi; 
+Ve_lnC_lu;
+Ve_lnC_ki;
+Ve_lnC_sp;
+Ve_lnC_br;
+Ve_lnC_he;
+Ve_lnC_ca;
 
 Initialize {
 
@@ -229,6 +229,7 @@ V_br = Pct_M_br * BW;
 V_he = Pct_M_he * BW; 
 V_sp = Pct_M_sp * BW; 
 V_lu = Pct_M_lu * BW; 
+V_ca = Pct_M_lu * BW;
 V_ca = (1 - (Pct_M_ki + Pct_M_gi + Pct_M_li + Pct_M_art + Pct_M_ven + 
         Pct_M_br + Pct_M_he + Pct_M_sp + Pct_M_lu)) * BW;
 
@@ -310,15 +311,15 @@ Dynamics {
 #---------------------------------------------------------
 
 CalcOutputs {
-  C_ven = (A_ven <= 0 ? 10E-30 : A_ven / V_ven);
-  C_gi = (A_gi <= 0 ? 10E-30 : A_gi / V_gi); 
-  C_sp = (A_sp <= 0 ? 10E-30 : A_sp / V_sp); 
-  C_li = (A_li <= 0 ? 10E-30 : A_li / V_li); 
-  C_ki = (A_ki <= 0 ? 10E-30 : A_ki / V_ki); 
-  C_br = (A_br <= 0 ? 10E-30 : A_br / V_br); 
-  C_lu = (A_lu <= 0 ? 10E-30 : A_lu / V_lu); 
-  C_he = (A_he <= 0 ? 10E-30 : A_he / V_he); 
-  C_ca = (A_ca <= 0 ? 10E-30 : A_ca / V_ca);
+  lnC_ven = (A_ven < 0 ? 10E-30 : log(A_ven / V_ven));
+  lnC_lu = (A_lu < 0 ? 10E-30 : log(A_lu / V_lu)); 
+  lnC_gi = (A_gi < 0 ? 10E-30 : log(A_gi / V_gi)); 
+  lnC_sp = (A_sp < 0 ? 10E-30 : log(A_sp / V_sp)); 
+  lnC_li = (A_li < 0 ? 10E-30 : log(A_li / V_li)); 
+  lnC_ki = (A_ki < 0 ? 10E-30 : log(A_ki / V_ki)); 
+  lnC_br = (A_br < 0 ? 10E-30 : log(A_br / V_br)); 
+  lnC_he = (A_he < 0 ? 10E-30 : log(A_he / V_he)); 
+  lnC_ca = (A_ca < 0 ? 10E-30 : log(A_ca / V_ca));
   A_total = A_art + A_ven + A_gi + A_sp + A_li + A_he + A_br + A_ki + A_ca + A_lu + A_urn + A_fec;
 } # End of output calculation
 
