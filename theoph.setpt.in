@@ -1,0 +1,123 @@
+Integrate(Lsodes, 1e-5, 0.3e-8 , 1)
+
+SetPoints ("theoph.setpt.out",
+"2cpt.setpt.dat", 
+0,
+M_lnKr
+M_lnKa
+M_lnV_central
+M_lnKe
+M_lnKc2p
+M_lnKp2c
+Vr_lnKr
+Vr_lnKa
+Vr_lnV_central
+Vr_lnKe
+Vr_lnKc2p
+Vr_lnKp2c
+Ve_lnC_central
+);
+
+Distrib (lnKr,         TruncNormal_v, M_lnKr,        Vr_lnKr,          -3.0,  -1.0);
+Distrib (lnKa,         TruncNormal_v, M_lnKa,        Vr_lnKa,          1.0,  2.3);
+Distrib (lnV_central,  TruncNormal_v, M_lnV_central, Vr_lnV_central,   2.06, 5.06);
+Distrib (lnKe,         TruncNormal_v, M_lnKe,        Vr_lnKe,          -2.68,  -0.68);
+Distrib (lnKc2p,       TruncNormal_v, M_lnKc2p,      Vr_lnKc2p,        1.41,  3.41);
+Distrib (lnKp2c,       TruncNormal_v, M_lnKp2c,      Vr_lnKp2c,        0.61,  2.61);
+
+Period = 96.0; # period of the exposure/no exposure cycle (h)
+
+Experiment { # Subject A,
+
+    PO_dose = PerDose(1776.056, Period, 0, 0.01);
+
+    Print (lnC_central, 0.001 0.25  0.57  1.12  2.02  3.82  5.10  7.03  9.05 12.12 24.37);
+}
+
+Simulation { # B
+
+    PO_dose = PerDose(1776.6, Period, 0, 0.01);
+
+Print (lnC_central 0.001  0.37  0.77  1.02  2.05  3.55  5.05  7.08  9.38 12.10 23.70);
+}
+
+Simulation { # C
+
+    PO_dose = PerDose(1774.99, Period, 0, 0.01);
+
+Print (lnC_central 0.001  0.25  0.50  0.98  1.98  3.60  5.02  7.03  9.03 12.12 24.08);
+}
+
+Simulation { # D
+
+    PO_dose = PerDose(1779.7, Period, 0, 0.01);
+
+Print (lnC_central 0.001  0.25  0.50  1.00  2.00  3.52  5.07  7.07  9.03 12.05 24.15);
+}
+
+Simulation { # E
+
+    PO_dose = PerDose(1768.108, Period, 0, 0.01);
+
+Print (lnC_central 0.001  0.27  0.52  1.00  1.92  3.50  5.02  7.03  9.00 12.00 24.30);
+}
+
+Simulation { # F
+
+    PO_dose = PerDose(1772.576, Period, 0, 0.01);
+
+Print (lnC_central 0.001  0.27  0.58  1.02  2.02  3.62  5.08  7.07  9.00 12.15 24.17);
+}
+
+Simulation { # G
+
+    PO_dose = PerDose(1775.4, Period, 0, 0.01);
+Print (lnC_central 0.001  0.35  0.60  1.07  2.13  3.50  5.02  7.02  9.02 11.98 24.65);
+}
+
+Simulation { # H
+
+    PO_dose = PerDose(1776.6, Period, 0, 0.01);
+
+Print (lnC_central 0.001  0.30  0.52  1.00  2.02  3.50  5.02  7.02  9.10 12.00 24.35);
+}
+
+Simulation { # I
+
+    PO_dose = PerDose(1776.1, Period, 0, 0.01);
+
+Print (lnC_central 0.001  0.27  0.58  1.15  2.03  3.57  5.00  7.00  9.22 12.10 23.85);
+}
+
+Simulation { # J
+
+    PO_dose = PerDose(1774.824, Period, 0, 0.01);
+
+Print (lnC_central 0.001  0.25  0.50  1.02  2.02  3.48  5.00  6.98  9.00 12.05 24.22);
+}
+
+Simulation { # K
+
+    PO_dose = PerDose(1772.576, Period, 0, 0.01);
+
+Print (lnC_central 0.001  0.25  0.52  0.98  2.02  3.53  5.05  7.15  9.07 12.10 24.12);
+}
+
+Simulation { # L
+
+    PO_dose = PerDose(1486.596, Period, 0, 0.01);
+
+Print (lnC_central 0.001  0.30  0.63  1.05  2.02  3.53  5.02  7.17  8.80 11.60 24.43);
+
+}
+
+Simulation { # PRSTU high-dose
+
+    G_immediate = 0; # immediate release, dissolved (default)
+    G_delayed = 1;   # delayed release,   dissolved
+    
+    Period = 12.0; # period of the exposure/no exposure cycle (h)
+    
+    PO_dose = PerDose(4218.24, Period, 0, 0.01);
+    PrintStep (lnC_central 0.25, 96.25, 1);
+}    
