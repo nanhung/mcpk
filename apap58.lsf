@@ -3,6 +3,7 @@
 #BSUB -W 120:00			    ## sets to 24  hours the job's runtime wall-clock limit.
 #BSUB -n 10  	            ## assigns 10 cores for execution.
 #BSUB -R "span[ptile=1]"    ## request 1 core per node.
+#BSUB -R "rusage[mem=2048]"     ## reserves 2GB per process/CPU for the job 
 #BSUB -M 2048			    ## sets to 2048MB as the per process enforceable memory limit.
 #BSUB -o apap58.0404.%J		## directs the job's standard output (%J is jobid)
 ##BSUB -P 082803364811      ## set account
