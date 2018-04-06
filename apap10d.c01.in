@@ -1,7 +1,7 @@
 Integrate(Lsodes, 1.0e-5, 3.09e-7, 1);
 MCMC("apap10d.c01.out", 
 "", "", 
-300000, 0, 300, 300000, 1111); # Full calibration
+10, 0, 1, 10, 1111); # Full calibration
 
 
 Level { # Population Level
