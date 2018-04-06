@@ -1,7 +1,7 @@
 #BSUB -J mcsim_1	    	 ## sets the job name
 #BSUB -L /bin/bash		     ## uses the bash login shell to initialize the job's execution environment.
-#BSUB -W 72:00			     ## sets to 24  hours the job's runtime wall-clock limit.
-#BSUB -n 10      	         ## assigns 4 cores for execution.
+#BSUB -W 1:00			     ## sets to 24  hours the job's runtime wall-clock limit.
+#BSUB -n 5      	         ## assigns 4 cores for execution.
 #BSUB -R "span[ptile=1]"     ## request 1 core per node.
 #BSUB -R "rusage[mem=2048]"	 ## reserves 64MB per process/CPU for the job 
 #BSUB -M 2048			     ## sets to 64MB as the per process enforceable memory limit.
@@ -10,11 +10,11 @@
 #BSUB -u nh@nanhung.pw       ## send all emails to email_address
 #BSUB -N                     ## Send email on job begin (-B) and end (-N)
 
-time ./mcsim.apap.pbpk_v2 apap21.c00.in & 
-time ./mcsim.apap.pbpk_v2 apap21.c01.in & 
-time ./mcsim.apap.pbpk_v2 apap21.c02.in & 
-time ./mcsim.apap.pbpk_v2 apap21.c03.in &
-time ./mcsim.apap.pbpk_v2 apap21.c04.in & 
+##time ./mcsim.apap.pbpk_v2 apap21.c00.in & 
+##time ./mcsim.apap.pbpk_v2 apap21.c01.in & 
+##time ./mcsim.apap.pbpk_v2 apap21.c02.in & 
+##time ./mcsim.apap.pbpk_v2 apap21.c03.in &
+##time ./mcsim.apap.pbpk_v2 apap21.c04.in & 
 time ./mcsim.apap.pbpk_v2 apap21.c05.in & 
 time ./mcsim.apap.pbpk_v2 apap21.c06.in & 
 time ./mcsim.apap.pbpk_v2 apap21.c07.in & 
