@@ -5,20 +5,20 @@
 #BSUB -R "span[ptile=1]"     ## request 1 core per node.
 #BSUB -R "rusage[mem=2048]"	 ## reserves 64MB per process/CPU for the job 
 #BSUB -M 2048			     ## sets to 64MB as the per process enforceable memory limit.
-#BSUB -o apap21.0408.%J      ## directs the job's standard output (%J is jobid)
+#BSUB -o apap20d.0408.%J      ## directs the job's standard output (%J is jobid)
 ##BSUB -P 082803364811       ## set account
 #BSUB -u mail@nanhung.pw     ## send all emails to email_address
 #BSUB -N                     ## Send email on job begin (-B) and end (-N)
 
-time ./mcsim.apap.pbpk_v2 apap20.c00.in & 
-time ./mcsim.apap.pbpk_v2 apap20.c01.in & 
-time ./mcsim.apap.pbpk_v2 apap20.c02.in & 
-time ./mcsim.apap.pbpk_v2 apap20.c03.in &
-time ./mcsim.apap.pbpk_v2 apap20.c04.in & 
-time ./mcsim.apap.pbpk_v2 apap20.c05.in & 
-time ./mcsim.apap.pbpk_v2 apap20.c06.in & 
-time ./mcsim.apap.pbpk_v2 apap20.c07.in & 
-time ./mcsim.apap.pbpk_v2 apap20.c08.in & 
-time ./mcsim.apap.pbpk_v2 apap20.c09.in 
+time ./mcsim.apap.pbpk_v2 apap20d.c00.in & 
+time ./mcsim.apap.pbpk_v2 apap20d.c01.in & 
+time ./mcsim.apap.pbpk_v2 apap20d.c02.in & 
+time ./mcsim.apap.pbpk_v2 apap20d.c03.in &
+time ./mcsim.apap.pbpk_v2 apap20d.c04.in & 
+time ./mcsim.apap.pbpk_v2 apap20d.c05.in & 
+time ./mcsim.apap.pbpk_v2 apap20d.c06.in & 
+time ./mcsim.apap.pbpk_v2 apap20d.c07.in & 
+time ./mcsim.apap.pbpk_v2 apap20d.c08.in & 
+time ./mcsim.apap.pbpk_v2 apap20d.c09.in 
 
 wait
