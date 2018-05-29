@@ -1,0 +1,29 @@
+
+Testing mod on perc.model
+-PASSED-
+
+Testing makemcsim on perc.model
+Compiling mcsim.perc...
+-PASSED-
+
+Testing Lsodes with perc.lsodes.in ...
+-PASSED-
+
+Check that file examples/perc/sim.out contains reasonable output
+(compare to perc.lsodes.out, small rounding errors can be ignored)
+
+
+Testing MonteCarlo with perc.mtc.in ...
+-PASSED-
+
+Check that file examples/perc/mtcsim.out contains reasonable output
+(compare to perc.mtc.out, random sampling may differ)
+
+
+Testing SetPoints with perc.setpoint.in ...
+-PASSED-
+
+Check that file examples/perc/setsim.out contains reasonable output
+(compare to perc.setpoint.out, small rounding errors can be ignored)
+
+PASS examples/perc/Makefile (exit status: 0)
