@@ -1,6 +1,6 @@
 Integrate(Lsodes, 1e-7, 1e-11, 1);
-MCMC ("acat2cpt30.c01-2.out",  # Immediate dissolve
-"acat2cpt30.c01.out","",
+MCMC ("acat2cpt30.c01.out",  # Immediate dissolve
+"","",
 100000, 0, 20, 100000, 1111); 
 
 Level { # Population Level
@@ -164,7 +164,7 @@ Level { # Subject 1
 Simulation { #Sub1 Exp1
 
 BDM = 79.6;
-Oral_dose_rate = NDoses(2, 17761 0, 0 0.1);
+Oral_dose_rate = NDoses(2, 17761, 0, 0, 0.1);
 
 Print(lnC_central, 0.25  0.57  1.12  2.02  3.82  5.10  7.03  9.05 12.12 24.37);
 Data(lnC_central, 2.75766  3.59637  4.06523  3.98185  3.86329  3.83731  3.72475  3.64393  3.49556  2.90170);
@@ -176,7 +176,7 @@ Level { # Subject 2
 Simulation { # Sub2, Exp1
 
 BDM = 58.2;
-Oral_dose_rate = NDoses(2, 17766 0, 0 0.1);
+Oral_dose_rate = NDoses(2, 17766, 0, 0, 0.1);
 
 Print(lnC_central, 0.37  0.77  1.02  2.05  3.55  5.05  7.08  9.38 12.10 23.70);
 Data(lnC_central, 2.77511  3.36635  3.57171  3.77182  4.03722  3.93088  3.79579  3.67957  3.45081  2.59762);
@@ -188,7 +188,7 @@ Level {	# Subject 3
 Simulation { # Sub3, Exp1
 
 BDM = 65;
-Oral_dose_rate = NDoses(2, 17749.9 0, 0 0.1);
+Oral_dose_rate = NDoses(2, 17749.9, 0, 0, 0.1);
 
 Print(lnC_central, 0.25  0.50  0.98  1.98  3.60  5.02  7.03  9.03 12.12 24.08);
 Data(lnC_central, 3.29489  3.69348  3.79330  3.63225  3.48371  3.36635  3.20676  3.00033  2.70340  1.56303);
@@ -200,7 +200,7 @@ Level {	# Subject 4
 Simulation { # Sub4, Exp1
 
 BDM = 60.5;
-Oral_dose_rate = NDoses(2, 17797 0, 0 0.1);
+Oral_dose_rate = NDoses(2, 17797, 0, 0, 0.1);
 
 Print(lnC_central, 0.25  0.50  1.00  2.00  3.52  5.07  7.07  9.03 12.05 24.15);
 Data(lnC_central, 1.93700  3.09010  3.77054  3.98804  3.99112  3.86212  3.59941  3.52378  3.23337  1.87086);
@@ -211,7 +211,7 @@ Level {	# Subject 5
 Simulation { # Sub5, Exp1
 
 BDM = 72.4;
-Oral_dose_rate = NDoses(2, 17681.08 0, 0 0.1);
+Oral_dose_rate = NDoses(2, 17681.08, 0, 0, 0.1);
 
 Print(lnC_central, 0.27  0.52  1.00  1.92  3.50  5.02  7.03  9.00 12.00 24.30);
 Data(lnC_central, 2.25618  3.78198  3.83131  3.83372  3.63810  3.51886  3.40025  3.22898  2.81579  1.60849);
@@ -223,7 +223,7 @@ Level {	# Subject 6
 Simulation { # Sub6, Exp1
 	
 BDM = 70.5;
-Oral_dose_rate = NDoses(2, 17725.76 0, 0 0.1);
+Oral_dose_rate = NDoses(2, 17725.76, 0, 0, 0.1);
 
 Print(lnC_central, 0.27  0.58  1.02  2.02  3.62  5.08  7.07  9.00 12.15 24.17);
 Data(lnC_central, 3.19546  3.64538  3.81799  3.76798  3.72876  3.53840  3.38156  3.30309  3.02219  1.76264);
@@ -235,7 +235,7 @@ Level {	# Subject 7
 Simulation { # Sub6, Exp7
 
 BDM = 72.7;
-Oral_dose_rate = NDoses(2, 17754 0, 0 0.1);
+Oral_dose_rate = NDoses(2, 17754, 0, 0, 0.1);
 
 
 Print(lnC_central, 0.35  0.60  1.07  2.13  3.50  5.02  7.02  9.02 11.98 24.65);
@@ -248,7 +248,7 @@ Level {	# Subject 8
 Simulation { # Sub6, Exp8
 
 BDM = 54.6;
-Oral_dose_rate = NDoses(2, 17766 0, 0 0.1);
+Oral_dose_rate = NDoses(2, 17766, 0, 0, 0.1);
 
 Print(lnC_central, 0.30  0.52  1.00  2.02  3.50  5.02  7.02  9.10 12.00 24.35);
 Data(lnC_central, 2.41695  3.44196  4.14747  3.94709  3.88176  3.73673  3.67254  3.48881  3.18862  2.16493);
@@ -260,7 +260,7 @@ Level {	# Subject 9
 Simulation { # Sub6, Exp9
 
 BDM = 80;
-Oral_dose_rate = NDoses(2, 17761 0, 0 0.1);
+Oral_dose_rate = NDoses(2, 17761, 0, 0, 0.1);
 
 Print(lnC_central, 0.27  0.58  1.15  2.03  3.57  5.00  7.00  9.22 12.10 23.85);
 Data(lnC_central, 1.96850  2.83878  3.57638  3.55757  3.42404  3.31122  3.10514  2.95512  2.73631  1.63047);
@@ -272,7 +272,7 @@ Level {	# Subject 10
 Simulation { # Sub6, Exp10
 
 BDM = 64.6;
-Oral_dose_rate = NDoses(2, 17748.24 0, 0 0.1);
+Oral_dose_rate = NDoses(2, 17748.24, 0, 0, 0.1);
 
 Print(lnC_central, 0.25  0.50  1.02  2.02  3.48  5.00  6.98  9.00 12.05 24.22);
 Data(lnC_central, 1.55134  2.56827  3.32728  3.59789  3.67254  3.60997  3.37208  3.19318  2.97515  1.85362);
@@ -284,7 +284,7 @@ Level {	# Subject 11
 Simulation { # Sub6, Exp11
 
 BDM = 70.5;
-Oral_dose_rate = NDoses(2, 17725.76 0, 0 0.1);
+Oral_dose_rate = NDoses(2, 17725.76, 0, 0, 0.1);
 
 Print(lnC_central, 0.25  0.52  0.98  2.02  3.53  5.05  7.15  9.07 12.10 24.12);
 Data(lnC_central, 2.82900  2.82900  3.70310  3.73673  3.59941  3.48541  3.26778  3.23337  2.81247  1.93700);
@@ -296,7 +296,7 @@ Level {	# Subject 12
 Simulation { # Sub6, Exp12
 
 BDM = 86.4;
-Oral_dose_rate = NDoses(2, 14865.96 0, 0 0.1);
+Oral_dose_rate = NDoses(2, 14865.96, 0, 0, 0.1);
 
 Print(lnC_central, 0.30  0.63  1.05  2.02  3.53  5.02  7.17  8.80 11.60 24.43);
 Data(lnC_central, 3.71127  3.91441  3.67957  3.55915  3.44728  3.44904  3.15842  3.12728  2.86443  1.82718);
