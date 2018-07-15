@@ -5,7 +5,7 @@
 #BSUB -R "span[ptile=4]"        ## Request 4 core per node.
 #BSUB -R "rusage[mem=2048]"     ## reserves 2GB per process/CPU for the job 
 #BSUB -M 2048		            ## sets to 2GB as the per process enforceable memory limit.
-#BSUB -o tce300.0709.%J		    ## directs the job's standard output (%J is jobid)
+#BSUB -o tce300.0714.%J		    ## directs the job's standard output (%J is jobid)
 #BSUB -u nh@nanhung.pw          ## send all emails to email_address
 #BSUB -N                        ## Send email on job begin (-B) and end (-N)
 ##BSUB -P 082803364811          ## set account
