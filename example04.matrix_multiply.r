@@ -15,6 +15,10 @@ end.time <- Sys.time()
 time.taken <- end.time - start.time
 time.taken
 
+# check size
+dim(mymult)
+object.size(mymult)
+
 # exit the r program 
 # important when running as script)
 q()
