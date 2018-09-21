@@ -1803,7 +1803,9 @@ Initialize {
 	# All priors are diffuse (log)uniform distributions
 	# transfer from stomach centered on 1.4/hr, range up or down 100-fold,
 	# 	based on human stomach half-time of 0.5 hr.
-        kTSD = exp(lnkTSD);
+    kTSD = exp(lnkTSD);
+    #kTSD = kAS * exp(lnkTSD-lnkAS);
+
 	# stomach absorption centered on 1.4/hr, range up or down 1000-fold
 	kAS = exp(lnkAS);
 	# assume no fecal excretion -- 100% absorption
