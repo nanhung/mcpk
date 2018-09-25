@@ -1,18 +1,18 @@
 #BSUB -J mcsim_1		        ## sets the job name
 #BSUB -L /bin/bash		        ## uses the bash login shell to initialize the job's execution environment.
-#BSUB -W 120:00  	            ## sets to 120 hours the job's runtime wall-clock limit.
-#BSUB -n 4			            ## assigns 4 cores for execution.
-#BSUB -R "span[ptile=4]"        ## Request 4 core per node.
+#BSUB -W 160:00  	            ## sets to 120 hours the job's runtime wall-clock limit.
+#BSUB -n 5			            ## assigns 4+1 cores for execution.
+#BSUB -R "span[ptile=5]"        ## Request 4+1 core per node.
 #BSUB -R "rusage[mem=1024]"     ## reserves 1GB per process/CPU for the job 
 #BSUB -M 1024		            ## sets to 1GB as the per process enforceable memory limit.
-#BSUB -o tce300.0921.%J		    ## directs the job's standard output (%J is jobid)
+#BSUB -o tce300.0925.%J		    ## directs the job's standard output (%J is jobid)
 #BSUB -u d99622005@gmail.com    ## send all emails to email_address
 #BSUB -N                        ## Send email on job begin (-B) and end (-N)
 #BSUB -P 082803367862           ## set account
 
-time ./mcsim.tce300 tce300.c20-1.in & 
-time ./mcsim.tce300 tce300.c20-2.in & 
-time ./mcsim.tce300 tce300.c20-3.in & 
-time ./mcsim.tce300 tce300.c20-4.in 
+time ./mcsim.tce300 tce300.c81.in & 
+time ./mcsim.tce300 tce300.c82.in & 
+time ./mcsim.tce300 tce300.c83.in & 
+time ./mcsim.tce300 tce300.c84.in 
 
 wait
