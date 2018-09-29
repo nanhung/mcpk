@@ -1800,14 +1800,14 @@ Initialize {
 	exp(lnPeffDCA) * (VBod + VLiv);#(v2.0)
 
 # Absorption Rate Constants (/hr)
+	# stomach absorption centered on 1.4/hr, range up or down 1000-fold
+	kAS = exp(lnkAS);
+	
 	# All priors are diffuse (log)uniform distributions
 	# transfer from stomach centered on 1.4/hr, range up or down 100-fold,
 	# 	based on human stomach half-time of 0.5 hr.
-    kTSD = exp(lnkTSD);
-    #kTSD = kAS * exp(lnkTSD-lnkAS);
+    kTSD = kAS * exp(lnkTSD);
 
-	# stomach absorption centered on 1.4/hr, range up or down 1000-fold
-	kAS = exp(lnkAS);
 	# assume no fecal excretion -- 100% absorption
 	kTD = 0.0 * exp(lnkTD);
 	# intestinal absorption centered on 0.75/hr, range up or down 
