@@ -1,10 +1,10 @@
 # Revised the prior for some parameters according to the previous result (Chiu et al. 2004)
 
 Integrate(Lsodes, 1e-5, 0.3e-8 , 1)
-MCMC ("tce300.c81.out", "","", 40000, 0, 10, 40000, 5555);
-#MCMC ("tce300.c82.out", "","", 40000, 0, 10, 40000, 6666);
-#MCMC ("tce300.c83.out", "","", 40000, 0, 10, 40000, 7777);
-#MCMC ("tce300.c84.out", "","", 40000, 0, 10, 40000, 8888);
+MCMC ("tce300.c10-1x.out", "tce300.c10-1.out","", 55000, 0, 10, 55000, 1122);
+#MCMC ("tce300.c10-2x.out", "tce300.c10-2.out","", 55000, 0, 10, 55000, 2222);
+#MCMC ("tce300.c10-3x.out", "tce300.c10-3.out","", 55000, 0, 10, 55000, 3333);
+#MCMC ("tce300.c10-4x.out", "tce300.c10-4.out","", 55000, 0, 10, 55000, 4444);
 
 #MCMC ("tce300.c71-1.out", "tce300.c71.out","", 10000, 0, 10, 10000, 1122);
 #MCMC ("tce300.c72-1.out", "tce300.c72.out","", 10000, 0, 10, 10000, 2222);
