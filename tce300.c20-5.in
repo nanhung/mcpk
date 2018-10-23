@@ -1,9 +1,9 @@
 Integrate(Lsodes, 1e-5, 0.3e-8 , 1)
 
-MCMC ("tce300.c20-5x.out", "tce300.c20-5.out","", 50000, 0, 10, 50000, 1122);
-#MCMC ("tce300.c20-6x.out", "tce300.c20-6.out","", 50000, 0, 10, 50000, 2222);
-#MCMC ("tce300.c20-7x.out", "tce300.c20-7.out","", 50000, 0, 10, 50000, 3333);
-#MCMC ("tce300.c20-8x.out", "tce300.c20-8.out","", 50000, 0, 10, 50000, 4444);
+MCMC ("tce300.c20-5xx.out", "tce300.c20-5.out","", 55000, 0, 10, 55000, 1122);
+#MCMC ("tce300.c20-6xx.out", "tce300.c20-6.out","", 55000, 0, 10, 55000, 2222);
+#MCMC ("tce300.c20-7xx.out", "tce300.c20-7.out","", 55000, 0, 10, 55000, 3333);
+#MCMC ("tce300.c20-8xx.out", "tce300.c20-8.out","", 55000, 0, 10, 55000, 4444);
 
 Level { #Population level
 
@@ -97,9 +97,9 @@ Distrib ( M_lnPKidNDCVCC, TruncNormal,0.3937,0.4401,-0.9265,1.7139);
 Distrib ( M_lnPBrnNDCVCC, TruncNormal,0.4859,0.4403,-0.8349,1.8067);
 Distrib ( M_lnPLngNDCVCC, TruncNormal,0.4012,0.4451,-0.9339,1.7364);
 
-Distrib ( M_lnkTSD, TruncNormal,1.0475,1.7955,-4.3388,6.4339);
-Distrib ( M_lnkAS, TruncNormal,-0.2078,1.9796,-6.1466,5.731);
-Distrib ( M_lnkAD, TruncNormal,-2.1634,1.9672,-8.0649,3.7381);
+Distrib ( M_lnkTSD.1., TruncNormal,1.2881,1.2,-1.1119,3.6881);
+Distrib ( M_lnkAS.1., TruncNormal,0.1717,1.2,-2.2283,2.5717);
+Distrib ( M_lnkAD.1., TruncNormal,-2.2579,1.2,-4.6579,0.1421);
 
 Distrib ( M_lnVMaxC, TruncNormal,-0.5238,0.5276,-2.1065,1.0589);
 #Distrib ( M_lnFracTCAC, TruncNormal,-0.258,0.4502,-1.6087,1.0927);
