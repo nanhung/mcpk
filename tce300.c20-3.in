@@ -1,9 +1,9 @@
 Integrate(Lsodes, 1e-5, 0.3e-8 , 1)
 
-#MCMC ("tce300.c20-1x.out", "tce300.c20-1.out","", 55000, 0, 10, 55000, 1122);
-#MCMC ("tce300.c20-2x.out", "tce300.c20-2.out","", 55000, 0, 10, 55000, 2222);
-MCMC ("tce300.c20-3x.out", "tce300.c20-3.out","", 55000, 0, 10, 55000, 3333);
-#MCMC ("tce300.c20-4x.out", "tce300.c20-4.out","", 55000, 0, 10, 55000, 4444);
+#MCMC ("tce300.c20-1.out", "","", 50000, 0, 10, 50000, 1111);
+#MCMC ("tce300.c20-2.out", "","", 50000, 0, 10, 50000, 2222);
+MCMC ("tce300.c20-3.out", "","", 50000, 0, 10, 50000, 3333);
+#MCMC ("tce300.c20-4.out", "","", 50000, 0, 10, 50000, 4444);
 
 Level { #Population level
 
@@ -57,22 +57,20 @@ Species = 3;
 	Distrib( Ve_CBrnNDCVCmol , LogUniform , 0.01 , 3.3 ); #(v300)
 	Distrib( Ve_CLngNDCVCmol , LogUniform , 0.01 , 3.3 ); #(v300)
 
-###### POPULATION MEANS (28)
+###### POPULATION MEANS (24)
 
 #Distrib(M_lnQCC, TruncNormal,0.2661,0.1809,-0.2768,0.8089);
-#Distrib(M_lnVPRC, TruncNormal,-0.2351,0.1773,-0.767,0.2967);
-						
-#Distrib(M_lnPBC, TruncNormal,-0.1903,0.1865,-0.7498,0.3692);
+
 #Distrib ( M_lnPLivC, TruncNormal,0.3682,0.298,-0.5259,1.2623);
-Distrib ( M_lnPKidC, TruncNormal,0.3978,0.3184,-0.5574,1.353);
-Distrib ( M_lnPBrnC, TruncNormal,-0.0781,0.3169,-1.0287,0.8726);
-Distrib ( M_lnPLngC, TruncNormal,-0.0083,0.3184,-0.9637,0.947);
+#Distrib ( M_lnPKidC, TruncNormal,0.3978,0.3184,-0.5574,1.353);
+#Distrib ( M_lnPBrnC, TruncNormal,-0.0781,0.3169,-1.0287,0.8726);
+#Distrib ( M_lnPLngC, TruncNormal,-0.0083,0.3184,-0.9637,0.947);
 							
 #Distrib ( M_lnPBodTCAC, TruncNormal,0.1677,0.2917,-0.7074,1.0428);
 #Distrib ( M_lnPLivTCAC, TruncNormal,-0.0924,0.2587,-0.8683,0.6836);
 #Distrib ( M_lnPKidTCAC, TruncNormal,0.0171,0.2728,-0.8013,0.8354);
 #Distrib ( M_lnPBrnTCAC, TruncNormal,0.1848,0.273,-0.6341,1.0038);
-Distrib ( M_lnPLngTCAC, TruncNormal,0.0107,0.2786,-0.825,0.8464);
+#Distrib ( M_lnPLngTCAC, TruncNormal,0.0107,0.2786,-0.825,0.8464);
 							
 #Distrib ( M_lnkDissocC, TruncNormal,0.1681,0.8644,-2.425,2.7613);							
 #Distrib ( M_lnBMaxkDC, TruncNormal,0.4792,0.3955,-0.7073,1.6657);
@@ -82,41 +80,39 @@ Distrib ( M_lnPLngTCAC, TruncNormal,0.0107,0.2786,-0.825,0.8464);
 #Distrib ( M_lnPBrnTCOHC, TruncNormal,0.1641,0.2894,-0.7042,1.0323);
 #Distrib ( M_lnPLngTCOHC, TruncNormal,0.1147,0.2625,-0.6729,0.9022);
 
-Distrib ( M_lnPBodDCVGC, TruncNormal,2.5269,0.7045,0.4133,4.6405);
-Distrib ( M_lnPLivDCVGC, TruncNormal,-1.2605,0.4786,-2.6963,0.1752);
-Distrib ( M_lnPBrnDCVGC, TruncNormal,-0.8052,0.4869,-2.266,0.6556);
-Distrib ( M_lnPLngDCVGC, TruncNormal,-0.817,0.4798,-2.2564,0.6224);
+Distrib ( M_lnPBodDCVGC, TruncNormal, 2.5603, 0.4609, 1.6385, 3.4821);
+Distrib ( M_lnPLivDCVGC, TruncNormal, -0.9641,0.4202,-1.8045,-0.1237);
+Distrib ( M_lnPBrnDCVGC, TruncNormal, -0.5597,0.4571,-1.4738,0.3545);
+Distrib ( M_lnPLngDCVGC, TruncNormal, -0.5778,0.4671,-1.5121,0.3565);
 
-Distrib ( M_lnPLivDCVCC, TruncNormal,1.3655,0.5192,-0.192,2.9231);
-Distrib ( M_lnPKidDCVCC, TruncNormal,1.3515,0.5534,-0.3088,3.0117);
-Distrib ( M_lnPBrnDCVCC, TruncNormal,1.4708,0.5251,-0.1046,3.0461);
-Distrib ( M_lnPLngDCVCC, TruncNormal,1.2462,0.5609,-0.4366,2.929);
+Distrib ( M_lnPLivDCVCC, TruncNormal,1.3243,0.6374,0.0495,2.5991);
+Distrib ( M_lnPKidDCVCC, TruncNormal,1.4721,0.5353,0.4015,2.5428);
+Distrib ( M_lnPBrnDCVCC, TruncNormal,1.51,0.5147,0.4806,2.5393);
+Distrib ( M_lnPLngDCVCC, TruncNormal,1.2478,0.5644,0.119,2.3766);
 
-Distrib ( M_lnPLivNDCVCC, TruncNormal,0.4611,0.4511,-0.8921,1.8142);
-Distrib ( M_lnPKidNDCVCC, TruncNormal,0.3937,0.4401,-0.9265,1.7139);
-Distrib ( M_lnPBrnNDCVCC, TruncNormal,0.4859,0.4403,-0.8349,1.8067);
-Distrib ( M_lnPLngNDCVCC, TruncNormal,0.4012,0.4451,-0.9339,1.7364);
+Distrib ( M_lnPLivNDCVCC, TruncNormal,0.3067,0.4797,-0.6528,1.2662);
+Distrib ( M_lnPKidNDCVCC, TruncNormal,0.2401,0.47,-0.6998,1.1801);
+Distrib ( M_lnPBrnNDCVCC, TruncNormal,0.3457,0.4752,-0.6046,1.296);
+Distrib ( M_lnPLngNDCVCC, TruncNormal,0.2695,0.4561,-0.6427,1.1818);
 
-Distrib ( M_lnkTSD, TruncNormal,1.0475,1.7955,-4.3388,6.4339);
-Distrib ( M_lnkAS, TruncNormal,-0.2078,1.9796,-6.1466,5.731);
-Distrib ( M_lnkAD, TruncNormal,-2.1634,1.9672,-8.0649,3.7381);
+Distrib ( M_lnkTSD, TruncNormal,1.2881,1.2,-1.1119,3.6881); # 1.2
+Distrib ( M_lnkAS, TruncNormal,0.1717,1.2,-2.2283,2.5717); # 1.2
+Distrib ( M_lnkAD, TruncNormal,-2.2579,1.2,-4.6579,0.1421); # 1.2
 
-Distrib ( M_lnVMaxC, TruncNormal,-0.5238,0.5276,-2.1065,1.0589);
+Distrib ( M_lnVMaxC, TruncNormal,-0.6658,0.6065,-1.8789,0.5473);
 #Distrib ( M_lnFracTCAC, TruncNormal,-0.258,0.4502,-1.6087,1.0927);
-Distrib ( M_lnVMaxDCVGC, TruncNormal,-5.6976,0.7078,-7.8209,-3.5743);
+Distrib ( M_lnVMaxDCVGC, TruncNormal,-5.001,0.5963,-6.1935,-3.8085);
 #Distrib ( M_lnClDCVGC, TruncNormal,-4.1854,0.4129,-5.4241,-2.9467);
-Distrib ( M_lnVMaxLungLivC, TruncNormal,1.9852,0.5603,0.3044,3.666);
-#Distrib ( M_lnFracLungSysC, TruncNormal,-0.5127,0.7679,-2.8163,1.791);
+Distrib ( M_lnVMaxLungLivC, TruncNormal,2.4751,0.6551,1.1649,3.7853);
 
 #Distrib ( M_lnVMaxTCOHC, TruncNormal,0.2501,0.6143,-1.5927,2.0929);
-#Distrib ( M_lnKMTCOH, TruncNormal,1.0712,0.9359,-1.7365,3.879);							
-Distrib ( M_lnVMaxGlucC, TruncNormal,3.5106,0.555,1.8455,5.1757);
-Distrib ( M_lnKMGluc, TruncNormal,3.0439,0.6198,1.1844,4.9035);
-Distrib ( M_lnkUrnTCAC, TruncNormal,-1.0648,0.5863,-2.8236,0.694);
+Distrib ( M_lnVMaxGlucC, TruncNormal,3.7698,0.6051,2.5597,4.98);
+Distrib ( M_lnKMGluc, TruncNormal,3.1307,0.6513,1.828,4.4334);
+Distrib ( M_lnkUrnTCAC, TruncNormal,-1.0194,0.5591,-2.1377,0.0989);
 
-Distrib ( M_lnkKidDCVGC, TruncNormal,5.6076,0.5177,4.0546,7.1607);
-Distrib ( M_lnkKidDCVCC, TruncNormal,4.5141,0.6467,2.5739,6.4543);
-Distrib ( M_lnkKidNDCVCC, TruncNormal,5.3256,0.5539,3.664,6.9873);
+Distrib ( M_lnkKidDCVGC, TruncNormal,5.0603,0.5476,3.965,6.1556);
+Distrib ( M_lnkKidDCVCC, TruncNormal,3.8877,0.6353,2.6171,5.1582);
+Distrib ( M_lnkKidNDCVCC, TruncNormal,4.7951,0.5307,3.7338,5.8565);
 
 # (7)
 lnPeffDCA = 3.67;
@@ -127,53 +123,60 @@ lnkLivDCVGC = -13.8;
 lnkLivDCVCC = -13.8;
 lnkLivNDCVCC = -13.8;
 
-# (44) Use B6C3F1
-lnQCC = 0.2661;
-lnPLivC = 0.3682;
-lnPBodTCAC = 0.1677;
-lnPLivTCAC = -0.0924;
-lnPKidTCAC = 0.0171;
-lnPBrnTCAC = 0.1848;
-lnPLivTCOHC = 0.4409;
-lnPKidTCOHC = 0.2777;
-lnPBrnTCOHC = 0.1641;
-lnPLngTCOHC = 0.1147;
-lnFracTCAC = -0.258;
-lnClDCVGC = -4.1854;
-lnFracLungSysC = -0.5127;
+# (48) Use B6C3F1
+lnQCC = 0.225;
+lnVPRC = -0.238;
 
-lnVMaxTCOHC = 0.2501;
-lnPBC = -0.1903;
-lnkDissocC = 0.1681;
-lnBMaxkDC = 0.4792;
+lnPBC = -0.3092;
+lnPGutC = -0.3567;
+lnPRespC = 0.0042;
+lnPRapC = -0.1097;
+lnPSlwC = 0.2923;
+lnPFatC = -0.0692;
+lnPLivC = 0.2853;
+lnPKidC = 0.3932;
+lnPBrnC = -0.1699;
+lnPLngC = -0.0678;
+lnPRBCPlasTCAC = 0.8331;
+lnPBodTCAC = 0.2441;
+lnPLivTCAC = -0.0714;
+lnPKidTCAC = 0.0399;
+lnPBrnTCAC = 0.2094;
+lnPLngTCAC = -0.025;
 
-lnKMC = -3.2708;
-lnVPRC = -0.2351;
-lnKMTCOH = 1.0712;
-lnPKidDCVGC = 0.8916;
-lnPBodDCVCC = -1.7908;
-lnPGutC = -0.3563;
-lnkMetTCOHC = 0.4397; 
-lnkUrnTCOGC = 4.5374;
-lnPRespC = -0.0088;
-lnPRapC = -0.1495;
-lnPBrnTCOGC = -0.0266;
-lnPBodTCOHC = -0.4656;
-lnPLngTCOGC = -0.0117;
-lnPSlwC = -0.3083;
-lnPBodTCOGC = -0.4037;
-lnkBileC = -0.5739;
-lnkEHRC = -2.7032;
-lnDRespC = 0.5638;
-lnPFatC = 0.0404;
-lnPRBCPlasTCAC = 0.7427;
-lnPLivTCOGC = 0.0698;	
-lnPKidTCOGC = 0.0226;
-lnPBodNDCVCC = -2.3064;
-lnkASTCA = 3.3784;
-lnFracOtherC = -5.3084;
-lnKMClara = -5.8438;
-lnkMetTCAC = -0.4083;
+lnkDissocC = 0.3262;
+lnBMaxkDC = 0.4642;
+
+lnPBodTCOHC = -0.4454;
+lnPLivTCOHC = 0.444;
+lnPKidTCOHC = 0.3122;
+lnPBrnTCOHC = 0.1552;
+lnPLngTCOHC = -0.135;
+lnPBodTCOGC = -0.3804;
+lnPLivTCOGC = 0.0384;
+lnPKidTCOGC = -0.0171;
+lnPBrnTCOGC = -0.0127;
+lnPLngTCOGC = 0.0045;
+
+lnPKidDCVGC = 0.8562;
+lnPBodDCVCC = -1.7934;
+lnPBodNDCVCC = -2.4257;
+
+lnkASTCA = 3.3943;
+lnClDCVGC = -4.7502;
+lnFracLungSysC = 2.3257;
+lnVMaxTCOHC = 0.1651;
+lnFracTCAC = -0.3486;
+lnKMC = -3.5744;
+lnKMTCOH = 0.1738;
+lnkMetTCOHC = 1.197;
+lnkUrnTCOGC = 5.1016;
+lnkBileC = 0.3111;
+lnkEHRC = -2.6501;
+lnDRespC = 0.8484;
+lnFracOtherC = -5.0101;
+lnKMClara = -5.9279;
+lnkMetTCAC = -0.3053;
 
 ###
 
@@ -182,22 +185,22 @@ lnkMetTCAC = -0.4083;
 # VBrnf = 0.015;
 # VLngf = 0.006;
 
-###### POPULATION VARIANCES (28)
+###### POPULATION VARIANCES (24)
 
 #Distrib(	V_lnQCC	InvGamma	2.25	0.0500	);
 #Distrib(	V_lnVPRC	InvGamma	2.25	0.0500	);
 					
 #Distrib(	V_lnPBC	InvGamma	2.25	0.0781	);
 #Distrib(	V_lnPLivC	InvGamma	2.25	0.2000	);
-Distrib(	V_lnPKidC	InvGamma	2.25	0.2000	);
-Distrib(	V_lnPBrnC	InvGamma	2.25	0.2000	); #(v300)
-Distrib(	V_lnPLngC	InvGamma	2.25	0.2000	); #(v300)
+#Distrib(	V_lnPKidC	InvGamma	2.25	0.2000	);
+#Distrib(	V_lnPBrnC	InvGamma	2.25	0.2000	); #(v300)
+#Distrib(	V_lnPLngC	InvGamma	2.25	0.2000	); #(v300)
 					
 #Distrib(	V_lnPBodTCAC	InvGamma	2.25	0.1411	);
 #Distrib(	V_lnPLivTCAC	InvGamma	2.25	0.1411	);
 #Distrib(	V_lnPKidTCAC	InvGamma	2.25	0.1411	); #(v300)
 #Distrib(	V_lnPBrnTCAC	InvGamma	2.25	0.1411	); #(v300)
-Distrib(	V_lnPLngTCAC	InvGamma	2.25	0.1411	); #(v300)
+#Distrib(	V_lnPLngTCAC	InvGamma	2.25	0.1411	); #(v300)
 
 #Distrib(	V_lnkDissocC	InvGamma	2.25	1.7731	);					
 #Distrib(	V_lnBMaxkDC	InvGamma	2.25	0.3063	);
@@ -243,22 +246,22 @@ Distrib(	V_lnkKidDCVGC	InvGamma	2.25	0.2000	);
 Distrib(	V_lnkKidDCVCC	InvGamma	2.25	0.2000	); #(v300)
 Distrib(	V_lnkKidNDCVCC	InvGamma	2.25	0.2000	); #(v300)
 
-Level { #Subject/group level (28)
+Level { #Subject/group level (24)
 
 #Distrib(	lnQCC	TruncNormal_v	M_lnQCC	V_lnQCC	-0.2768,0.8089	);
 #Distrib(	lnVPRC	TruncNormal_v	M_lnVPRC	V_lnVPRC	-0.767,0.2967	);
 
 #Distrib(	lnPBC	TruncNormal_v	M_lnPBC	V_lnPBC	-0.7498,0.3692	);
 #Distrib(	lnPLivC	TruncNormal_v	M_lnPLivC	V_lnPLivC-0.5259,1.2623	);
-Distrib(	lnPKidC	TruncNormal_v	M_lnPKidC	V_lnPKidC	-0.5574,1.353	);
-Distrib(	lnPBrnC	TruncNormal_v	M_lnPBrnC	V_lnPBrnC	-1.0287,0.8726	); #(v300)
-Distrib(	lnPLngC	TruncNormal_v	M_lnPLngC	V_lnPLngC	-0.9637,0.947); #(v300)
+#Distrib(	lnPKidC	TruncNormal_v	M_lnPKidC	V_lnPKidC	-0.5574,1.353	);
+#Distrib(	lnPBrnC	TruncNormal_v	M_lnPBrnC	V_lnPBrnC	-1.0287,0.8726	); #(v300)
+#Distrib(	lnPLngC	TruncNormal_v	M_lnPLngC	V_lnPLngC	-0.9637,0.947); #(v300)
 							
 #Distrib(	lnPBodTCAC	TruncNormal_v	M_lnPBodTCAC	V_lnPBodTCAC	-0.7074,1.0428	);
 #Distrib(	lnPLivTCAC	TruncNormal_v	M_lnPLivTCAC	V_lnPLivTCAC	-0.8683,0.6836	);
 #Distrib(	lnPKidTCAC	TruncNormal_v	M_lnPKidTCAC	V_lnPKidTCAC	-0.8013,0.8354	); #(v300)			
 #Distrib(	lnPBrnTCAC	TruncNormal_v	M_lnPBrnTCAC	V_lnPBrnTCAC	-0.6341,1.0038	); #(v300)
-Distrib(	lnPLngTCAC	TruncNormal_v	M_lnPLngTCAC	V_lnPLngTCAC	-0.825,0.8464	); #(v300)							
+#Distrib(	lnPLngTCAC	TruncNormal_v	M_lnPLngTCAC	V_lnPLngTCAC	-0.825,0.8464	); #(v300)							
 						
 #Distrib(	lnkDissocC	TruncNormal_v	M_lnkDissocC	V_lnkDissocC	-2.425,2.7613	);
 #Distrib(	lnBMaxkDC	TruncNormal_v	M_lnBMaxkDC	V_lnBMaxkDC	-0.7073,1.6657	);
@@ -283,9 +286,9 @@ Distrib(	lnPKidNDCVCC	TruncNormal_v	M_lnPKidNDCVCC	V_lnPKidNDCVCC	-0.9265,1.7139
 Distrib(	lnPBrnNDCVCC	TruncNormal_v	M_lnPBrnNDCVCC	V_lnPBrnNDCVCC	-0.8349,1.8067 ); #(v300)
 Distrib(	lnPLngNDCVCC	TruncNormal_v	M_lnPLngNDCVCC	V_lnPLngNDCVCC	-0.9339,1.7364	); #(v300)
 
-Distrib(	lnkTSD	TruncNormal_v	M_lnkTSD	V_lnkTSD	-4.3388,6.4339	);
-Distrib(	lnkAS	TruncNormal_v	M_lnkAS	V_lnkAS	-6.1466,5.731	); # revise prior
-Distrib(	lnkAD	TruncNormal_v	M_lnkAD	V_lnkAD	-8.0649,3.7381	); # revise prior
+Distrib(	lnkTSD	TruncNormal_v	M_lnkTSD	V_lnkTSD	-1.1119,3.6881	);
+Distrib(	lnkAS	TruncNormal_v	M_lnkAS	V_lnkAS	-2.2283,2.5717	); # revise prior
+Distrib(	lnkAD	TruncNormal_v	M_lnkAD	V_lnkAD	-4.6579,0.1421	); # revise prior
 
 Distrib(	lnVMaxC	TruncNormal_v	M_lnVMaxC	V_lnVMaxC	-2.1065,1.0589	);
 #Distrib(	lnFracTCAC	TruncNormal_v	M_lnFracTCAC	V_lnFracTCAC	-1.6087,1.0927	); # revise prior
@@ -1270,6 +1273,767 @@ Data( CBldDCVCmol , -1,-1,-1,-1,-1,-1,-1,-1,-1,0.000716567,-1,-1,-1,-1,-1,-1,-1,
 } # End experiment
 } # End group 17-1
 } # End Strain = WSB/EiJ
+
+Level { ## Strain 18 # Strain = AU18042; CC042/GeniUnc
+
+Level { ## Begin group 18-1
+#Likelihoods (24)
+
+	Likelihood( CVen , LogNormal_v , Prediction( CVen ) , Ve_CVen );
+	Likelihood( CLiv , LogNormal_v , Prediction( CLiv ) , Ve_CLiv );
+	Likelihood( CKid , LogNormal_v , Prediction( CKid ) , Ve_CKid );
+	Likelihood( CBrn , LogNormal_v , Prediction( CBrn ) , Ve_CBrn ); #(300)
+
+	Likelihood( CTCOH , LogNormal_v , Prediction( CTCOH ) , Ve_CTCOH );
+	Likelihood( CLivTCOH , LogNormal_v , Prediction( CLivTCOH ) , Ve_CLivTCOH );
+	Likelihood( CKidTCOH , LogNormal_v , Prediction( CKidTCOH ) , Ve_CKidTCOH ); #(300)
+	Likelihood( CBrnTCOH , LogNormal_v , Prediction( CBrnTCOH ) , Ve_CBrnTCOH ); #(300)
+
+	Likelihood( CBldTCA , LogNormal_v , Prediction( CBldTCA ) , Ve_CBldTCA );
+	Likelihood( CLivTCA , LogNormal_v , Prediction( CLivTCA ) , Ve_CLivTCA );
+	Likelihood( CKidTCA , LogNormal_v , Prediction( CKidTCA ) , Ve_CKidTCA ); #(300)
+	Likelihood( CBrnTCA , LogNormal_v , Prediction( CBrnTCA ) , Ve_CBrnTCA ); #(300)
+
+	Likelihood( CBldDCVGmol , LogNormal_v , Prediction( CBldDCVGmol ) , Ve_CBldDCVGmol ); #(v300)
+	Likelihood( CLivDCVGmol , LogNormal_v , Prediction( CLivDCVGmol ) , Ve_CLivDCVGmol ); #(v300)
+	Likelihood( CKidDCVGmol , LogNormal_v , Prediction( CKidDCVGmol ) , Ve_CKidDCVGmol ); #(v300)
+	Likelihood( CBrnDCVGmol , LogNormal_v , Prediction( CBrnDCVGmol ) , Ve_CBrnDCVGmol ); #(v300)	
+
+	Likelihood( CBldDCVCmol , LogNormal_v , Prediction( CBldDCVCmol ) , Ve_CBldDCVCmol ); #(v300)
+	Likelihood( CLivDCVCmol , LogNormal_v , Prediction( CLivDCVCmol ) , Ve_CLivDCVCmol ); #(v300)
+	Likelihood( CKidDCVCmol , LogNormal_v , Prediction( CKidDCVCmol ) , Ve_CKidDCVCmol ); #(v300)
+	Likelihood( CBrnDCVCmol , LogNormal_v , Prediction( CBrnDCVCmol ) , Ve_CBrnDCVCmol ); #(v300)	
+
+	Likelihood( CBldNDCVCmol , LogNormal_v , Prediction( CBldNDCVCmol ) , Ve_CBldNDCVCmol ); #(v300)
+	Likelihood( CLivNDCVCmol , LogNormal_v , Prediction( CLivNDCVCmol ) , Ve_CLivNDCVCmol ); #(v300)
+	Likelihood( CKidNDCVCmol , LogNormal_v , Prediction( CKidNDCVCmol ) , Ve_CKidNDCVCmol ); #(v300)
+	Likelihood( CBrnNDCVCmol , LogNormal_v , Prediction( CBrnNDCVCmol ) , Ve_CBrnNDCVCmol ); #(v300)	
+
+# Define ND
+
+	Likelihood (CLivDCVCmol_ND, StudentT, 5, Prediction(CLivDCVCmol_ND), 1.0E-04); # LOD = 3*SD
+	Likelihood (CKidDCVCmol_ND, StudentT, 5, Prediction(CKidDCVCmol_ND), 1.0E-04);
+	Likelihood (CLivNDCVCmol_ND, StudentT, 5, Prediction(CLivNDCVCmol_ND), 1.0E-04);
+	Likelihood (CKidNDCVCmol_ND, StudentT, 5, Prediction(CKidNDCVCmol_ND), 1.0E-04);
+
+Experiment { ## Begin Abhi experiment
+Species = 3 ;
+Male = 1 ;
+
+# Measured Covariates (if any)
+BWmeas =  0.0251 ;
+VLivC = 1.139 ;
+VKidC = 0.844 ;
+VBrnC = 0.967 ;
+
+# Exposure/Dosing 
+PDose = NDoses(2, 800 0 , 0 0.05 ) ;
+TChng = 0.05 ;
+
+# Data
+Print( CVen , 1 2 6 12 24 36);
+Data( CVen , 0.77683913084022,2.6099300744314,-1,-1,-1,-1);
+Print( CLiv , 1 2 6 12 24 36);
+Data( CLiv , 43.056792058,9.1533920898,-1,-1,-1,-1);
+Print( CKid , 1 2 6 12 24 36);
+Data( CKid , 44.476626506844,13.220485463339,-1,-1,-1,-1);
+Print( CBrn, 1 2 6 12 24 36);
+Data( CBrn, 7.2784710758347,-1,-1,-1,-1,-1);
+Print( CBldTCA , 1 2 6 12 24 36);
+Data( CBldTCA , 2.9855713125,90.7400833065,38.3539789485,25.575413925,2.2291885935,2.587059192);
+Print( CLivTCA , 1 2 6 12 24 36);
+Data( CLivTCA , 35.078338035,75.064116144,59.7869899005,59.444616159,15.8669057325,4.4009702115);
+Print( CKidTCA, 1 2 6 12 24 36);
+Data( CKidTCA, 335.073173508,203.6369925555,50.7622019205,34.5674487675,-1,-1);
+Print( CBrnTCA, 1 2 6 12 24 36);
+Data( CBrnTCA, -1,0.888840609,20.4521599005,3.260478414,-1,-1);
+Print( CTCOH , 1 2 6 12 24 36);
+Data( CTCOH , 58.40547630385,54.21130568035,8.22894415564,6.443505101215,-1,-1);
+Print( CLivTCOH , 1 2 6 12 24 36);
+Data( CLivTCOH , 190.4348113265,143.2744225393,-1,-1,-1,-1);
+Print( CKidTCOH, 0);
+Data( CKidTCOH, -1);
+Print( CBrnTCOH, 1 2 6 12 24 36);
+Data( CBrnTCOH, 35.71338645095,37.32252539535,-1,-1,-1,-1);
+Print( CBldDCVGmol, 1 2 6 12 24 36); 
+Data( CBldDCVGmol, 0.003550288789,0.002086333375,-1,-1,-1,-1);
+Print( CLivDCVGmol, 1 2 6 12 24 36); 
+Data( CLivDCVGmol , 0.06017749167,0.000370485342,-1,-1,-1,-1);
+Print( CKidDCVGmol, 1 2 6 12 24 36); 
+Data( CKidDCVGmol , 0.05311947698,0.01759533296,0.003829894844,-1,-1,-1);
+Print( CBrnDCVGmol, 1 2 6 12 24 36); 
+Data( CBrnDCVGmol , 0.03736295001,-1,0.004354531238,-1,-1,-1);
+Print( CBldDCVCmol , 1 2 6 12 24 36);
+Data( CBldDCVCmol , 0.01010557327,-1,-1,-1,-1,-1);
+Print( CLivDCVCmol, 0); 
+Data( CLivDCVCmol , -1);
+Print( CKidDCVCmol, 1 2 6 12 24 36); 
+Data( CKidDCVCmol , 0.006340500294,0.003053082518,-1,-1,-1,-1);
+Print( CBrnDCVCmol, 1 2 6 12 24 36); 
+Data( CBrnDCVCmol , 0.005945676361,-1,-1,-1,-1,-1);
+Print( CBldNDCVCmol, 1 2 6 12 24 36); 
+Data( CBldNDCVCmol , 0.00647270417,0.005737681506,-1,-1,-1,-1);
+Print( CLivNDCVCmol, 1 2 6 12 24 36); 
+Data( CLivNDCVCmol , 0.01225830105,0.00538092622,-1,-1,-1,-1);
+Print( CKidNDCVCmol, 1 2 6 12 24 36); 
+Data( CKidNDCVCmol , 0.01595693643,0.00811496146,-1,-1,-1,-1);
+Print( CBrnNDCVCmol, 1 2 6 12 24 36); 
+Data( CBrnNDCVCmol , -1,-1,0.002722466861,-1,-1,-1);
+
+Print(CLivDCVCmol_ND, 24 36);
+Data(CLivDCVCmol_ND, 0 0);
+Print(CKidDCVCmol_ND, 24 36);
+Data(CKidDCVCmol_ND, 0 0);
+Print(CLivNDCVCmol_ND, 24 36);
+Data(CLivNDCVCmol_ND, 0 0);
+Print(CKidNDCVCmol_ND, 24 36);
+Data(CKidNDCVCmol_ND, 0 0);
+
+} # End experiment
+} # End group 18-1
+
+Level { ## Begin group 18-2
+Species = 3 ;
+Male = 1 ;
+TChng = 0.05 ;
+
+	Likelihood( CBldTCA , LogNormal_v , Prediction( CBldTCA ) , Ve_CBldTCA );
+	Likelihood( CLivTCA , LogNormal_v , Prediction( CLivTCA ) , Ve_CLivTCA );
+	Likelihood( CKidTCA , LogNormal_v , Prediction( CKidTCA ) , Ve_CKidTCA ); #(300)
+	Likelihood( CBrnTCA , LogNormal_v , Prediction( CBrnTCA ) , Ve_CBrnTCA ); #(300)
+
+
+Experiment { ## Begin Abhi 50 CC experiment - 80 mg
+BWmeas = 0.0265;
+VLivC = 1.12521; 
+VKidC = 0.84351;
+VBrnC = 1.00629;
+VLngC = 1.00629;
+# Exposure/Dosing 
+PDose = NDoses(2, 80 0 , 0 0.05 ) ;
+# Data
+Print( CBldTCA , 0);
+Data( CBldTCA , -1);
+Print( CLivTCA , 24);
+Data( CLivTCA , 0.46107);
+Print( CKidTCA, 0);
+Data( CKidTCA, -1);
+Print( CBrnTCA, 0);
+Data( CBrnTCA, -1);
+} # End Abhi 50 CC experiment - 80 mg
+
+Experiment { ## Begin Abhi 50 CC experiment - 240 mg
+BWmeas = 0.027;
+VLivC = 1.01684; 
+VKidC = 0.8061;
+VBrnC = 0.93827;
+VLngC = 0.74074;
+# Exposure/Dosing 
+PDose = NDoses(2, 240 0 , 0 0.05 ) ;
+# Data
+Print( CBldTCA , 24);
+Data( CBldTCA , 5.12409);
+Print( CLivTCA , 24);
+Data( CLivTCA , 3.98286);
+Print( CKidTCA, 0);
+Data( CKidTCA, -1);
+Print( CBrnTCA, 0);
+Data( CBrnTCA, -1);
+} # End Abhi 50 CC experiment - 240 mg
+
+Experiment { ## Begin Abhi 50 CC experiment - 800 mg
+BWmeas = 0.0242;
+VLivC = 0.98422; 
+VKidC = 0.92368;
+VBrnC = 1.01928;
+VLngC = 0.82645;
+# Exposure/Dosing 
+PDose = NDoses(2, 800 0 , 0 0.05 ) ;
+# Data
+Print( CBldTCA , 24);
+Data( CBldTCA , 11.479);
+Print( CLivTCA , 24);
+Data( CLivTCA , 10.52);
+Print( CKidTCA, 24);
+Data( CKidTCA, 33.86);
+Print( CBrnTCA, 0);
+Data( CBrnTCA, -1);
+} # End Abhi 50 CC experiment - 240 mg
+} # End group 18-2
+} # End Strain 18 # Strain = AU18042; CC042/GeniUnc
+
+Level { ## Strain 19 # Strain = AU8005; CC012/GeniUnc
+
+Level { ## Begin group 19-1
+
+#Likelihoods (24)
+
+	Likelihood( CVen , LogNormal_v , Prediction( CVen ) , Ve_CVen );
+	Likelihood( CLiv , LogNormal_v , Prediction( CLiv ) , Ve_CLiv );
+	Likelihood( CKid , LogNormal_v , Prediction( CKid ) , Ve_CKid );
+	Likelihood( CBrn , LogNormal_v , Prediction( CBrn ) , Ve_CBrn ); #(300)
+
+	Likelihood( CTCOH , LogNormal_v , Prediction( CTCOH ) , Ve_CTCOH );
+	Likelihood( CLivTCOH , LogNormal_v , Prediction( CLivTCOH ) , Ve_CLivTCOH );
+	Likelihood( CKidTCOH , LogNormal_v , Prediction( CKidTCOH ) , Ve_CKidTCOH ); #(300)
+	Likelihood( CBrnTCOH , LogNormal_v , Prediction( CBrnTCOH ) , Ve_CBrnTCOH ); #(300)
+
+	Likelihood( CBldTCA , LogNormal_v , Prediction( CBldTCA ) , Ve_CBldTCA );
+	Likelihood( CLivTCA , LogNormal_v , Prediction( CLivTCA ) , Ve_CLivTCA );
+	Likelihood( CKidTCA , LogNormal_v , Prediction( CKidTCA ) , Ve_CKidTCA ); #(300)
+	Likelihood( CBrnTCA , LogNormal_v , Prediction( CBrnTCA ) , Ve_CBrnTCA ); #(300)
+
+	Likelihood( CBldDCVGmol , LogNormal_v , Prediction( CBldDCVGmol ) , Ve_CBldDCVGmol ); #(v300)
+	Likelihood( CLivDCVGmol , LogNormal_v , Prediction( CLivDCVGmol ) , Ve_CLivDCVGmol ); #(v300)
+	Likelihood( CKidDCVGmol , LogNormal_v , Prediction( CKidDCVGmol ) , Ve_CKidDCVGmol ); #(v300)
+	Likelihood( CBrnDCVGmol , LogNormal_v , Prediction( CBrnDCVGmol ) , Ve_CBrnDCVGmol ); #(v300)	
+
+	Likelihood( CBldDCVCmol , LogNormal_v , Prediction( CBldDCVCmol ) , Ve_CBldDCVCmol ); #(v300)
+	Likelihood( CLivDCVCmol , LogNormal_v , Prediction( CLivDCVCmol ) , Ve_CLivDCVCmol ); #(v300)
+	Likelihood( CKidDCVCmol , LogNormal_v , Prediction( CKidDCVCmol ) , Ve_CKidDCVCmol ); #(v300)
+	Likelihood( CBrnDCVCmol , LogNormal_v , Prediction( CBrnDCVCmol ) , Ve_CBrnDCVCmol ); #(v300)	
+
+	Likelihood( CBldNDCVCmol , LogNormal_v , Prediction( CBldNDCVCmol ) , Ve_CBldNDCVCmol ); #(v300)
+	Likelihood( CLivNDCVCmol , LogNormal_v , Prediction( CLivNDCVCmol ) , Ve_CLivNDCVCmol ); #(v300)
+	Likelihood( CKidNDCVCmol , LogNormal_v , Prediction( CKidNDCVCmol ) , Ve_CKidNDCVCmol ); #(v300)
+	Likelihood( CBrnNDCVCmol , LogNormal_v , Prediction( CBrnNDCVCmol ) , Ve_CBrnNDCVCmol ); #(v300)	
+
+# Define ND
+
+	Likelihood (CLivDCVCmol_ND, StudentT, 5, Prediction(CLivDCVCmol_ND), 1.0E-04); # LOD = 3*SD
+	Likelihood (CKidDCVCmol_ND, StudentT, 5, Prediction(CKidDCVCmol_ND), 1.0E-04);
+	Likelihood (CLivNDCVCmol_ND, StudentT, 5, Prediction(CLivNDCVCmol_ND), 1.0E-04);
+	Likelihood (CKidNDCVCmol_ND, StudentT, 5, Prediction(CKidNDCVCmol_ND), 1.0E-04);
+
+Experiment { ## Begin Abhi experiment
+Species = 3 ;
+Male = 1 ;
+
+# Measured Covariates (if any)
+BWmeas =  0.02266 ;
+VLivC = 0.9258053 ;
+VKidC = 0.7716492 ;
+VBrnC = 0.8997687 ;
+
+# Exposure/Dosing 
+PDose = NDoses(2, 800 0 , 0 0.05 ) ;
+TChng = 0.05 ;
+
+# Data
+Print( CVen , 1 2 6 12 24 36);
+Data( CVen , 7.3357999621137,3.5917965076714,-1,-1,-1,-1);
+Print( CLiv , 1 2 6 12 24 36);
+Data( CLiv , 11.361188188,-1,-1,-1,-1,-1);
+Print( CKid , 1 2 6 12 24 36);
+Data( CKid , 36.499895328414,144.92415082635,-1,-1,-1,-1);
+Print( CBrn, 1 2 6 12 24 36);
+Data( CBrn, 20.759714968692,-1,-1,-1,-1,-1);
+Print( CBldTCA , 1 2 6 12 24 36);
+Data( CBldTCA , 51.4562136405,61.4211864615,183.1756941495,-1,89.0567115045,-1);
+Print( CLivTCA , 1 2 6 12 24 36);
+Data( CLivTCA , 21.326182014,29.603043822,108.1720187235,140.225050695,36.6743977305,16.838073987);
+Print( CKidTCA, 1 2 6 12 24 36);
+Data( CKidTCA, 76.2344228205,178.607909139,155.1115002285,143.7919590105,-1,-1);
+Print( CBrnTCA, 1 2 6 12 24 36);
+Data( CBrnTCA, 2.2162410285,10.1271404595,58.0164179895,-1,-1,-1);
+Print( CTCOH , 1 2 6 12 24 36);
+Data( CTCOH , 7.994711680345,27.8769323625,49.76888055945,52.17797307385,-1,-1);
+Print( CLivTCOH , 1 2 6 12 24 36);
+Data( CLivTCOH , 171.8418664885,177.1497291395,196.546088323,25.4782504301,-1,-1);
+Print( CKidTCOH, 0);
+Data( CKidTCOH, -1);
+Print( CBrnTCOH, 1 2 6 12 24 36);
+Data( CBrnTCOH, 53.1870857102,53.6688045504,23.3436990878,-1,-1,-1);
+Print( CBldDCVGmol, 1 2 6 12 24 36); 
+Data( CBldDCVGmol, 0.004729200908,0.00328157303,0.001629898515,0.001902690377,-1,-1);
+Print( CLivDCVGmol, 1 2 6 12 24 36); 
+Data( CLivDCVGmol , 0.04487355491,0.003225746311,0.001805668704,8.9148351e-05,-1,-1);
+Print( CKidDCVGmol, 1 2 6 12 24 36); 
+Data( CKidDCVGmol , 0.1522277822,0.1025391942,0.01352837005,0.004843565851,-1,-1);
+Print( CBrnDCVGmol, 1 2 6 12 24 36); 
+Data( CBrnDCVGmol , -1,-1,0.03030606951,-1,0.002638858469,-1);
+Print( CBldDCVCmol , 1 2 6 12 24 36);
+Data( CBldDCVCmol , -1,0.01438197883,0.01073947603,0.01054803359,0.009940698993,-1);
+Print( CLivDCVCmol, 0); 
+Data( CLivDCVCmol , -1);
+Print( CKidDCVCmol, 1 2 6 12 24 36); 
+Data( CKidDCVCmol , 0.01811842597,0.01232787461,0.002788698931,0.001955003874,-1,-1);
+Print( CBrnDCVCmol, 1 2 6 12 24 36); 
+Data( CBrnDCVCmol , -1,-1,-1,0.002993349409,-1,-1);
+Print( CBldNDCVCmol, 1 2 6 12 24 36); 
+Data( CBldNDCVCmol , 0.01153820915,0.008173462216,-1,-1,-1,-1);
+Print( CLivNDCVCmol, 1 2 6 12 24 36); 
+Data( CLivNDCVCmol , 0.01901848785,0.01445857132,-1,-1,-1,-1);
+Print( CKidNDCVCmol, 1 2 6 12 24 36); 
+Data( CKidNDCVCmol , 0.04081614825,0.01972180449,0.005192737781,-1,-1,-1);
+Print( CBrnNDCVCmol, 1 2 6 12 24 36); 
+Data( CBrnNDCVCmol , -1,-1,0.004931035034,-1,0.00317950098,-1);
+
+Print(CLivDCVCmol_ND, 24 36);
+Data(CLivDCVCmol_ND, 0 0);
+Print(CKidDCVCmol_ND, 24 36);
+Data(CKidDCVCmol_ND, 0 0);
+Print(CLivNDCVCmol_ND, 24 36);
+Data(CLivNDCVCmol_ND, 0 0);
+Print(CKidNDCVCmol_ND, 24 36);
+Data(CKidNDCVCmol_ND, 0 0);
+
+} # End experiment
+} # End group 19-1
+
+Level { ## Begin group 19-2
+Species = 3 ;
+Male = 1 ;
+# Measured Covariates (if any)
+TChng = 0.05 ;
+
+	Likelihood( CBldTCA , LogNormal_v , Prediction( CBldTCA ) , Ve_CBldTCA );
+	Likelihood( CLivTCA , LogNormal_v , Prediction( CLivTCA ) , Ve_CLivTCA );
+	Likelihood( CKidTCA , LogNormal_v , Prediction( CKidTCA ) , Ve_CKidTCA ); #(300)
+	Likelihood( CBrnTCA , LogNormal_v , Prediction( CBrnTCA ) , Ve_CBrnTCA ); #(300)
+
+Experiment { ## Begin Abhi 50 CC experiment - 80 mg
+# Measured Covariates (if any)
+BWmeas = 0.0188;
+VLivC = 1.11219; 
+VKidC = 0.8761;
+VBrnC = 1.13475;
+VLngC = 0.97518;
+# Exposure/Dosing 
+PDose = NDoses(2, 80 0 , 0 0.05 ) ;
+# Data
+Print( CBldTCA , 24);
+Data( CBldTCA , -1);
+Print( CLivTCA , 24);
+Data( CLivTCA , 0.050685);
+Print( CKidTCA, 24);
+Data( CKidTCA, -1);
+Print( CBrnTCA, 24);
+Data( CBrnTCA, -1);
+} # End Abhi 50 CC experiment - 80 mg
+
+Experiment { ## Begin Abhi 50 CC experiment - 240 mg
+# Measured Covariates (if any)
+BWmeas = 0.0218;
+VLivC = 1.00083; 
+VKidC = 0.86346;
+VBrnC = 1.00917;
+VLngC = 0.91743;
+# Exposure/Dosing 
+PDose = NDoses(2, 240 0 , 0 0.05 ) ;
+# Data
+Print( CBldTCA , 24);
+Data( CBldTCA , 14.471385);
+Print( CLivTCA , 24);
+Data( CLivTCA , 8.637705);
+Print( CKidTCA, 24);
+Data( CKidTCA, 2.501550);
+Print( CBrnTCA, 24);
+Data( CBrnTCA, 3.685290);
+} # End Abhi 50 CC experiment - 240 mg
+
+Experiment { ## Begin Abhi 50 CC experiment - 800 mg
+# Measured Covariates (if any)
+BWmeas =  0.0222;
+VLivC = 1.04832; 
+VKidC = 0.8744;
+VBrnC = 1.02102;
+VLngC = 1.05105;
+# Exposure/Dosing 
+PDose = NDoses(2, 800 0 , 0 0.05 ) ;
+# Data
+Print( CBldTCA , 24);
+Data( CBldTCA , -1);
+Print( CLivTCA , 24);
+Data( CLivTCA , 57.44573);
+Print( CKidTCA, 24);
+Data( CKidTCA, 20.37046);
+Print( CBrnTCA, 24);
+Data( CBrnTCA, 26.70119);
+} # End Abhi 50 CC experiment - 800 mg
+} # End group 19-2
+} # End Strain = AU8005; CC012/GeniUnc
+
+Level { ## Strain 20 # Strain = AU8034; CC030/GeniUnc 
+
+Level { ## Begin group 20-1
+
+#Likelihoods (24)
+
+	Likelihood( CVen , LogNormal_v , Prediction( CVen ) , Ve_CVen );
+	Likelihood( CLiv , LogNormal_v , Prediction( CLiv ) , Ve_CLiv );
+	Likelihood( CKid , LogNormal_v , Prediction( CKid ) , Ve_CKid );
+	Likelihood( CBrn , LogNormal_v , Prediction( CBrn ) , Ve_CBrn ); #(300)
+
+	Likelihood( CTCOH , LogNormal_v , Prediction( CTCOH ) , Ve_CTCOH );
+	Likelihood( CLivTCOH , LogNormal_v , Prediction( CLivTCOH ) , Ve_CLivTCOH );
+	Likelihood( CKidTCOH , LogNormal_v , Prediction( CKidTCOH ) , Ve_CKidTCOH ); #(300)
+	Likelihood( CBrnTCOH , LogNormal_v , Prediction( CBrnTCOH ) , Ve_CBrnTCOH ); #(300)
+
+	Likelihood( CBldTCA , LogNormal_v , Prediction( CBldTCA ) , Ve_CBldTCA );
+	Likelihood( CLivTCA , LogNormal_v , Prediction( CLivTCA ) , Ve_CLivTCA );
+	Likelihood( CKidTCA , LogNormal_v , Prediction( CKidTCA ) , Ve_CKidTCA ); #(300)
+	Likelihood( CBrnTCA , LogNormal_v , Prediction( CBrnTCA ) , Ve_CBrnTCA ); #(300)
+
+	Likelihood( CBldDCVGmol , LogNormal_v , Prediction( CBldDCVGmol ) , Ve_CBldDCVGmol ); #(v300)
+	Likelihood( CLivDCVGmol , LogNormal_v , Prediction( CLivDCVGmol ) , Ve_CLivDCVGmol ); #(v300)
+	Likelihood( CKidDCVGmol , LogNormal_v , Prediction( CKidDCVGmol ) , Ve_CKidDCVGmol ); #(v300)
+	Likelihood( CBrnDCVGmol , LogNormal_v , Prediction( CBrnDCVGmol ) , Ve_CBrnDCVGmol ); #(v300)	
+
+	Likelihood( CBldDCVCmol , LogNormal_v , Prediction( CBldDCVCmol ) , Ve_CBldDCVCmol ); #(v300)
+	Likelihood( CLivDCVCmol , LogNormal_v , Prediction( CLivDCVCmol ) , Ve_CLivDCVCmol ); #(v300)
+	Likelihood( CKidDCVCmol , LogNormal_v , Prediction( CKidDCVCmol ) , Ve_CKidDCVCmol ); #(v300)
+	Likelihood( CBrnDCVCmol , LogNormal_v , Prediction( CBrnDCVCmol ) , Ve_CBrnDCVCmol ); #(v300)	
+
+	Likelihood( CBldNDCVCmol , LogNormal_v , Prediction( CBldNDCVCmol ) , Ve_CBldNDCVCmol ); #(v300)
+	Likelihood( CLivNDCVCmol , LogNormal_v , Prediction( CLivNDCVCmol ) , Ve_CLivNDCVCmol ); #(v300)
+	Likelihood( CKidNDCVCmol , LogNormal_v , Prediction( CKidNDCVCmol ) , Ve_CKidNDCVCmol ); #(v300)
+	Likelihood( CBrnNDCVCmol , LogNormal_v , Prediction( CBrnNDCVCmol ) , Ve_CBrnNDCVCmol ); #(v300)	
+
+# Define ND
+
+	Likelihood (CLivDCVCmol_ND, StudentT, 5, Prediction(CLivDCVCmol_ND), 1.0E-04); # LOD = 3*SD
+	Likelihood (CKidDCVCmol_ND, StudentT, 5, Prediction(CKidDCVCmol_ND), 1.0E-04);
+	Likelihood (CLivNDCVCmol_ND, StudentT, 5, Prediction(CLivNDCVCmol_ND), 1.0E-04);
+	Likelihood (CKidNDCVCmol_ND, StudentT, 5, Prediction(CKidNDCVCmol_ND), 1.0E-04);
+
+Experiment { ## Begin Abhi experiment
+Species = 3 ;
+Male = 1 ;
+
+# Measured Covariates (if any)
+BWmeas =  0.0273 ;
+VLivC = 1.028918 ;
+VKidC = 0.8347687 ;
+VBrnC = 0.8595614 ;
+
+# Exposure/Dosing 
+PDose = NDoses(2, 800 0 , 0 0.05 ) ;
+TChng = 0.05 ;
+
+# Data
+Print( CVen , 1 2 6 12 24 36);
+Data( CVen , 1.1241726153231,-1,-1,-1,-1,-1);
+Print( CLiv , 1 2 6 12 24 36);
+Data( CLiv , 6.630872269,-1,-1,-1,-1,-1);
+Print( CKid , 1 2 6 12 24 36);
+Data( CKid , 64.387193290084,12.0862780169138,-1,-1,-1,-1);
+Print( CBrn, 1 2 6 12 24 36);
+Data( CBrn, 37.309193281619,4.7466640041268,-1,-1,-1,-1);
+Print( CBldTCA , 1 2 6 12 24 36);
+Data( CBldTCA , -1,-1,60.13007127,-1,-1,-1);
+Print( CLivTCA , 1 2 6 12 24 36);
+Data( CLivTCA , -1,36.8197126065,62.615282715,-1,-1,-1);
+Print( CKidTCA, 1 2 6 12 24 36);
+Data( CKidTCA, -1,160.0245859575,179.703892149,-1,-1,-1);
+Print( CBrnTCA, 0);
+Data( CBrnTCA, -1);
+Print( CTCOH , 1 2 6 12 24 36);
+Data( CTCOH , -1,69.170880064,53.55252367465,-1,-1,-1);
+Print( CLivTCOH , 1 2 6 12 24 36);
+Data( CLivTCOH , -1,249.348721687,101.5211193139,-1,-1,-1);
+Print( CKidTCOH, 0);
+Data( CKidTCOH, -1);
+Print( CBrnTCOH, 1 2 6 12 24 36);
+Data( CBrnTCOH, -1,38.34026186445,38.3640063664,-1,-1,-1);
+Print( CBldDCVGmol, 1 2 6 12 24 36); 
+Data( CBldDCVGmol, -1,0.002943114826,0.002067961822,-1,-1,-1);
+Print( CLivDCVGmol, 1 2 6 12 24 36); 
+Data( CLivDCVGmol , 0.06067440463,0.007277831234,-1,-1,-1,-1);
+Print( CKidDCVGmol, 1 2 6 12 24 36); 
+Data( CKidDCVGmol , 0.02158986026,0.02630023982,-1,-1,-1,-1);
+Print( CBrnDCVGmol, 1 2 6 12 24 36); 
+Data( CBrnDCVGmol , -1,0.01873996469,-1,-1,-1,-1);
+Print( CBldDCVCmol , 1 2 6 12 24 36);
+Data( CBldDCVCmol , -1,0.01082937244,0.007965178961,-1,-1,-1);
+Print( CLivDCVCmol, 0); 
+Data( CLivDCVCmol , -1);
+Print( CKidDCVCmol, 1 2 6 12 24 36); 
+Data( CKidDCVCmol , 0.00184179495,-1,-1,-1,-1,-1);
+Print( CBrnDCVCmol, 1 2 6 12 24 36); 
+Data( CBrnDCVCmol , -1,0.004043330195,-1,-1,-1,-1);
+Print( CBldNDCVCmol, 0); 
+Data( CBldNDCVCmol , -1);
+Print( CLivNDCVCmol, 1 2 6 12 24 36); 
+Data( CLivNDCVCmol , 0.005874949844,0.003527387021,-1,-1,-1,-1);
+Print( CKidNDCVCmol, 0); 
+Data( CKidNDCVCmol , -1);
+Print( CBrnNDCVCmol, 1 2 6 12 24 36); 
+Data( CBrnNDCVCmol , -1,0.00412250436,-1,-1,-1,-1);
+
+Print(CLivTCOH_ND, 0);
+Data(CLivTCOH_ND, -1);
+Print(CLivTCOGTCOH_ND, 0);
+Data(CLivTCOGTCOH_ND, -1);
+
+Print(CLivDCVCmol_ND, 24 36);
+Data(CLivDCVCmol_ND, 0 0);
+Print(CKidDCVCmol_ND, 24 36);
+Data(CKidDCVCmol_ND, 0 0);
+Print(CLivNDCVCmol_ND, 24 36);
+Data(CLivNDCVCmol_ND, 0 0);
+Print(CKidNDCVCmol_ND, 24 36);
+Data(CKidNDCVCmol_ND, 0 0);
+
+} # End experiment
+} # End group 20-1
+
+Level { ## Begin Yusyuan 20CC group 20-2
+
+	Likelihood( CBldDCVGmol , LogNormal_v , Prediction( CBldDCVGmol ) , Ve_CBldDCVGmol ); #(v300)
+	Likelihood( CLivDCVGmol , LogNormal_v , Prediction( CLivDCVGmol ) , Ve_CLivDCVGmol ); #(v300)
+	Likelihood( CKidDCVGmol , LogNormal_v , Prediction( CKidDCVGmol ) , Ve_CKidDCVGmol ); #(v300)
+	Likelihood( CBrnDCVGmol , LogNormal_v , Prediction( CBrnDCVGmol ) , Ve_CBrnDCVGmol ); #(v300)	
+
+	Likelihood( CBldDCVCmol , LogNormal_v , Prediction( CBldDCVCmol ) , Ve_CBldDCVCmol ); #(v300)
+	Likelihood( CLivDCVCmol , LogNormal_v , Prediction( CLivDCVCmol ) , Ve_CLivDCVCmol ); #(v300)
+	Likelihood( CKidDCVCmol , LogNormal_v , Prediction( CKidDCVCmol ) , Ve_CKidDCVCmol ); #(v300)
+	Likelihood( CBrnDCVCmol , LogNormal_v , Prediction( CBrnDCVCmol ) , Ve_CBrnDCVCmol ); #(v300)	
+
+	Likelihood( CBldNDCVCmol , LogNormal_v , Prediction( CBldNDCVCmol ) , Ve_CBldNDCVCmol ); #(v300)
+	Likelihood( CLivNDCVCmol , LogNormal_v , Prediction( CLivNDCVCmol ) , Ve_CLivNDCVCmol ); #(v300)
+	Likelihood( CKidNDCVCmol , LogNormal_v , Prediction( CKidNDCVCmol ) , Ve_CKidNDCVCmol ); #(v300)
+	Likelihood( CBrnNDCVCmol , LogNormal_v , Prediction( CBrnNDCVCmol ) , Ve_CBrnNDCVCmol ); #(v300)	
+
+Experiment { ## Begin Yusyuan experiment
+Species = 3 ;
+Male = 1 ;
+
+# Measured Covariates (if any)
+BWmeas =  0.01797 ;
+VLivC = 1.082612 ;
+VKidC = 0.7528888 ;
+VBrnC = 1.224263 ;
+VLngC = 1.205713 ;
+
+# Exposure/Dosing 
+PDose = NDoses(2, 800 0 , 0 0.05 ) ;
+TChng = 0.05 ;
+
+# Data
+
+Print( CBldDCVGmol, 2); 
+Data( CBldDCVGmol, 0.002);
+Print( CLivDCVGmol, 2); 
+Data( CLivDCVGmol , 0.0331);
+Print( CKidDCVGmol, 2); 
+Data( CKidDCVGmol , 0.0031);
+Print( CBrnDCVGmol, 2); 
+Data( CBrnDCVGmol , -1);
+Print( CBldDCVCmol , 2);
+Data( CBldDCVCmol , 0.0006);
+Print( CLivDCVCmol, 2); 
+Data( CLivDCVCmol , 00021);
+Print( CKidDCVCmol, 2); 
+Data( CKidDCVCmol , 0.0078);
+Print( CBrnDCVCmol, 2); 
+Data( CBrnDCVCmol , -1);
+Print( CBldNDCVCmol, 2); 
+Data( CBldNDCVCmol , 0.0012);
+Print( CLivNDCVCmol, 2); 
+Data( CLivNDCVCmol , 0.007);
+Print( CKidNDCVCmol, 2); 
+Data( CKidNDCVCmol , 0.0078);
+Print( CBrnNDCVCmol, 2); 
+Data( CBrnNDCVCmol , -1);
+
+} # End experiment
+} # End Yusyuan 20CC group 20-2; CC030/GeniUnc 
+#
+# Remove AU8034 form Abhi's 50CC study
+#
+} # End Strain 20 # Strain = AU8034; CC030/GeniUnc
+
+
+Level { ## Strain 21 # Strain = IL16188; CC004/TauUnc 
+
+Level { ## Begin group 21-1
+
+#Likelihoods (24)
+
+	Likelihood( CVen , LogNormal_v , Prediction( CVen ) , Ve_CVen );
+	Likelihood( CLiv , LogNormal_v , Prediction( CLiv ) , Ve_CLiv );
+	Likelihood( CKid , LogNormal_v , Prediction( CKid ) , Ve_CKid );
+	Likelihood( CBrn , LogNormal_v , Prediction( CBrn ) , Ve_CBrn ); #(300)
+
+	Likelihood( CTCOH , LogNormal_v , Prediction( CTCOH ) , Ve_CTCOH );
+	Likelihood( CLivTCOH , LogNormal_v , Prediction( CLivTCOH ) , Ve_CLivTCOH );
+	Likelihood( CKidTCOH , LogNormal_v , Prediction( CKidTCOH ) , Ve_CKidTCOH ); #(300)
+	Likelihood( CBrnTCOH , LogNormal_v , Prediction( CBrnTCOH ) , Ve_CBrnTCOH ); #(300)
+
+	Likelihood( CBldTCA , LogNormal_v , Prediction( CBldTCA ) , Ve_CBldTCA );
+	Likelihood( CLivTCA , LogNormal_v , Prediction( CLivTCA ) , Ve_CLivTCA );
+	Likelihood( CKidTCA , LogNormal_v , Prediction( CKidTCA ) , Ve_CKidTCA ); #(300)
+	Likelihood( CBrnTCA , LogNormal_v , Prediction( CBrnTCA ) , Ve_CBrnTCA ); #(300)
+
+	Likelihood( CBldDCVGmol , LogNormal_v , Prediction( CBldDCVGmol ) , Ve_CBldDCVGmol ); #(v300)
+	Likelihood( CLivDCVGmol , LogNormal_v , Prediction( CLivDCVGmol ) , Ve_CLivDCVGmol ); #(v300)
+	Likelihood( CKidDCVGmol , LogNormal_v , Prediction( CKidDCVGmol ) , Ve_CKidDCVGmol ); #(v300)
+	Likelihood( CBrnDCVGmol , LogNormal_v , Prediction( CBrnDCVGmol ) , Ve_CBrnDCVGmol ); #(v300)	
+
+	Likelihood( CBldDCVCmol , LogNormal_v , Prediction( CBldDCVCmol ) , Ve_CBldDCVCmol ); #(v300)
+	Likelihood( CLivDCVCmol , LogNormal_v , Prediction( CLivDCVCmol ) , Ve_CLivDCVCmol ); #(v300)
+	Likelihood( CKidDCVCmol , LogNormal_v , Prediction( CKidDCVCmol ) , Ve_CKidDCVCmol ); #(v300)
+	Likelihood( CBrnDCVCmol , LogNormal_v , Prediction( CBrnDCVCmol ) , Ve_CBrnDCVCmol ); #(v300)	
+
+	Likelihood( CBldNDCVCmol , LogNormal_v , Prediction( CBldNDCVCmol ) , Ve_CBldNDCVCmol ); #(v300)
+	Likelihood( CLivNDCVCmol , LogNormal_v , Prediction( CLivNDCVCmol ) , Ve_CLivNDCVCmol ); #(v300)
+	Likelihood( CKidNDCVCmol , LogNormal_v , Prediction( CKidNDCVCmol ) , Ve_CKidNDCVCmol ); #(v300)
+	Likelihood( CBrnNDCVCmol , LogNormal_v , Prediction( CBrnNDCVCmol ) , Ve_CBrnNDCVCmol ); #(v300)	
+
+# Define ND
+
+	Likelihood (CLivDCVCmol_ND, StudentT, 5, Prediction(CLivDCVCmol_ND), 1.0E-04); # LOD = 3*SD
+	Likelihood (CKidDCVCmol_ND, StudentT, 5, Prediction(CKidDCVCmol_ND), 1.0E-04);
+	Likelihood (CLivNDCVCmol_ND, StudentT, 5, Prediction(CLivNDCVCmol_ND), 1.0E-04);
+	Likelihood (CKidNDCVCmol_ND, StudentT, 5, Prediction(CKidNDCVCmol_ND), 1.0E-04);
+
+Experiment { ## Begin Abhi experiment
+Species = 3 ;
+Male = 1 ;
+
+# Measured Covariates (if any)
+BWmeas =  0.029 ;
+VLivC = 0.7655136 ;
+VKidC = 0.5611455 ;
+
+# Exposure/Dosing 
+PDose = NDoses(2, 800 0 , 0 0.05 ) ;
+TChng = 0.05 ;
+
+# Data
+Print( CVen , 1 2 6 12 24 36);
+Data( CVen , 0.13249757644354,-1,-1,-1,-1,-1);
+Print( CLiv , 1 2 6 12 24 36);
+Data( CLiv , 6.2248758551,17.288808621,-1,-1,-1,-1);
+Print( CKid , 1 2 6 12 24 36);
+Data( CKid , 47.530583651985,50.152980080567,-1,-1,-1,-1);
+Print( CBrn, 1 2 6 12 24 36);
+Data( CBrn, 40.41349789225,2.8957798472813,7.7528524398325,-1,-1,-1);
+Print( CBldTCA , 1 2 6 12 24 36);
+Data( CBldTCA , -1,41.6635940175,84.9646413525,100.5288077055,15.3646657785,-1);
+Print( CLivTCA , 1 2 6 12 24 36);
+Data( CLivTCA , 50.4647898615,72.302908197,94.2682187415,45.464757285,36.5481727875,12.755804352);
+Print( CKidTCA, 1 2 6 12 24 36);
+Data( CKidTCA, 236.1299462925,124.6893776505,44.341773885,-1,26.4244264245,-1);
+Print( CBrnTCA, 1 2 6 12 24 36);
+Data( CBrnTCA, 1.4231071065,-1,-1,1.559434551,0.1793694735,-1);
+Print( CTCOH , 1 2 6 12 24 36);
+Data( CTCOH , 0.2129452133,0.2797975857,0.1628063515,-1,0.04859263582,-1);
+Print( CLivTCOH , 1 2 6 12 24 36);
+Data( CLivTCOH , 0.5048000838,0.4904475173,0.1498596583,-1,-1,-1);
+Print( CKidTCOH, 0);
+Data( CKidTCOH, -1);
+Print( CBrnTCOH, 1 2 6 12 24 36);
+Data( CBrnTCOH, 0.1683013178,0.1260362971,0.04909015311,-1,-1,-1);
+Print( CBldDCVGmol, 1 2 6 12 24 36); 
+Data( CBldDCVGmol, 0.002871740811,0.002121202771,-1,-1,-1,0.002275912478);
+Print( CLivDCVGmol, 1 2 6 12 24 36); 
+Data( CLivDCVGmol , 0.000581535514,0.00050823775,0.002157072601,-1,-1,0.000475888864);
+Print( CKidDCVGmol, 1 2 6 12 24 36); 
+Data( CKidDCVGmol , 0.02046988918,0.007190309648,-1,-1,-1,-1);
+Print( CBrnDCVGmol, 1 2 6 12 24 36); 
+Data( CBrnDCVGmol , -1,0.02892685631,-1,-1,0.001486564276,-1);
+Print( CBldDCVCmol , 1 2 6 12 24 36);
+Data( CBldDCVCmol , -1,-1,-1,-1,0.009775075593,-1);
+Print( CLivDCVCmol, 0); 
+Data( CLivDCVCmol , -1);
+Print( CKidDCVCmol, 1 2 6 12 24 36); 
+Data( CKidDCVCmol , 0.007229515752,0.002513316145,-1,-1,-1,-1);
+Print( CBrnDCVCmol, 1 2 6 12 24 36); 
+Data( CBrnDCVCmol , 0.004362548835,-1,-1,-1,-1,-1);
+Print( CBldNDCVCmol, 0); 
+Data( CBldNDCVCmol , -1);
+Print( CLivNDCVCmol, 1 2 6 12 24 36); 
+Data( CLivNDCVCmol , 0.007917538387,-1,-1,-1,-1,-1);
+Print( CKidNDCVCmol, 1 2 6 12 24 36); 
+Data( CKidNDCVCmol , 0.01097870884,-1,-1,-1,-1,-1);
+Print( CBrnNDCVCmol, 0); 
+Data( CBrnNDCVCmol , -1);
+
+Print(CLivDCVCmol_ND, 24 36);
+Data(CLivDCVCmol_ND, 0 0);
+Print(CKidDCVCmol_ND, 24 36);
+Data(CKidDCVCmol_ND, 0 0);
+Print(CLivNDCVCmol_ND, 24 36);
+Data(CLivNDCVCmol_ND, 0 0);
+Print(CKidNDCVCmol_ND, 24 36);
+Data(CKidNDCVCmol_ND, 0 0);
+} # End experiment
+} # End group 21-1
+
+Level { ## Begin Abhi 50CC group 21-2
+Species = 3 ;
+Male = 1 ;
+TChng = 0.05 ;
+# Measured Covariates (if any)
+
+	Likelihood( CBldTCA , LogNormal_v , Prediction( CBldTCA ) , Ve_CBldTCA );
+	Likelihood( CLivTCA , LogNormal_v , Prediction( CLivTCA ) , Ve_CLivTCA );
+	Likelihood( CKidTCA , LogNormal_v , Prediction( CKidTCA ) , Ve_CKidTCA ); #(300)
+	Likelihood( CBrnTCA , LogNormal_v , Prediction( CBrnTCA ) , Ve_CBrnTCA ); #(300)
+
+Experiment { ## Begin Abhi 50 CC experiment - 80 mg
+# Measured Covariates (if any)
+BWmeas =  0.0351 ;
+VLivC = 0.75628; 
+VKidC = 0.53628;
+VBrnC = 0.5698;
+VLngC = 0.61728;
+# Exposure/Dosing 
+PDose = NDoses(2, 80 0 , 0 0.05 ) ;
+# Data
+Print( CBldTCA , 24);
+Data( CBldTCA , 1.363590);
+Print( CLivTCA , 24);
+Data( CLivTCA , 1.695495);
+Print( CKidTCA, 24);
+Data( CKidTCA, -1);
+Print( CBrnTCA, 24);
+Data( CBrnTCA, -1);
+} # End Abhi 50 CC experiment - 80 mg
+
+Experiment { ## Begin Abhi 50 CC experiment - 240 mg
+# Measured Covariates (if any)
+BWmeas = 0.025 ;
+VLivC = 0.95273; 
+VKidC = 0.70588;
+VBrnC = 1.30667;
+VLngC = 0.93333;
+# Exposure/Dosing 
+PDose = NDoses(2, 240 0 , 0 0.05 ) ;
+# Data
+Print( CBldTCA , 24);
+Data( CBldTCA , 32.86186);
+Print( CLivTCA , 24);
+Data( CLivTCA , 21.19941);
+Print( CKidTCA, 24);
+Data( CKidTCA, 11.64120);
+Print( CBrnTCA, 24);
+Data( CBrnTCA, 12.04505);
+} # End Abhi 50 CC experiment - 240 mg
+
+Experiment { ## Begin Abhi 50 CC experiment - 800 mg
+# Measured Covariates (if any)
+BWmeas =  0.0214 ;
+VLivC = 0.87511; 
+VKidC = 0.71468;
+VBrnC = 1.27726;
+VLngC = 0.93458;
+# Exposure/Dosing 
+PDose = NDoses(2, 800 0 , 0 0.05 ) ;
+# Data
+Print( CBldTCA , 24);
+Data( CBldTCA , 102.66819);
+Print( CLivTCA , 24);
+Data( CLivTCA , 40.91424);
+Print( CKidTCA, 24);
+Data( CKidTCA, 52.34452);
+Print( CBrnTCA, 24);
+Data( CBrnTCA, 54.58611);
+} # End Abhi 50 CC experiment - 800 mg	
+} # End group 21-2
+} # End Strain = IL16188; CC004/TauUnc 
 
 } # End Group
 } # End Population
