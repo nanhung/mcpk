@@ -271,41 +271,41 @@ Level { #Subject/group level (24)
 #Distrib(	lnPBrnTCOHC	TruncNormal_v	M_lnPBrnTCOHC	V_lnPBrnTCOHC	-0.7042,1.0323	); #(v300)
 #Distrib(	lnPLngTCOHC	TruncNormal_v	M_lnPLngTCOHC	V_lnPLngTCOHC	-0.6729,0.9022	); #(v300)
 
-Distrib(	lnPBodDCVGC	TruncNormal_v	M_lnPBodDCVGC	V_lnPBodDCVGC	 0.4133,4.6405); #(v300)
-Distrib(	lnPLivDCVGC	TruncNormal_v	M_lnPLivDCVGC	V_lnPLivDCVGC	-2.6963,0.1752	); #(v300)
-Distrib(	lnPBrnDCVGC	TruncNormal_v	M_lnPBrnDCVGC	V_lnPBrnDCVGC	-2.266,0.6556	); #(v300)
-Distrib(	lnPLngDCVGC	TruncNormal_v	M_lnPLngDCVGC	V_lnPLngDCVGC	-2.2564,0.6224	); #(v300)	
+Distrib(	lnPBodDCVGC	TruncNormal_v	M_lnPBodDCVGC	V_lnPBodDCVGC	 1.6385, 3.4821); #(v300)
+Distrib(	lnPLivDCVGC	TruncNormal_v	M_lnPLivDCVGC	V_lnPLivDCVGC	-1.8045,-0.1237	); #(v300)
+Distrib(	lnPBrnDCVGC	TruncNormal_v	M_lnPBrnDCVGC	V_lnPBrnDCVGC	-1.4738,0.3545	); #(v300)
+Distrib(	lnPLngDCVGC	TruncNormal_v	M_lnPLngDCVGC	V_lnPLngDCVGC	-1.5121,0.3565	); #(v300)	
 
-Distrib(	lnPLivDCVCC	TruncNormal_v	M_lnPLivDCVCC	V_lnPLivDCVCC	-0.192,2.9231   ); #(v300)
-Distrib(	lnPKidDCVCC	TruncNormal_v	M_lnPKidDCVCC	V_lnPKidDCVCC	-0.3088,3.0117	); #(v300)
-Distrib(	lnPBrnDCVCC	TruncNormal_v	M_lnPBrnDCVCC	V_lnPBrnDCVCC	-0.1046,3.0461	); #(v300)
-Distrib(	lnPLngDCVCC	TruncNormal_v	M_lnPLngDCVCC	V_lnPLngDCVCC   -0.4366,2.929	); #(v300)	
+Distrib(	lnPLivDCVCC	TruncNormal_v	M_lnPLivDCVCC	V_lnPLivDCVCC	0.0495,2.5991   ); #(v300)
+Distrib(	lnPKidDCVCC	TruncNormal_v	M_lnPKidDCVCC	V_lnPKidDCVCC	0.4015,2.5428	); #(v300)
+Distrib(	lnPBrnDCVCC	TruncNormal_v	M_lnPBrnDCVCC	V_lnPBrnDCVCC	0.4806,2.5393	); #(v300)
+Distrib(	lnPLngDCVCC	TruncNormal_v	M_lnPLngDCVCC	V_lnPLngDCVCC   0.119,2.3766	); #(v300)	
 
-Distrib(	lnPLivNDCVCC	TruncNormal_v	M_lnPLivNDCVCC	V_lnPLivNDCVCC	-0.8921,1.8142	); #(v300)
-Distrib(	lnPKidNDCVCC	TruncNormal_v	M_lnPKidNDCVCC	V_lnPKidNDCVCC	-0.9265,1.7139	); #(v300)
-Distrib(	lnPBrnNDCVCC	TruncNormal_v	M_lnPBrnNDCVCC	V_lnPBrnNDCVCC	-0.8349,1.8067 ); #(v300)
-Distrib(	lnPLngNDCVCC	TruncNormal_v	M_lnPLngNDCVCC	V_lnPLngNDCVCC	-0.9339,1.7364	); #(v300)
+Distrib(	lnPLivNDCVCC	TruncNormal_v	M_lnPLivNDCVCC	V_lnPLivNDCVCC	-0.6528,1.2662	); #(v300)
+Distrib(	lnPKidNDCVCC	TruncNormal_v	M_lnPKidNDCVCC	V_lnPKidNDCVCC	-0.6998,1.1801	); #(v300)
+Distrib(	lnPBrnNDCVCC	TruncNormal_v	M_lnPBrnNDCVCC	V_lnPBrnNDCVCC	-0.6046,1.296 ); #(v300)
+Distrib(	lnPLngNDCVCC	TruncNormal_v	M_lnPLngNDCVCC	V_lnPLngNDCVCC	-0.6427,1.1818	); #(v300)
 
 Distrib(	lnkTSD	TruncNormal_v	M_lnkTSD	V_lnkTSD	-1.1119,3.6881	);
 Distrib(	lnkAS	TruncNormal_v	M_lnkAS	V_lnkAS	-2.2283,2.5717	); # revise prior
 Distrib(	lnkAD	TruncNormal_v	M_lnkAD	V_lnkAD	-4.6579,0.1421	); # revise prior
 
-Distrib(	lnVMaxC	TruncNormal_v	M_lnVMaxC	V_lnVMaxC	-2.1065,1.0589	);
+Distrib(	lnVMaxC	TruncNormal_v	M_lnVMaxC	V_lnVMaxC	-1.8789,0.5473	);
 #Distrib(	lnFracTCAC	TruncNormal_v	M_lnFracTCAC	V_lnFracTCAC	-1.6087,1.0927	); # revise prior
-Distrib(	lnVMaxDCVGC	TruncNormal_v	M_lnVMaxDCVGC	V_lnVMaxDCVGC	-7.8209,-3.5743	); # revise prior
+Distrib(	lnVMaxDCVGC	TruncNormal_v	M_lnVMaxDCVGC	V_lnVMaxDCVGC	-6.1935,-3.8085	); # revise prior
 #Distrib(	lnClDCVGC	TruncNormal_v	M_lnClDCVGC	V_lnClDCVGC-5.4241,-2.9467	); # revise prior
-Distrib(	lnVMaxLungLivC	TruncNormal_v	M_lnVMaxLungLivC	V_lnVMaxLungLivC	0.3044,3.666	); 
+Distrib(	lnVMaxLungLivC	TruncNormal_v	M_lnVMaxLungLivC	V_lnVMaxLungLivC	1.1649,3.7853	); 
 #Distrib(	lnFracLungSysC	TruncNormal_v	M_lnFracLungSysC	V_lnFracLungSysC	-2.8163,1.791	); # revise prior
 
 #Distrib(	lnVMaxTCOHC	TruncNormal_v	M_lnVMaxTCOHC	V_lnVMaxTCOHC	-1.5927,2.0929	); # revise prior
 #Distrib(	lnKMTCOH	TruncNormal_v	M_lnKMTCOH	V_lnKMTCOH	-1.7365,3.879);							
-Distrib(	lnVMaxGlucC	TruncNormal_v	M_lnVMaxGlucC	V_lnVMaxGlucC	1.8455,5.1757	); # revise prior
-Distrib(	lnKMGluc	TruncNormal_v	M_lnKMGluc	V_lnKMGluc	,1.1844,4.9035	); # revise prior
-Distrib(	lnkUrnTCAC	TruncNormal_v	M_lnkUrnTCAC	V_lnkUrnTCAC	-2.8236,0.694	); # revise prior
+Distrib(	lnVMaxGlucC	TruncNormal_v	M_lnVMaxGlucC	V_lnVMaxGlucC	2.5597,4.98	); # revise prior
+Distrib(	lnKMGluc	TruncNormal_v	M_lnKMGluc	V_lnKMGluc	,1.828,4.4334	); # revise prior
+Distrib(	lnkUrnTCAC	TruncNormal_v	M_lnkUrnTCAC	V_lnkUrnTCAC	-2.1377,0.0989	); # revise prior
 
-Distrib(	lnkKidDCVGC	TruncNormal_v	M_lnkKidDCVGC	V_lnkKidDCVGC	4.0546,7.1607	); #(v300)
-Distrib(	lnkKidDCVCC	TruncNormal_v	M_lnkKidDCVCC	V_lnkKidDCVCC	2.5739,6.4543	); #(v300)
-Distrib(	lnkKidNDCVCC	TruncNormal_v	M_lnkKidNDCVCC	V_lnkKidNDCVCC	3.664,6.9873	); #(v300)
+Distrib(	lnkKidDCVGC	TruncNormal_v	M_lnkKidDCVGC	V_lnkKidDCVGC	3.965,6.1556	); #(v300)
+Distrib(	lnkKidDCVCC	TruncNormal_v	M_lnkKidDCVCC	V_lnkKidDCVCC	2.6171,5.1582	); #(v300)
+Distrib(	lnkKidNDCVCC	TruncNormal_v	M_lnkKidNDCVCC	V_lnkKidNDCVCC	3.7338,5.8565	); #(v300)
 
 ############### DATA USED IN CALIBRATION #############
 
