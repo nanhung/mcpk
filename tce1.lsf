@@ -10,7 +10,6 @@
 #BSUB -N                        ## Send email on job begin (-B) and end (-N)
 #BSUB -P 082803368414           ## set account
 
-export OMP_NUM_THREADS = 4
 ## time ./mcsim.tce1 tce1.c03.in & 
 time ./mcsim.tce1 tce1.c04.in 
 
