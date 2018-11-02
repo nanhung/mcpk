@@ -1,0 +1,541 @@
+# ==============================================================================
+# Multi compartment model with first-order absorption rate and 
+# linear metabolism for TCE.
+#
+# version 1
+# ==============================================================================
+
+States  = {Q_tce,       # Quantity of TCE in central compartment (mg)
+           #Q_per,      #   ~        TCE in peripheral compartment
+           Q_tca,       #             TCA
+           Q_tch,       #   ~         TCOH 
+           Q_dcg,       #             DCVG
+           Q_dcc,       #             DCVC
+           Q_ndc,       #             NAcDCVC
+           Qe_tce,      #   ~       of TCE elimination 
+           Qe_tca,      #   ~       of TCA elimination 
+           Qe_tch,      #   ~       of TCOH elimination
+           Qb_dcc,      #   ~       of DCVC elimination 
+           Qe_ndc,      #   ~      of NAcDCVC elimination 
+           AUCsrm_tce,
+           AUCliv_tce,
+           AUCkid_tce,
+           AUCbrn_tce,
+           AUClng_tce,
+           AUCccs_tce,
+           AUCsrm_tca,
+           AUCliv_tca,
+           AUCkid_tca,
+           AUCbrn_tca,
+           AUClng_tca,
+           AUCccs_tca,
+           AUCsrm_tch, 
+           AUCliv_tch, 
+           AUCkid_tch, 
+           AUCbrn_tch, 
+           AUClng_tch, 
+           AUCccs_tch,
+           AUCsrm_dcg,
+           AUCliv_dcg,
+           AUCkid_dcg,
+           AUCbrn_dcg,
+           AUClng_dcg,
+           AUCccs_dcg,
+           AUCsrm_dcc,
+           AUCliv_dcc,
+           AUCkid_dcc,
+           AUCbrn_dcc,
+           AUClng_dcc,
+           AUCccs_dcc,
+           AUCsrm_ndc,
+           AUCliv_ndc,
+           AUCkid_ndc,
+           AUCbrn_ndc,
+           AUClng_ndc,
+           AUCccs_ndc,
+};    
+
+Outputs = {Csrm_tce,    # Concentration of serum TCE (nmol/mL)
+           Cliv_tce,
+           Ckid_tce,
+           Cbrn_tce,
+           Clng_tce,
+           Csrm_tca,    # Concentration of serum TCA 
+           Cliv_tca,
+           Ckid_tca,
+           Cbrn_tca,
+           Clng_tca,
+           Csrm_tch,    # Concentration of serum TCOH 
+           Cliv_tch, 
+           Ckid_tch, 
+           Cbrn_tch, 
+           Clng_tch, 
+           Csrm_dcg,    # Concentration of serum DCVG
+           Cliv_dcg,
+           Ckid_dcg,
+           Cbrn_dcg,
+           Clng_dcg,
+           Csrm_dcc,    # Concentration of serum DCVC 
+           Cliv_dcc,
+           Ckid_dcc,
+           Cbrn_dcc,
+           Clng_dcc,
+           Csrm_ndc,    # Concentration of serum NAcDCVC 
+           Cliv_ndc,
+           Ckid_ndc,
+           Cbrn_ndc,
+           Clng_ndc,
+           Cccs_tce,    # Concentration of carcass TCE 
+           Cccs_tca,
+           Cccs_tch,
+           Cccs_dcg,
+           Cccs_dcc,
+           Cccs_ndc,
+           Q_total};    # Total quantity for mass balance
+
+#Inputs  = {Oral_input};     # Drug input in micromoles
+Inputs  = {Oral_dose_rate};
+
+# ------------------------
+# Parameters
+# ------------------------
+BW = 0.025;        # Body Weight (kg)
+fW_liv = 0.048;     # Liver weight fraction 
+fW_kid = 0.013;     # Kidney weight fraction 
+fW_brn = 0.018;     # Brain weight fraction 
+fW_lng = 0.006;     # Lung weight fraction 
+fW_srm = 0.07; lnfW_srm = log(0.07);   # Blood weight fraction (ref: 0.055-0.07) 
+
+dose_mg = 232;
+
+MWTCE = 131.4;        # tce Molecular weight (g/mole);
+MWTCA = 163.39;       # TCA
+MWTCOH = 149.5;       # TCOH 
+MWDCVG = 402.2;       # DCVG
+MWDCVC = 216.1;       # DCVC
+MWNDCVC = 258.8;      # N Acetyl DCVC
+
+# Oral input modeling
+
+#AbsDose;                       # Absorbed dose (mg)
+#Fgutabs; lnFgutabs = log(1);   #
+#IngDose    = 1.0;              # ingested input (mg/kg)
+#Period     = 48.0;             # period of the exposure/no exposure cycle (h)
+#Tlag       = 0.0;              # Absorption lagtime (h)
+#Ka; lnKa = log(2.5);           # Intestinal absortion rate constant (1/h)
+#Oral_input = PerExp (AbsDose, Period, Tlag, Ka);
+
+# Metabolic rate constant (1/h)
+Km_c2a; lnKm_c2a = log(0.01);     # tce to TCA
+Km_c2h; lnKm_c2h = log(0.01);     # tce to TCOH 
+Km_c2g; lnKm_c2g = log(0.000005); # tce to DCVG
+Km_g2d; lnKm_g2d = log(0.5);      # TCVG to DCVC
+Km_d2n; lnKm_d2n = log(0.5);      # TCVC to NAcDCVC
+
+# Elimination rate constant (1/h)
+Ke_tce; lnKe_tce = log(0.4);
+Ke_tca; lnKe_tca = log(0.05); 
+Ke_tch; lnKe_tch = log(0.4);
+Ke_ndc; lnKe_ndc = log(0.4);
+
+# Bioactivation rate constant (1/h)
+Kb_dcc; lnKb_dcc = log(0.4);
+
+# Distribution volumes (L) ref: 0.008-0.028
+# Handbook of Laboratory Animal Management and Welfare 3rd Ed.
+Vsrm; lnVsrm = log(0.018);
+#Vtce; lnVtce = log(0.018); 
+#Vtca; lnVtca = log(0.018); 
+#Vtch; lnVtch = log(0.018);  
+#Vdcg; lnVdcg = log(0.018);
+#Vdcc; lnVdcc = log(0.018);
+#Vndc; lnVndc = log(0.018);
+
+# Transfer rate constants between compartments (1/h)
+#Kc2p; lnKc2p = log(0.3); 
+#Kp2c; lnKp2c = log(0.3);
+
+# Fraction
+fsrm_tce; lnfsrm_tce = log(0.1); 
+fsrm_tca; lnfsrm_tca = log(0.1); 
+fsrm_tch; lnfsrm_tch = log(0.1);  
+fsrm_dcg; lnfsrm_dcg = log(0.1);
+fsrm_dcc; lnfsrm_dcc = log(0.1);
+fsrm_ndc; lnfsrm_ndc = log(0.1);
+
+
+# Particient coefficient (-)
+fliv_tce; lnfliv_tce = log(1); 
+fkid_tce; lnfkid_tce = log(1); 
+fbrn_tce; lnfbrn_tce = log(1); 
+flng_tce; lnflng_tce = log(1);
+
+fliv_tca; lnfliv_tca = log(1); 
+fkid_tca; lnfkid_tca = log(1); 
+fbrn_tca; lnfbrn_tca = log(1); 
+flng_tca; lnflng_tca = log(1); 
+
+fliv_tch; lnfliv_tch = log(1);  
+fkid_tch; lnfkid_tch = log(1); 
+fbrn_tch; lnfbrn_tch = log(1); 
+flng_tch; lnflng_tch = log(1); 
+
+fliv_dcg; lnfliv_dcg = log(1); 
+fkid_dcg; lnfkid_dcg = log(1); 
+fbrn_dcg; lnfbrn_dcg = log(1); 
+flng_dcg; lnflng_dcg = log(1); 
+
+fliv_dcc; lnfliv_dcc = log(1); 
+fkid_dcc; lnfkid_dcc = log(1); 
+fbrn_dcc; lnfbrn_dcc = log(1); 
+flng_dcc; lnflng_dcc = log(1); 
+
+fliv_ndc; lnfliv_ndc = log(1); 
+fkid_ndc; lnfkid_ndc = log(1); 
+fbrn_ndc; lnfbrn_ndc = log(1); 
+flng_ndc; lnflng_ndc = log(1); 
+
+# Statistical parameters
+# -----------------------
+# Population mean
+
+M_lnfW_srm =1; 
+#M_lnFgutabs = 1;
+#M_lnKa = 1;
+#M_lnKc2p = 1;
+#M_lnKp2c = 1;
+
+M_lnKm_c2a = 1;
+M_lnKm_c2h = 1; 
+M_lnKm_c2g = 1;
+M_lnKm_g2d = 1;
+M_lnKm_d2n = 1;
+
+M_lnKe_tce = 1;
+M_lnKe_tch = 1; 
+M_lnKe_tca = 1;
+M_lnKe_ndc = 1;
+
+M_lnKb_dcc =1;
+
+M_lnVsrm = 1;
+#M_lnVtce = 1;
+#M_lnVtca = 1;
+#M_lnVtch = 1; 
+#M_lnVdcg = 1;
+#M_lnVdcc = 1;
+#M_lnVndc = 1;
+
+M_lnfsrm_tce = 1;
+M_lnfsrm_tca = 1;
+M_lnfsrm_tch = 1; 
+M_lnfsrm_dcg = 1;
+M_lnfsrm_dcc = 1;
+M_lnfsrm_ndc = 1;
+
+M_lnfliv_tce = 1;
+M_lnfkid_tce = 1;
+M_lnfbrn_tce = 1;
+M_lnflng_tce = 1;
+M_lnfliv_tch = 1; 
+M_lnfkid_tch = 1; 
+M_lnfbrn_tch = 1; 
+M_lnflng_tch = 1; 
+M_lnfliv_tca = 1;
+M_lnfkid_tca = 1;
+M_lnfbrn_tca = 1;
+M_lnflng_tca = 1;
+M_lnfliv_dcg = 1;
+M_lnfkid_dcg = 1;
+M_lnfbrn_dcg = 1;
+M_lnflng_dcg = 1;
+M_lnfliv_dcc = 1;
+M_lnfkid_dcc = 1;
+M_lnfbrn_dcc = 1;
+M_lnflng_dcc = 1;
+M_lnfliv_ndc = 1;
+M_lnfkid_ndc = 1;
+M_lnfbrn_ndc = 1;
+M_lnflng_ndc = 1;
+
+# Inter species variances
+
+Vr_lnfW_srm =1; 
+#Vr_lnFgutabs = 1;
+#Vr_lnKa = 1;
+#Vr_lnKc2p = 1;
+#Vr_lnKp2c = 1;
+
+Vr_lnKm_c2a = 1;
+Vr_lnKm_c2h = 1; 
+Vr_lnKm_c2g = 1;
+Vr_lnKm_g2d = 1;
+Vr_lnKm_d2n = 1;
+
+Vr_lnKe_tce = 1;
+Vr_lnKe_tca = 1;
+Vr_lnKe_tch = 1; 
+Vr_lnKe_ndc = 1;
+
+Vr_lnKb_dcc =1;
+
+Vr_lnVsrm = 1;
+#Vr_lnVtce = 1;
+#Vr_lnVtca = 1;
+#Vr_lnVtch = 1; 
+#Vr_lnVdcg = 1;
+#Vr_lnVdcc = 1;
+#Vr_lnVndc = 1;
+
+Vr_lnfsrm_tce = 1;
+Vr_lnfsrm_tca = 1;
+Vr_lnfsrm_tch = 1; 
+Vr_lnfsrm_dcg = 1;
+Vr_lnfsrm_dcc = 1;
+Vr_lnfsrm_ndc = 1;
+
+Vr_lnfliv_tce = 1; 
+Vr_lnfkid_tce = 1; 
+Vr_lnfbrn_tce = 1; 
+Vr_lnflng_tce = 1; 
+Vr_lnfliv_tca = 1; 
+Vr_lnfkid_tca = 1; 
+Vr_lnfbrn_tca = 1; 
+Vr_lnflng_tca = 1; 
+Vr_lnfliv_tch = 1; 
+Vr_lnfkid_tch = 1; 
+Vr_lnfbrn_tch = 1; 
+Vr_lnflng_tch = 1; 
+Vr_lnfliv_dcg = 1; 
+Vr_lnfkid_dcg = 1; 
+Vr_lnfbrn_dcg = 1; 
+Vr_lnflng_dcg = 1; 
+Vr_lnfliv_dcc = 1; 
+Vr_lnfkid_dcc = 1; 
+Vr_lnfbrn_dcc = 1; 
+Vr_lnflng_dcc = 1; 
+Vr_lnfliv_ndc = 1; 
+Vr_lnfkid_ndc = 1; 
+Vr_lnfbrn_ndc = 1; 
+Vr_lnflng_ndc = 1; 
+
+# Data Error (Ve_...)
+Ve_Csrm_tce;
+Ve_Cliv_tce;
+Ve_Ckid_tce;
+Ve_Cbrn_tce;
+Ve_Clng_tce;
+Ve_Csrm_tca;
+Ve_Cliv_tca;
+Ve_Ckid_tca;
+Ve_Cbrn_tca;
+Ve_Clng_tca;
+Ve_Csrm_tch; 
+Ve_Cliv_tch; 
+Ve_Ckid_tch; 
+Ve_Cbrn_tch; 
+Ve_Clng_tch; 
+Ve_Csrm_dcg;
+Ve_Cliv_dcg;
+Ve_Ckid_dcg;
+Ve_Cbrn_dcg;
+Ve_Clng_dcg;
+Ve_Csrm_dcc;
+Ve_Cliv_dcc;
+Ve_Ckid_dcc;
+Ve_Cbrn_dcc;
+Ve_Clng_dcc;
+Ve_Csrm_ndc;
+Ve_Cliv_ndc;
+Ve_Ckid_ndc;
+Ve_Cbrn_ndc;
+Ve_Clng_ndc;
+
+Initialize{
+    Vsrm = exp(lnVsrm);
+    #Vtce = exp(lnVtce);
+    #Vtca = exp(lnVtca);
+    #Vtch = exp(lnVtch); 
+    #Vdcg = exp(lnVdcg);
+    #Vdcc = exp(lnVdcc);
+    #Vndc = exp(lnVndc);
+    
+    Km_c2a = exp(lnKm_c2a);
+    Km_c2h = exp(lnKm_c2h); 
+    Km_c2g = exp(lnKm_c2g);
+    Km_g2d = exp(lnKm_g2d);
+    Km_d2n = exp(lnKm_d2n);
+    
+    Ke_tce = exp(lnKe_tce);
+    Ke_tca = exp(lnKe_tca);
+    Ke_tch = exp(lnKe_tch); 
+    Ke_ndc = exp(lnKe_ndc);
+    
+    Kb_dcc = exp(lnKb_dcc);
+    
+    fW_srm = exp(lnfW_srm); 
+    #Ka = exp(lnKa);
+    #Fgutabs = exp(lnFgutabs);
+    #Kc2p = exp(lnKc2p);
+    #Kp2c = exp(lnKc2p);
+    #AbsDose = IngDose * Fgutabs * BW;
+    
+    fsrm_tce = exp(lnfsrm_tce);
+    fsrm_tca = exp(lnfsrm_tca);
+    fsrm_tch = exp(lnfsrm_tch);
+    fsrm_dcg = exp(lnfsrm_dcg);
+    fsrm_dcc = exp(lnfsrm_dcc);
+    fsrm_ndc = exp(lnfsrm_ndc);
+    
+    fliv_tce = exp(lnfliv_tce);
+    fkid_tce = exp(lnfkid_tce);
+    fbrn_tce = exp(lnfbrn_tce);
+    flng_tce = exp(lnflng_tce);
+    fliv_tca = exp(lnfliv_tca);
+    fkid_tca = exp(lnfkid_tca);
+    fbrn_tca = exp(lnfbrn_tca);
+    flng_tca = exp(lnflng_tca);
+    fliv_tch = exp(lnfliv_tch); 
+    fkid_tch = exp(lnfkid_tch); 
+    fbrn_tch = exp(lnfbrn_tch); 
+    flng_tch = exp(lnflng_tch); 
+    fliv_dcg = exp(lnfliv_dcg);
+    fkid_dcg = exp(lnfkid_dcg);
+    fbrn_dcg = exp(lnfbrn_dcg);
+    flng_dcg = exp(lnflng_dcg);
+    fliv_dcc = exp(lnfliv_dcc);
+    fkid_dcc = exp(lnfkid_dcc);
+    fbrn_dcc = exp(lnfbrn_dcc);
+    flng_dcc = exp(lnflng_dcc);
+    fliv_ndc = exp(lnfliv_ndc);
+    fkid_ndc = exp(lnfkid_ndc);
+    fbrn_ndc = exp(lnfbrn_ndc);
+    flng_ndc = exp(lnflng_ndc);
+}
+
+
+Dynamics {
+  dt (Qe_tce) = Ke_tce * Q_tce;
+  dt (Qe_tca) = Ke_tca * Q_tca;
+  dt (Qe_tch) = Ke_tch * Q_tch;
+  dt (Qb_dcc) = Kb_dcc * Q_dcc;
+  dt (Qe_ndc) = Ke_ndc * Q_ndc;
+  #dt (Q_per) = Kc2p * Q_tce - Kp2c * Q_per;
+  dt (Q_tca) = Km_c2a * Q_tce - dt(Qe_tca);
+  dt (Q_tch) = Km_c2h * Q_tce - dt(Qe_tch);
+  dt (Q_dcg) = Km_c2g * Q_tce - Km_g2d * Q_dcg;
+  dt (Q_dcc) = Km_g2d * Q_dcg - Kb_dcc * Q_dcc - dt(Qb_dcc);
+  dt (Q_ndc) = Km_d2n * Q_dcc - dt(Qe_ndc);
+#  dt (Q_tce) = Ka * Oral_input - dt(Qe_tce) - #dt(Q_per) - 
+#                Km_c2a * Q_tce - Km_c2h * Q_tce - Km_c2g * Q_tce;
+
+  dt (Q_tce) = Oral_dose_rate - dt(Qe_tce) - #dt(Q_per) - 
+                Km_c2a * Q_tce - Km_c2h * Q_tce - Km_c2g * Q_tce;
+
+                
+  Csrm_tce = (Q_tce < 1.0e-10 ? 1.0e-10 : Q_tce * fsrm_tce / Vsrm / MWTCE * 1000); #(nmol/ml)
+  Csrm_tca = (Q_tca < 1.0e-10 ? 1.0e-10 : Q_tca * fsrm_tca / Vsrm / MWTCA * 1000);
+  Csrm_tch = (Q_tch < 1.0e-10 ? 1.0e-10 : Q_tch * fsrm_tch / Vsrm / MWTCOH * 1000);
+  Csrm_dcg = (Q_dcg < 1.0e-10 ? 1.0e-10 : Q_dcg * fsrm_dcg / Vsrm / MWDCVG * 1000);
+  Csrm_dcc = (Q_dcc < 1.0e-10 ? 1.0e-10 : Q_dcc * fsrm_dcc / Vsrm / MWDCVC * 1000);
+  Csrm_ndc = (Q_ndc < 1.0e-10 ? 1.0e-10 : Q_ndc * fsrm_ndc / Vsrm / MWNDCVC * 1000);
+  
+  Cliv_tce = (Q_tce < 1.0e-10 ? 1.0e-10 : Q_tce * fliv_tce / BW / fW_liv / MWTCE *1000); #(nmol/g)
+  Ckid_tce = (Q_tce < 1.0e-10 ? 1.0e-10 : Q_tce * fkid_tce / BW / fW_kid / MWTCE *1000);
+  Cbrn_tce = (Q_tce < 1.0e-10 ? 1.0e-10 : Q_tce * fbrn_tce / BW / fW_brn / MWTCE *1000);
+  Clng_tce = (Q_tce < 1.0e-10 ? 1.0e-10 : Q_tce * flng_tce / BW / fW_lng / MWTCE *1000);
+  
+  Cliv_tca = (Q_tca < 1.0e-10 ? 1.0e-10 : Q_tca * fliv_tca / BW / fW_liv / MWTCA *1000);
+  Ckid_tca = (Q_tca < 1.0e-10 ? 1.0e-10 : Q_tca * fkid_tca / BW / fW_kid / MWTCA *1000);
+  Cbrn_tca = (Q_tca < 1.0e-10 ? 1.0e-10 : Q_tca * fbrn_tca / BW / fW_brn / MWTCA *1000);
+  Clng_tca = (Q_tca < 1.0e-10 ? 1.0e-10 : Q_tca * flng_tca / BW / fW_lng / MWTCA *1000);
+  
+  Cliv_tch = (Q_tch < 1.0e-10 ? 1.0e-10 : Q_tch * fliv_tch / BW / fW_liv / MWTCOH *1000);
+  Ckid_tch = (Q_tch < 1.0e-10 ? 1.0e-10 : Q_tch * fkid_tch / BW / fW_kid / MWTCOH *1000);
+  Cbrn_tch = (Q_tch < 1.0e-10 ? 1.0e-10 : Q_tch * fbrn_tch / BW / fW_brn / MWTCOH *1000);
+  Clng_tch = (Q_tch < 1.0e-10 ? 1.0e-10 : Q_tch * flng_tch / BW / fW_lng / MWTCOH *1000);
+  
+  Cliv_dcg = (Q_dcg < 1.0e-10 ? 1.0e-10 : Q_dcg * fliv_dcg / BW / fW_liv / MWDCVG *1000);
+  Ckid_dcg = (Q_dcg < 1.0e-10 ? 1.0e-10 : Q_dcg * fkid_dcg / BW / fW_kid / MWDCVG *1000);
+  Cbrn_dcg = (Q_dcg < 1.0e-10 ? 1.0e-10 : Q_dcg * fbrn_dcg / BW / fW_brn / MWDCVG *1000);
+  Clng_dcg = (Q_dcg < 1.0e-10 ? 1.0e-10 : Q_dcg * flng_dcg / BW / fW_lng / MWDCVG *1000);
+  Cliv_dcc = (Q_dcc < 1.0e-10 ? 1.0e-10 : Q_dcc * fliv_dcc / BW / fW_liv / MWDCVC *1000);
+  
+  Ckid_dcc = (Q_dcc < 1.0e-10 ? 1.0e-10 : Q_dcc * fkid_dcc / BW / fW_kid / MWDCVC *1000);
+  Cbrn_dcc = (Q_dcc < 1.0e-10 ? 1.0e-10 : Q_dcc * fbrn_dcc / BW / fW_brn / MWDCVC *1000);
+  Clng_dcc = (Q_dcc < 1.0e-10 ? 1.0e-10 : Q_dcc * flng_dcc / BW / fW_lng / MWDCVC *1000);
+  
+  Cliv_ndc = (Q_ndc < 1.0e-10 ? 1.0e-10 : Q_ndc * fliv_ndc / BW / fW_liv / MWNDCVC *1000);
+  Ckid_ndc = (Q_ndc < 1.0e-10 ? 1.0e-10 : Q_ndc * fkid_ndc / BW / fW_kid / MWNDCVC *1000);
+  Cbrn_ndc = (Q_ndc < 1.0e-10 ? 1.0e-10 : Q_ndc * fbrn_ndc / BW / fW_brn / MWNDCVC *1000);
+  Clng_ndc = (Q_ndc < 1.0e-10 ? 1.0e-10 : Q_ndc * flng_ndc / BW / fW_lng / MWNDCVC *1000);
+  
+  Cccs_tce = (Q_tce < 1.0e-10 ? 1.0e-10 : Q_tce * 
+  (1 - fsrm_tce - fliv_tce - fkid_tce - fbrn_tce - flng_tce) / 
+  (BW-fW_srm*BW-fW_liv*BW-fW_kid*BW-fW_brn*BW-fW_lng*BW) / MWTCE *1000);
+  Cccs_tca = (Q_tca < 1.0e-10 ? 1.0e-10 : Q_tca * 
+  (1 - fsrm_tca - fliv_tca - fkid_tca - fbrn_tca - flng_tca) / 
+  (BW-fW_srm*BW-fW_liv*BW-fW_kid*BW-fW_brn*BW-fW_lng*BW) / MWTCA *1000);
+  Cccs_tch = (Q_tch < 1.0e-10 ? 1.0e-10 : Q_tch * 
+  (1 - fsrm_tch - fliv_tch - fkid_tch - fbrn_tch - flng_tch) / 
+  (BW-fW_srm*BW-fW_liv*BW-fW_kid*BW-fW_brn*BW-fW_lng*BW) / MWTCOH *1000);
+  Cccs_dcg = (Q_dcg < 1.0e-10 ? 1.0e-10 : Q_dcg * 
+  (1 - fsrm_dcg - fliv_dcg - fkid_dcg - fbrn_dcg - flng_dcg) / 
+  (BW-fW_srm*BW-fW_liv*BW-fW_kid*BW-fW_brn*BW-fW_lng*BW) / MWDCVG *1000);
+  Cccs_dcc = (Q_dcc < 1.0e-10 ? 1.0e-10 : Q_dcc * 
+  (1 - fsrm_dcc - fliv_dcc - fkid_dcc - fbrn_dcc - flng_dcc) / 
+  (BW-fW_srm*BW-fW_liv*BW-fW_kid*BW-fW_brn*BW-fW_lng*BW) / MWDCVC *1000);
+  Cccs_ndc = (Q_ndc < 1.0e-10 ? 1.0e-10 : Q_ndc * 
+  (1 - fsrm_ndc - fliv_ndc - fkid_ndc - fbrn_ndc - flng_ndc) / 
+  (BW-fW_srm*BW-fW_liv*BW-fW_kid*BW-fW_brn*BW-fW_lng*BW) / MWNDCVC *1000);
+  
+  dt(AUCsrm_tce) = Csrm_tce;
+  dt(AUCliv_tce) = Cliv_tce;
+  dt(AUCkid_tce) = Ckid_tce;
+  dt(AUCbrn_tce) = Cbrn_tce;
+  dt(AUClng_tce) = Clng_tce;
+  dt(AUCccs_tce) = Cccs_tce;
+  
+  dt(AUCsrm_tca) = Csrm_tca;
+  dt(AUCliv_tca) = Cliv_tca;
+  dt(AUCkid_tca) = Ckid_tca;
+  dt(AUCbrn_tca) = Cbrn_tca;
+  dt(AUClng_tca) = Clng_tca;
+  dt(AUCccs_tca) = Cccs_tca;
+  
+  dt(AUCsrm_tch) = Csrm_tch;
+  dt(AUCliv_tch) = Cliv_tch;
+  dt(AUCkid_tch) = Ckid_tch;
+  dt(AUCbrn_tch) = Cbrn_tch;
+  dt(AUClng_tch) = Clng_tch;
+  dt(AUCccs_tch) = Cccs_tch;
+  
+  dt(AUCsrm_dcg) = Csrm_dcg;
+  dt(AUCliv_dcg) = Cliv_dcg;
+  dt(AUCkid_dcg) = Ckid_dcg;
+  dt(AUCbrn_dcg) = Cbrn_dcg;
+  dt(AUClng_dcg) = Clng_dcg;
+  dt(AUCccs_dcg) = Cccs_dcg;
+  
+  dt(AUCsrm_dcc) = Csrm_dcc;
+  dt(AUCliv_dcc) = Cliv_dcc;
+  dt(AUCkid_dcc) = Ckid_dcc;
+  dt(AUCbrn_dcc) = Cbrn_dcc;
+  dt(AUClng_dcc) = Clng_dcc;
+  dt(AUCccs_dcc) = Cccs_dcc;
+  
+  dt(AUCsrm_ndc) = Csrm_ndc;
+  dt(AUCliv_ndc) = Cliv_ndc;
+  dt(AUCkid_ndc) = Ckid_ndc;
+  dt(AUCbrn_ndc) = Cbrn_ndc;
+  dt(AUClng_ndc) = Clng_ndc;
+  dt(AUCccs_ndc) = Cccs_ndc;
+  
+}
+
+CalcOutputs {
+  Q_total = Q_tce + Qe_tce + Q_tca + Q_tch + Qe_tca + Qe_tch + Q_dcg + Q_dcc + Qb_dcc + Q_ndc + Qe_ndc; # + Q_per
+}
+
+End.
+
