@@ -14,7 +14,7 @@
 #BSUB -M 2500               # sets to 2500MB the per process enforceable memory limit.
 ##
 #BSUB -o output.ex04.R_example.%J       # directs the job's standard output to output.ex04.R_example.jobid
-#BSUB -u d99622005@gmail.com          ## send all emails to email_address
+#BSUB -u nanhung@pm.me          ## send all emails to email_address
 ##
 # <--- at this point the current working directory is the one you submitted the job from.
 #
