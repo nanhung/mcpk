@@ -30,6 +30,7 @@ lnkMetTCAC = 0.698;
 lnkMetTCOHC = 1.98;
 lnkBileC = 0.863;
 lnkEHRC = -3.25;
+lnkDCVGC = 2.19;
 lnPeffDCVG = 0.0903;
 lnPeffDCVC = 5.98;
 lnkElimDCVCC = -1.14;
@@ -108,7 +109,7 @@ Level { #Population level
   #Distrib(	M_lnPeffDCVC	Uniform			-6.908	6.908	);
   #Distrib(	M_lnPeffDCA	Uniform			-6.908	6.908	);
   
-  Distrib(	M_lnkDCVGC	Uniform			-9.21	4.605	);
+  #Distrib(	M_lnkDCVGC	Uniform			-9.21	4.605	);
   #Distrib(	M_lnkElimDCVCC	Uniform			-9.21	4.605	);
   #Distrib(	M_lnkClearDCAC	Uniform			-9.21	4.605	);
   #Distrib(	M_lnkDCAcen_perC	Uniform			-9.21	4.605	);
@@ -151,7 +152,7 @@ Level { #Population level
   #Distrib(	V_lnPeffDCVG	InvGamma	2.25	0.2000	);
   #Distrib(	V_lnPeffDCVC	InvGamma	2.25	0.2000	);
   #Distrib(	V_lnPeffDCA	InvGamma	2.25	0.2000	);
-  Distrib(	V_lnkDCVGC	InvGamma	2.25	0.3125	);
+  #Distrib(	V_lnkDCVGC	InvGamma	2.25	0.3125	);
   #Distrib(	V_lnkElimDCVCC	InvGamma	2.25	0.3125	);
   #Distrib(	V_lnkClearDCAC	InvGamma	2.25	0.3125	);
   #Distrib(	V_lnkDCAcen_perC	InvGamma	2.25	0.3125	);
@@ -195,7 +196,7 @@ Level { #Population level
     #Distrib(	lnPeffDCVC	TruncNormal_v	M_lnPeffDCVC	V_lnPeffDCVC	-6.908	6.908	);
     #Distrib(	lnPeffDCA	TruncNormal_v	M_lnPeffDCA	V_lnPeffDCA	-6.908	6.908	);
     
-    Distrib(	lnkDCVGC	TruncNormal_v	M_lnkDCVGC	V_lnkDCVGC	-9.21	4.605	);
+    #Distrib(	lnkDCVGC	TruncNormal_v	M_lnkDCVGC	V_lnkDCVGC	-9.21	4.605	);
     #Distrib(	lnkElimDCVCC	TruncNormal_v	M_lnkElimDCVCC	V_lnkElimDCVCC	-9.21	4.605	);
     #Distrib(	lnkClearDCAC	TruncNormal_v	M_lnkClearDCAC	V_lnkClearDCAC	-9.21	4.605	);
     #Distrib(	lnkDCAcen_perC	TruncNormal_v	M_lnkDCAcen_perC	V_lnkDCAcen_perC	-9.21	4.605	);
@@ -239,7 +240,7 @@ Level { #Population level
       #Distrib(	lnPeffDCVC	TruncNormal_v	lnPeffDCVC	V_lnPeffDCVC	-6.908	6.908	);
       #Distrib(	lnPeffDCA	TruncNormal_v	lnPeffDCA	V_lnPeffDCA	-6.908	6.908	);
       
-      Distrib(	lnkDCVGC	TruncNormal_v	lnkDCVGC	V_lnkDCVGC	-9.21	4.605	);
+      #Distrib(	lnkDCVGC	TruncNormal_v	lnkDCVGC	V_lnkDCVGC	-9.21	4.605	);
       #Distrib(	lnkElimDCVCC	TruncNormal_v	lnkElimDCVCC	V_lnkElimDCVCC	-9.21	4.605	);
       #Distrib(	lnkClearDCAC	TruncNormal_v	lnkClearDCAC	V_lnkClearDCAC	-9.21	4.605	);
       #Distrib(	lnkDCAcen_perC	TruncNormal_v	lnkDCAcen_perC	V_lnkDCAcen_perC	-9.21	4.605	);
@@ -1002,4 +1003,5 @@ Level { #Population level
   } # End Group
 } # End Population
 End.
+
 
