@@ -3,6 +3,7 @@
 #
 # Modifications are labeled with a comment "#(v2.0)"
 # https://ehp.niehs.nih.gov/doi/suppl/10.1289/ehp.1307623 
+# CBldDCVGmol and CBldDCVCmol
 
 ## States ####
 States = {
@@ -193,10 +194,12 @@ Outputs = {
   
   # Other
   CDCVGmol,		# concentration of DCVG (mmol/l) 
+  CBldDCVGmol, # concentration of DCVG (nmol/ml)
   CDCVGmol0,	# Dummy variable without likelihood (for plotting)
   CDCVG_ND,	# Non-detect of DCVG (<0.001 nmol/ml= 1e-6 mmol/l )#(v2.0)
   # Output -ln(likelihood)
-  CDCVCmol,		# concentration of DCVC (mmol/l) #(v2.0)
+  CDCVCmol,		# concentration of DCVC (mmol/l) 
+  CBldDCVCmol, # concentration of DCVC (nmol/ml)
   CDCVCmol0,	# Dummy variable without likelihood (for plotting)#(v2.0)
   CDCVC_ND,	# Non-detect of DCVC (<0.001 nmol/ml= 1e-6 mmol/l )#(v2.0)
   # Output -ln(likelihood)#(v2.0)
@@ -805,8 +808,10 @@ Ve_AUrnTCOGTCOH_collect	= 1;
 Ve_AUrnTCOGTCOH_sat	= 1;
 
 
-Ve_CDCVGmol	= 1;#(v2.0)
-Ve_CDCVCmol	= 1;#(v2.0)
+Ve_CDCVGmol	= 1;
+Ve_CDCVCmol	= 1;
+Ve_CBldDCVGmol = 1;  
+Ve_CBldDCVCmol = 1; 
 Ve_CDCAmol;#(v2.0)
 Ve_AUrnTCTotMol;
 Ve_TotCTCOH;
@@ -2453,12 +2458,14 @@ CalcOutputs{
   AUrnTCOGTCOH_collect = (AUrnTCOG_collect < 1.0e-15 ? 1.0e-15 : StochTCOHGluc*AUrnTCOG_collect);
   # Other
   CDCVGmol = (CDCVGmol < 1.0e-15 ? 1.0e-15 : CDCVGmol);
+  CBldDCVGmol = CDCVGmol * 1000; #
   CDCVGmol0 = CDCVGmol;
   CDCVG_NDtmp = CDFNormal(3*(1-CDCVGmol/CDCVGmolLD)); 
   # Assuming LD = 3*sigma_blank, Normally distributed
   CDCVG_ND = ( CDCVG_NDtmp < 1.0 ? ( CDCVG_NDtmp >= 1e-100 ? -log(CDCVG_NDtmp) : -log(1e-100)) : 1e-100 );
   # DCVC#(v2.0)
   CDCVCmol = (CDCVCmol < 1.0e-15 ? 1.0e-15 : CDCVCmol);#(v2.0)
+  CBldDCVCmol = CDCVCmol * 1000; #
   CDCVCmol0 = CDCVCmol;#(v2.0)
   CDCVC_NDtmp = CDFNormal(3*(1-CDCVCmol/CDCVCmolLD)); #(v2.0)
   # Assuming LD = 3*sigma_blank, Normally distributed#(v2.0)

@@ -1,6 +1,6 @@
 #BSUB -J mcsim_1		        ## sets the job name
 #BSUB -L /bin/bash		        ## uses the bash login shell to initialize the job's execution environment.
-#BSUB -W 12:00  	            ## sets to 12 hours the job's runtime wall-clock limit.
+#BSUB -W 8:00  	            ## sets to 12 hours the job's runtime wall-clock limit.
 #BSUB -n 4			            ## assigns 4 cores for execution.
 #BSUB -R "span[ptile=1]"        ## Request 1 core per node.
 #BSUB -R "rusage[mem=512]"      ## reserves 0.5GB per process/CPU for the job 

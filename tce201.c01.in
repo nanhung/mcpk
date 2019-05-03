@@ -3,11 +3,10 @@
 # ./mcsim.tce201.model.R tce201.c01.in.R
 
 Integrate(Lsodes, 1e-7, 1e-9 , 1)
-#MCMC ("tce201.c01-1.out", "","", 10, 0, 1, 10, 1111);
-MCMC ("tce201.c01-1.out", "","", 3000, 0, 10, 3000, 1111);
-#MCMC ("tce201.c02-1.out", "","", 3000, 0, 10, 3000, 2222);
-#MCMC ("tce201.c03-1.out", "","", 3000, 0, 10, 3000, 3333);
-#MCMC ("tce201.c04-1.out", "","", 3000, 0, 10, 3000, 4444);
+MCMC ("tce201.c01-1.out", "","", 5000, 0, 10, 5000, 1111);
+#MCMC ("tce201.c02-1.out", "","", 5000, 0, 10, 5000, 2222);
+#MCMC ("tce201.c03-1.out", "","", 5000, 0, 10, 5000, 3333);
+#MCMC ("tce201.c04-1.out", "","", 5000, 0, 10, 5000, 4444);
 #MCMC ("opt/tce301.c001v.out", "opt/test.out","", 50000, 1, 10, 50000, 5555);
 
 # Fixed parameter (not identifiable)
@@ -23,10 +22,12 @@ lnPRBCPlasTCAC = 0.889;
 lnkASTCOH = -0.361;
 lnVMaxC = -0.633;
 lnFracTCAC = -1.43;
+lnFracLungSysC = 2.72;
 lnkDissocC = 0.467;
 lnBMaxkDC = 0.421;
 lnKMTCOH = -0.0643;
 lnkMetTCAC = 0.698;
+lnkMetTCOHC = 1.98;
 lnkBileC = 0.863;
 lnkEHRC = -3.25;
 lnPeffDCVG = 0.0903;
@@ -63,12 +64,12 @@ Level { #Population level
   Distrib( Ve_CTCOGTCOH , LogUniform , 0.01 , 3.3 );
   Distrib( Ve_CLivTCOGTCOH , LogUniform , 0.01 , 3.3 );
   Distrib( Ve_AUrnTCOGTCOH , LogUniform , 0.01 , 3.3 );
-  Distrib( Ve_CDCVGmol , LogUniform , 0.0927 , 1.8 );
-  Distrib( Ve_CDCVCmol , LogUniform , 0.146 , 1.8 );
+  Distrib( Ve_CBldDCVGmol , LogUniform , 0.0927 , 1.8 );
+  Distrib( Ve_CBldDCVCmol , LogUniform , 0.146 , 1.8 );
   #Distrib( Ve_CDCAmol , LogUniform , 0.0082 , 3.3 );#lower bound~meas CV
   Distrib( Ve_TotCTCOH , LogUniform , 0.01 , 3.3 );
   
-  ###### POPULATION MEANS (38-20)
+  ###### POPULATION MEANS (38-21)
   
   #Distrib(	M_lnQCC	TruncNormal	0.0	0.2	-0.8	0.8	);
   #Distrib(	M_lnVPRC	TruncNormal	0.0	0.2	-0.8	0.8	);
@@ -91,12 +92,12 @@ Level { #Population level
   Distrib(	M_lnClDCVGC	Uniform			-6.908	6.908	);
   Distrib(	M_lnVMaxLungLivC	TruncNormal	0.0	1.099	-3.297	3.297	);
   Distrib(	M_lnKMClara	Uniform			-6.908	6.908	);
-  Distrib(	M_lnFracLungSysC	Uniform			-6.908	6.908	);
+  #Distrib(	M_lnFracLungSysC	Uniform			-6.908	6.908	);
   Distrib(	M_lnVMaxTCOHC	Uniform			-9.21	9.21	);
   #Distrib(	M_lnKMTCOH	Uniform			-9.21	9.21	);
   Distrib(	M_lnVMaxGlucC	Uniform			-9.21	9.21	);
   Distrib(	M_lnKMGluc	Uniform			-6.908	6.908	);
-  Distrib(	M_lnkMetTCOHC	Uniform			-11.513	6.908	);
+  #Distrib(	M_lnkMetTCOHC	Uniform			-11.513	6.908	);
   Distrib(	M_lnkUrnTCAC	Uniform			-4.605	4.605	);
   #Distrib(	M_lnkMetTCAC	Uniform			-9.21	4.605	);
   #Distrib(	M_lnkBileC	Uniform			-9.21	4.605	);
@@ -113,7 +114,7 @@ Level { #Population level
   #Distrib(	M_lnkDCAcen_perC	Uniform			-9.21	4.605	);
   #Distrib(	M_lnkDCAper_cenC	Uniform			-9.21	4.605	);
 
-  ###### POPULATION VARIANCES (38-13)
+  ###### POPULATION VARIANCES (38-21)
   
   #Distrib(	V_lnQCC	InvGamma	2.25	0.0500	);
   #Distrib(	V_lnVPRC	InvGamma	2.25	0.0500	);
@@ -136,12 +137,12 @@ Level { #Population level
   Distrib(	V_lnClDCVGC	InvGamma	2.25	0.3125	);
   Distrib(	V_lnVMaxLungLivC	InvGamma	2.25	0.3125	);
   Distrib(	V_lnKMClara	InvGamma	2.25	0.3125	);
-  Distrib(	V_lnFracLungSysC	InvGamma	2.25	0.3125	);
+  #Distrib(	V_lnFracLungSysC	InvGamma	2.25	0.3125	);
   Distrib(	V_lnVMaxTCOHC	InvGamma	2.25	0.3125	);
   #Distrib(	V_lnKMTCOH	InvGamma	2.25	0.3125	);
   Distrib(	V_lnVMaxGlucC	InvGamma	2.25	0.3125	);
   Distrib(	V_lnKMGluc	InvGamma	2.25	0.3125	);
-  Distrib(	V_lnkMetTCOHC	InvGamma	2.25	0.3125	);
+  #Distrib(	V_lnkMetTCOHC	InvGamma	2.25	0.3125	);
   Distrib(	V_lnkUrnTCAC	InvGamma	2.25	0.3125	);
   #Distrib(	V_lnkMetTCAC	InvGamma	2.25	0.3125	);
   #Distrib(	V_lnkBileC	InvGamma	2.25	0.3125	);
@@ -178,12 +179,12 @@ Level { #Population level
     Distrib(	lnClDCVGC	TruncNormal_v	M_lnClDCVGC	V_lnClDCVGC	-6.908	6.908	);
     Distrib(	lnVMaxLungLivC	TruncNormal_v	M_lnVMaxLungLivC	V_lnVMaxLungLivC	-3.297	3.297	);
     Distrib(	lnKMClara	TruncNormal_v	M_lnKMClara	V_lnKMClara	-6.908	6.908	);
-    Distrib(	lnFracLungSysC	TruncNormal_v	M_lnFracLungSysC	V_lnFracLungSysC	-6.908	6.908	);
+    #Distrib(	lnFracLungSysC	TruncNormal_v	M_lnFracLungSysC	V_lnFracLungSysC	-6.908	6.908	);
     Distrib(	lnVMaxTCOHC	TruncNormal_v	M_lnVMaxTCOHC	V_lnVMaxTCOHC	-9.21	9.21	);
     #Distrib(	lnKMTCOH	TruncNormal_v	M_lnKMTCOH	V_lnKMTCOH	-9.21	9.21	);
     Distrib(	lnVMaxGlucC	TruncNormal_v	M_lnVMaxGlucC	V_lnVMaxGlucC	-9.21	9.21	);
     Distrib(	lnKMGluc	TruncNormal_v	M_lnKMGluc	V_lnKMGluc	-6.908	6.908	);
-    Distrib(	lnkMetTCOHC	TruncNormal_v	M_lnkMetTCOHC	V_lnkMetTCOHC	-11.513	6.908	);
+    #Distrib(	lnkMetTCOHC	TruncNormal_v	M_lnkMetTCOHC	V_lnkMetTCOHC	-11.513	6.908	);
     Distrib(	lnkUrnTCAC	TruncNormal_v	M_lnkUrnTCAC	V_lnkUrnTCAC	-4.605	4.605	);
     #Distrib(	lnkMetTCAC	TruncNormal_v	M_lnkMetTCAC	V_lnkMetTCAC	-9.21	4.605	);
     #Distrib(	lnkBileC	TruncNormal_v	M_lnkBileC	V_lnkBileC	-9.21	4.605	);
@@ -222,12 +223,12 @@ Level { #Population level
       Distrib(	lnClDCVGC	TruncNormal_v	lnClDCVGC	V_lnClDCVGC	-6.908	6.908	);
       Distrib(	lnVMaxLungLivC	TruncNormal_v	lnVMaxLungLivC	V_lnVMaxLungLivC	-3.297	3.297	);
       Distrib(	lnKMClara	TruncNormal_v	lnKMClara	V_lnKMClara	-6.908	6.908	);
-      Distrib(	lnFracLungSysC	TruncNormal_v	lnFracLungSysC	V_lnFracLungSysC	-6.908	6.908	);
+      #Distrib(	lnFracLungSysC	TruncNormal_v	lnFracLungSysC	V_lnFracLungSysC	-6.908	6.908	);
       Distrib(	lnVMaxTCOHC	TruncNormal_v	lnVMaxTCOHC	V_lnVMaxTCOHC	-9.21	9.21	);
       #Distrib(	lnKMTCOH	TruncNormal_v	lnKMTCOH	V_lnKMTCOH	-9.21	9.21	);
       Distrib(	lnVMaxGlucC	TruncNormal_v	lnVMaxGlucC	V_lnVMaxGlucC	-9.21	9.21	);
       Distrib(	lnKMGluc	TruncNormal_v	lnKMGluc	V_lnKMGluc	-6.908	6.908	);
-      Distrib(	lnkMetTCOHC	TruncNormal_v	lnkMetTCOHC	V_lnkMetTCOHC	-11.513	6.908	);
+      #Distrib(	lnkMetTCOHC	TruncNormal_v	lnkMetTCOHC	V_lnkMetTCOHC	-11.513	6.908	);
       Distrib(	lnkUrnTCAC	TruncNormal_v	lnkUrnTCAC	V_lnkUrnTCAC	-4.605	4.605	);
       #Distrib(	lnkMetTCAC	TruncNormal_v	lnkMetTCAC	V_lnkMetTCAC	-9.21	4.605	);
       #Distrib(	lnkBileC	TruncNormal_v	lnkBileC	V_lnkBileC	-9.21	4.605	);
@@ -1003,8 +1004,8 @@ Level { #Population level
         
         Likelihood( CBldTCA , LogNormal_v , Prediction( CBldTCA ) , Ve_CBldTCA );
         #Likelihood( CDCAmol , LogNormal_v , Prediction( CDCAmol ) , Ve_CDCAmol ); 
-        Likelihood( CDCVGmol , LogNormal_v , Prediction( CDCVGmol ) , Ve_CDCVGmol ); 
-        Likelihood( CDCVCmol , LogNormal_v , Prediction( CDCVCmol ) , Ve_CDCVCmol ); 
+        Likelihood( CBldDCVGmol , LogNormal_v , Prediction( CBldDCVGmol ) , Ve_CBldDCVGmol ); 
+        Likelihood( CBldDCVCmol , LogNormal_v , Prediction( CBldDCVCmol ) , Ve_CBldDCVCmol ); 
         
         Experiment { # Begin 1 - TCEmceB65Morl_2100 # Kim09
           
@@ -1020,10 +1021,10 @@ Level { #Population level
           Data( CBldTCA , -1 20.1511583 23.7230087 23.0428202 24.8080619 34.3938822 27.1081576 -1 46.3552755 41.7219906 36.6405543 -1 -1 -1 -1 53.5910665 55.4010544 56.0361143 -1 -1 60.1085502 63.7969197 66.4811927 -1 -1 -1 -1 57.9056609 52.0512058 47.9442471 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 37.05584 31.1496671 35.7024858);
           #Print( CDCAmol , 0.1 0.5 0.501 0.502 1 1.001 1.002 1.5 2 2.001 2.002 2.5 3.5 4.5 5.5 6 6.001 6.002 6.5 7.5 8 8.001 8.002 8.5 9.5 10.5 11.5 12 12.001 12.002 12.5 13.5 14.5 15.5 16.5 17.5 18.5 19.5 20.5 21.5 22.5 23.5 24 24.001 24.002);
           #Data( CDCAmol , -1 0.0000867 0.0001007 0.0000761 0.0000759 0.0000829 0.0000726 -1 0.0000695 0.0000525 0.0000805 -1 -1 -1 -1 0.000089 0.0000875 0.0000634 -1 -1 0.0000463 0.0000857 0.0000405 -1 -1 -1 -1 0.0000788 0.0000398 0.0000989 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 0.0000694 0.0000513 0.0000034);
-          Print( CDCVGmol, 0.5 0.501 0.502 1 1.001 1.002 1.5 2 2.001 2.002 2.5 3.5 4.5 5.5 6 6.001 6.002 6.5 7.5 8 8.001 8.002 8.5 9.5 10.5 11.5 12 24); 
-          Data( CDCVGmol, 0.02243 0.03947 0.05477 0.03085 0.03645 0.02944 -1 0.03038 0.05421 0.02721 -1 -1 -1 -1 0.02357 0.0388 0.02156 -1 -1 0.01896 0.02049 0.01746 -1 -1 -1 -1 0.00143 -1);
-          Print( CDCVCmol , 0.1 0.5 0.501 0.502 1 1.001 1.002 1.5 2 2.001 2.002 2.5 3.5 4.5 5.5 6 6.001 6.002 6.5 7.5 8 8.001 8.002 8.5 9.5 10.5 11.5 12 12.001 24);
-          Data( CDCVCmol , -1 0.00043 0.0003 0.00022 0.00058 0.00155 0.00103 -1 0.00145 0.00313 0.00271 -1 -1 -1 -1 0.00097 0.00025 0.00118 -1 -1 0.00295 0.00269 0.00053 -1 -1 -1 -1 0.00115 0.00027 -1);
+          Print( CBldDCVGmol, 0.5 0.501 0.502 1 1.001 1.002 1.5 2 2.001 2.002 2.5 3.5 4.5 5.5 6 6.001 6.002 6.5 7.5 8 8.001 8.002 8.5 9.5 10.5 11.5 12 24); 
+          Data( CBldDCVGmol, 0.02243 0.03947 0.05477 0.03085 0.03645 0.02944 -1 0.03038 0.05421 0.02721 -1 -1 -1 -1 0.02357 0.0388 0.02156 -1 -1 0.01896 0.02049 0.01746 -1 -1 -1 -1 0.00143 -1);
+          Print( CBldDCVCmol , 0.1 0.5 0.501 0.502 1 1.001 1.002 1.5 2 2.001 2.002 2.5 3.5 4.5 5.5 6 6.001 6.002 6.5 7.5 8 8.001 8.002 8.5 9.5 10.5 11.5 12 12.001 24);
+          Data( CBldDCVCmol , -1 0.00043 0.0003 0.00022 0.00058 0.00155 0.00103 -1 0.00145 0.00313 0.00271 -1 -1 -1 -1 0.00097 0.00025 0.00118 -1 -1 0.00295 0.00269 0.00053 -1 -1 -1 -1 0.00115 0.00027 -1);
           
         } # End 1 - TCEmceB65Morl_2100 
         #### END Kim09 
@@ -1032,4 +1033,5 @@ Level { #Population level
   } # End Group
 } # End Population
 End.
+
 
