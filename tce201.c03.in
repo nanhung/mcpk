@@ -65,8 +65,8 @@ Level { #Population level
   Distrib( Ve_CTCOGTCOH , LogUniform , 0.01 , 3.3 );
   Distrib( Ve_CLivTCOGTCOH , LogUniform , 0.01 , 3.3 );
   Distrib( Ve_AUrnTCOGTCOH , LogUniform , 0.01 , 3.3 );
-  Distrib( Ve_CBldDCVGmol , LogUniform , 0.0927 , 1.8 );
-  Distrib( Ve_CBldDCVCmol , LogUniform , 0.146 , 1.8 );
+  #Distrib( Ve_CBldDCVGmol , LogUniform , 0.0927 , 1.8 );
+  #Distrib( Ve_CBldDCVCmol , LogUniform , 0.146 , 1.8 );
   #Distrib( Ve_CDCAmol , LogUniform , 0.0082 , 3.3 );#lower bound~meas CV
   Distrib( Ve_TotCTCOH , LogUniform , 0.01 , 3.3 );
   
